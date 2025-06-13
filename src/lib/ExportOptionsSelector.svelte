@@ -15,32 +15,34 @@
 </script>
 
 <div class="space-y-4">
-	<h3 class="text-lg font-medium text-gray-700">Additional Export Fields</h3>
-	<p class="text-sm text-gray-600">
+	<h3 class="text-lg font-medium text-gray-700 dark:text-gray-200">Additional Export Fields</h3>
+	<p class="text-sm text-gray-600 dark:text-gray-300">
 		Select additional fields to include in your Moxfield export. These will be fetched from Scryfall
 		during conversion.
 	</p>
 
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 		<!-- Current Price Section -->
-		<div class="rounded-lg border border-gray-200 p-4">
+		<div class="rounded-lg border border-gray-200 p-4 dark:border-gray-600 dark:bg-gray-700">
 			<div class="mb-3">
 				<label class="flex items-center space-x-2">
 					<input
 						type="checkbox"
 						checked={exportOptions.includeCurrentPrice}
 						onchange={(e) => handleOptionChange('includeCurrentPrice', e.currentTarget.checked)}
-						class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+						class="focus-ring h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600"
 					/>
-					<span class="text-sm font-medium text-gray-700">Current Market Price</span>
+					<span class="text-sm font-medium text-gray-700 dark:text-gray-200"
+						>Current Market Price</span
+					>
 				</label>
-				<p class="mt-1 text-xs text-gray-500">
+				<p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
 					Include current market prices from Scryfall (automatically adjusts for foil/etched)
 				</p>
 			</div>
 			{#if exportOptions.includeCurrentPrice}
 				<div class="ml-6 space-y-2">
-					<div class="text-xs font-medium text-gray-600">Price Currency:</div>
+					<div class="text-xs font-medium text-gray-600 dark:text-gray-300">Price Currency:</div>
 					<div class="space-y-1">
 						<label class="flex items-center space-x-2">
 							<input

@@ -1,26 +1,23 @@
 @import 'tailwindcss';
 
-/* Custom scrollbar */
+/* Custom scrollbar with dark mode support */
 ::-webkit-scrollbar {
-	width: 8px;
-	height: 8px;
+	@apply h-2 w-2;
 }
 
 ::-webkit-scrollbar-track {
-	background: #f1f5f9;
-	border-radius: 4px;
+	@apply rounded bg-slate-100 dark:bg-gray-700;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #cbd5e1;
-	border-radius: 4px;
+	@apply rounded bg-slate-300 dark:bg-gray-500;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: #94a3b8;
+	@apply bg-slate-400 dark:bg-gray-400;
 }
 
-/* Loading animation improvements */
+/* Custom animations that extend Tailwind */
 @keyframes pulse-slow {
 	0%,
 	100% {
@@ -35,71 +32,21 @@
 	animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* File upload hover improvements */
-.file-upload-area {
-	transition: all 0.2s ease-in-out;
+/* Smooth scroll behavior */
+html {
+	scroll-behavior: smooth;
 }
 
-.file-upload-area:hover {
-	transform: translateY(-1px);
-	box-shadow: 0 4px 12px -1px rgba(0, 0, 0, 0.1);
+/* Only necessary custom classes that can't be done with Tailwind utilities */
+.file-upload-hover:hover {
+	@apply -translate-y-0.5 shadow-lg;
 }
 
-/* Button improvements */
-.btn-primary {
-	background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-	box-shadow:
-		0 1px 3px 0 rgba(0, 0, 0, 0.1),
-		0 1px 2px 0 rgba(0, 0, 0, 0.06);
+.card-hover:hover {
+	@apply -translate-y-0.5 shadow-xl;
 }
 
-.btn-primary:hover {
-	background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-	box-shadow:
-		0 4px 6px -1px rgba(0, 0, 0, 0.1),
-		0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-/* Card hover effects */
-.card {
-	transition: all 0.2s ease-in-out;
-}
-
-.card:hover {
-	transform: translateY(-1px);
-	box-shadow:
-		0 10px 15px -3px rgba(0, 0, 0, 0.1),
-		0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-/* Progress bar animation */
-.progress-bar {
-	transition: width 0.3s ease-out;
-}
-
-/* Table improvements */
-.table-container {
-	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-}
-
-/* Status badges */
-.status-badge {
-	font-weight: 500;
-	letter-spacing: 0.025em;
-}
-
-/* Responsive improvements */
-@media (max-width: 640px) {
-	.container {
-		padding-left: 1rem;
-		padding-right: 1rem;
-	}
-
-	.text-4xl {
-		font-size: 2rem;
-	}
-
-	.text-2xl {
-		font-size: 1.5rem;
-	}
+/* Focus improvements for accessibility */
+.focus-ring:focus {
+	@apply ring-2 ring-blue-500 ring-offset-2 outline-none dark:ring-blue-400 dark:ring-offset-gray-800;
 }

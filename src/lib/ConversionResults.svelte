@@ -451,7 +451,9 @@
 														<th class="px-2 py-1 text-left font-medium text-gray-700">Price</th>
 														<th class="px-2 py-1 text-left font-medium text-gray-700">Lang</th>
 														{#if exportOptions?.includeCurrentPrice}
-															<th class="px-2 py-1 text-left font-medium text-gray-700">Current</th>
+															<th class="px-2 py-1 text-left font-medium text-gray-700"
+																>Current Price</th
+															>
 														{/if}
 														{#if exportOptions?.includeMtgoIds}
 															<th class="px-2 py-1 text-left font-medium text-gray-700">MTGO</th>
