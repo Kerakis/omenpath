@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formatAsMoxfieldCSV } from './converter-engine.js';
+	import type { ExportOptions } from './types.js';
 
 	interface Props {
 		results: Array<{
@@ -9,8 +10,9 @@
 			error?: string;
 		}>;
 		errors: string[];
+		exportOptions?: ExportOptions;
 	}
-	let { results, errors }: Props = $props();
+	let { results, errors, exportOptions }: Props = $props();
 
 	// State for showing additional columns in preview
 	let showAdditionalColumns = $state(false);
@@ -23,8 +25,8 @@
 	function downloadCSV(result: any) {
 		if (!result.data || !result.success) return;
 
-		// Use default export options for now
-		const csvContent = formatAsMoxfieldCSV(result.data);
+		// Use export options if available
+		const csvContent = formatAsMoxfieldCSV(result.data, exportOptions);
 		const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
 		const link = document.createElement('a');
 
@@ -448,6 +450,22 @@
 														<th class="px-2 py-1 text-left font-medium text-gray-700">Signed</th>
 														<th class="px-2 py-1 text-left font-medium text-gray-700">Price</th>
 														<th class="px-2 py-1 text-left font-medium text-gray-700">Lang</th>
+														{#if exportOptions?.includeCurrentPrice}
+															<th class="px-2 py-1 text-left font-medium text-gray-700">Current</th>
+														{/if}
+														{#if exportOptions?.includeMtgoIds}
+															<th class="px-2 py-1 text-left font-medium text-gray-700">MTGO</th>
+															<th class="px-2 py-1 text-left font-medium text-gray-700">MTGO F</th>
+														{/if}
+														{#if exportOptions?.includeMultiverseId}
+															<th class="px-2 py-1 text-left font-medium text-gray-700">MV ID</th>
+														{/if}
+														{#if exportOptions?.includeTcgPlayerId}
+															<th class="px-2 py-1 text-left font-medium text-gray-700">TCG ID</th>
+														{/if}
+														{#if exportOptions?.includeCardMarketId}
+															<th class="px-2 py-1 text-left font-medium text-gray-700">CM ID</th>
+														{/if}
 													{/if}
 													<th class="px-2 py-1 text-left font-medium text-gray-700">Confidence</th>
 													<th class="px-2 py-1 text-left font-medium text-gray-700">Method</th>
@@ -512,6 +530,34 @@
 															<td class="px-2 py-1 text-gray-600">
 																{card.moxfieldRow?.Language || card.originalCard?.language || '-'}
 															</td>
+															{#if exportOptions?.includeCurrentPrice}
+																<td class="px-2 py-1 text-gray-600">
+																	{card.moxfieldRow?.['Current Price'] || '-'}
+																</td>
+															{/if}
+															{#if exportOptions?.includeMtgoIds}
+																<td class="px-2 py-1 text-gray-600">
+																	{card.moxfieldRow?.['MTGO ID'] || '-'}
+																</td>
+																<td class="px-2 py-1 text-gray-600">
+																	{card.moxfieldRow?.['MTGO Foil ID'] || '-'}
+																</td>
+															{/if}
+															{#if exportOptions?.includeMultiverseId}
+																<td class="px-2 py-1 text-gray-600">
+																	{card.moxfieldRow?.['Multiverse ID'] || '-'}
+																</td>
+															{/if}
+															{#if exportOptions?.includeTcgPlayerId}
+																<td class="px-2 py-1 text-gray-600">
+																	{card.moxfieldRow?.['TCGPlayer ID'] || '-'}
+																</td>
+															{/if}
+															{#if exportOptions?.includeCardMarketId}
+																<td class="px-2 py-1 text-gray-600">
+																	{card.moxfieldRow?.['CardMarket ID'] || '-'}
+																</td>
+															{/if}
 														{/if}
 														<td class="px-2 py-1">
 															<span

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { ConverterEngine, ParsedCard, CsvFormat } from './types.js';
+	import type { ConverterEngine, ParsedCard, CsvFormat, ExportOptions } from './types.js';
 	import { createConverterEngine } from './converter-engine.js';
 	import FileUpload from './FileUpload.svelte';
 	import ConversionProgress from './ConversionProgress.svelte';
@@ -8,10 +8,19 @@
 	import FormatSelector from './FormatSelector.svelte';
 	import DataPreview from './DataPreview.svelte';
 	import DefaultConditionSelector from './DefaultConditionSelector.svelte';
+	import ExportOptionsSelector from './ExportOptionsSelector.svelte';
 	let engine: ConverterEngine;
 	let files: File[] = $state([]);
 	let selectedFormat: string = $state('manabox'); // Default to ManaBox since auto-detect is temporarily disabled
 	let defaultCondition: string = $state('Near Mint');
+	let exportOptions: ExportOptions = $state({
+		includeCurrentPrice: false,
+		priceType: 'usd',
+		includeMtgoIds: false,
+		includeMultiverseId: false,
+		includeTcgPlayerId: false,
+		includeCardMarketId: false
+	});
 	let isConverting = $state(false);
 	let conversionProgress = $state(0);
 	let conversionStatus = $state('');
@@ -75,7 +84,8 @@
 						(progress: number) => {
 							conversionProgress = (i / files.length) * 100 + progress / files.length;
 						},
-						defaultCondition
+						defaultCondition,
+						exportOptions
 					);
 
 					results.push({
@@ -135,6 +145,10 @@
 	function handleConditionChange(condition: string) {
 		defaultCondition = condition;
 	}
+
+	function handleExportOptionsChange(options: ExportOptions) {
+		exportOptions = options;
+	}
 </script>
 
 <div class="mx-auto max-w-4xl">
@@ -165,6 +179,11 @@
 				onConditionChange={handleConditionChange}
 			/>
 		</div>
+
+		<div class="card mb-6 rounded-lg bg-white p-6 shadow-lg">
+			<h2 class="mb-4 text-2xl font-semibold text-gray-800">Export Options</h2>
+			<ExportOptionsSelector {exportOptions} onOptionsChange={handleExportOptionsChange} />
+		</div>
 	{/if}
 
 	{#if showPreview && previewData}
@@ -174,8 +193,7 @@
 	{#if isConverting}
 		<ConversionProgress progress={conversionProgress} status={conversionStatus} />
 	{/if}
-
 	{#if results.length > 0}
-		<ConversionResults {results} {errors} />
+		<ConversionResults {results} {errors} {exportOptions} />
 	{/if}
 </div>
