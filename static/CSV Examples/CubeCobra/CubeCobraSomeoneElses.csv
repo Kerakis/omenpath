@@ -1,0 +1,451 @@
+name,CMC,Type,Color,Set,Collector Number,Rarity,Color Category,status,Finish,maybeboard,image URL,image Back URL,tags,Notes,MTGO ID
+"Deftblade Elite",1,"Creature - Human Soldier",W,"lgn","12",common,w,Owned,Non-foil,false,,,"","",18617
+"Doomed Traveler",1,"Creature - Human Soldier",W,"isd","11",common,w,Owned,Non-foil,false,,,"GTC Update;token generator;WR tokens;WG tokens","",42650
+"Elite Vanguard",1,"Creature - Human Soldier",W,"ema","8",common,w,Owned,Non-foil,false,,,"EMA Update","",60565
+"Faerie Guidemother",1,"Creature - Faerie ",W,"eld","11",common,w,Owned,Non-foil,false,,,"ELD Update","",78110
+"Gideon's Lawkeeper",1,"Creature - Human Soldier",W,"m12","18",common,w,Owned,Non-foil,false,,,"M12 Update;tapper;removal;soft removal;Creature Removal","",41529
+"Goldmeadow Harrier",1,"Creature - Kithkin Soldier",W,"lrw","17",common,w,Owned,Non-foil,false,,,"Since the beginning;tapper;removal;soft removal;Creature Removal","",28185
+"Hunted Witness",1,"Creature - Human",W,"grn","15",common,w,Owned,Non-foil,false,,,"GRN Update;token generator;WR tokens;WG tokens","",69403
+"Savannah Lions",1,"Creature - Cat",W,"a25","33",common,w,Owned,Non-foil,false,,,"UST/RIX/A25 Update","",66980
+"Thraben Inspector",1,"Creature - Human Soldier",W,"soi","44",common,w,Owned,Non-foil,false,,,"EMA Update;token generator;ETB;card draw","",60240
+"Ainok Bond-Kin",2,"Creature - Dog Soldier",W,"ima","4",common,w,Owned,Non-foil,false,,,"","",65887
+"Ancestral Blade",2,"Creature",W,"2xm","3",common,w,Owned,Non-foil,false,,,"token generator;WR tokens;WG tokens;2XM/ZNR Update","",82040
+"Cathar Commando",2,"Creature - Human Soldier",W,"mid","10",common,w,Owned,Non-foil,false,,,"","",92942
+"Gather the Townsfolk",2,"Creature",W,"dka","8",common,w,Owned,Non-foil,false,,,"DKA Update;token generator;WR tokens;WG tokens","",43475
+"Kor Skyfisher",2,"Creature - Kor Soldier",W,"mm3","11",common,w,Owned,Non-foil,false,,,"Since the beginning;evasion;ETB;flicker and bounce","",63193
+"Phantom Nomad",2,"Creature - Spirit Nomad",W,"jud","17",common,w,Owned,Non-foil,false,,,"STX Update","",17384
+"Raffine's Informant",2,"Creature - Human Wizard",W,"snc","26",common,w,Owned,Non-foil,false,,,"","",98271
+"Raise the Alarm",2,"Creature",W,"m20","34",common,w,Owned,Non-foil,false,,,"Since the beginning;token generator;WR tokens;WG tokens;flash","",72967
+"Seeker of the Way",2,"Creature - Human Warrior",W,"ima","29",common,w,Owned,Non-foil,false,,,"HOU/XLN/IMA Update","",65937
+"Stormfront Pegasus",2,"Creature - Pegasus",W,"m10","35",common,w,Owned,Non-foil,false,,,"Since the beginning;UW fliers","",32801
+"Suture Priest",2,"Creature - Phyrexian Cleric",W,"nph","25",common,w,Owned,Non-foil,false,,,"","",39766
+"Syndic of Tithes",2,"Creature - Human Cleric",W,"gtc","26",common,w,Owned,Non-foil,false,,,"ELD Update","",47817
+"Topan Freeblade",2,"Creature - Human Soldier",W,"ori","36",common,w,Owned,Non-foil,false,,,"AFR/MH2 Update","",57836
+"Ardenvale Tactician",3,"Creature - Human Knight ",W,"eld","5",common,w,Owned,Non-foil,false,,,"ELD Update","",78096
+"Attended Knight",3,"Creature - Human Knight",W,"m13","5",common,w,Owned,Non-foil,false,,,"M13 Update;ETB;token generator;evasion;WR tokens;WG tokens","",45492
+"Heliod's Pilgrim",3,"Creature - Human Cleric",W,"thb","20",common,w,Owned,Non-foil,false,,,"THB Update","",79164
+"Inspiring Overseer",3,"Creature - Angel Cleric",W,"snc","18",common,w,Owned,Non-foil,false,,,"","",98255
+"Militia Bugler",3,"Creature - Human Soldier",W,"2x2","19",common,w,Owned,Non-foil,false,,,"","",101522
+"Roving Harper",3,"Creature - Elf Scout",W,"clb","40",common,w,Owned,Non-foil,false,,,"","",100078
+"Sandsteppe Outcast",3,"Creature - Human Warrior",W,"frf","25",common,w,Owned,Non-foil,false,,,"FRF Update;token generator;ETB;WR tokens;WG tokens","",55460
+"Basri's Acolyte",4,"Creature - Cat Cleric",W,"m21","8",common,w,Owned,Non-foil,false,,,"","",81243
+"Battle Screech",4,"Creature",W,"mh1","4",uncommon,w,Owned,Non-foil,false,,,"CNS/VMA Update;token generator;WR tokens;WG tokens;graveyard matters","",72380
+"Blessed Hippogriff",4,"Creature - Hippogriff",W,"clb","11",common,w,Owned,Non-foil,false,,,"","",100010
+"Coalition Honor Guard",4,"Creature - Human Flagbearer",W,"ema","6",common,w,Owned,Non-foil,false,,,"AVR Update","",60661
+"Combat Professor",4,"Creature - Bird Cleric",W,"stx","11",common,w,Owned,Non-foil,false,,,"STX Update","",88499
+"Gallant Cavalry",4,"Creature - Human Knight",W,"m19","12",common,w,Owned,Non-foil,false,,,"M19 Update;ETB;token generator;WR tokens;WG tokens","",68185
+"Guardian of the Guildpact",4,"Creature - Spirit",W,"dis","10",common,w,Owned,Non-foil,false,,,"Since the beginning;evasion","",24303
+"Icewind Stalwart",4,"Creature - Tiefling Warrior",W,"clb","27",common,w,Owned,Non-foil,false,,,"","",100050
+"Palace Sentinels",4,"Creature - Human Soldier",W,"cn2","19",common,w,Owned,Non-foil,false,,,"","",
+"Rhox Veteran",4,"Creature - Rhino Soldier",W,"mh1","24",common,w,Owned,Non-foil,false,,,"MH1 Update;tapper;removal;soft removal","",72420
+"Search Party Captain",4,"Creature - Human Soldier",W,"mid","32",common,w,Owned,Non-foil,false,,,"","",92994
+"Seraph of Dawn",4,"Creature - Angel",W,"avr","35",common,w,Owned,Non-foil,false,,,"AVR Update;evasion;UW fliers","",43989
+"Custodi Squire",5,"Creature - Spirit Cleric",W,"cns","18",common,w,Owned,Non-foil,false,,,"CNS/VMA Update;evasion;UW fliers;ETB","",
+"Sunblade Samurai",5,"Enchantment Creature - Human Samurai",W,"neo","39",common,w,Owned,Non-foil,false,,,"","",96992
+"Imperial Oath",6,"Creature",W,"neo","17",common,w,Owned,Non-foil,false,,,"","",96944
+"Pegasus Guardian",6,"Creature - Pegasus",W,"clb","36",common,w,Owned,Non-foil,false,,,"","",100068
+"Triplicate Spirits",6,"Creature",W,"m15","40",common,w,Owned,Non-foil,false,,,"M15 Update;token generator;WR tokens;WG tokens","",53614
+"Ephemerate",1,"Instant",W,"mh1","7",common,w,Owned,Non-foil,false,,,"MH1 Update;flicker and bounce","",72386
+"Gods Willing",1,"Instant",W,"ths","16",common,w,Owned,Non-foil,false,,,"THS Update;card selection","",50478
+"Mana Tithe",1,"Instant",W,"plc","25",common,w,Owned,Non-foil,false,,,"","",26511
+"Dauntless Unity",2,"Instant",W,"znr","9",common,w,Owned,Non-foil,false,,,"2XM/ZNR Update","",82953
+"Feat of Resistance",2,"Instant",W,"m21","19",common,w,Owned,Non-foil,false,,,"STX Update","",81265
+"Unbounded Potential",2,"Instant",W,"mh2","36",common,w,Owned,Non-foil,false,,,"AFR/MH2 Update","",90441
+"You Hear Something on Watch",2,"Instant",W,"afr","42",common,w,Owned,Non-foil,false,,,"","",91586
+"Borrowed Grace",3,"Instant",W,"emn","14",common,w,Owned,Non-foil,false,,,"EMN Update","",61092
+"Prismatic Strands",3,"Instant",W,"jud","18",common,w,Owned,Non-foil,false,,,"MBS Update;graveyard matters","",17390
+"Sunlance",1,"Sorcery",W,"mm2","34",common,w,Owned,Non-foil,false,,,"","",57006
+"Settle Beyond Reality",5,"Sorcery",W,"mh1","27",common,w,Owned,Non-foil,false,,,"MH1 Update;flicker and bounce;removal;hard removal;Creature Removal","",72426
+"Greatsword of Tyr",2,"Artifact - Equipment",W,"clb","22",common,w,Owned,Non-foil,false,,,"","",100036
+"Cartouche of Solidarity",1,"Enchantment - Aura Cartouche",W,"akh","7",common,w,Owned,Non-foil,false,,,"","",63616
+"Journey to Nowhere",2,"Enchantment",W,"zen","14",common,w,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;Creature Removal","",34390
+"Pacifism",2,"Enchantment - Aura",W,"m20","32",common,w,Owned,Non-foil,false,,,"Since the beginning;removal;soft removal;Creature Removal","",72963
+"Planar Disruption",2,"Enchantment - Aura",W,"one","28",common,w,Owned,Non-foil,false,,,"","",106271
+"Temporal Isolation",2,"Enchantment - Aura",W,"tsp","43",common,w,Owned,Non-foil,false,,,"Since the beginning;removal;soft removal;flash;Creature Removal","",25383
+"Bound in Gold",3,"Enchantment - Aura",W,"khm","5",common,w,Owned,Non-foil,false,,,"Creature Removal;KHM/CMR Update","",87329
+"Minimus Containment",3,"Enchantment - Aura",W,"afr","24",common,w,Owned,Non-foil,false,,,"AFR/MH2 Update","",91550
+"Oblivion Ring",3,"Enchantment",W,"lrw","34",common,w,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;Creature Removal","",28229
+"Faith's Fetters",4,"Enchantment - Aura",W,"uma","16",common,w,Owned,Non-foil,false,,,"Since the beginning;removal;soft removal;Creature Removal","",70105
+"Faerie Seer",1,"Creature - Faerie Wizard",U,"mh1","51",common,u,Owned,Non-foil,false,,,"MH1 Update;ETB;UW fliers;evasion;card selection","",72474
+"Hard Evidence",1,"Creature",U,"mh2","46",common,u,Owned,Non-foil,false,,,"AFR/MH2 Update","",90461
+"Callous Dismissal",2,"Creature",U,"war","44",common,u,Owned,Non-foil,false,,,"WAR Update;flicker and bounce;token generator;removal;soft removal","",71694
+"Faerie Duelist",2,"Creature - Faerie Rogue",U,"rna","39",common,u,Owned,Non-foil,false,,,"AFR/MH2 Update","",71078
+"Halimar Wavewatch",2,"Creature - Merfolk Soldier",U,"roe","72",common,u,Owned,Non-foil,false,,,"SOM Update;evasion","",36712
+"Looter il-Kor",2,"Creature - Kor Rogue",U,"tsr","74",common,u,Owned,Non-foil,false,,,"","",86511
+"Merfolk Looter",2,"Creature - Merfolk Rogue",U,"10e","92",common,u,Owned,Non-foil,false,,,"","",27410
+"Moon-Circuit Hacker",2,"Enchantment Creature - Human Ninja",U,"neo","67",common,u,Owned,Non-foil,false,,,"","",97054
+"Aven Eternal",3,"Creature - Zombie Bird Warrior",U,"war","42",common,u,Owned,Non-foil,false,,,"WAR Update;token generator;evasion;ETB","",71690
+"Cloudkin Seer",3,"Creature - Elemental Wizard",U,"m20","54",common,u,Owned,Non-foil,false,,,"M20 Update;ETB;UW fliers;evasion;card draw","",73007
+"Eldrazi Skyspawner",3,"Creature - Eldrazi Drone",U,"bfz","58",common,u,Owned,Non-foil,false,,,"BFZ Update;UW fliers;ETB;token generator","",58341
+"Frost Trickster",3,"Creature - Bird Wizard",U,"stx","43",common,u,Owned,Non-foil,false,,,"STX Update","",88563
+"Man-o'-War",3,"Creature - Jellyfish",U,"mh1","55",common,u,Owned,Non-foil,false,,,"Since the beginning;flicker and bounce;ETB;removal;soft removal","",72482
+"Mistral Singer",3,"Creature - Siren",U,"m21","58",common,u,Owned,Non-foil,false,,,"M21/JMP Update","",81343
+"Pestermite",3,"Creature - Faerie Rogue",U,"lrw","78",common,u,Owned,Non-foil,false,,,"Since the beginning;UW fliers;evasion;tapper;ETB;flash","",28241
+"Sea Gate Oracle",3,"Creature - Human Wizard",U,"ddm","10",common,u,Owned,Non-foil,false,,,"","",52401
+"Shaper Parasite",3,"Creature - Illusion",U,"plc","46",common,u,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;Creature Removal","",26263
+"Skittering Crustacean",3,"Creature - Crab",U,"cn2","36",common,u,Owned,Non-foil,false,,,"RNA Update","",
+"Warden of Evos Isle",3,"Creature - Bird Wizard",U,"ema","76",common,u,Owned,Non-foil,false,,,"EMA Update;UW fliers;evasion","",60803
+"Winter Eladrin",3,"Creature - Faerie Elf Wizard",U,"clb","104",common,u,Owned,Non-foil,false,,,"","",100216
+"Archaeomancer",4,"Creature - Human Wizard",U,"m14","43",common,u,Owned,Non-foil,false,,,"","",49321
+"Augury Raven",4,"Creature - Bird",U,"khm","44",common,u,Owned,Non-foil,false,,,"KHM/CMR Update","",87413
+"Cruel Witness",4,"Creature - Bird Horror",U,"vow","55",common,u,Owned,Non-foil,false,,,"","",94414
+"Mist Raven",4,"Creature - Bird",U,"avr","67",common,u,Owned,Non-foil,false,,,"AVR Update;UW fliers;evasion;flicker and bounce;ETB;removal;soft removal","",44205
+"Ninja of the Deep Hours",4,"Creature - Human Ninja",U,"c18","95",common,u,Owned,Non-foil,false,,,"Since the beginning;flicker and bounce;card draw","",
+"Mnemonic Wall",5,"Creature - Wall",U,"ths","55",common,u,Owned,Non-foil,false,,,"UMA Update;ETB;spells matter","",50568
+"Mulldrifter",5,"Creature - Elemental",U,"lrw","76",common,u,Owned,Non-foil,false,,,"Since the beginning;UW fliers;ETB;evasion;card draw","",28245
+"Peregrine Drake",5,"Creature - Drake",U,"pc2","22",uncommon,u,Owned,Non-foil,false,,,"","",45014
+"Watcher in the Mist",5,"Creature - Spirit",U,"grn","59",common,u,Owned,Non-foil,false,,,"GRN Update;UW fliers;ETB;evasion;card selection","",69491
+"Young Blue Dragon",5,"Creature - Dragon",U,"clb","106",common,u,Owned,Non-foil,false,,,"","",100220
+"Aethersnipe",6,"Creature - Elemental",U,"uma","44",common,u,Owned,Non-foil,false,,,"MBS Update;flicker and bounce;ETB;removal;soft removal","",70161
+"Errant Ephemeron",7,"Creature - Illusion",U,"mma","41",common,u,Owned,Non-foil,false,,,"Since the beginning;UW fliers;evasion","",49028
+"Mirrorshell Crab",7,"Artifact Creature - Crab",U,"neo","63",common,u,Owned,Non-foil,false,,,"","",97044
+"Striped Riverwinder",7,"Creature - Serpent",U,"hou","48",common,u,Owned,Non-foil,false,,,"HOU/XLN/IMA Update;card draw","",64580
+"Sword Coast Serpent",7,"Creature - Serpent Dragon",U,"clb","99",common,u,Owned,Non-foil,false,,,"","",100204
+"Tolarian Terror",7,"Creature - Serpent",U,"dmu","72",common,u,Owned,Non-foil,false,,,"","",102620
+"Condescend",1,"Instant",U,"dd2","28",common,u,Owned,Non-foil,false,,,"","",31621
+"Consider",1,"Instant",U,"mid","44",common,u,Owned,Non-foil,false,,,"","",93020
+"Opt",1,"Instant",U,"dom","60",common,u,Owned,Non-foil,false,,,"BBD Update;card draw;card selection","",67585
+"Repeal",1,"Instant",U,"gpt","32",common,u,Owned,Non-foil,false,,,"GRN Update;flicker and bounce;removal;soft removal;card draw","",23627
+"Counterspell",2,"Instant",U,"ema","43",common,u,Owned,Non-foil,false,,,"Since the beginning","",60895
+"Deprive",2,"Instant",U,"roe","59",common,u,Owned,Non-foil,false,,,"May 2010 Update;flicker and bounce","",36492
+"Impulse",2,"Instant",U,"btd","10",common,u,Owned,Non-foil,false,,,"","",
+"Into the Roil",2,"Instant",U,"zen","48",common,u,Owned,Non-foil,false,,,"Since the beginning;flicker and bounce;removal;soft removal;card draw","",34448
+"Lose Focus",2,"Instant",U,"mh2","49",common,u,Owned,Non-foil,false,,,"AFR/MH2 Update","",90467
+"Mana Leak",2,"Instant",U,"ima","66",common,u,Owned,Non-foil,false,,,"May 2010 Update","",66011
+"Miscalculation",2,"Instant",U,"ulg","36",common,u,Owned,Non-foil,false,,,"MBS Update;card draw","",12607
+"Remove Soul",2,"Instant",U,"10e","100",common,u,Owned,Non-foil,false,,,"July 2010 Update","",27420
+"Snap",2,"Instant",U,"dds","10",common,u,Owned,Non-foil,false,,,"AVR Update;flicker and bounce;removal;soft removal","",
+"Capsize",3,"Instant",U,"tmp","55",common,u,Owned,Non-foil,false,,,"SOM Update;flicker and bounce;removal;soft removal","",9641
+"Displace",3,"Instant",U,"emn","55",common,u,Owned,Non-foil,false,,,"M20 Update;flicker and bounce","",61330
+"Exclude",3,"Instant",U,"mh1","48",uncommon,u,Owned,Non-foil,false,,,"","",72468
+"Ghostly Flicker",3,"Instant",U,"khc","39",common,u,Owned,Non-foil,false,,,"","",87983
+"Behold the Multiverse",4,"Instant",U,"khm","46",common,u,Owned,Non-foil,false,,,"KHM/CMR Update","",87417
+"Scattered Thoughts",4,"Instant",U,"vow","74",common,u,Owned,Non-foil,false,,,"","",94462
+"Ponder",1,"Sorcery",U,"ncc","229",common,u,Owned,Non-foil,false,,,"","",
+"Preordain",1,"Sorcery",U,"m11","70",common,u,Owned,Non-foil,false,,,"SOM Update;card draw;card selection","",37388
+"Serum Visions",1,"Sorcery",U,"mm3","49",uncommon,u,Owned,Non-foil,false,,,"","",63505
+"Compulsive Research",3,"Sorcery",U,"rav","40",common,u,Owned,Non-foil,false,,,"","",23294
+"Deep Analysis",4,"Sorcery",U,"ema","45",common,u,Owned,Non-foil,false,,,"Since the beginning;card draw;graveyard matters","",60727
+"Treasure Cruise",8,"Sorcery",U,"ktk","59",common,u,Owned,Non-foil,false,,,"FRF Update;card draw;graveyard matters","",54300
+"Witching Well",1,"Artifact",U,"eld","74",common,u,Owned,Non-foil,false,,,"ELD Update","",78260
+"Bind the Monster",1,"Enchantment - Aura",U,"khm","48",common,u,Owned,Non-foil,false,,,"Creature Removal;KHM/CMR Update","",87421
+"Bubble Snare",1,"Enchantment - Aura",U,"znr","47",common,u,Owned,Non-foil,false,,,"removal;soft removal;Creature Removal;2XM/ZNR Update","",83043
+"Weakstone's Subjugation",1,"Enchantment - Aura",U,"bro","72",common,u,Owned,Non-foil,false,,,"","",104762
+"Witness Protection",1,"Enchantment - Aura",U,"snc","66",common,u,Owned,Non-foil,false,,,"","",98351
+"Omen of the Sea",2,"Enchantment",U,"thb","58",common,u,Owned,Non-foil,false,,,"THB Update","",79240
+"Carrion Feeder",1,"Creature - Zombie",B,"scg","59",common,b,Owned,Non-foil,false,,,"BBD Update","",18680
+"Ecstatic Awakener",1,"Creature - Human Wizard",B,"mid","100",common,b,Owned,Non-foil,false,,,"","",93154
+"Nested Shambler",1,"Creature - Zombie",B,"mh2","95",common,b,Owned,Non-foil,false,,,"","",90563
+"Persistent Specimen",1,"Creature - Skeleton",B,"vow","125",common,b,Owned,Non-foil,false,,,"","",94578
+"Plagued Rusalka",1,"Creature - Spirit",B,"mm2","89",common,b,Owned,Non-foil,false,,,"BBD Update;removal;hard removal","",57470
+"Ruthless Ripper",1,"Creature - Human Assassin",B,"a25","107",common,b,Owned,Non-foil,false,,,"UST/RIX/A25 Update;deathtouch","",67128
+"Shambling Ghast",1,"Creature - Zombie",B,"afr","119",common,b,Owned,Non-foil,false,,,"","",91740
+"Typhoid Rats",1,"Creature - Rat",B,"isd","120",common,b,Owned,Non-foil,false,,,"AVR Update;deathtouch","",42812
+"Unwilling Ingredient",1,"Creature - Frog",B,"stx","90",common,b,Owned,Non-foil,false,,,"STX Update","",88657
+"Basilica Screecher",2,"Creature - Bat",B,"gtc","58",common,b,Owned,Non-foil,false,,,"","",47717
+"Carrier Thrall",2,"Creature - Vampire",B,"2x2","72",common,b,Owned,Non-foil,false,,,"","",101628
+"Doomed Dissenter",2,"Creature - Human",B,"akh","87",common,b,Owned,Non-foil,false,,,"BBD Update;token generator","",63776
+"Dusk Legion Zealot",2,"Creature - Vampire Soldier",B,"rix","70",common,b,Owned,Non-foil,false,,,"UST/RIX/A25 Update;ETB;card draw","",66593
+"Gixian Infiltrator",2,"Creature - Phyrexian Human",B,"bro","98",common,b,Owned,Non-foil,false,,,"","",104814
+"Gluttonous Slug",2,"Creature - Slug Horror",B,"mh1","93",common,b,Owned,Non-foil,false,,,"MH1 Update;evasion","",72558
+"Guildsworn Prowler",2,"Creature - Tiefling Rogue Assassin",B,"clb","130",common,b,Owned,Non-foil,false,,,"","",100276
+"Lazotep Reaver",2,"Creature - Zombie Beast",B,"war","96",common,b,Owned,Non-foil,false,,,"WAR Update;ETB;token generator","",71798
+"Mold Folk",2,"Creature - Fungus Warrior",B,"clb","133",common,b,Owned,Non-foil,false,,,"","",100284
+"Putrid Goblin",2,"Creature - Zombie Goblin",B,"mh1","101",common,b,Owned,Non-foil,false,,,"MH1 Update","",72574
+"Sinuous Vermin",2,"Creature - Rat Horror",B,"cn2","46",common,b,Owned,Non-foil,false,,,"BBD Update;evasion","",
+"Sultai Emissary",2,"Creature - Zombie Warrior",B,"frf","85",common,b,Owned,Non-foil,false,,,"M19 Update","",55390
+"Crypt Rats",3,"Creature - Rat",B,"vis","55",common,b,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;Creature Removal","",7509
+"Deathbloom Thallid",3,"Creature - Fungus",B,"dom","84",common,b,Owned,Non-foil,false,,,"DOM Update;token generator","",67633
+"Liliana's Specter",3,"Creature - Specter",B,"m11","104",common,b,Owned,Non-foil,false,,,"July 2010 Update;ETB;evasion","",37352
+"Phyrexian Ghoul",3,"Creature - Zombie",B,"a25","100",common,b,Owned,Non-foil,false,,,"BBD Update","",67114
+"Phyrexian Rager",3,"Creature - Horror",B,"ima","102",common,b,Owned,Non-foil,false,,,"Since the beginning;ETB;card draw","",66083
+"Wakedancer",3,"Creature - Human Shaman",B,"ema","116",common,b,Owned,Non-foil,false,,,"CNS/VMA Update;ETB","",60741
+"Bone Picker",4,"Creature - Bird",B,"2xm","78",common,b,Owned,Non-foil,false,,,"2XM/ZNR Update","",82190
+"Faceless Butcher",4,"Creature - Nightmare Horror",B,"tor","60",common,b,Owned,Non-foil,false,,,"Since the beginning;ETB;removal;soft removal;Creature Removal","",17179
+"Falkenrath Noble",4,"Creature - Vampire",B,"mm3","70",common,b,Owned,Non-foil,false,,,"HOU/XLN/IMA Update;evasion;graveyard matters","",63275
+"Gravedigger",4,"Creature - Zombie",B,"ema","89",common,b,Owned,Non-foil,false,,,"Since the beginning;ETB;graveyard matters","",60557
+"Moan of the Unhallowed",4,"Creature",B,"uma","107",common,b,Owned,Non-foil,false,,,"UMA Update;token generator;graveyard matters","",70287
+"Thorn of the Black Rose",4,"Creature - Human Assassin",B,"cn2","48",common,b,Owned,Non-foil,false,,,"CN2/KLD/C16 Update;ETB;card draw;deathtouch","",
+"Vulturous Aven",4,"Creature - Bird Shaman",B,"dtk","126",common,b,Owned,Non-foil,false,,,"M21/JMP Update","",56352
+"Diregraf Horde",5,"Creature - Zombie",B,"mid","96",common,b,Owned,Non-foil,false,,,"","",93146
+"Gray Merchant of Asphodel",5,"Creature - Zombie",B,"c14","146",common,b,Owned,Non-foil,false,,,"","",55089
+"Loathsome Curator",5,"Creature - Gorgon Wizard",B,"mh2","91",common,b,Owned,Non-foil,false,,,"AFR/MH2 Update","",90555
+"Okiba-Gang Shinobi",5,"Creature - Rat Ninja",B,"pca","35",common,b,Owned,Non-foil,false,,,"","",
+"Vampire Sovereign",5,"Creature - Vampire Noble",B,"2x2","97",common,b,Owned,Non-foil,false,,,"","",101678
+"First-Sphere Gargantua",6,"Creature - Horror",B,"mh1","91",common,b,Owned,Non-foil,false,,,"MH1 Update;ETB;graveyard matters;card draw","",72554
+"Twisted Abomination",6,"Creature - Zombie Mutant",B,"cns","129",common,b,Owned,Non-foil,false,,,"","",
+"Gurmag Angler",7,"Creature - Zombie Fish",B,"frf","72",common,b,Owned,Non-foil,false,,,"MM2/ORI Update;graveyard matters","",55472
+"Defile",1,"Instant",B,"mh1","86",common,b,Owned,Non-foil,false,,,"MH1 Update;removal;hard removal;Creature Removal","",72544
+"Disfigure",1,"Instant",B,"zen","87",common,b,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;Creature Removal","",34450
+"Feign Death",1,"Instant",B,"afr","103",common,b,Owned,Non-foil,false,,,"AFR/MH2 Update","",91708
+"Lash of Malice",1,"Instant",B,"stx","74",common,b,Owned,Non-foil,false,,,"Creature Removal;STX Update","",88625
+"Tragic Slip",1,"Instant",B,"dka","76",common,b,Owned,Non-foil,false,,,"DKA Update;removal;hard removal;Creature Removal","",43189
+"Undying Malice",1,"Instant",B,"vow","134",common,b,Owned,Non-foil,false,,,"","",94600
+"Village Rites",1,"Instant",B,"khm","117",common,b,Owned,Non-foil,false,,,"AFR/MH2 Update","",87567
+"Cast Down",2,"Instant",B,"2xm","79",common,b,Owned,Non-foil,false,,,"Creature Removal;2XM/ZNR Update","",82192
+"Death Denied",2,"Instant - Arcane",B,"uma","92",common,b,Owned,Non-foil,false,,,"May 2010 Update;graveyard matters","",70257
+"Go for the Throat",2,"Instant",B,"2x2","76",uncommon,b,Owned,Non-foil,false,,,"","",101636
+"Tragic Fall",2,"Instant",B,"mh2","104",common,b,Owned,Non-foil,false,,,"AFR/MH2 Update","",90581
+"Unearth",1,"Sorcery",B,"mh1","113",common,b,Owned,Non-foil,false,,,"Since the beginning;graveyard matters;card draw","",72598
+"Chainer's Edict",2,"Sorcery",B,"tor","57",uncommon,b,Owned,Non-foil,false,,,"","",17205
+"Feed the Swarm",2,"Sorcery",B,"znr","102",common,b,Owned,Non-foil,false,,,"hard removal;removal;Creature Removal;2XM/ZNR Update","",83167
+"Night's Whisper",2,"Sorcery",B,"voc","133",common,b,Owned,Non-foil,false,,,"EMA Update;card draw","",
+"Ransack the Lab",2,"Sorcery",B,"mh1","103",common,b,Owned,Non-foil,false,,,"THB Update","",72578
+"Ashes to Ashes",3,"Sorcery",B,"4ed","119",uncommon,b,Owned,Non-foil,false,,,"","",
+"Read the Bones",3,"Sorcery",B,"ori","114",common,b,Owned,Non-foil,false,,,"ELD Update","",57752
+"Arms of Hadar",4,"Sorcery",B,"clb","113",common,b,Owned,Non-foil,false,,,"","",100238
+"Eyeblight Massacre",4,"Sorcery",B,"cmr","125",common,b,Owned,Non-foil,false,,,"Creature Removal;KHM/CMR Update","",85032
+"Blood Fountain",1,"Artifact",B,"vow","95",common,b,Owned,Non-foil,false,,,"","",94506
+"Dead Weight",1,"Enchantment - Aura",B,"isd","96",common,b,Owned,Non-foil,false,,,"ISD Update;removal;hard removal;Creature Removal","",42314
+"Tortured Existence",1,"Enchantment",B,"sth","74",common,b,Owned,Non-foil,false,,,"","",10329
+"Mire's Grasp",2,"Enchantment - Aura",B,"thb","106",common,b,Owned,Non-foil,false,,,"THB Update;removal;hard removal;Creature Removal","",79336
+"Pestilence",4,"Enchantment",B,"usg","147",common,b,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;Creature Removal","",12409
+"Fanatical Firebrand",1,"Creature - Goblin Pirate",R,"rix","101",common,r,Owned,Non-foil,false,,,"UST/RIX/A25 Update;removal;hard removal","",66655
+"Frenzied Goblin",1,"Creature - Goblin Berserker",R,"a25","131",common,r,Owned,Non-foil,false,,,"UST/RIX/A25 Update","",67176
+"Goblin Bushwhacker",1,"Creature - Goblin Warrior",R,"fmb1","52",common,r,Owned,Non-foil,false,,,"","",
+"Goblin Motivator",1,"Creature - Goblin Warrior",R,"m19","143",common,r,Owned,Non-foil,false,,,"","",68447
+"Grim Initiate",1,"Creature - Zombie Warrior",R,"war","130",common,r,Owned,Non-foil,false,,,"WAR Update;token generator;WR tokens","",71866
+"Insolent Neonate",1,"Creature - Vampire",R,"soi","168",common,r,Owned,Non-foil,false,,,"SOI Update;evasion;card draw;card selection","",60306
+"Jackal Pup",1,"Creature - Jackal",R,"a25","139",common,r,Owned,Non-foil,false,,,"UST/RIX/A25 Update","",67192
+"Monastery Swiftspear",1,"Creature - Human Monk",R,"2x2","362",common,r,Owned,Non-foil,false,,,"","",
+"Scorched Rusalka",1,"Creature - Spirit",R,"mm3","110",common,r,Owned,Non-foil,false,,,"ELD Update","",63069
+"Voldaren Epicure",1,"Creature - Vampire",R,"dbl","449",common,r,Owned,Non-foil,false,,,"","",95992
+"Aether Chaser",2,"Creature - Human Artificer",R,"aer","76",common,r,Owned,Non-foil,false,,,"AFR/MH2 Update","",62715
+"Barbed Batterfist",2,"Creature",R,"one","121",common,r,Owned,Non-foil,false,,,"","",106457
+"Borderland Marauder",2,"Creature - Human Warrior",R,"ema","120",common,r,Owned,Non-foil,false,,,"","",60729
+"Dark-Dweller Oracle",2,"Creature - Goblin Shaman",R,"2x2","106",common,r,Owned,Non-foil,false,,,"","",101696
+"Firebrand Archer",2,"Creature - Human Archer",R,"hou","92",common,r,Owned,Non-foil,false,,,"","",64668
+"Fireslinger",2,"Creature - Human Wizard",R,"tmp","173",common,r,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal","",9581
+"Forbidden Friendship",2,"Creature",R,"iko","119",common,r,Owned,Non-foil,false,,,"IKO Update","",80247
+"Hobblefiend",2,"Creature - Devil",R,"m21","152",common,r,Owned,Non-foil,false,,,"M21/JMP Update","",81531
+"Keldon Marauders",2,"Creature - Human Warrior",R,"plc","102",common,r,Owned,Non-foil,false,,,"Since the beginning;ETB","",26389
+"Krenko's Command",2,"Creature",R,"m13","139",common,r,Owned,Non-foil,false,,,"M13 Update;token generator;WR tokens","",45518
+"Mayhem Patrol",2,"Creature - Devil Warrior",R,"snc","114",common,r,Owned,Non-foil,false,,,"","",98447
+"Mogg War Marshal",2,"Creature - Goblin Warrior",R,"ema","139",common,r,Owned,Non-foil,false,,,"Since the beginning;ETB;token generator;WR tokens","",60941
+"Orcish Hellraiser",2,"Creature - Orc Warrior",R,"mh1","136",common,r,Owned,Non-foil,false,,,"MH1 Update","",72644
+"Rimrock Knight",2,"Creature - Dwarf Knight",R,"eld","137",common,r,Owned,Non-foil,false,,,"THB Update","",78402
+"Thermo-Alchemist",2,"Creature - Human Shaman",R,"scd","162",common,r,Owned,Non-foil,false,,,"","",103902
+"Underworld Rage-Hound",2,"Creature - Elemental Dog",R,"thb","163",common,r,Owned,Non-foil,false,,,"","",79450
+"Viashino Pyromancer",2,"Creature - Viashino Wizard",R,"m19","166",common,r,Owned,Non-foil,false,,,"M19 Update;ETB","",68493
+"Yavimaya Steelcrusher",2,"Creature - Ape Warrior",R,"dmu","152",common,r,Owned,Non-foil,false,,,"","",102780
+"Bogardan Dragonheart",3,"Creature - Human Shaman",R,"mh1","120",common,r,Owned,Non-foil,false,,,"MH1 Update;evasion","",72612
+"Ghirapur Gearcrafter",3,"Creature - Human Artificer",R,"ori","149",common,r,Owned,Non-foil,false,,,"MM2/ORI Update;ETB;token generator;WR tokens;evasion","",58040
+"Hissing Iguanar",3,"Creature - Lizard",R,"uma","134",common,r,Owned,Non-foil,false,,,"July 2010 Update","",70341
+"Hordeling Outburst",3,"Creature",R,"a25","134",common,r,Owned,Non-foil,false,,,"UST/RIX/A25 Update;token generator;WR tokens","",67182
+"Skophos Reaver",3,"Creature - Minotaur Warrior",R,"mh2","140",common,r,Owned,Non-foil,false,,,"AFR/MH2 Update","",90657
+"Spelleater Wolverine",3,"Creature - Wolverine",R,"iko","137",common,r,Owned,Non-foil,false,,,"","",80283
+"Spellgorger Weird",3,"Creature - Weird",R,"j22","605",common,r,Owned,Non-foil,false,,,"","",
+"Tuskeri Firewalker",3,"Creature - Human Berserker",R,"khm","157",common,r,Owned,Non-foil,false,,,"KHM/CMR Update","",87651
+"Witty Roastmaster",3,"Creature - Devil Citizen",R,"snc","131",common,r,Owned,Non-foil,false,,,"","",98481
+"Ardent Elementalist",4,"Creature - Human Shaman",R,"mid","128",common,r,Owned,Non-foil,false,,,"","",93222
+"Beetleback Chief",4,"Creature - Goblin Warrior",R,"ema","119",uncommon,r,Owned,Non-foil,false,,,"CNS/VMA Update;ETB;token generator;WR tokens","",60749
+"Famished Foragers",4,"Creature - Vampire",R,"mid","138",common,r,Owned,Non-foil,false,,,"","",93242
+"Rubblebelt Maaka",4,"Creature - Cat",R,"dgm","38",common,r,Owned,Non-foil,false,,,"","",48262
+"Wildfire Elemental",4,"Creature - Elemental",R,"m20","297",common,r,Owned,Non-foil,false,,,"M20 Update","",73511
+"Flurry of Horns",5,"Creature",R,"jou","96",common,r,Owned,Non-foil,false,,,"JOU Update;token generator;WR tokens","",52002
+"Burst Lightning",1,"Instant",R,"mm2","109",common,r,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;Creature Removal","",57148
+"Dynacharge",1,"Instant",R,"rtr","92",common,r,Owned,Non-foil,false,,,"GTC Update","",46337
+"Lightning Bolt",1,"Instant",R,"2x2","117",uncommon,r,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;Creature Removal","",101718
+"Abrade",2,"Instant",R,"2xm","114",common,r,Owned,Non-foil,false,,,"Creature Removal;2XM/ZNR Update","",82262
+"Heartfire",2,"Instant",R,"war","131",common,r,Owned,Non-foil,false,,,"WAR Update;removal;hard removal;Creature Removal","",71868
+"Incinerate",2,"Instant",R,"m12","146",common,r,Owned,Non-foil,false,,,"","",41135
+"Lightning Strike",2,"Instant",R,"ths","127",common,r,Owned,Non-foil,false,,,"","",50572
+"Searing Spear",2,"Instant",R,"m13","147",common,r,Owned,Non-foil,false,,,"","",45526
+"Ambitious Assault",3,"Instant",R,"neo","133",common,r,Owned,Non-foil,false,,,"","",97194
+"Fiery Cannonade",3,"Instant",R,"cmr","178",common,r,Owned,Non-foil,false,,,"removal;Creature Removal;KHM/CMR Update","",85138
+"Fireblast",6,"Instant",R,"jvc","55",common,r,Owned,Non-foil,false,,,"","",
+"Chain Lightning",1,"Sorcery",R,"ema","123",uncommon,r,Owned,Non-foil,false,,,"Since the beginning;hard removal;removal;Creature Removal","",60669
+"Faithless Looting",1,"Sorcery",R,"uma","128",common,r,Owned,Non-foil,false,,,"ELD Update","",70329
+"Fireball",1,"Sorcery",R,"ima","128",uncommon,r,Owned,Non-foil,false,,,"","",66135
+"Firebolt",1,"Sorcery",R,"ema","130",common,r,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;graveyard matters;Creature Removal","",60939
+"Flame Slash",1,"Sorcery",R,"roe","145",common,r,Owned,Non-foil,false,,,"","",36640
+"Reckless Charge",1,"Sorcery",R,"mh1","144",common,r,Owned,Non-foil,false,,,"July 2010 Update","",72660
+"Reckless Impulse",2,"Sorcery",R,"vow","174",common,r,Owned,Non-foil,false,,,"","",94692
+"Wrangle",2,"Sorcery",R,"aer","101",common,r,Owned,Non-foil,false,,,"","",62721
+"Rift Bolt",3,"Sorcery",R,"2x2","122",common,r,Owned,Non-foil,false,,,"EMN Update;removal;Creature Removal","",101728
+"Skewer the Critics",3,"Sorcery",R,"rna","115",common,r,Owned,Non-foil,false,,,"RNA Update;removal;hard removal;Creature Removal","",71230
+"Bitter Reunion",2,"Enchantment",R,"bro","127",common,r,Owned,Non-foil,false,,,"","",104872
+"Makeshift Munitions",2,"Enchantment",R,"cmr","191",common,r,Owned,Non-foil,false,,,"KHM/CMR Update","",85164
+"Raid Bombardment",3,"Enchantment",R,"roe","161",common,r,Owned,Non-foil,false,,,"M20 Update","",36558
+"Elvish Mystic",1,"Creature - Elf Druid",G,"m15","173",common,g,Owned,Non-foil,false,,,"IKO Update","",53460
+"Experiment One",1,"Creature - Human Ooze",G,"2x2","146",common,g,Owned,Non-foil,false,,,"","",101776
+"Fyndhorn Elves",1,"Creature - Elf Druid",G,"ice","244",common,g,Owned,Non-foil,false,,,"","",
+"Llanowar Elves",1,"Creature - Elf Druid",G,"dom","168",common,g,Owned,Non-foil,false,,,"ELD Update","",67801
+"Ambush Viper",2,"Creature - Snake",G,"isd","169",common,g,Owned,Non-foil,false,,,"ISD Update;deathtouch;flash","",42322
+"Bayou Groff",2,"Creature - Plant Dog",G,"stx","121",common,g,Owned,Non-foil,false,,,"STX Update","",88719
+"Gnarlid Colony",2,"Creature - Beast",G,"znr","185",common,g,Owned,Non-foil,false,,,"STX Update","",83355
+"Gnoll Hunter",2,"Creature - Gnoll",G,"afr","185",common,g,Owned,Non-foil,false,,,"","",91872
+"Jade Avenger",2,"Creature - Frog Samurai",G,"plist","697",common,g,Owned,Non-foil,false,,,"","",
+"Masked Vandal",2,"Creature - Shapeshifter",G,"khm","184",common,g,Owned,Non-foil,false,,,"","",87711
+"Mother Bear",2,"Creature - Bear",G,"mh1","171",common,g,Owned,Non-foil,false,,,"MH1 Update;token generator;WG tokens;graveyard matters","",72714
+"Nest Invader",2,"Creature - Eldrazi Drone",G,"roe","201",common,g,Owned,Non-foil,false,,,"","",36354
+"Sakura-Tribe Elder",2,"Creature - Snake Shaman",G,"clb","832",common,g,Owned,Non-foil,false,,,"Since the beginning","",
+"Thornweald Archer",2,"Creature - Elf Archer",G,"fut","154",common,g,Owned,Non-foil,false,,,"Since the beginning;deathtouch","",26716
+"Wall of Roots",2,"Creature - Plant Wall",G,"mir","253",common,g,Owned,Non-foil,false,,,"AVR Update","",7427
+"Werebear",2,"Creature - Human Bear Druid",G,"ema","191",common,g,Owned,Non-foil,false,,,"ELD Update","",60955
+"Contagious Vorrac",3,"Creature - Phyrexian Boar Beast",G,"one","164",common,g,Owned,Non-foil,false,,,"","",106543
+"Deepwood Denizen",3,"Creature - Elf Warrior",G,"mh2","155",common,g,Owned,Non-foil,false,,,"AFR/MH2 Update","",90687
+"Jewel Thief",3,"Creature - Cat Rogue",G,"snc","151",common,g,Owned,Non-foil,false,,,"","",98521
+"Jungleborn Pioneer",3,"Creature - Merfolk Scout",G,"rix","137",common,g,Owned,Non-foil,false,,,"UST/RIX/A25 Update;token generator;ETB;WG tokens","",66727
+"Llanowar Visionary",3,"Creature - Elf Druid",G,"m21","193",common,g,Owned,Non-foil,false,,,"M21/JMP Update","",81613
+"Phantom Tiger",3,"Creature - Cat Spirit",G,"jud","129",common,g,Owned,Non-foil,false,,,"STX Update","",17564
+"Scion Summoner",3,"Creature - Eldrazi Drone",G,"ogw","123",common,g,Owned,Non-foil,false,,,"OGW Update;token generator;ETB;WG tokens;UG ramp","",59579
+"Tuskguard Captain",3,"Creature - Human Warrior",G,"2x2","163",common,g,Owned,Non-foil,false,,,"","",101810
+"Yavimaya Elder",3,"Creature - Human Druid",G,"uds","124",common,g,Owned,Non-foil,false,,,"Since the beginning;card draw","",12901
+"Bannerhide Krushok",4,"Creature - Beast",G,"mh2","149",common,g,Owned,Non-foil,false,,,"AFR/MH2 Update","",90675
+"Bloom Hulk",4,"Creature - Plant Elemental",G,"war","154",common,g,Owned,Non-foil,false,,,"","",71914
+"Jade Guardian",4,"Creature - Merfolk Shaman",G,"xln","194",common,g,Owned,Non-foil,false,,,"IKO Update","",65408
+"Penumbra Spider",4,"Creature - Spider",G,"tsp","210",common,g,Owned,Non-foil,false,,,"Since the beginning","",25819
+"Primal Huntbeast",4,"Creature - Beast",G,"bbd","208",common,g,Owned,Non-foil,false,,,"IKO Update","",
+"Sarulf's Packmate",4,"Creature - Wolf",G,"khm","192",common,g,Owned,Non-foil,false,,,"KHM/CMR Update","",87727
+"Trumpeting Herd",4,"Creature",G,"mh1","187",common,g,Owned,Non-foil,false,,,"MH1 Update;token generator;WG tokens","",72746
+"Urban Daggertooth",4,"Creature - Dinosaur",G,"mh2","181",common,g,Owned,Non-foil,false,,,"AFR/MH2 Update","",90739
+"Voracious Typhon",4,"Creature - Snake Beast",G,"thb","203",common,g,Owned,Non-foil,false,,,"THB Update","",79530
+"Conclave Naturalists",5,"Creature - Dryad",G,"2xm","160",common,g,Owned,Non-foil,false,,,"2XM/ZNR Update","",82354
+"Nessian Asp",5,"Creature - Snake",G,"ths","164",common,g,Owned,Non-foil,false,,,"THS Update","",50348
+"Owlbear",5,"Creature - Bird Bear",G,"afr","198",common,g,Owned,Non-foil,false,,,"AFR/MH2 Update","",91898
+"Silverback Shaman",5,"Creature - Ape Shaman",G,"m20","195",common,g,Owned,Non-foil,false,,,"M20 Update;ETB;card draw","",73289
+"Greater Tanuki",6,"Enchantment Creature - Dog",G,"neo","189",common,g,Owned,Non-foil,false,,,"","",97318
+"Hooting Mandrills",6,"Creature - Ape",G,"ktk","137",common,g,Owned,Non-foil,false,,,"MM2/ORI Update;evasion;graveyard matters","",54040
+"Annoyed Altisaur",7,"Creature - Dinosaur",G,"2x2","134",common,g,Owned,Non-foil,false,,,"","",101752
+"Dread Linnorm",7,"Creature - Snake Dragon",G,"clb","225",common,g,Owned,Non-foil,false,,,"","",100480
+"Krosan Tusker",7,"Creature - Boar Beast",G,"mh1","169",common,g,Owned,Non-foil,false,,,"Since the beginning;card draw","",72710
+"Giant Growth",1,"Instant",G,"war","162",common,g,Owned,Non-foil,false,,,"Since the beginning","",71930
+"Massive Might",1,"Instant",G,"vow","208",common,g,Owned,Non-foil,false,,,"","",94776
+"Snakeskin Veil",1,"Instant",G,"khm","194",common,g,Owned,Non-foil,false,,,"STX Update","",87731
+"Tamiyo's Safekeeping",1,"Instant",G,"neo","211",common,g,Owned,Non-foil,false,,,"","",97366
+"Vines of Vastwood",1,"Instant",G,"mm2","168",common,g,Owned,Non-foil,false,,,"Since the beginning","",57150
+"Grapple with the Past",2,"Instant",G,"emn","160",common,g,Owned,Non-foil,false,,,"THB Update","",61230
+"Master's Rebuke",2,"Instant",G,"neo","202",common,g,Owned,Non-foil,false,,,"","",97346
+"Prizefight",2,"Instant",G,"snc","154",common,g,Owned,Non-foil,false,,,"","",98527
+"Ram Through",2,"Instant",G,"iko","170",common,g,Owned,Non-foil,false,,,"IKO Update;Creature Removal","",80349
+"Titanic Brawl",2,"Instant",G,"rna","146",common,g,Owned,Non-foil,false,,,"RNA Update;removal;hard removal;Creature Removal","",71292
+"Clear Shot",3,"Instant",G,"2xm","159",common,g,Owned,Non-foil,false,,,"Creature Removal;2XM/ZNR Update","",82352
+"Pulse of Murasa",3,"Instant",G,"ogw","141",common,g,Owned,Non-foil,false,,,"OGW Update","",59261
+"Abundant Harvest",1,"Sorcery",G,"mh2","147",common,g,Owned,Non-foil,false,,,"AFR/MH2 Update","",90671
+"Edge of Autumn",2,"Sorcery",G,"fut","144",common,g,Owned,Non-foil,false,,,"","",26598
+"Nature's Lore",2,"Sorcery",G,"clb","244",common,g,Owned,Non-foil,false,,,"BBD Update","",
+"Rampant Growth",2,"Sorcery",G,"mm2","157",common,g,Owned,Non-foil,false,,,"Since the beginning","",57010
+"Three Visits",2,"Sorcery",G,"clb","837",uncommon,g,Owned,Non-foil,false,,,"KHM/CMR Update","",
+"Winding Way",2,"Sorcery",G,"mh1","193",common,g,Owned,Non-foil,false,,,"MH1 Update;card selection","",72758
+"Lead the Stampede",3,"Sorcery",G,"cns","170",uncommon,g,Owned,Non-foil,false,,,"","",
+"You Meet in a Tavern",4,"Sorcery",G,"afr","215",uncommon,g,Owned,Non-foil,false,,,"","",91932
+"Rancor",1,"Enchantment - Aura",G,"2x2","156",uncommon,g,Owned,Non-foil,false,,,"Since the beginning","",101796
+"Cartouche of Strength",3,"Enchantment - Aura Cartouche",G,"akh","158",common,g,Owned,Non-foil,false,,,"","",63918
+"Elephant Guide",3,"Enchantment - Aura",G,"ema","163",common,g,Owned,Non-foil,false,,,"CNS/VMA Update;token generator;WG tokens","",60675
+"Moldervine Cloak",3,"Enchantment - Aura",G,"mma","155",common,g,Owned,Non-foil,false,,,"MMA Update;graveyard matters","",49006
+"Momentary Blink",2,"Instant",UW,"tsp","29",common,m,Owned,Non-foil,false,,,"Since the beginning;flicker and bounce;graveyard matters","",25533
+"Lawmage's Binding",3,"Enchantment - Aura",WU,"rna","190",common,m,Owned,Non-foil,false,,,"RNA Update;removal;soft removal;flash;Creature Removal","",71380
+"Lyev Skyknight",3,"Creature - Human Knight",WU,"2x2","246",common,m,Owned,Non-foil,false,,,"","",101976
+"Silver Drake",3,"Creature - Drake",UW,"pls","125",common,m,Owned,Non-foil,false,,,"AFR/MH2 Update","",15255
+"Cavern Harpy",2,"Creature - Harpy Beast",UB,"pls","97",common,m,Owned,Non-foil,false,,,"JOU Update;evasion;ETB","",15071
+"Dimir Guildmage",2,"Creature - Human Wizard",UB,"uma","213",common,m,Owned,Non-foil,false,,,"UMA Update;card draw","",70499
+"Soul Manipulation",3,"Instant",BU,"arb","29",common,m,Owned,Non-foil,false,,,"Since the beginning;graveyard matters","",32412
+"Dinrova Horror",6,"Creature - Horror",UB,"mm3","160",common,m,Owned,Non-foil,false,,,"MM3 Update;ETB;flicker and bounce;removal;soft removal","",63417
+"Body Dropper",2,"Creature - Devil Warrior",BR,"snc","168",common,m,Owned,Non-foil,false,,,"","",98555
+"Fireblade Artist",2,"Creature - Human Shaman",BR,"2x2","214",common,m,Owned,Non-foil,false,,,"","",101912
+"Spike Jester",2,"Creature - Goblin Warrior",BR,"mm3","188",common,m,Owned,Non-foil,false,,,"MM3 Update","",63473
+"Terminate",2,"Instant",BR,"dmc","172",common,m,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;Creature Removal","",103230
+"Burning-Tree Emissary",2,"Creature - Human Shaman",RG,"mm3","207",common,m,Owned,Non-foil,false,,,"MM3 Update;ETB","",63407
+"Colossal Might",2,"Instant",GR,"arb","51",common,m,Owned,Non-foil,false,,,"FRF Update","",32348
+"Goblin Anarchomancer",2,"Creature - Goblin Shaman",GR,"mh2","200",common,m,Owned,Non-foil,false,,,"AFR/MH2 Update","",90777
+"Branching Bolt",3,"Instant",RG,"ala","158",common,m,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;Creature Removal","",31339
+"Qasali Pridemage",2,"Creature - Cat Wizard",WG,"2x2","267",common,m,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal","",102018
+"Travel Preparations",2,"Sorcery",WG,"isd","206",common,m,Owned,Non-foil,false,,,"STX Update","",42274
+"Armadillo Cloak",3,"Enchantment - Aura",GW,"dde","58",common,m,Owned,Non-foil,false,,,"","",35485
+"Captured by Lagacs",3,"Enchantment - Aura",GW,"mh2","188",common,m,Owned,Non-foil,false,,,"AFR/MH2 Update","",90753
+"Tithe Drinker",2,"Creature - Vampire",BW,"c17","200",common,m,Owned,Non-foil,false,,,"","",
+"Kingpin's Pet",3,"Creature - Thrull",WB,"gtc","173",common,m,Owned,Non-foil,false,,,"GTC Update;evasion","",47857
+"Pillory of the Sleepless",3,"Enchantment - Aura",BW,"gpt","125",common,m,Owned,Non-foil,false,,,"Since the beginning;removal;soft removal","",23693
+"Unmake",3,"Instant",WB,"eve","96",common,m,Owned,Non-foil,false,,,"GTC Update;hard removal;removal;Creature Removal","",29966
+"Goblin Electromancer",2,"Creature - Goblin Wizard",UR,"rtr","163",common,m,Owned,Non-foil,false,,,"UMA Update;spells matter","",46363
+"Izzet Charm",2,"Instant",UR,"2x2","230",common,m,Owned,Non-foil,false,,,"","",101944
+"Bloodwater Entity",3,"Creature - Elemental",UR,"2x2","185",common,m,Owned,Non-foil,false,,,"","",101854
+"Fire // Ice",4,"Instant ",UR,"uma","225",common,m,Owned,Non-foil,false,,,"UMA Update;removal;hard removal;soft removal;card draw","",70527
+"Infuse with Vitality",2,"Instant",BG,"stx","194",common,m,Owned,Non-foil,false,,,"STX Update","",88895
+"Putrid Leech",2,"Creature - Zombie Leech",BG,"arb","95",common,m,Owned,Non-foil,false,,,"","",32340
+"Dreg Mangler",3,"Creature - Plant Zombie",BG,"2x2","204",common,m,Owned,Non-foil,false,,,"","",101892
+"Desecrator Hag",4,"Creature - Hag",BG,"eve","119",common,m,Owned,Non-foil,false,,,"IKO Update","",30212
+"Wojek Halberdiers",2,"Creature - Human Soldier",WR,"gtc","208",common,m,Owned,Non-foil,false,,,"GTC Update","",47605
+"Rally the Peasants",3,"Instant",WR,"ema","25",common,m,Owned,Non-foil,false,,,"EMA Update;graveyard matters","",60719
+"Skyknight Legionnaire",3,"Creature - Human Knight",RW,"rav","232",common,m,Owned,Non-foil,false,,,"Since the beginning;evasion","",23338
+"War Flare",4,"Instant",WR,"frf","158",common,m,Owned,Non-foil,false,,,"FRF Update","",55556
+"Coiling Oracle",2,"Creature - Snake Elf Druid",GU,"dis","107",common,m,Owned,Non-foil,false,,,"BBD Update;ETB;card draw","",24059
+"Growth Spiral",2,"Instant",GU,"cmr","446",common,m,Owned,Non-foil,false,,,"","",85702
+"Temporal Spring",3,"Sorcery",GU,"apc","125",common,m,Owned,Non-foil,false,,,"AFR/MH2 Update","",16308
+"Wavesifter",5,"Creature - Elemental",GU,"mh2","217",common,m,Owned,Non-foil,false,,,"AFR/MH2 Update","",90815
+"Flayer Husk",1,"Creature",,"mbs","107",common,c,Owned,Non-foil,false,,,"MBS Update;token generator","",39583
+"Gingerbrute",1,"Artifact Creature - Food Golem",,"eld","219",common,c,Owned,Non-foil,false,,,"ELD Update","",78584
+"Iron Apprentice",1,"Artifact Creature - Construct",,"neo","248",common,c,Owned,Non-foil,false,,,"","",97446
+"Perilous Myr",2,"Artifact Creature - Myr",,"som","192",common,c,Owned,Non-foil,false,,,"SOM Update;Creature Removal","",37969
+"Scrapwork Mutt",2,"Artifact Creature - Dog",,"bro","164",common,r,Owned,Non-foil,false,,,"","",104946
+"Vault Skirge",2,"Artifact Creature - Imp",,"nph","76",common,b,Owned,Non-foil,false,,,"NPH Update;evasion","",39770
+"Filigree Familiar",3,"Artifact Creature - Fox",,"cmr","308",common,c,Owned,Non-foil,false,,,"KHM/CMR Update","",85398
+"Porcelain Legionnaire",3,"Artifact Creature - Soldier",,"nph","19",common,w,Owned,Non-foil,false,,,"NPH Update","",39834
+"Sickleslicer",3,"Creature",,"mm2","228",common,c,Owned,Non-foil,false,,,"M20 Update;token generator","",57314
+"Skyclave Sentinel",3,"Artifact Creature - Gargoyle",,"znr","253",common,c,Owned,Non-foil,false,,,"STX Update","",83501
+"Skyscanner",3,"Artifact Creature - Thopter",,"m19","245",common,c,Owned,Non-foil,false,,,"ELD Update","",68653
+"Cogwork Librarian",4,"Artifact Creature - Construct",,"cns","58",common,c,Owned,Non-foil,false,,,"CNS/VMA Update;draft matters","",
+"Pierce Strider",4,"Artifact Creature - Construct",,"bbd","244",common,c,Owned,Non-foil,false,,,"BBD Update;ETB","",
+"Thundering Tanadon",6,"Artifact Creature - Phyrexian Beast",,"nph","122",common,g,Owned,Non-foil,false,,,"","",39868
+"Ulamog's Crusher",8,"Creature - Eldrazi",,"uma","8",common,c,Owned,Non-foil,false,,,"May 2010 Update","",70089
+"Mutagenic Growth",1,"Instant",,"mm2","149",uncommon,g,Owned,Non-foil,false,,,"","",57334
+"Gitaxian Probe",1,"Sorcery",,"nph","35",common,u,Owned,Non-foil,false,,,"","",39976
+"Bonesplitter",1,"Artifact - Equipment",,"mrd","146",common,c,Owned,Non-foil,false,,,"Since the beginning","",19829
+"Leonin Bola",1,"Artifact - Equipment",,"dst","127",common,c,Owned,Non-foil,false,,,"Since the beginning","",20509
+"Sylvok Lifestaff",1,"Artifact - Equipment",,"som","209",common,c,Owned,Non-foil,false,,,"Winter 2010 Update","",38173
+"Wayfarer's Bauble",1,"Artifact",,"clb","344",common,c,Owned,Non-foil,false,,,"Since the beginning","",
+"Guardian Idol",2,"Artifact",,"ima","216",common,c,Owned,Non-foil,false,,,"HOU/XLN/IMA Update","",66311
+"Mind Stone",2,"Artifact",,"wth","153",common,c,Owned,Non-foil,false,,,"Since the beginning;card draw","",9135
+"Prophetic Prism",2,"Artifact",,"roe","222",common,c,Owned,Non-foil,false,,,"July 2010 Update;card draw;ETB","",36758
+"Star Compass",2,"Artifact",,"ima","229",common,c,Owned,Non-foil,false,,,"HOU/XLN/IMA Update","",66337
+"Vulshok Morningstar",2,"Artifact - Equipment",,"dst","157",common,c,Owned,Non-foil,false,,,"Since the beginning","",20445
+"Bonder's Ornament",3,"Artifact",,"c20","67",common,c,Owned,Non-foil,false,,,"","",80715
+"Pristine Talisman",3,"Artifact",,"nph","151",common,c,Owned,Non-foil,false,,,"NPH Update","",40004
+"Renegade Freighter",3,"Artifact - Vehicle",,"kld","230",common,c,Owned,Non-foil,false,,,"CN2/KLD/C16 Update","",61593
+"Serrated Arrows",4,"Artifact",,"tsb","114",special,c,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal;Creature Removal","",26065
+"Azorius Chancery",,"Land",WU,"dis","170",common,l,Owned,Non-foil,false,,,"","",24027
+"Idyllic Beachfront",,"Land - Plains Island",UW,"dmu","249",common,l,Owned,Non-foil,false,,,"","",102974
+"Skybridge Towers",,"Land",UW,"snc","256",common,l,Owned,Non-foil,false,,,"","",98731
+"Contaminated Aquifer",,"Land - Island Swamp",BU,"dmu","245",common,l,Owned,Non-foil,false,,,"","",102966
+"Dimir Aqueduct",,"Land",BU,"pc2","116",common,l,Owned,Non-foil,false,,,"","",45144
+"Waterfront District",,"Land",BU,"snc","259",common,l,Owned,Non-foil,false,,,"","",98737
+"Geothermal Bog",,"Land - Swamp Mountain",BR,"dmu","247",common,l,Owned,Non-foil,false,,,"","",102970
+"Rakdos Carnarium",,"Land",BR,"cma","266",common,l,Owned,Non-foil,false,,,"","",
+"Tramway Station",,"Land",BR,"snc","258",common,l,Owned,Non-foil,false,,,"","",98735
+"Gruul Turf",,"Land",RG,"gpt","158",common,l,Owned,Non-foil,false,,,"","",23851
+"Racers' Ring",,"Land",GR,"snc","253",common,l,Owned,Non-foil,false,,,"","",98725
+"Wooded Ridgeline",,"Land - Mountain Forest",GR,"dmu","260",common,l,Owned,Non-foil,false,,,"","",102996
+"Botanical Plaza",,"Land",GW,"snc","247",common,l,Owned,Non-foil,false,,,"","",98713
+"Radiant Grove",,"Land - Forest Plains",GW,"dmu","253",common,l,Owned,Non-foil,false,,,"","",102982
+"Selesnya Sanctuary",,"Land",WG,"rav","281",common,l,Owned,Non-foil,false,,,"","",23248
+"Orzhov Basilica",,"Land",BW,"cma","264",common,l,Owned,Non-foil,false,,,"","",
+"Silverquill Campus",,"Land",BW,"stx","273",common,l,Owned,Non-foil,false,,,"STX Update","",89053
+"Sunlit Marsh",,"Land - Plains Swamp",BW,"dmu","257",common,l,Owned,Non-foil,false,,,"","",102990
+"Izzet Boilerworks",,"Land",RU,"gk1","47",common,l,Owned,Non-foil,false,,,"","",
+"Molten Tributary",,"Land - Island Mountain",RU,"dmu","251",common,l,Owned,Non-foil,false,,,"","",102978
+"Prismari Campus",,"Land",RU,"stx","270",common,l,Owned,Non-foil,false,,,"STX Update","",89047
+"Golgari Rot Farm",,"Land",BG,"rav","278",common,l,Owned,Non-foil,false,,,"","",23206
+"Haunted Mire",,"Land - Swamp Forest",BG,"dmu","248",common,l,Owned,Non-foil,false,,,"","",102972
+"Witherbloom Campus",,"Land",BG,"stx","275",common,l,Owned,Non-foil,false,,,"STX Update","",89057
+"Boros Garrison",,"Land",WR,"rav","275",common,l,Owned,Non-foil,false,,,"","",23116
+"Lorehold Campus",,"Land",RW,"stx","268",common,l,Owned,Non-foil,false,,,"STX Update","",89043
+"Sacred Peaks",,"Land - Mountain Plains",RW,"dmu","254",common,l,Owned,Non-foil,false,,,"","",102984
+"Quandrix Campus",,"Land",GU,"stx","271",common,l,Owned,Non-foil,false,,,"STX Update","",89049
+"Simic Growth Chamber",,"Land",UG,"dis","180",common,l,Owned,Non-foil,false,,,"","",24031
+"Tangled Islet",,"Land - Forest Island",GU,"dmu","258",common,l,Owned,Non-foil,false,,,"","",102992
+"Ash Barrens",,"Land",,"ncc","386",uncommon,l,Owned,Non-foil,false,,,"CN2/KLD/C16 Update","",
+"Basilisk Gate",,"Land - Gate",,"clb","346",common,l,Owned,Non-foil,false,,,"","",100730
+"Black Dragon Gate",,"Land - Gate",B,"clb","347",common,l,Owned,Non-foil,false,,,"","",100732
+"Citadel Gate",,"Land - Gate",W,"clb","349",common,l,Owned,Non-foil,false,,,"","",100736
+"Cliffgate",,"Land - Gate",R,"clb","350",common,l,Owned,Non-foil,false,,,"","",100738
+"Desert",,"Land - Desert",,"afc","233",uncommon,l,Owned,Non-foil,false,,,"Since the beginning;removal;hard removal","",
+"Evolving Wilds",,"Land",,"m20","246",common,l,Owned,Non-foil,false,,,"May 2010 Update","",73391
+"Manor Gate",,"Land - Gate",G,"clb","356",common,l,Owned,Non-foil,false,,,"","",100750
+"Sea Gate",,"Land - Gate",U,"clb","359",common,l,Owned,Non-foil,false,,,"","",100756
+"Thriving Bluff",,"Land",R,"jmp","33",common,l,Owned,Non-foil,false,,,"M21/JMP Update","",81813
+"Thriving Grove",,"Land",G,"jmp","34",common,l,Owned,Non-foil,false,,,"M21/JMP Update","",81815
+"Thriving Heath",,"Land",W,"jmp","35",common,l,Owned,Non-foil,false,,,"M21/JMP Update","",81817
+"Thriving Isle",,"Land",U,"jmp","36",common,l,Owned,Non-foil,false,,,"M21/JMP Update","",81819
+"Thriving Moor",,"Land",B,"jmp","37",common,l,Owned,Non-foil,false,,,"M21/JMP Update","",81821
+"Tocasia's Dig Site",,"Land",,"bro","266",common,l,Owned,Non-foil,false,,,"","",105156

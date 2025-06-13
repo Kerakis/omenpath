@@ -1,0 +1,11 @@
+Simple Name (the "Name" field has excess stuff like "(Halo Foil)" added), Set Code (most match Scryfall but not all), and Card Number.
+
+Condition is the same as what Moxfield expects.
+
+Language is the same except except for Chinese (Traditional and Simplified). I've included the examples of both.
+
+Foil is "Normal" vs "Foil". Etched and other speciality foil status is derived from the CN.
+
+You're already using the Product ID when you export cards from the Wishlist/Buy a Deck feature to TCGPlayer. Maybe you can utilize TCGPlayer's API when importing one of their CSVs to get the correct version or just match "tcgplayer_id" from the Scryfall JSON? Most cards will likely import fine, but I foresee issues with promo cards and art cards (I know they aren't supported...yet :P).
+
+The TCGPlayer APP has an advanced option to "include Gatherer ID" that isn't on by default, but it doesn't seem to work as every card that I tried simply has "0" as the Gatherer ID, which shows up as "External ID" in the CSV. I didn't include that in the CSV example as it the option isn't enabled by default and doesn't seem to be useful.

@@ -1,0 +1,35 @@
+Weirdly, DragonShield's CSV format changes a bit between their website and their app. I only have access to the iOS app, so I can't confirm how the Android app handles this.
+
+
+**Website format**
+
+
+"Quantity" to be mapped to "Count".
+
+"Trade Quantity" could be mapped to "Trade Count" (though I don't think this is used anywhere on Moxfield currently?).
+
+"Card Name", "Set Code", and "Card Number" can be used to find the cards. They use Scryfall set codes. They will be mapped to "Name", "Edition", and "Collector Number" respectively.
+
+Conditions are "Mint", "NearMint", "Excellent", "LightlyPlayed", "Good", "Played", "Poor". Some of these kind of suck, especially for mapping to Moxfield, since I believe Moxfield only has 6 Conditions. Moxfield combines Good and Lightly Played, so does that mean Played becomes Heavily Played and Poor becomes Damaged?
+
+Language is the same except except for Simplified Chinese (which is simply "Chinese" for Moxfield). However, they do not offer the full range of languages that are available in MTG. Cards that are only available in languages such as Sanksrit or Phyrexian get exported as English.
+
+"Price Bought" can be mapped to "Purchase Price" as it seems to be in the same format as Moxfield.
+
+Foil Status is listed under "Printing" and are "Foil" for regular foil, "Normal" for non-foil. Etched and other speciality foil status is derived from the CN, but listed as "Foil". If the user sets the card to an option that isn't real (such as foil for a The List card or non-foil for a Halo foil card) then the entry will be blank.
+
+
+**App format**
+
+
+"Quantity" to be mapped to "Count".
+
+"Name", "Expansion Code", and "CardNumber" (no space this time) can be used to find the cards. They use Scryfall set codes. They will be mapped to "Name", "Edition", and "Collector Number" respectively.
+
+Conditions are "Mint", "NearMint", "Excellent", "LightlyPlayed", "Good", "Played", "Poor". Some of these kind of suck, especially for mapping to Moxfield, since I believe Moxfield only has 6 Conditions. Moxfield combines Good and Lightly Played, so does that mean Played becomes Heavily Played and Poor becomes Damaged?
+
+Language is the same except except for Simplified Chinese (which is simply "Chinese" for Moxfield). However, they do not offer the full range of languages that are available in MTG. Cards that are only available in languages such as Sanksrit or Phyrexian get exported as English.
+
+"PurchasePrice" (no space) can be mapped to "Purchase Price" as it seems to be in the same format as Moxfield.
+
+Foil Status is listed under "Foil" and are "TRUE" for regular foil, "FALSE" for non-foil. Etched and other speciality foil status is derived from the CN, but listed as "TRUE". If the user sets the card to an option that isn't real (such as foil for a The List card or non-foil for a Halo foil card) then it *will* show the chosen erroneous option in the app's export! This shit is wild.

@@ -1,0 +1,13 @@
+Collections can be exported as either a .dek (default) or .csv file. The option only appears in the file type dropdown from the Windows OS popup when saving a file, so it is a bit subtle.
+
+The .dek file is an XML file that does have a "CatID" field for the MTGO ID, which Scryfall handles nicely (https://scryfall.com/docs/api/cards/mtgo).
+
+It also has a "Quantity" field.
+
+MTGO does have foils, but I don't have any foils in my collection. I'll try to find an example of how that is handled with .dek files.
+
+The CSV file is a pretty straightforward. "ID #" corresponds to the MTGO ID, which is probably your best bet as my collection is too small to confirm whether or not the codes for the "Set" field will coincide completely with Scryfall (I'm guessing not). 
+
+The "Collector #" field is a bit of a mess as it is formatted like "7/269" for most cards. Split cards are just missing that field though.
+
+My assumption is "Premium" corresponds to foil, but I can't confirm. It is either "No", or presumably, "Yes".

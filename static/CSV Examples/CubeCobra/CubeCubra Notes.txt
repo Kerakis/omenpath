@@ -1,0 +1,7 @@
+name (lower case column header for some reason), Set (seems to match Scryfall consistently), and Collector Number (matches Scryfall even for starred CN). MTGO ID is a unique identifier for each printing, but not all printings are on MTGO, and thus don't have a MTGO ID.
+
+Condition is not provided.
+
+Language is not provided.
+
+Finish (aka foil status) is inconsistent depending on how the user derived their CSV. If the user exported their own cube, the Finish is either blank for non-foil, "Etched" for etched foil, or "Foil" for foils. If the user exported someone else's cube, then non-foils are listed as "Non-foil". The others are the same. Additionally, CubeCobra does not check to see whether the cards can actually be foil/etched or not. The user can set those flags even if they don't actually exist in real life.
