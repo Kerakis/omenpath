@@ -8,14 +8,19 @@
 	}
 
 	let { cards, onProceed, onCancel }: Props = $props();
+	let showAdditionalColumns = $state(false);
 
-	// Show first 5 cards as preview
-	const previewCards = cards.slice(0, 5);
 	const totalCards = cards.length;
 	const cardsWithIds = cards.filter(
 		(card) => card.scryfallId || card.multiverseId || card.mtgoId
 	).length;
 	const cardsNeedingLookup = totalCards - cardsWithIds;
+
+	// Helper function for proper pluralization
+	function pluralize(count: number, singular: string, plural?: string): string {
+		if (count === 1) return `${count} ${singular}`;
+		return `${count} ${plural || singular + 's'}`;
+	}
 </script>
 
 <div class="rounded-lg bg-white p-6 shadow-lg">
@@ -37,12 +42,22 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="mb-6">
-		<h3 class="mb-3 text-lg font-medium text-gray-700">Sample Cards (first 5):</h3>
-		<div class="overflow-x-auto">
-			<table class="min-w-full overflow-hidden rounded-lg border border-gray-200">
-				<thead class="bg-gray-50">
+		<div class="mb-3 flex items-center justify-between">
+			<h3 class="text-lg font-medium text-gray-700">
+				All {pluralize(totalCards, 'card')}:
+			</h3>
+			<button
+				onclick={() => (showAdditionalColumns = !showAdditionalColumns)}
+				class="text-sm text-blue-600 underline hover:text-blue-800"
+			>
+				{showAdditionalColumns ? 'Hide' : 'Show'} additional columns
+			</button>
+		</div>
+
+		<div class="max-h-96 overflow-auto rounded-lg border border-gray-200">
+			<table class="min-w-full">
+				<thead class="sticky top-0 bg-gray-50">
 					<tr>
 						<th
 							class="px-3 py-2 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
@@ -68,6 +83,24 @@
 							class="px-3 py-2 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
 							>Foil</th
 						>
+						{#if showAdditionalColumns}
+							<th
+								class="px-3 py-2 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
+								>Language</th
+							>
+							<th
+								class="px-3 py-2 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
+								>Alter</th
+							>
+							<th
+								class="px-3 py-2 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
+								>Proxy</th
+							>
+							<th
+								class="px-3 py-2 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
+								>Price</th
+							>
+						{/if}
 						<th
 							class="px-3 py-2 text-left text-xs font-medium tracking-wider text-gray-500 uppercase"
 							>ID Status</th
@@ -75,13 +108,10 @@
 					</tr>
 				</thead>
 				<tbody class="divide-y divide-gray-200 bg-white">
-					{#each previewCards as card}
-						<tr>
+					{#each cards as card}
+						<tr class="hover:bg-gray-50">
 							<td class="px-3 py-2 text-sm whitespace-nowrap text-gray-900">{card.count}</td>
-							<td
-								class="max-w-32 truncate px-3 py-2 text-sm whitespace-nowrap text-gray-900"
-								title={card.name}
-							>
+							<td class="max-w-32 truncate px-3 py-2 text-sm text-gray-900" title={card.name}>
 								{card.name}
 							</td>
 							<td class="px-3 py-2 text-sm whitespace-nowrap text-gray-900"
@@ -94,6 +124,20 @@
 								>{card.condition || '-'}</td
 							>
 							<td class="px-3 py-2 text-sm whitespace-nowrap text-gray-900">{card.foil || '-'}</td>
+							{#if showAdditionalColumns}
+								<td class="px-3 py-2 text-sm whitespace-nowrap text-gray-900"
+									>{card.language || '-'}</td
+								>
+								<td class="px-3 py-2 text-sm whitespace-nowrap text-gray-900"
+									>{card.alter || '-'}</td
+								>
+								<td class="px-3 py-2 text-sm whitespace-nowrap text-gray-900"
+									>{card.proxy || '-'}</td
+								>
+								<td class="px-3 py-2 text-sm whitespace-nowrap text-gray-900"
+									>{card.purchasePrice || '-'}</td
+								>
+							{/if}
 							<td class="px-3 py-2 text-sm whitespace-nowrap">
 								{#if card.scryfallId}
 									<span
@@ -126,12 +170,6 @@
 				</tbody>
 			</table>
 		</div>
-
-		{#if totalCards > 5}
-			<p class="mt-2 text-sm text-gray-500">
-				...and {totalCards - 5} more cards
-			</p>
-		{/if}
 	</div>
 
 	<div class="space-y-4">
@@ -154,9 +192,9 @@
 					<div>
 						<h4 class="text-sm font-medium text-yellow-800">Cards require Scryfall lookup</h4>
 						<p class="mt-1 text-sm text-yellow-700">
-							{cardsNeedingLookup} cards don't have Scryfall IDs and will need to be looked up by name/set/collector
-							number. This may take longer and could result in some cards not being found if the names
-							or sets don't match exactly.
+							{pluralize(cardsNeedingLookup, 'card')} don't have Scryfall IDs and will need to be looked
+							up by name/set/collector number. This may take longer and could result in some cards not
+							being found if the names or sets don't match exactly.
 						</p>
 					</div>
 				</div>

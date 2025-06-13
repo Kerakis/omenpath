@@ -4,16 +4,20 @@ OmenPath is a web application that converts Magic: The Gathering collection CSV 
 
 ## Features
 
-- **Universal CSV Support**: Supports CSV files from 12+ popular MTG collection apps including:
+- **Universal CSV Support**: Supports CSV files from 15+ popular MTG collection apps including:
 
   - Archidekt
   - CardCastle (Full & Simple formats)
+  - Cardsphere
   - CubeCobra
   - DeckBox
   - DelverLens
   - DragonShield (App & Web)
+  - Helvault
   - Magic Online (MTGO)
+  - ManaBox
   - Moxfield (passthrough)
+  - TappedOut
   - TCGPlayer
   - And more...
 
@@ -129,6 +133,13 @@ npm run preview
 - **Simple Format**: ⚠️ Name/Set lookup required
 - ✅ Condition and foil status
 
+### Cardsphere
+
+- ✅ Scryfall ID included
+- ✅ Complete metadata including tradelist count
+- ✅ Comprehensive condition mapping
+- ✅ Tags support
+
 ### DeckBox
 
 - ✅ Scryfall ID included
@@ -140,6 +151,25 @@ npm run preview
 - **App Format**: ⚠️ Name/Set lookup
 - **Web Format**: ⚠️ Name/Set lookup
 - ✅ Condition mapping (custom logic)
+
+### Helvault
+
+- ⚠️ Name/Set lookup required
+- ✅ Complex tag parsing (foil/alter/proxy/signed)
+- ✅ Extra tags preserved in Notes column
+
+### ManaBox
+
+- ✅ Scryfall ID included
+- ✅ Complete metadata
+- ✅ Misprint and alter flags
+- ✅ Multi-currency purchase price support
+
+### TappedOut
+
+- ⚠️ Name/Set lookup required
+- ✅ Alter, signed, and proxy flags
+- ✅ Comprehensive condition support
 
 ### Others
 

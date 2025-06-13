@@ -25,6 +25,13 @@ export interface ParsedCard {
 	purchasePrice?: string;
 	collectorNumber?: string;
 
+	// Additional Moxfield/advanced fields
+	tradelistCount?: string;
+	lastModified?: string;
+	alter?: string;
+	proxy?: string;
+	notes?: string; // For extra tags that don't fit elsewhere
+
 	// Scryfall identifiers (if available from CSV)
 	scryfallId?: string;
 	multiverseId?: number;
@@ -60,6 +67,7 @@ export interface ScryfallCard {
 	prices: {
 		usd?: string;
 		usd_foil?: string;
+		usd_etched?: string;
 		eur?: string;
 		eur_foil?: string;
 		tix?: string;
@@ -115,7 +123,9 @@ export interface ConverterEngine {
 	convertFile: (
 		file: File,
 		format: string,
-		progressCallback?: (progress: number) => void
+		progressCallback?: (progress: number) => void,
+		defaultCondition?: string,
+		exportOptions?: ExportOptions
 	) => Promise<ConversionResult[]>;
 
 	parseFile: (file: File, format: string) => Promise<ParsedCard[]>;
@@ -132,3 +142,12 @@ export interface ScryfallResponse {
 }
 
 export type ProgressCallback = (progress: number) => void;
+
+export interface ExportOptions {
+	includeCurrentPrice: boolean;
+	priceType: 'usd' | 'eur' | 'tix'; // Will be modified based on foil/etched status
+	includeMtgoIds: boolean;
+	includeMultiverseId: boolean;
+	includeTcgPlayerId: boolean;
+	includeCardMarketId: boolean;
+}

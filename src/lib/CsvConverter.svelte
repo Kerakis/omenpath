@@ -1,15 +1,17 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { ConverterEngine, ParsedCard } from './types.js';
+	import type { ConverterEngine, ParsedCard, CsvFormat } from './types.js';
 	import { createConverterEngine } from './converter-engine.js';
 	import FileUpload from './FileUpload.svelte';
 	import ConversionProgress from './ConversionProgress.svelte';
 	import ConversionResults from './ConversionResults.svelte';
 	import FormatSelector from './FormatSelector.svelte';
 	import DataPreview from './DataPreview.svelte';
+	import DefaultConditionSelector from './DefaultConditionSelector.svelte';
 	let engine: ConverterEngine;
 	let files: File[] = $state([]);
-	let selectedFormat: string = $state('auto');
+	let selectedFormat: string = $state('manabox'); // Default to ManaBox since auto-detect is temporarily disabled
+	let defaultCondition: string = $state('Near Mint');
 	let isConverting = $state(false);
 	let conversionProgress = $state(0);
 	let conversionStatus = $state('');
@@ -17,10 +19,21 @@
 	let errors: string[] = $state([]);
 	let previewData: ParsedCard[] | null = $state(null);
 	let showPreview = $state(false);
-
 	onMount(() => {
 		engine = createConverterEngine();
 	});
+
+	// Derived state for selected format definition
+	let selectedFormatDef = $derived(() => {
+		if (!engine) return null;
+
+		if (selectedFormat !== 'auto') {
+			return engine.getSupportedFormats().find((f) => f.id === selectedFormat) || null;
+		}
+
+		return null;
+	});
+
 	async function handlePreview() {
 		if (files.length === 0) return;
 
@@ -56,9 +69,14 @@
 				const file = files[i];
 				conversionStatus = `Processing ${file.name}...`;
 				try {
-					const result = await engine.convertFile(file, selectedFormat, (progress: number) => {
-						conversionProgress = (i / files.length + progress / files.length) * 100;
-					});
+					const result = await engine.convertFile(
+						file,
+						selectedFormat,
+						(progress: number) => {
+							conversionProgress = (i / files.length) * 100 + progress / files.length;
+						},
+						defaultCondition
+					);
 
 					results.push({
 						filename: file.name,
@@ -92,17 +110,30 @@
 		errors = [];
 		previewData = null;
 		showPreview = false;
-	}
 
+		// Automatically trigger preview after files are selected
+		if (files.length > 0) {
+			setTimeout(() => handlePreview(), 100); // Small delay to ensure UI updates
+		}
+	}
 	function handleFormatChange(format: string) {
 		selectedFormat = format;
 		previewData = null;
 		showPreview = false;
+
+		// Automatically retrigger preview when format changes
+		if (files.length > 0) {
+			setTimeout(() => handlePreview(), 100); // Small delay to ensure UI updates
+		}
 	}
 
 	function handleCancelPreview() {
 		showPreview = false;
 		previewData = null;
+	}
+
+	function handleConditionChange(condition: string) {
+		defaultCondition = condition;
 	}
 </script>
 
@@ -128,29 +159,11 @@
 		<div class="card mb-6 rounded-lg bg-white p-6 shadow-lg">
 			<h2 class="mb-4 text-2xl font-semibold text-gray-800">Conversion Settings</h2>
 			<FormatSelector {selectedFormat} onFormatChange={handleFormatChange} />
-			<div class="mt-6 space-y-3">
-				{#if !showPreview && !previewData}
-					<button
-						onclick={handlePreview}
-						disabled={isConverting}
-						class="w-full rounded-lg bg-green-600 px-6 py-3 font-medium text-white transition-colors hover:bg-green-700 disabled:bg-gray-400"
-					>
-						Preview Data
-					</button>
-				{/if}
-
-				<button
-					onclick={handleConvert}
-					disabled={isConverting || (!previewData && !showPreview)}
-					class="w-full rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700 disabled:bg-gray-400"
-				>
-					{isConverting
-						? 'Converting...'
-						: previewData
-							? 'Convert to Moxfield Format'
-							: 'Preview First'}
-				</button>
-			</div>
+			<DefaultConditionSelector
+				selectedFormat={selectedFormatDef()}
+				{defaultCondition}
+				onConditionChange={handleConditionChange}
+			/>
 		</div>
 	{/if}
 
