@@ -313,12 +313,18 @@ const CSV_FORMATS: CsvFormat[] = [
 			condition: 'Condition',
 			language: 'Languange', // Note: they have a typo in their header
 			foil: 'Foil',
-			collectorNumber: 'Set Number'
+			collectorNumber: 'Set Number',
+			alter: 'Alter',
+			signed: 'Signed',
+			proxy: 'Proxy'
 		},
 		transformations: {
 			condition: (value: string) => normalizeTappedOutCondition(value),
 			language: (value: string) => normalizeTappedOutLanguage(value),
-			foil: (value: string) => (value !== '-' && value.toLowerCase() === 'foil' ? 'foil' : '')
+			foil: (value: string) => normalizeTappedOutFoil(value),
+			alter: (value: string) => normalizeTappedOutBoolean(value),
+			signed: (value: string) => normalizeTappedOutBoolean(value),
+			proxy: (value: string) => normalizeTappedOutBoolean(value)
 		}
 	},
 	{
@@ -480,6 +486,8 @@ function normalizeTappedOutCondition(condition: string): string {
 		mint: 'Near Mint',
 		lp: 'Lightly Played',
 		lightlyplayed: 'Lightly Played',
+		sl: 'Lightly Played', // TappedOut uses "SL" for Slightly Played, map to Lightly Played
+		slightlyplayed: 'Lightly Played',
 		mp: 'Moderately Played',
 		moderatelyplayed: 'Moderately Played',
 		hp: 'Heavily Played',
@@ -1254,6 +1262,7 @@ function createMoxfieldRow(
 		'Collector Number': scryfallCard?.collector_number || card.collectorNumber || '',
 		Alter: card.alter || 'False',
 		Proxy: card.proxy || 'False',
+		Signed: card.signed || 'False',
 		'Purchase Price': card.purchasePrice || ''
 	};
 
@@ -1318,6 +1327,7 @@ export function formatAsMoxfieldCSV(
 		'Collector Number',
 		'Alter',
 		'Proxy',
+		'Signed',
 		'Purchase Price'
 	];
 
@@ -1644,4 +1654,25 @@ async function processCardsWithIds(
 			progressCallback(Math.min(100, progress));
 		}
 	}
+}
+
+function normalizeTappedOutFoil(foil: string): string {
+	if (foil === '-' || !foil) return '';
+
+	const normalized = foil.toLowerCase().trim();
+
+	// Handle TappedOut foil values
+	if (normalized === 'f') return 'foil';
+	if (normalized === 'f-etch') return 'etched';
+
+	return ''; // Default to non-foil for any other value
+}
+
+function normalizeTappedOutBoolean(value: string): string {
+	if (!value || value === '-' || value.toLowerCase().trim() === 'false') {
+		return 'False';
+	}
+
+	// Any other value (non-empty, not '-', not 'false') means True
+	return value.trim() !== '' ? 'True' : 'False';
 }

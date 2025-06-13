@@ -24,12 +24,12 @@ export interface ParsedCard {
 	tags?: string;
 	purchasePrice?: string;
 	collectorNumber?: string;
-
 	// Additional Moxfield/advanced fields
 	tradelistCount?: string;
 	lastModified?: string;
 	alter?: string;
 	proxy?: string;
+	signed?: string;
 	notes?: string; // For extra tags that don't fit elsewhere
 
 	// Scryfall identifiers (if available from CSV)

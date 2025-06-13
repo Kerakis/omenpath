@@ -445,6 +445,7 @@
 													{#if showAdditionalColumns}
 														<th class="px-2 py-1 text-left font-medium text-gray-700">Alter</th>
 														<th class="px-2 py-1 text-left font-medium text-gray-700">Proxy</th>
+														<th class="px-2 py-1 text-left font-medium text-gray-700">Signed</th>
 														<th class="px-2 py-1 text-left font-medium text-gray-700">Price</th>
 														<th class="px-2 py-1 text-left font-medium text-gray-700">Lang</th>
 													{/if}
@@ -499,6 +500,9 @@
 															</td>
 															<td class="px-2 py-1 text-gray-600">
 																{card.moxfieldRow?.Proxy || card.originalCard?.proxy || '-'}
+															</td>
+															<td class="px-2 py-1 text-gray-600">
+																{card.moxfieldRow?.Signed || card.originalCard?.signed || '-'}
 															</td>
 															<td class="px-2 py-1 text-gray-600">
 																{card.moxfieldRow?.['Purchase Price'] ||
