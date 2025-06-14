@@ -19,65 +19,6 @@ const BATCH_SIZE = 75; // Scryfall collection endpoint limit
 // CSV format definitions
 export const CSV_FORMATS: CsvFormat[] = [
 	{
-		name: 'ManaBox',
-		id: 'manabox',
-		description: 'ManaBox mobile app collection export',
-		hasHeaders: true,
-		columnMappings: {
-			count: 'Quantity',
-			name: 'Name',
-			edition: 'Set code',
-			condition: 'Condition',
-			language: 'Language',
-			foil: 'Foil',
-			purchasePrice: 'Purchase price',
-			collectorNumber: 'Collector number',
-			scryfallId: 'Scryfall ID',
-			// Additional ManaBox columns for better detection
-			binderName: 'Binder Name',
-			binderType: 'Binder Type',
-			setName: 'Set name',
-			rarity: 'Rarity',
-			manaboxId: 'ManaBox ID',
-			misprint: 'Misprint',
-			altered: 'Altered',
-			purchasePriceCurrency: 'Purchase price currency'
-		},
-		transformations: {
-			condition: (value: string) => normalizeManaBoxCondition(value),
-			language: (value: string) => normalizeManaBoxLanguage(value),
-			foil: (value: string) => (value.toLowerCase() === 'foil' ? 'foil' : '')
-		}
-	},
-	{
-		name: 'Moxfield',
-		id: 'moxfield',
-		description: 'Moxfield collection export (passthrough)',
-		hasHeaders: true,
-		columnMappings: {
-			count: 'Count',
-			name: 'Name',
-			edition: 'Edition',
-			condition: 'Condition',
-			language: 'Language',
-			foil: 'Foil',
-			purchasePrice: 'Purchase Price',
-			collectorNumber: 'Collector Number',
-			// Additional Moxfield-specific columns
-			tradelistCount: 'Tradelist Count',
-			tags: 'Tags',
-			lastModified: 'Last Modified',
-			alter: 'Alter',
-			proxy: 'Proxy'
-		},
-		transformations: {
-			condition: (value: string) => normalizeCondition(value),
-			language: (value: string) => normalizeLanguage(value),
-			foil: (value: string) =>
-				value.toLowerCase() === 'foil' || value.toLowerCase() === 'true' ? 'foil' : ''
-		}
-	},
-	{
 		name: 'Archidekt',
 		id: 'archidekt',
 		description: 'Archidekt collection export',
@@ -148,6 +89,71 @@ export const CSV_FORMATS: CsvFormat[] = [
 		}
 	},
 	{
+		name: 'Cardsphere',
+		id: 'cardsphere',
+		description: 'Cardsphere collection export',
+		hasHeaders: true,
+		columnMappings: {
+			count: 'Count',
+			name: 'Name',
+			edition: 'Edition',
+			condition: 'Condition',
+			language: 'Language',
+			foil: 'Foil',
+			tags: 'Tags',
+			scryfallId: 'Scryfall ID',
+			lastModified: 'Last Modified',
+			tradelistCount: 'Tradelist Count'
+		},
+		transformations: {
+			condition: (value: string) => normalizeCardsphereCondition(value),
+			language: (value: string) => normalizeLanguage(value),
+			foil: (value: string) => (value.toLowerCase() === 'foil' ? 'foil' : ''),
+			edition: (value: string) => value // No special normalization needed for edition
+		}
+	},
+	{
+		name: 'CubeCobra',
+		id: 'cubecobra',
+		description: 'CubeCobra cube export',
+		hasHeaders: true,
+		columnMappings: {
+			count: '1', // CubeCobra doesn't include count
+			name: 'name',
+			edition: 'Set',
+			collectorNumber: 'Collector Number',
+			foil: 'Finish',
+			mtgoId: 'MTGO ID'
+		},
+		transformations: {
+			foil: (value: string) => {
+				const normalized = value.toLowerCase();
+				return normalized === 'foil' || normalized === 'etched' ? 'foil' : '';
+			}
+		}
+	},
+	{
+		name: 'Decked Builder',
+		id: 'decked-builder',
+		description: 'Decked Builder collection export (handles regular and foil quantities)',
+		hasHeaders: true,
+		columnMappings: {
+			// Note: This format uses custom processing in parseCSV for quantity handling
+			totalQty: 'Total Qty',
+			regQty: 'Reg Qty',
+			foilQty: 'Foil Qty',
+			name: 'Card',
+			editionName: 'Set', // Full set name for fuzzy matching like DeckBox
+			condition: '', // Not provided in the format
+			language: '', // Not provided in the format
+			// Note: Mvid is NOT a multiverse ID, it's an internal Decked Builder ID
+			purchasePrice: 'Single Price'
+		},
+		transformations: {
+			// No specific transformations needed for this format
+		}
+	},
+	{
 		name: 'DeckBox',
 		id: 'deckbox',
 		description: 'DeckBox inventory export',
@@ -167,6 +173,27 @@ export const CSV_FORMATS: CsvFormat[] = [
 			condition: (value: string) => normalizeCondition(value),
 			language: (value: string) => normalizeLanguage(value),
 			foil: (value: string) => (value.toLowerCase() === 'true' || value === '1' ? 'foil' : '')
+		}
+	},
+	{
+		name: 'DelverLens',
+		id: 'delverlens',
+		description: 'DelverLens collection export',
+		hasHeaders: true,
+		columnMappings: {
+			count: 'Count',
+			name: 'Name',
+			edition: 'Edition',
+			condition: 'Condition',
+			language: 'Language',
+			foil: 'Foil',
+			collectorNumber: 'Collector Number'
+		},
+		transformations: {
+			condition: (value: string) => normalizeCondition(value),
+			language: (value: string) => normalizeLanguage(value),
+			foil: (value: string) =>
+				value.toLowerCase() === 'true' || value.toLowerCase() === 'foil' ? 'foil' : ''
 		}
 	},
 	{
@@ -212,158 +239,6 @@ export const CSV_FORMATS: CsvFormat[] = [
 		}
 	},
 	{
-		name: 'CubeCobra',
-		id: 'cubecobra',
-		description: 'CubeCobra cube export',
-		hasHeaders: true,
-		columnMappings: {
-			count: '1', // CubeCobra doesn't include count
-			name: 'name',
-			edition: 'Set',
-			collectorNumber: 'Collector Number',
-			foil: 'Finish',
-			mtgoId: 'MTGO ID'
-		},
-		transformations: {
-			foil: (value: string) => {
-				const normalized = value.toLowerCase();
-				return normalized === 'foil' || normalized === 'etched' ? 'foil' : '';
-			}
-		}
-	},
-	{
-		name: 'TCGPlayer',
-		id: 'tcgplayer',
-		description: 'TCGPlayer collection export',
-		hasHeaders: true,
-		columnMappings: {
-			count: 'Quantity',
-			name: 'Simple Name',
-			edition: 'Set Code',
-			condition: 'Condition',
-			language: 'Language',
-			foil: 'Foil',
-			collectorNumber: 'Card Number'
-		},
-		transformations: {
-			condition: (value: string) => normalizeCondition(value),
-			language: (value: string) => normalizeTCGPlayerLanguage(value),
-			foil: (value: string) => (value.toLowerCase() === 'foil' ? 'foil' : '')
-		}
-	},
-	{
-		name: 'MTGO (.csv)',
-		id: 'mtgo-csv',
-		description: 'Magic Online collection CSV export',
-		hasHeaders: true,
-		columnMappings: {
-			count: 'Quantity',
-			name: 'Card Name',
-			edition: 'Set',
-			collectorNumber: 'Collector #',
-			foil: 'Premium',
-			mtgoId: 'ID #'
-		},
-		transformations: {
-			foil: (value: string) => (value.toLowerCase() === 'yes' ? 'foil' : ''),
-			collectorNumber: (value: string) => {
-				// MTGO format is like "7/269", extract just the number
-				return value.split('/')[0] || value;
-			}
-		}
-	},
-	{
-		name: 'DelverLens',
-		id: 'delverlens',
-		description: 'DelverLens collection export',
-		hasHeaders: true,
-		columnMappings: {
-			count: 'Count',
-			name: 'Name',
-			edition: 'Edition',
-			condition: 'Condition',
-			language: 'Language',
-			foil: 'Foil',
-			collectorNumber: 'Collector Number'
-		},
-		transformations: {
-			condition: (value: string) => normalizeCondition(value),
-			language: (value: string) => normalizeLanguage(value),
-			foil: (value: string) =>
-				value.toLowerCase() === 'true' || value.toLowerCase() === 'foil' ? 'foil' : ''
-		}
-	},
-	{
-		name: 'Helvault',
-		id: 'helvault',
-		description: 'Helvault collection export with complex tags',
-		hasHeaders: true,
-		columnMappings: {
-			count: 'quantity',
-			name: 'name',
-			edition: 'set_code',
-			language: 'language',
-			collectorNumber: 'collector_number',
-			purchasePrice: 'estimated_price',
-			scryfallId: 'scryfall_id'
-			// Note: foil/alter/proxy info is in 'extras' column, handled separately
-			// Note: no condition column - will use default condition
-		},
-		transformations: {
-			language: (value: string) => normalizeLanguage(value)
-		}
-	},
-	{
-		name: 'TappedOut',
-		id: 'tappedout',
-		description: 'TappedOut inventory export',
-		hasHeaders: true,
-		columnMappings: {
-			count: 'Qty',
-			name: 'Name',
-			edition: 'Set',
-			condition: 'Condition',
-			language: 'Languange', // Note: they have a typo in their header
-			foil: 'Foil',
-			collectorNumber: 'Set Number',
-			alter: 'Alter',
-			signed: 'Signed',
-			proxy: 'Proxy'
-		},
-		transformations: {
-			condition: (value: string) => normalizeTappedOutCondition(value),
-			language: (value: string) => normalizeTappedOutLanguage(value),
-			foil: (value: string) => normalizeTappedOutFoil(value),
-			alter: (value: string) => normalizeTappedOutBoolean(value),
-			signed: (value: string) => normalizeTappedOutBoolean(value),
-			proxy: (value: string) => normalizeTappedOutBoolean(value)
-		}
-	},
-	{
-		name: 'Cardsphere',
-		id: 'cardsphere',
-		description: 'Cardsphere collection export',
-		hasHeaders: true,
-		columnMappings: {
-			count: 'Count',
-			name: 'Name',
-			edition: 'Edition',
-			condition: 'Condition',
-			language: 'Language',
-			foil: 'Foil',
-			tags: 'Tags',
-			scryfallId: 'Scryfall ID',
-			lastModified: 'Last Modified',
-			tradelistCount: 'Tradelist Count'
-		},
-		transformations: {
-			condition: (value: string) => normalizeCardsphereCondition(value),
-			language: (value: string) => normalizeLanguage(value),
-			foil: (value: string) => normalizeCardsphereFoil(value),
-			edition: (value: string) => normalizeCardsphereEdition(value)
-		}
-	},
-	{
 		name: 'Generic CSV',
 		id: 'generic',
 		description: 'Generic CSV format with common column names',
@@ -388,6 +263,106 @@ export const CSV_FORMATS: CsvFormat[] = [
 		}
 	},
 	{
+		name: 'Helvault',
+		id: 'helvault',
+		description: 'Helvault collection export with complex tags',
+		hasHeaders: true,
+		columnMappings: {
+			count: 'quantity',
+			name: 'name',
+			edition: 'set_code',
+			language: 'language',
+			collectorNumber: 'collector_number',
+			purchasePrice: 'estimated_price',
+			scryfallId: 'scryfall_id'
+			// Note: foil/alter/proxy info is in 'extras' column, handled separately
+			// Note: no condition column - will use default condition
+		},
+		transformations: {
+			language: (value: string) => normalizeLanguage(value)
+		}
+	},
+	{
+		name: 'ManaBox',
+		id: 'manabox',
+		description: 'ManaBox mobile app collection export',
+		hasHeaders: true,
+		columnMappings: {
+			count: 'Quantity',
+			name: 'Name',
+			edition: 'Set code',
+			condition: 'Condition',
+			language: 'Language',
+			foil: 'Foil',
+			purchasePrice: 'Purchase price',
+			collectorNumber: 'Collector number',
+			scryfallId: 'Scryfall ID',
+			// Additional ManaBox columns for better detection
+			binderName: 'Binder Name',
+			binderType: 'Binder Type',
+			setName: 'Set name',
+			rarity: 'Rarity',
+			manaboxId: 'ManaBox ID',
+			misprint: 'Misprint',
+			altered: 'Altered',
+			purchasePriceCurrency: 'Purchase price currency'
+		},
+		transformations: {
+			condition: (value: string) => normalizeManaBoxCondition(value),
+			language: (value: string) => normalizeManaBoxLanguage(value),
+			foil: (value: string) => (value.toLowerCase() === 'foil' ? 'foil' : '')
+		}
+	},
+	{
+		name: 'Moxfield',
+		id: 'moxfield',
+		description: 'Moxfield collection export (passthrough)',
+		hasHeaders: true,
+		columnMappings: {
+			count: 'Count',
+			name: 'Name',
+			edition: 'Edition',
+			condition: 'Condition',
+			language: 'Language',
+			foil: 'Foil',
+			purchasePrice: 'Purchase Price',
+			collectorNumber: 'Collector Number',
+			// Additional Moxfield-specific columns
+			tradelistCount: 'Tradelist Count',
+			tags: 'Tags',
+			lastModified: 'Last Modified',
+			alter: 'Alter',
+			proxy: 'Proxy'
+		},
+		transformations: {
+			condition: (value: string) => normalizeCondition(value),
+			language: (value: string) => normalizeLanguage(value),
+			foil: (value: string) =>
+				value.toLowerCase() === 'foil' || value.toLowerCase() === 'true' ? 'foil' : ''
+		}
+	},
+	{
+		name: 'MTGO (.csv)',
+		id: 'mtgo-csv',
+		description: 'Magic Online collection CSV export',
+		hasHeaders: true,
+		columnMappings: {
+			count: 'Quantity',
+			name: 'Card Name',
+			edition: 'Set',
+			collectorNumber: 'Collector #',
+			foil: 'Premium',
+			mtgoId: 'ID #'
+		},
+		transformations: {
+			foil: (value: string) => (value.toLowerCase() === 'yes' ? 'foil' : ''),
+			collectorNumber: (value: string) => {
+				// MTGO format is like "7/269", extract just the number
+				return value.split('/')[0] || value;
+			}
+		}
+	},
+	{
 		name: 'Simple Test Format',
 		id: 'simple-test',
 		description: 'Simple format for testing fuzzy set matching',
@@ -396,6 +371,52 @@ export const CSV_FORMATS: CsvFormat[] = [
 			count: 'Quantity',
 			name: 'Name',
 			editionName: 'Set' // Uses editionName to trigger fuzzy matching
+		}
+	},
+	{
+		name: 'TappedOut',
+		id: 'tappedout',
+		description: 'TappedOut inventory export',
+		hasHeaders: true,
+		columnMappings: {
+			count: 'Qty',
+			name: 'Name',
+			edition: 'Set',
+			condition: 'Condition',
+			language: 'Languange', // Note: they have a typo in their header
+			foil: 'Foil',
+			collectorNumber: 'Set Number',
+			alter: 'Alter',
+			signed: 'Signed',
+			proxy: 'Proxy'
+		},
+		transformations: {
+			condition: (value: string) => normalizeTappedOutCondition(value),
+			language: (value: string) => normalizeTappedOutLanguage(value),
+			foil: (value: string) => (value.toLowerCase() === 'foil' ? 'foil' : ''),
+			alter: (value: string) => (value.toLowerCase() === 'true' ? 'true' : ''),
+			signed: (value: string) => (value.toLowerCase() === 'true' ? 'true' : ''),
+			proxy: (value: string) => (value.toLowerCase() === 'true' ? 'true' : '')
+		}
+	},
+	{
+		name: 'TCGPlayer',
+		id: 'tcgplayer',
+		description: 'TCGPlayer collection export',
+		hasHeaders: true,
+		columnMappings: {
+			count: 'Quantity',
+			name: 'Simple Name',
+			edition: 'Set Code',
+			condition: 'Condition',
+			language: 'Language',
+			foil: 'Foil',
+			collectorNumber: 'Card Number'
+		},
+		transformations: {
+			condition: (value: string) => normalizeCondition(value),
+			language: (value: string) => normalizeTCGPlayerLanguage(value),
+			foil: (value: string) => (value.toLowerCase() === 'true' ? 'foil' : '')
 		}
 	}
 ];
@@ -764,6 +785,15 @@ function parseCSV(text: string, format: CsvFormat): ParsedCard[] {
 			});
 		}
 
+		// Parse multiverse ID if present (do this early so it's available for all cards)
+		// Skip for Decked Builder since Mvid is not a real multiverse ID
+		if (format.id !== 'decked-builder') {
+			const multiverseIdStr = getColumnValue(originalData, format.columnMappings.multiverseId, '');
+			if (multiverseIdStr) {
+				card.multiverseId = parseInt(multiverseIdStr) || undefined;
+			}
+		}
+
 		// Special handling for Cardsphere etched foils
 		if (format.id === 'cardsphere') {
 			// Check if the original edition had "Etched Foil" suffix
@@ -774,14 +804,42 @@ function parseCSV(text: string, format: CsvFormat): ParsedCard[] {
 			}
 		}
 
+		// Special handling for Decked Builder quantity splitting
+		if (format.id === 'decked-builder') {
+			const regQtyStr = getColumnValue(originalData, format.columnMappings.regQty, '0');
+			const foilQtyStr = getColumnValue(originalData, format.columnMappings.foilQty, '0');
+			const regQty = parseInt(regQtyStr) || 0;
+			const foilQty = parseInt(foilQtyStr) || 0;
+
+			// Skip this card if no quantities
+			if (regQty === 0 && foilQty === 0) {
+				continue;
+			}
+
+			// Create separate entries for regular and foil copies
+			if (regQty > 0) {
+				const regularCard = { ...card };
+				regularCard.count = regQty;
+				regularCard.foil = '';
+				regularCard.needsLookup =
+					!regularCard.scryfallId && !regularCard.multiverseId && !regularCard.mtgoId;
+				cards.push(regularCard);
+			}
+
+			if (foilQty > 0) {
+				const foilCard = { ...card };
+				foilCard.count = foilQty;
+				foilCard.foil = 'foil';
+				foilCard.needsLookup = !foilCard.scryfallId && !foilCard.multiverseId && !foilCard.mtgoId;
+				cards.push(foilCard);
+			}
+
+			// Skip the normal card.push() at the end since we've already added our cards
+			continue;
+		}
+
 		// Set needsLookup based on available identifiers
 		card.needsLookup = !card.scryfallId && !card.multiverseId && !card.mtgoId;
-
-		// Parse multiverse ID if present
-		const multiverseIdStr = getColumnValue(originalData, format.columnMappings.multiverseId, '');
-		if (multiverseIdStr) {
-			card.multiverseId = parseInt(multiverseIdStr) || undefined;
-		}
 
 		cards.push(card);
 	}
@@ -989,6 +1047,7 @@ function getUniqueIdentifiers(formatId: string): string[] {
 		],
 		delver: [], // DelverLens is pretty generic
 		tcgplayer: ['tcgplayer id', 'category', 'number'],
+		'decked-builder': ['total qty', 'reg qty', 'foil qty', 'single price', 'single foil price'],
 		cardsphere: ['have', 'want'],
 		mtgo: ['premium', 'trade restriction'],
 		tappedout: ['languange'], // Note: TappedOut has a typo in their header
@@ -1513,21 +1572,39 @@ export function createConverterEngine(): ConverterEngine {
 				throw error;
 			}
 
-			logDebug(`Parsed ${cards.length} cards from CSV`); // Convert cards
+			logDebug(`Parsed ${cards.length} cards from CSV`);
+
+			// Consolidate identical cards to avoid duplicate entries
+			const consolidatedCards = consolidateIdenticalCards(cards);
+			if (consolidatedCards.length !== cards.length) {
+				logDebug(
+					`Consolidated ${cards.length} cards into ${consolidatedCards.length} unique entries`
+				);
+			}
+
+			// Convert cards
 			try {
 				const results = await lookupCardsInBatches(
-					cards,
+					consolidatedCards,
 					progressCallback,
 					defaultCondition,
 					exportOptions
 				);
 
-				const successCount = results.filter((r) => r.success).length;
-				const failCount = results.length - successCount;
+				// Consolidate identical results after Scryfall lookup
+				const consolidatedResults = consolidateIdenticalResults(results);
+				if (consolidatedResults.length !== results.length) {
+					logDebug(
+						`Consolidated ${results.length} results into ${consolidatedResults.length} unique entries after Scryfall lookup`
+					);
+				}
+
+				const successCount = consolidatedResults.filter((r) => r.success).length;
+				const failCount = consolidatedResults.length - successCount;
 
 				logDebug(`Conversion complete: ${successCount} successful, ${failCount} failed`);
 
-				return results;
+				return consolidatedResults;
 			} catch (error) {
 				const conversionError = new ConversionError(
 					'Failed to process cards with Scryfall API',
@@ -1756,118 +1833,95 @@ async function processCardsWithIds(
 	}
 }
 
-// Cache for Scryfall sets to avoid repeated API calls
-let scryfallSetsCache: ScryfallSet[] | null = null;
-
+/**
+ * Fetches all Scryfall sets for fuzzy matching
+ */
 async function fetchScryfallSets(): Promise<ScryfallSet[]> {
-	if (scryfallSetsCache) {
-		return scryfallSetsCache;
-	}
-
 	try {
 		const response = await fetch('https://api.scryfall.com/sets');
-
 		if (!response.ok) {
 			throw new Error(`HTTP ${response.status}: ${response.statusText}`);
 		}
-
 		const data: ScryfallSetsResponse = await response.json();
-		scryfallSetsCache = data.data;
-
 		logDebug(`Fetched ${data.data.length} Scryfall sets for fuzzy matching`);
 		return data.data;
 	} catch (error) {
 		logError(
-			'Failed to fetch Scryfall sets',
+			'Failed to fetch Scryfall sets for fuzzy matching',
 			error instanceof Error ? error : new Error(String(error))
 		);
 		throw new ConversionError('Failed to fetch Scryfall sets for fuzzy matching');
 	}
 }
 
-async function searchScryfallCard(cardName: string, setCode: string): Promise<ScryfallCard | null> {
-	try {
-		const query = `"${cardName}" e:${setCode}`;
-		const encodedQuery = encodeURIComponent(query);
-		const response = await fetch(`https://api.scryfall.com/cards/search?q=${encodedQuery}`);
+/**
+ * Fuzzy matches a set name to a Scryfall set code
+ */
+function fuzzyMatchSetName(setName: string, scryfallSets: ScryfallSet[]): string | null {
+	const normalizedInput = setName.toLowerCase().trim();
 
-		if (response.status === 404) {
-			// No cards found - this is expected for failed matches
-			return null;
-		}
-
-		if (!response.ok) {
-			throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-		}
-
-		const data = await response.json();
-
-		// Return the first result if any cards were found
-		if (data.data && data.data.length > 0) {
-			logDebug(`Found card via fuzzy set matching: ${cardName} in ${setCode}`);
-			return data.data[0];
-		}
-
-		return null;
-	} catch (error) {
-		logError(
-			`Failed to search for card: ${cardName} in set ${setCode}`,
-			error instanceof Error ? error : new Error(String(error))
-		);
-		return null;
-	}
-}
-
-function fuzzyMatchSetName(editionName: string, scryfallSets: ScryfallSet[]): ScryfallSet | null {
-	if (!editionName) return null;
-
-	const cleanInput = editionName.toLowerCase().trim();
-
-	// First try exact match
+	// Try exact name match first
 	for (const set of scryfallSets) {
-		if (set.name.toLowerCase() === cleanInput) {
-			return set;
+		if (set.name.toLowerCase() === normalizedInput) {
+			logDebug(`Found exact set match: ${setName} -> ${set.code}`);
+			return set.code;
 		}
 	}
 
-	// Handle World Championship Decks specifically
-	if (cleanInput.includes('world championship deck')) {
-		// Extract year from the input
-		const yearMatch = cleanInput.match(/(\d{4})/);
-		if (yearMatch) {
-			const year = yearMatch[1];
-			const targetName = `world championship decks ${year}`;
-
-			for (const set of scryfallSets) {
-				if (set.name.toLowerCase() === targetName) {
-					logDebug(
-						`Fuzzy matched World Championship Deck: "${editionName}" -> "${set.name}" (${set.code})`
-					);
-					return set;
-				}
-			}
-		}
-	}
-
-	// Try partial matching for other sets
+	// Try exact code match
 	for (const set of scryfallSets) {
-		const setName = set.name.toLowerCase();
-
-		// Check if the set name contains most of the input words
-		const inputWords = cleanInput.split(/\s+/).filter((word) => word.length > 2);
-		const matchedWords = inputWords.filter((word) => setName.includes(word));
-
-		// Require at least 70% of significant words to match
-		if (inputWords.length > 0 && matchedWords.length / inputWords.length >= 0.7) {
-			logDebug(`Fuzzy matched set: "${editionName}" -> "${set.name}" (${set.code})`);
-			return set;
+		if (set.code.toLowerCase() === normalizedInput) {
+			logDebug(`Found exact code match: ${setName} -> ${set.code}`);
+			return set.code;
 		}
 	}
 
-	logDebug(`No fuzzy match found for set: "${editionName}"`);
+	// Try partial name matching
+	for (const set of scryfallSets) {
+		if (
+			set.name.toLowerCase().includes(normalizedInput) ||
+			normalizedInput.includes(set.name.toLowerCase())
+		) {
+			logDebug(`Found fuzzy set match: ${setName} -> ${set.code} (${set.name})`);
+			return set.code;
+		}
+	}
+
+	// Try common set name mappings
+	const commonMappings: Record<string, string> = {
+		alpha: 'lea',
+		beta: 'leb',
+		unlimited: 'c2ed',
+		revised: '3ed',
+		'fourth edition': '4ed',
+		'fifth edition': '5ed',
+		'classic sixth edition': '6ed',
+		'seventh edition': '7ed',
+		'eighth edition': '8ed',
+		'ninth edition': '9ed',
+		'tenth edition': '10e',
+		'magic 2010': 'm10',
+		'magic 2011': 'm11',
+		'magic 2012': 'm12',
+		'magic 2013': 'm13',
+		'magic 2014': 'm14',
+		'magic 2015': 'm15',
+		'magic origins': 'ori'
+	};
+
+	const mappedCode = commonMappings[normalizedInput];
+	if (mappedCode) {
+		logDebug(`Found mapped set: ${setName} -> ${mappedCode}`);
+		return mappedCode;
+	}
+
+	logDebug(`No fuzzy match found for set: ${setName}`);
 	return null;
 }
 
+/**
+ * Processes cards using fuzzy set matching strategy with proper batching
+ */
 async function processFuzzySetStrategy(
 	cards: ParsedCard[],
 	identificationMethod: ConversionResult['identificationMethod'],
@@ -1878,6 +1932,7 @@ async function processFuzzySetStrategy(
 	progressCallback?: ProgressCallback
 ): Promise<void> {
 	if (cards.length === 0) return;
+
 	// Fetch Scryfall sets once for this batch
 	let scryfallSets: ScryfallSet[];
 	try {
@@ -1902,9 +1957,10 @@ async function processFuzzySetStrategy(
 		return;
 	}
 
-	for (let i = 0; i < cards.length; i++) {
-		const card = cards[i];
+	// First pass: fuzzy match set names and prepare cards for batching
+	const cardsWithMatchedSets: Array<{ card: ParsedCard; setCode: string }> = [];
 
+	for (const card of cards) {
 		if (!card.editionName || !card.name) {
 			results.push({
 				originalCard: card,
@@ -1916,81 +1972,447 @@ async function processFuzzySetStrategy(
 			});
 			continue;
 		}
-		// Try to fuzzy match the edition name to a Scryfall set
-		const matchedSet = fuzzyMatchSetName(card.editionName!, scryfallSets);
 
-		if (!matchedSet) {
+		// Try to fuzzy match the edition name to a Scryfall set
+		const matchedSetCode = fuzzyMatchSetName(card.editionName!, scryfallSets);
+
+		if (!matchedSetCode) {
 			results.push({
 				originalCard: card,
 				moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
 				success: false,
-				error: `No fuzzy match found for edition: "${card.editionName}"`,
+				error: `Could not match set name: ${card.editionName}`,
 				confidence: 'low',
 				identificationMethod: 'failed'
 			});
 			continue;
 		}
 
-		// Try to find the card in the matched set
-		await delay(RATE_LIMIT_DELAY); // Respect rate limit
-		const scryfallCard = await searchScryfallCard(card.name, matchedSet.code);
+		cardsWithMatchedSets.push({ card, setCode: matchedSetCode });
+	}
 
-		if (scryfallCard) {
-			results.push({
-				originalCard: card,
-				scryfallCard,
-				moxfieldRow: createMoxfieldRow(card, scryfallCard, defaultCondition),
-				success: true,
-				confidence,
-				identificationMethod
-			});
-		} else {
-			results.push({
-				originalCard: card,
-				moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
-				success: false,
-				error: `Card "${card.name}" not found in fuzzy-matched set "${matchedSet.name}" (${matchedSet.code})`,
-				confidence: 'low',
-				identificationMethod: 'failed'
+	// Second pass: batch lookup cards using collection endpoint
+	if (cardsWithMatchedSets.length > 0) {
+		await processFuzzySetCardsBatched(
+			cardsWithMatchedSets,
+			results,
+			identificationMethod,
+			confidence,
+			defaultCondition,
+			progressCallback
+		);
+	}
+}
+
+/**
+ * Processes fuzzy matched cards in batches using the collection endpoint
+ */
+async function processFuzzySetCardsBatched(
+	cardsWithSets: Array<{ card: ParsedCard; setCode: string }>,
+	results: ConversionResult[],
+	identificationMethod: ConversionResult['identificationMethod'],
+	confidence: ConversionResult['confidence'],
+	defaultCondition?: string,
+	progressCallback?: ProgressCallback
+): Promise<void> {
+	// Process in batches of up to 75 (Scryfall collection endpoint limit)
+	for (let i = 0; i < cardsWithSets.length; i += BATCH_SIZE) {
+		const batch = cardsWithSets.slice(i, i + BATCH_SIZE);
+
+		// Create identifiers for this batch
+		const identifiers: CardIdentifier[] = batch.map(({ card, setCode }) => ({
+			name: extractFrontFaceName(card.name),
+			set: setCode.toLowerCase()
+		}));
+
+		try {
+			logDebug(`Fuzzy batch lookup: ${identifiers.length} cards`);
+			const response = await fetchScryfallCollection(identifiers);
+			await delay(RATE_LIMIT_DELAY); // Respect rate limit
+
+			// Match results back to original cards
+			for (let j = 0; j < batch.length; j++) {
+				const { card, setCode } = batch[j];
+
+				// Find matching cards in response
+				const matchingCards = response.data.filter((scryfallCard) => {
+					// Match by name and set
+					const cardName = extractFrontFaceName(card.name).toLowerCase();
+					const scryfallName = extractFrontFaceName(scryfallCard.name).toLowerCase();
+					return (
+						scryfallName === cardName && scryfallCard.set.toLowerCase() === setCode.toLowerCase()
+					);
+				});
+
+				if (matchingCards.length > 0) {
+					const scryfallCard = selectBestCardMatch(card, matchingCards);
+					results.push({
+						originalCard: card,
+						scryfallCard,
+						moxfieldRow: createMoxfieldRow(card, scryfallCard, defaultCondition),
+						success: true,
+						confidence,
+						identificationMethod
+					});
+					logDebug(`Found card via fuzzy set matching: ${card.name} in ${setCode}`);
+				} else {
+					// Card not found in collection endpoint, try search endpoint as fallback
+					await trySearchEndpointFallback(
+						card,
+						setCode,
+						results,
+						confidence,
+						identificationMethod,
+						defaultCondition
+					);
+				}
+			}
+		} catch (error) {
+			// Mark all cards in this batch as failed
+			batch.forEach(({ card }) => {
+				results.push({
+					originalCard: card,
+					moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
+					success: false,
+					error: `Scryfall API error: ${error instanceof Error ? error.message : String(error)}`,
+					confidence: 'low',
+					identificationMethod: 'failed'
+				});
 			});
 		}
-		// Report progress
+
+		// Update progress
 		if (progressCallback) {
-			const progress = ((i + 1) / cards.length) * 100;
+			const progress = ((i + batch.length) / cardsWithSets.length) * 100;
 			progressCallback(Math.min(100, progress));
 		}
 	}
 }
 
-function normalizeTappedOutFoil(foil: string): string {
-	// TappedOut uses various foil indicators
-	const lowerFoil = foil.toLowerCase().trim();
-	if (lowerFoil === 'foil' || lowerFoil === 'yes' || lowerFoil === '1' || lowerFoil === 'true') {
-		return 'foil';
+/**
+ * Fallback to search endpoint for cards not found via collection endpoint
+ */
+async function trySearchEndpointFallback(
+	card: ParsedCard,
+	setCode: string,
+	results: ConversionResult[],
+	confidence: ConversionResult['confidence'],
+	identificationMethod: ConversionResult['identificationMethod'],
+	defaultCondition?: string
+): Promise<void> {
+	try {
+		const cardName = extractFrontFaceName(card.name);
+		const query = `!"${cardName}" set:${setCode}`;
+
+		const response = await fetch(
+			`https://api.scryfall.com/cards/search?q=${encodeURIComponent(query)}`
+		);
+		await delay(RATE_LIMIT_DELAY);
+
+		if (response.ok) {
+			const data = await response.json();
+			if (data.data && data.data.length > 0) {
+				const scryfallCard = selectBestCardMatch(card, data.data);
+				results.push({
+					originalCard: card,
+					scryfallCard,
+					moxfieldRow: createMoxfieldRow(card, scryfallCard, defaultCondition),
+					success: true,
+					confidence,
+					identificationMethod
+				});
+				logDebug(`Found card via search fallback: ${card.name} in ${setCode}`);
+				return;
+			}
+		}
+	} catch (error) {
+		logDebug(`Search fallback failed for ${card.name}: ${error}`);
 	}
-	return '';
+
+	// If we get here, both collection and search failed
+	results.push({
+		originalCard: card,
+		moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
+		success: false,
+		error: `Card not found: ${card.name} in set ${setCode}`,
+		confidence: 'low',
+		identificationMethod: 'failed'
+	});
 }
 
-function normalizeTappedOutBoolean(value: string): string {
-	// TappedOut uses various boolean indicators for alter, proxy, signed
-	const lowerValue = value.toLowerCase().trim();
-	if (lowerValue === 'yes' || lowerValue === '1' || lowerValue === 'true' || lowerValue === 'x') {
-		return 'True';
+/**
+ * Selects the best card match from multiple Scryfall results
+ */
+function selectBestCardMatch(card: ParsedCard, scryfallCards: ScryfallCard[]): ScryfallCard {
+	if (scryfallCards.length === 1) {
+		return scryfallCards[0];
 	}
-	return 'False';
+
+	// Prefer exact name matches
+	const exactNameMatches = scryfallCards.filter(
+		(sc) => sc.name.toLowerCase() === card.name.toLowerCase()
+	);
+	if (exactNameMatches.length === 1) {
+		return exactNameMatches[0];
+	}
+
+	// Prefer matches with collector number if available
+	if (card.collectorNumber) {
+		const collectorMatches = scryfallCards.filter(
+			(sc) => sc.collector_number === card.collectorNumber
+		);
+		if (collectorMatches.length > 0) {
+			return collectorMatches[0];
+		}
+	}
+
+	// For DFC cards, prefer front face matches
+	if (card.name.includes(' // ')) {
+		const frontFaceName = extractFrontFaceName(card.name);
+		const frontFaceMatches = scryfallCards.filter(
+			(sc) => sc.name.toLowerCase() === frontFaceName.toLowerCase()
+		);
+		if (frontFaceMatches.length > 0) {
+			return frontFaceMatches[0];
+		}
+	}
+
+	// Prefer cards that contain the search name
+	const nameContainsMatches = scryfallCards.filter((sc) =>
+		sc.name.toLowerCase().includes(card.name.toLowerCase())
+	);
+	if (nameContainsMatches.length > 0) {
+		return nameContainsMatches[0];
+	}
+
+	// If name is contained in any card name
+	const containsNameMatches = scryfallCards.filter((sc) =>
+		card.name.toLowerCase().includes(sc.name.toLowerCase())
+	);
+	if (containsNameMatches.length > 0) {
+		return containsNameMatches[0];
+	}
+
+	return scryfallCards[0]; // Default to first result
 }
 
-function normalizeCardsphereFoil(foil: string): string {
-	// Cardsphere uses 'F' for foil/etched and 'N' for non-foil
-	if (foil === 'F') return 'foil';
-	return '';
+/**
+ * Consolidates identical cards by summing their counts.
+ * Only consolidates cards where ALL fields are identical except for count.
+ * This prevents data loss by being extremely conservative about what constitutes "identical".
+ */
+function consolidateIdenticalCards(cards: ParsedCard[]): ParsedCard[] {
+	if (cards.length <= 1) return cards;
+
+	const consolidated: ParsedCard[] = [];
+	const processedIndices = new Set<number>();
+
+	for (let i = 0; i < cards.length; i++) {
+		if (processedIndices.has(i)) continue;
+
+		const baseCard = cards[i];
+		let totalCount = baseCard.count;
+		const identicalIndices = [i];
+
+		// Find all identical cards
+		for (let j = i + 1; j < cards.length; j++) {
+			if (processedIndices.has(j)) continue;
+
+			const compareCard = cards[j];
+
+			// Check if cards are truly identical (except for count)
+			if (areCardsIdentical(baseCard, compareCard)) {
+				totalCount += compareCard.count;
+				identicalIndices.push(j);
+			}
+		}
+
+		// Mark all identical cards as processed
+		identicalIndices.forEach((idx) => processedIndices.add(idx));
+
+		// Create consolidated card
+		const consolidatedCard = { ...baseCard };
+		consolidatedCard.count = totalCount;
+		consolidated.push(consolidatedCard);
+
+		if (identicalIndices.length > 1) {
+			logDebug(
+				`Consolidated ${identicalIndices.length} identical cards: ${baseCard.name} (total count: ${totalCount})`
+			);
+		}
+	}
+
+	return consolidated;
 }
 
-function normalizeCardsphereEdition(edition: string): string {
-	// Handle the etched foil edge case where Cardsphere appends "Etched Foil" to edition names
-	// This helps disambiguate cards that share Scryfall IDs between regular and etched versions
-	if (edition.endsWith(' Etched Foil')) {
-		return edition.slice(0, -12); // Remove " Etched Foil" suffix
+/**
+ * Checks if two cards are identical in all fields except count.
+ * This is extremely conservative to prevent any data loss.
+ */
+function areCardsIdentical(card1: ParsedCard, card2: ParsedCard): boolean {
+	// List of all fields to compare (excluding count)
+	const fieldsToCompare: (keyof ParsedCard)[] = [
+		'name',
+		'edition',
+		'editionName',
+		'condition',
+		'language',
+		'foil',
+		'tags',
+		'purchasePrice',
+		'collectorNumber',
+		'tradelistCount',
+		'lastModified',
+		'alter',
+		'proxy',
+		'signed',
+		'notes',
+		'scryfallId',
+		'multiverseId',
+		'mtgoId',
+		'needsLookup',
+		'conversionStatus',
+		'error'
+	];
+
+	// Compare each field
+	for (const field of fieldsToCompare) {
+		const val1 = card1[field];
+		const val2 = card2[field];
+
+		// Handle undefined/null/empty string equivalency for string fields
+		if (typeof val1 === 'string' || typeof val2 === 'string') {
+			const norm1 = val1 || '';
+			const norm2 = val2 || '';
+			if (norm1 !== norm2) return false;
+		} else {
+			// For non-string fields, require exact equality
+			if (val1 !== val2) return false;
+		}
 	}
-	return edition;
+
+	// Additional check: compare originalData objects if they exist
+	if (card1.originalData && card2.originalData) {
+		const keys1 = Object.keys(card1.originalData);
+		const keys2 = Object.keys(card2.originalData);
+
+		if (keys1.length !== keys2.length) return false;
+
+		for (const key of keys1) {
+			if (card1.originalData[key] !== card2.originalData[key]) return false;
+		}
+	} else if (card1.originalData !== card2.originalData) {
+		// One has originalData, the other doesn't
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * Consolidates identical conversion results by summing their counts.
+ * This is applied after Scryfall lookup to combine results that resolve to the same card.
+ */
+function consolidateIdenticalResults(results: ConversionResult[]): ConversionResult[] {
+	if (results.length <= 1) return results;
+
+	const consolidated: ConversionResult[] = [];
+	const processedIndices = new Set<number>();
+
+	for (let i = 0; i < results.length; i++) {
+		if (processedIndices.has(i)) continue;
+
+		const baseResult = results[i];
+		let totalCount = parseInt(baseResult.moxfieldRow.Count) || 0;
+		const identicalIndices = [i];
+
+		// Find all identical results
+		for (let j = i + 1; j < results.length; j++) {
+			if (processedIndices.has(j)) continue;
+
+			const compareResult = results[j];
+
+			// Check if results are truly identical (except for count)
+			if (areResultsIdentical(baseResult, compareResult)) {
+				totalCount += parseInt(compareResult.moxfieldRow.Count) || 0;
+				identicalIndices.push(j);
+			}
+		}
+
+		// Mark all identical results as processed
+		identicalIndices.forEach((idx) => processedIndices.add(idx));
+
+		// Create consolidated result
+		const consolidatedResult = { ...baseResult };
+		consolidatedResult.moxfieldRow = { ...baseResult.moxfieldRow };
+		consolidatedResult.moxfieldRow.Count = totalCount.toString();
+		consolidated.push(consolidatedResult);
+
+		if (identicalIndices.length > 1) {
+			logDebug(
+				`Consolidated ${identicalIndices.length} identical results: ${baseResult.moxfieldRow.Name} (total count: ${totalCount})`
+			);
+		}
+	}
+
+	return consolidated;
+}
+
+/**
+ * Checks if two conversion results are identical in all meaningful fields except count.
+ * This focuses on the final Moxfield row data to determine if entries should be consolidated.
+ */
+function areResultsIdentical(result1: ConversionResult, result2: ConversionResult): boolean {
+	// Both must have same success status
+	if (result1.success !== result2.success) return false;
+
+	// If both failed, compare error messages
+	if (!result1.success && !result2.success) {
+		return result1.error === result2.error;
+	}
+
+	// If both succeeded, compare the moxfield row data (excluding count fields)
+	if (result1.success && result2.success) {
+		const row1 = result1.moxfieldRow;
+		const row2 = result2.moxfieldRow;
+
+		// List of fields to compare (excluding count-related fields)
+		const fieldsToCompare = [
+			'Name',
+			'Edition',
+			'Condition',
+			'Language',
+			'Foil',
+			'Tags',
+			'Collector Number',
+			'Alter',
+			'Proxy',
+			'Signed',
+			'Purchase Price'
+			// Note: We intentionally exclude 'Count' and 'Tradelist Count'
+		];
+
+		for (const field of fieldsToCompare) {
+			const val1 = row1[field] || '';
+			const val2 = row2[field] || '';
+			if (val1 !== val2) return false;
+		}
+
+		// Also compare any additional fields that might exist (like price/ID fields)
+		const allKeys = new Set([...Object.keys(row1), ...Object.keys(row2)]);
+		for (const key of allKeys) {
+			// Skip count fields and already compared fields
+			if (key === 'Count' || key === 'Tradelist Count' || fieldsToCompare.includes(key)) {
+				continue;
+			}
+
+			const val1 = row1[key] || '';
+			const val2 = row2[key] || '';
+			if (val1 !== val2) return false;
+		}
+
+		return true;
+	}
+
+	return false;
 }

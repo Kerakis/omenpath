@@ -456,6 +456,10 @@
 												<tr>
 													<th
 														class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+														>Count</th
+													>
+													<th
+														class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
 														>Name</th
 													>
 													<th
@@ -550,6 +554,15 @@
 																? 'border-red-200 bg-red-50 dark:border-red-700 dark:bg-red-900/20'
 																: 'bg-white dark:bg-gray-800'}"
 													>
+														<td
+															class="px-2 py-1 {card.confidence === 'low'
+																? 'text-amber-700 dark:text-amber-400'
+																: !card.success
+																	? 'text-red-700 dark:text-red-400'
+																	: 'text-gray-900 dark:text-gray-100'}"
+														>
+															{card.moxfieldRow?.Count || card.originalCard?.count || '1'}
+														</td>
 														<td
 															class="px-2 py-1 font-medium {card.confidence === 'low'
 																? 'text-amber-900 dark:text-amber-300'
