@@ -1,0 +1,8 @@
+cmc,collector_number,color_identity,colors,estimated_price,extras,language,mana_cost,name,oracle_id,quantity,rarity,scryfall_id,set_code,set_name,type_line
+"0.0","11","C","C","-1.0","","en","","Aeromoeba // Aeromoeba","","1","common","10527c8f-efcc-4b25-b637-47c084d4f462","amh2","Modern Horizons 2 Art Series","Card"
+"4.0","389","U","U","0.08","signed/alteredArt","en","{3}{U}","Aeromoeba","1e276998-9c54-4d68-a901-657853312d06","1","common","25de0eb6-94f5-440f-8201-cc7dad2f0805","mh2","Modern Horizons 2","Creature — Elemental Beast"
+"4.0","389","U","U","0.08","proxy/signed/alteredArt","en","{3}{U}","Aeromoeba","1e276998-9c54-4d68-a901-657853312d06","1","common","25de0eb6-94f5-440f-8201-cc7dad2f0805","mh2","Modern Horizons 2","Creature — Elemental Beast"
+"4.0","389","U","U","0.02","preRelease/foil","en","{3}{U}","Aeromoeba","1e276998-9c54-4d68-a901-657853312d06","1","common","25de0eb6-94f5-440f-8201-cc7dad2f0805","mh2","Modern Horizons 2","Creature — Elemental Beast"
+"4.0","389","U","U","0.08","","en","{3}{U}","Aeromoeba","1e276998-9c54-4d68-a901-657853312d06","4","common","25de0eb6-94f5-440f-8201-cc7dad2f0805","mh2","Modern Horizons 2","Creature — Elemental Beast"
+"4.0","389","U","U","0.02","foil","en","{3}{U}","Aeromoeba","1e276998-9c54-4d68-a901-657853312d06","2","common","25de0eb6-94f5-440f-8201-cc7dad2f0805","mh2","Modern Horizons 2","Creature — Elemental Beast"
+"4.0","389","U","U","0.19","etchedFoil","en","{3}{U}","Aeromoeba","1e276998-9c54-4d68-a901-657853312d06","3","common","25de0eb6-94f5-440f-8201-cc7dad2f0805","mh2","Modern Horizons 2","Creature — Elemental Beast"

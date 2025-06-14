@@ -653,31 +653,36 @@ function parseComplexTags(tagsString: string): {
 	foil: string;
 	alter: string;
 	proxy: string;
+	signed: string;
 	notes: string;
 } {
 	if (!tagsString) {
-		return { foil: '', alter: '', proxy: '', notes: '' };
+		return { foil: '', alter: 'False', proxy: 'False', signed: 'False', notes: '' };
 	}
 
 	const tags = tagsString
 		.toLowerCase()
 		.split('/')
 		.map((t) => t.trim());
-	const result = { foil: '', alter: '', proxy: '', notes: '' };
+	const result = { foil: '', alter: 'False', proxy: 'False', signed: 'False', notes: '' };
 	const extraTags: string[] = [];
-
 	for (const tag of tags) {
+		// Exact matches for foil types (verbatim as specified)
 		if (tag === 'foil') {
 			result.foil = 'foil';
-		} else if (tag === 'etched') {
-			result.foil = 'etched';
-		} else if (tag.includes('alter') || tag.includes('art')) {
+		} else if (tag === 'etchedfoil') {
+			result.foil = 'etched'; // Treat etched foil as etched finish
+		}
+		// Fuzzy matches for other attributes
+		else if (tag.includes('altered') || tag.includes('alteredart')) {
 			result.alter = 'True';
-		} else if (tag === 'proxy') {
+		} else if (tag.includes('proxy')) {
 			result.proxy = 'True';
-		} else if (tag === 'signed' || tag.includes('sign')) {
-			extraTags.push('signed');
-		} else if (tag && tag !== 'none' && tag !== 'normal') {
+		} else if (tag.includes('signed')) {
+			result.signed = 'True';
+		}
+		// Ignore other tags like 'prerelease', etc. but keep them for notes
+		else if (tag && tag !== 'none' && tag !== 'normal' && tag !== '') {
 			extraTags.push(tag);
 		}
 	}
@@ -685,7 +690,6 @@ function parseComplexTags(tagsString: string): {
 	if (extraTags.length > 0) {
 		result.notes = extraTags.join(', ');
 	}
-
 	return result;
 }
 
@@ -776,7 +780,9 @@ function parseCSV(text: string, format: CsvFormat): ParsedCard[] {
 			values.forEach((value, index) => {
 				originalData[`column_${index}`] = value;
 			});
-		} // Extract and normalize card data
+		}
+
+		// Extract and normalize card data
 		const card: ParsedCard = {
 			originalData,
 			count: parseInt(getColumnValue(originalData, format.columnMappings.count, '1')) || 1,
@@ -794,10 +800,10 @@ function parseCSV(text: string, format: CsvFormat): ParsedCard[] {
 			lastModified: getColumnValue(originalData, format.columnMappings.lastModified, ''),
 			alter: getColumnValue(originalData, format.columnMappings.alter, ''),
 			proxy: getColumnValue(originalData, format.columnMappings.proxy, ''),
+			signed: getColumnValue(originalData, format.columnMappings.signed, ''),
 			tags: getColumnValue(originalData, format.columnMappings.tags, ''),
 			needsLookup: true
 		};
-
 		// Handle complex tags (like Helvault's "extras" column: "foil/alteredArt/proxy")
 		const extrasColumn = getColumnValue(originalData, 'extras', '');
 		if (extrasColumn) {
@@ -805,6 +811,7 @@ function parseCSV(text: string, format: CsvFormat): ParsedCard[] {
 			if (complexTags.foil && !card.foil) card.foil = complexTags.foil;
 			if (complexTags.alter && !card.alter) card.alter = complexTags.alter;
 			if (complexTags.proxy && !card.proxy) card.proxy = complexTags.proxy;
+			if (complexTags.signed && !card.signed) card.signed = complexTags.signed;
 			if (complexTags.notes) card.notes = complexTags.notes;
 		}
 
