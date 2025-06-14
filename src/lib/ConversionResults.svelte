@@ -176,6 +176,7 @@
 			mtgo_id: 'MTGO ID',
 			set_collector: 'Set + Collector #',
 			name_set: 'Name + Set',
+			fuzzy_set: 'Fuzzy Set Match',
 			name_only: 'Name Only',
 			failed: 'Failed'
 		};
@@ -218,13 +219,15 @@
 	}
 </script>
 
-<div class="rounded-lg bg-white p-6 shadow-lg">
-	<h2 class="mb-4 text-2xl font-semibold text-gray-800">Conversion Results</h2>
+<div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+	<h2 class="mb-4 text-2xl font-semibold text-gray-800 dark:text-gray-200">Conversion Results</h2>
 
 	{#if errors.length > 0}
-		<div class="mb-6 rounded-md border border-red-200 bg-red-50 p-4">
-			<h3 class="mb-2 text-lg font-medium text-red-800">⚠️ Errors</h3>
-			<ul class="space-y-1 text-sm text-red-700">
+		<div
+			class="mb-6 rounded-md border border-red-200 bg-red-50 p-4 dark:border-red-700 dark:bg-red-900/20"
+		>
+			<h3 class="mb-2 text-lg font-medium text-red-800 dark:text-red-300">⚠️ Errors</h3>
+			<ul class="space-y-1 text-sm text-red-700 dark:text-red-400">
 				{#each errors as error}
 					<li>• {error}</li>
 				{/each}
@@ -236,16 +239,17 @@
 			{@const stats = getStats(result)}
 			{@const confidenceStats = getConfidenceStats(result)}
 			{@const methods = getIdentificationMethods(result)}
-
-			<div class="rounded-lg border border-gray-200 p-4">
+			<div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
 				<div class="mb-3 flex items-start justify-between">
 					<div>
-						<h3 class="text-lg font-medium text-gray-800">
+						<h3 class="text-lg font-medium text-gray-800 dark:text-gray-200">
 							{result.filename}
 						</h3>
 
 						{#if result.success}
-							<div class="mt-1 flex items-center space-x-4 text-sm text-gray-600">
+							<div
+								class="mt-1 flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400"
+							>
 								<span class="flex items-center">
 									<svg
 										class="mr-1 h-4 w-4 text-green-500"
@@ -283,7 +287,7 @@
 								{/if}
 							</div>
 						{:else}
-							<div class="mt-1 flex items-center text-sm text-red-600">
+							<div class="mt-1 flex items-center text-sm text-red-600 dark:text-red-400">
 								<svg class="mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path
 										stroke-linecap="round"
@@ -318,19 +322,19 @@
 				{#if result.success && stats.total > 0}
 					<div class="space-y-3">
 						<!-- Basic Stats -->
-						<div class="rounded bg-gray-50 p-3">
+						<div class="rounded bg-gray-50 p-3 dark:bg-gray-700">
 							<div class="grid grid-cols-3 gap-4 text-sm">
 								<div>
-									<span class="font-medium text-gray-700">Total Cards:</span>
-									<span class="text-gray-900">{stats.total}</span>
+									<span class="font-medium text-gray-700 dark:text-gray-300">Total Cards:</span>
+									<span class="text-gray-900 dark:text-gray-100">{stats.total}</span>
 								</div>
 								<div>
-									<span class="font-medium text-green-700">Successful:</span>
-									<span class="text-green-900">{stats.successful}</span>
+									<span class="font-medium text-green-700 dark:text-green-400">Successful:</span>
+									<span class="text-green-900 dark:text-green-300">{stats.successful}</span>
 								</div>
 								<div>
-									<span class="font-medium text-red-700">Failed:</span>
-									<span class="text-red-900">{stats.failed}</span>
+									<span class="font-medium text-red-700 dark:text-red-400">Failed:</span>
+									<span class="text-red-900 dark:text-red-300">{stats.failed}</span>
 								</div>
 							</div>
 						</div>
@@ -352,49 +356,56 @@
 										></path>
 									</svg>
 									<div class="text-sm">
-										<p class="font-semibold text-amber-800">
+										<p class="font-semibold text-amber-800 dark:text-amber-300">
 											⚠️ {pluralize(confidenceStats.uncertain, 'card')} identified with lower confidence
 										</p>
-										<p class="mt-1 text-amber-700">
+										<p class="mt-1 text-amber-700 dark:text-amber-400">
 											These cards were identified using less precise methods and may not be exactly
 											correct. <strong
 												>Low confidence cards are automatically placed at the top of your downloaded
 												CSV file</strong
 											> and marked in the preview below for easy review.
 										</p>
-										<p class="mt-2 text-xs font-medium text-amber-600">
+										<p class="mt-2 text-xs font-medium text-amber-600 dark:text-amber-400">
 											💡 Review these cards carefully before importing to ensure accuracy.
 										</p>
 									</div>
 								</div>
 							</div>
 						{/if}
-
 						<!-- Confidence Breakdown -->
 						{#if stats.successful > 0}
-							<div class="rounded bg-gray-50 p-3">
-								<h4 class="mb-2 text-sm font-medium text-gray-700">Identification Confidence:</h4>
+							<div class="rounded bg-gray-50 p-3 dark:bg-gray-700">
+								<h4 class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+									Identification Confidence:
+								</h4>
 								<div class="grid grid-cols-3 gap-4 text-sm">
 									<div class="flex items-center">
 										<div class="mr-2 h-3 w-3 rounded-full bg-green-500"></div>
-										<span class="text-gray-700">High: {confidenceStats.high}</span>
+										<span class="text-gray-700 dark:text-gray-300"
+											>High: {confidenceStats.high}</span
+										>
 									</div>
 									<div class="flex items-center">
 										<div class="mr-2 h-3 w-3 rounded-full bg-yellow-500"></div>
-										<span class="text-gray-700">Medium: {confidenceStats.medium}</span>
+										<span class="text-gray-700 dark:text-gray-300"
+											>Medium: {confidenceStats.medium}</span
+										>
 									</div>
 									<div class="flex items-center">
 										<div class="mr-2 h-3 w-3 rounded-full bg-red-500"></div>
-										<span class="text-gray-700">Low: {confidenceStats.low}</span>
+										<span class="text-gray-700 dark:text-gray-300">Low: {confidenceStats.low}</span>
 									</div>
 								</div>
 							</div>
 						{/if}
 						<!-- Identification Methods -->
 						{#if Object.keys(methods).length > 0}
-							<div class="rounded bg-gray-50 p-3">
-								<h4 class="mb-2 text-sm font-medium text-gray-700">Identification Methods Used:</h4>
-								<div class="space-y-1 text-sm text-gray-600">
+							<div class="rounded bg-gray-50 p-3 dark:bg-gray-700">
+								<h4 class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+									Identification Methods Used:
+								</h4>
+								<div class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
 									{#each Object.entries(methods) as [method, count]}
 										<div class="flex justify-between">
 											<span>{getMethodLabel(method)}:</span>
@@ -408,21 +419,25 @@
 						<!-- Results Preview -->
 						{#if stats.successful > 0}
 							{@const sortedResults = getSortedResults(result)}
-							<div class="rounded border border-gray-200 bg-gray-50 p-3">
+							<div
+								class="rounded border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-700"
+							>
 								<div class="mb-2 flex items-center justify-between">
-									<h4 class="text-sm font-medium text-gray-700">Conversion Results Preview</h4>
+									<h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">
+										Conversion Results Preview
+									</h4>
 									<div class="flex items-center gap-3">
-										<label class="flex items-center text-xs text-gray-600">
+										<label class="flex items-center text-xs text-gray-600 dark:text-gray-400">
 											<input
 												type="checkbox"
 												bind:checked={showAdditionalColumns}
-												class="mr-1 rounded border-gray-300"
+												class="mr-1 rounded border-gray-300 dark:border-gray-600"
 											/>
 											Show additional columns
 										</label>
-										<div class="text-xs text-gray-500">
+										<div class="text-xs text-gray-500 dark:text-gray-400">
 											{#if confidenceStats.low > 0}
-												<span class="flex items-center text-amber-600">
+												<span class="flex items-center text-amber-600 dark:text-amber-400">
 													⚠️ Low confidence cards shown first
 												</span>
 											{:else}
@@ -434,129 +449,185 @@
 								</div>
 								<div class="overflow-x-auto">
 									<div
-										class="max-h-96 min-h-32 resize-y overflow-y-auto rounded border border-gray-300 bg-white"
+										class="max-h-96 min-h-32 resize-y overflow-y-auto rounded border border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-800"
 									>
 										<table class="min-w-full text-xs">
-											<thead class="sticky top-0 bg-gray-100">
+											<thead class="sticky top-0 bg-gray-100 dark:bg-gray-700">
 												<tr>
-													<th class="px-2 py-1 text-left font-medium text-gray-700">Name</th>
-													<th class="px-2 py-1 text-left font-medium text-gray-700">Set</th>
-													<th class="px-2 py-1 text-left font-medium text-gray-700">CN</th>
-													<th class="px-2 py-1 text-left font-medium text-gray-700">Condition</th>
-													<th class="px-2 py-1 text-left font-medium text-gray-700">Foil</th>
+													<th
+														class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+														>Name</th
+													>
+													<th
+														class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+														>Set</th
+													>
+													<th
+														class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+														>CN</th
+													>
+													<th
+														class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+														>Condition</th
+													>
+													<th
+														class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+														>Foil</th
+													>
 													{#if showAdditionalColumns}
-														<th class="px-2 py-1 text-left font-medium text-gray-700">Alter</th>
-														<th class="px-2 py-1 text-left font-medium text-gray-700">Proxy</th>
-														<th class="px-2 py-1 text-left font-medium text-gray-700">Signed</th>
-														<th class="px-2 py-1 text-left font-medium text-gray-700">Price</th>
-														<th class="px-2 py-1 text-left font-medium text-gray-700">Lang</th>
+														<th
+															class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+															>Alter</th
+														>
+														<th
+															class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+															>Proxy</th
+														>
+														<th
+															class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+															>Signed</th
+														>
+														<th
+															class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+															>Price</th
+														>
+														<th
+															class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+															>Lang</th
+														>
 														{#if exportOptions?.includeCurrentPrice}
-															<th class="px-2 py-1 text-left font-medium text-gray-700"
+															<th
+																class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
 																>Current Price</th
 															>
 														{/if}
 														{#if exportOptions?.includeMtgoIds}
-															<th class="px-2 py-1 text-left font-medium text-gray-700">MTGO</th>
-															<th class="px-2 py-1 text-left font-medium text-gray-700">MTGO F</th>
+															<th
+																class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+																>MTGO</th
+															>
+															<th
+																class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+																>MTGO F</th
+															>
 														{/if}
 														{#if exportOptions?.includeMultiverseId}
-															<th class="px-2 py-1 text-left font-medium text-gray-700">MV ID</th>
+															<th
+																class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+																>MV ID</th
+															>
 														{/if}
 														{#if exportOptions?.includeTcgPlayerId}
-															<th class="px-2 py-1 text-left font-medium text-gray-700">TCG ID</th>
+															<th
+																class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+																>TCG ID</th
+															>
 														{/if}
 														{#if exportOptions?.includeCardMarketId}
-															<th class="px-2 py-1 text-left font-medium text-gray-700">CM ID</th>
+															<th
+																class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+																>CM ID</th
+															>
 														{/if}
 													{/if}
-													<th class="px-2 py-1 text-left font-medium text-gray-700">Confidence</th>
-													<th class="px-2 py-1 text-left font-medium text-gray-700">Method</th>
+													<th
+														class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+														>Confidence</th
+													>
+													<th
+														class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+														>Method</th
+													>
 												</tr>
 											</thead>
 											<tbody>
 												{#each sortedResults as card}
 													<tr
-														class="border-t border-gray-100 {card.confidence === 'low'
-															? 'border-amber-200 bg-amber-50'
+														class="border-t border-gray-100 dark:border-gray-700 {card.confidence ===
+														'low'
+															? 'border-amber-200 bg-amber-50 dark:border-amber-700 dark:bg-amber-900/20'
 															: !card.success
-																? 'border-red-200 bg-red-50'
-																: 'bg-white'}"
+																? 'border-red-200 bg-red-50 dark:border-red-700 dark:bg-red-900/20'
+																: 'bg-white dark:bg-gray-800'}"
 													>
 														<td
 															class="px-2 py-1 font-medium {card.confidence === 'low'
-																? 'text-amber-900'
+																? 'text-amber-900 dark:text-amber-300'
 																: !card.success
-																	? 'text-red-900'
-																	: 'text-gray-900'}"
+																	? 'text-red-900 dark:text-red-400'
+																	: 'text-gray-900 dark:text-gray-100'}"
 														>
 															{#if card.confidence === 'low'}
 																<span
-																	class="mr-1 text-amber-600"
+																	class="mr-1 text-amber-600 dark:text-amber-400"
 																	title="Low confidence - please review">⚠️</span
 																>
 															{/if}
 															{#if !card.success}
-																<span class="mr-1 text-red-600" title="Failed to convert">❌</span>
+																<span
+																	class="mr-1 text-red-600 dark:text-red-400"
+																	title="Failed to convert">❌</span
+																>
 															{/if}
 															{card.moxfieldRow?.Name || card.originalCard?.name || 'Unknown'}
 														</td>
-														<td class="px-2 py-1 text-gray-600">
+														<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 															{card.moxfieldRow?.Edition || card.originalCard?.edition || '-'}
 														</td>
-														<td class="px-2 py-1 text-gray-600">
+														<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 															{card.moxfieldRow?.['Collector Number'] ||
 																card.originalCard?.collectorNumber ||
 																'-'}
 														</td>
-														<td class="px-2 py-1 text-gray-600">
+														<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 															{card.moxfieldRow?.Condition || card.originalCard?.condition || '-'}
 														</td>
-														<td class="px-2 py-1 text-gray-600">
+														<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 															{card.moxfieldRow?.Foil || card.originalCard?.foil || '-'}
 														</td>
 														{#if showAdditionalColumns}
-															<td class="px-2 py-1 text-gray-600">
+															<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 																{card.moxfieldRow?.Alter || card.originalCard?.alter || '-'}
 															</td>
-															<td class="px-2 py-1 text-gray-600">
+															<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 																{card.moxfieldRow?.Proxy || card.originalCard?.proxy || '-'}
 															</td>
-															<td class="px-2 py-1 text-gray-600">
+															<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 																{card.moxfieldRow?.Signed || card.originalCard?.signed || '-'}
 															</td>
-															<td class="px-2 py-1 text-gray-600">
+															<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 																{card.moxfieldRow?.['Purchase Price'] ||
 																	card.originalCard?.purchasePrice ||
 																	'-'}
 															</td>
-															<td class="px-2 py-1 text-gray-600">
+															<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 																{card.moxfieldRow?.Language || card.originalCard?.language || '-'}
 															</td>
 															{#if exportOptions?.includeCurrentPrice}
-																<td class="px-2 py-1 text-gray-600">
+																<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 																	{card.moxfieldRow?.['Current Price'] || '-'}
 																</td>
 															{/if}
 															{#if exportOptions?.includeMtgoIds}
-																<td class="px-2 py-1 text-gray-600">
+																<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 																	{card.moxfieldRow?.['MTGO ID'] || '-'}
 																</td>
-																<td class="px-2 py-1 text-gray-600">
+																<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 																	{card.moxfieldRow?.['MTGO Foil ID'] || '-'}
 																</td>
 															{/if}
 															{#if exportOptions?.includeMultiverseId}
-																<td class="px-2 py-1 text-gray-600">
+																<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 																	{card.moxfieldRow?.['Multiverse ID'] || '-'}
 																</td>
 															{/if}
 															{#if exportOptions?.includeTcgPlayerId}
-																<td class="px-2 py-1 text-gray-600">
+																<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 																	{card.moxfieldRow?.['TCGPlayer ID'] || '-'}
 																</td>
 															{/if}
 															{#if exportOptions?.includeCardMarketId}
-																<td class="px-2 py-1 text-gray-600">
+																<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 																	{card.moxfieldRow?.['CardMarket ID'] || '-'}
 																</td>
 															{/if}
@@ -565,17 +636,17 @@
 															<span
 																class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium {card.confidence ===
 																'high'
-																	? 'bg-green-100 text-green-800'
+																	? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300'
 																	: card.confidence === 'medium'
-																		? 'bg-yellow-100 text-yellow-800'
+																		? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300'
 																		: card.confidence === 'low'
-																			? 'bg-red-100 text-red-800'
-																			: 'bg-gray-100 text-gray-800'}"
+																			? 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300'
+																			: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'}"
 															>
 																{card.confidence || 'unknown'}
 															</span>
 														</td>
-														<td class="px-2 py-1 text-gray-600">
+														<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 															{getMethodLabel(card.identificationMethod || 'unknown')}
 														</td>
 													</tr>
@@ -608,44 +679,52 @@
 								<div class="max-h-64 min-h-32 resize-y space-y-2 overflow-y-auto text-sm">
 									{#each failedCards as failedCard, index}
 										{@const csvLine = getOriginalCsvLine(failedCard)}
-										<div class="rounded border border-red-200 bg-white p-3 shadow-sm">
+										<div
+											class="rounded border border-red-200 bg-white p-3 shadow-sm dark:border-red-700 dark:bg-gray-800"
+										>
 											<div class="flex items-start justify-between">
-												<div class="font-medium text-red-900">
+												<div class="font-medium text-red-900 dark:text-red-400">
 													❌ {failedCard.originalCard.name || 'Unknown Card'}
 													{#if failedCard.originalCard.edition}
-														<span class="text-red-700">({failedCard.originalCard.edition})</span>
+														<span class="text-red-700 dark:text-red-400"
+															>({failedCard.originalCard.edition})</span
+														>
 													{/if}
 													{#if failedCard.originalCard.collectorNumber}
-														<span class="text-red-700"
+														<span class="text-red-700 dark:text-red-400"
 															>#{failedCard.originalCard.collectorNumber}</span
 														>
 													{/if}
 												</div>
-												<span class="text-xs text-gray-500">#{index + 1}</span>
+												<span class="text-xs text-gray-500 dark:text-gray-400">#{index + 1}</span>
 											</div>
-											<div class="mt-1 rounded bg-red-50 px-2 py-1 text-xs text-red-700">
+											<div
+												class="mt-1 rounded bg-red-50 px-2 py-1 text-xs text-red-700 dark:bg-red-900/20 dark:text-red-400"
+											>
 												<strong>Error:</strong>
 												{failedCard.error || 'Unknown error'}
 											</div>
 											{#if csvLine}
 												<div
-													class="mt-2 rounded border bg-gray-100 p-2 font-mono text-xs text-gray-800"
+													class="mt-2 rounded border bg-gray-100 p-2 font-mono text-xs text-gray-800 dark:bg-gray-700 dark:text-gray-200"
 												>
-													<div class="mb-1 font-semibold text-red-600">Original CSV line:</div>
+													<div class="mb-1 font-semibold text-red-600 dark:text-red-400">
+														Original CSV line:
+													</div>
 													<div class="break-all">{csvLine}</div>
 												</div>
 											{/if}
 										</div>
 									{/each}
 								</div>
-								<div class="mt-2 text-xs text-gray-500">
+								<div class="mt-2 text-xs text-gray-500 dark:text-gray-400">
 									💡 <strong>Tips:</strong> Check spelling, verify set codes, ensure collector numbers
 									are correct
 								</div>
 							</div>
 						{/if}
 						{#if stats.successful > 0}
-							<div class="text-xs text-gray-600">
+							<div class="text-xs text-gray-600 dark:text-gray-400">
 								Ready to import into Moxfield! Use the CSV format for the collection importer or the
 								TXT format for deck lists.
 							</div>
@@ -665,7 +744,7 @@
 												d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 											></path>
 										</svg>
-										<span class="font-semibold text-amber-800">
+										<span class="font-semibold text-amber-800 dark:text-amber-300">
 											Low confidence cards are automatically placed at the top of your downloaded
 											CSV and TXT files for easy review.
 										</span>

@@ -66,13 +66,18 @@
 			file-upload-area cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors
 			${
 				isDragOver
-					? 'border-blue-500 bg-blue-50'
-					: 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
+					? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-900/20'
+					: 'border-gray-300 hover:border-gray-400 hover:bg-gray-50 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-700/50'
 			}
 		`}
 	>
 		<div class="flex flex-col items-center space-y-4">
-			<svg class="h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<svg
+				class="h-12 w-12 text-gray-400 dark:text-gray-500"
+				fill="none"
+				stroke="currentColor"
+				viewBox="0 0 24 24"
+			>
 				<path
 					stroke-linecap="round"
 					stroke-linejoin="round"
@@ -82,12 +87,14 @@
 			</svg>
 
 			<div>
-				<p class="text-lg font-medium text-gray-700">Drop CSV files here or click to browse</p>
-				<p class="mt-1 text-sm text-gray-500">
+				<p class="text-lg font-medium text-gray-700 dark:text-gray-200">
+					Drop CSV files here or click to browse
+				</p>
+				<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
 					Supports multiple files from various MTG collection apps
 				</p>
 			</div>
-			<p class="text-xs text-gray-400">
+			<p class="text-xs text-gray-400 dark:text-gray-500">
 				Supported: Archidekt, CardCastle, CubeCobra, DeckBox, DelverLens, DragonShield, MTGO,
 				Moxfield, TCGPlayer, and more
 			</p>

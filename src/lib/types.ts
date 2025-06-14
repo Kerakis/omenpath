@@ -13,11 +13,11 @@ export interface CardIdentifier {
 export interface ParsedCard {
 	// Original data from CSV
 	originalData: Record<string, string>;
-
 	// Parsed/normalized data
 	count: number;
 	name: string;
 	edition?: string; // Set code
+	editionName?: string; // Full edition name for fuzzy matching
 	condition?: string;
 	language?: string;
 	foil?: string;
@@ -105,6 +105,7 @@ export interface ConversionResult {
 		| 'mtgo_id'
 		| 'set_collector'
 		| 'name_set'
+		| 'fuzzy_set'
 		| 'name_only'
 		| 'failed';
 }
@@ -150,4 +151,26 @@ export interface ExportOptions {
 	includeMultiverseId: boolean;
 	includeTcgPlayerId: boolean;
 	includeCardMarketId: boolean;
+}
+
+export interface ScryfallSet {
+	object: string;
+	id: string;
+	code: string;
+	name: string;
+	uri: string;
+	scryfall_uri: string;
+	search_uri: string;
+	released_at: string;
+	set_type: string;
+	card_count: number;
+	digital: boolean;
+	nonfoil_only: boolean;
+	foil_only: boolean;
+	icon_svg_uri: string;
+}
+
+export interface ScryfallSetsResponse {
+	object: string;
+	data: ScryfallSet[];
 }

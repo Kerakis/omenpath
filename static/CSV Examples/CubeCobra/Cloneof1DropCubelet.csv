@@ -1,0 +1,116 @@
+name,CMC,Type,Color,Set,Collector Number,Rarity,Color Category,status,Finish,maybeboard,image URL,image Back URL,tags,Notes,MTGO ID
+"Armored Armadillo",1,"Creature - Armadillo",W,"otj","3",common,White,Owned,,false,,,"","",123917
+"Cheeky House-Mouse",1,"Creature - Mouse",W,"woe","7",uncommon,White,Owned,Foil,false,,,"","",116304
+"Dauntless Bodyguard",1,"Creature - Human Knight",W,"dom","14",uncommon,White,Owned,,false,,,"","",67493
+"Gideon's Lawkeeper",1,"Creature - Human Soldier",W,"m12","18",common,White,Owned,,false,,,"","",41529
+"Market Gnome",1,"Artifact Creature - Gnome",W,"lci","22",uncommon,White,Owned,,false,,,"","",117822
+"Mother of Runes",1,"Creature - Human Cleric",W,"ddo","20",uncommon,White,Owned,,false,,,"","",
+"Mystic Penitent",1,"Creature - Human Nomad Mystic",W,"ody","34",uncommon,White,Owned,,false,,,"","",16365
+"Recruitment Officer",1,"Creature - Human Soldier",W,"gdy","7",rare,White,Owned,,false,,,"","",
+"Student of Warfare",1,"Creature - Human Knight",W,"roe","47",rare,White,Owned,Foil,false,,,"","",36586
+"Swooping Lookout",1,"Artifact Creature - Phyrexian Construct",W,"one","35",uncommon,White,Owned,Non-foil,false,,,"","",106285
+"Tarkir Duneshaper",1,"Creature - Dog Warrior",W,"mom","43",common,Multicolored,Owned,Foil,false,,,"","",109896
+"Traveling Minister",1,"Creature - Human Cleric",W,"vow","39",common,White,Owned,,false,,,"","",94374
+"Defiant Strike",1,"Instant",W,"sta","3",uncommon,White,Owned,,false,,,"","",89063
+"Isolate",1,"Instant",W,"m19","17",rare,White,Owned,,false,,,"","",68195
+"Swords to Plowshares",1,"Instant",W,"a25","35",uncommon,White,Owned,,false,,,"","",66984
+"Helping Hand",1,"Sorcery",W,"lci","17",uncommon,White,Owned,,false,,,"","",117812
+"Oust",1,"Sorcery",W,"roe","40",uncommon,White,Owned,,false,,,"","",36682
+"Kor Halberd",1,"Artifact - Equipment",W,"mom","27",common,White,Owned,,false,,,"","",109860
+"Hyena Umbra",1,"Enchantment - Aura",W,"2x2","13",common,White,Owned,Foil,false,,,"","",101510
+"Porphyry Nodes",1,"Enchantment",W,"plc","28",rare,White,Owned,,false,,,"","",26353
+"Captive Weird",1,"Creature - Weird",U,"mom","49",uncommon,Multicolored,Owned,,false,,,"","",109910
+"Cobbled Lancer",1,"Creature - Zombie Horse",U,"vow","52",uncommon,Blue,Owned,,false,,,"","",94408
+"Cursecatcher",1,"Creature - Merfolk Wizard",U,"shm","34",uncommon,Blue,Owned,,false,,,"","",29829
+"Delver of Secrets",1,"Creature - Human Wizard",U,"isd","51",common,Blue,Owned,,false,,,"","",42436
+"Drifter il-Dal",1,"Creature - Human Wizard",U,"tsr","65",common,Blue,Owned,,false,,,"","",86493
+"Faerie Seer",1,"Creature - Faerie Wizard",U,"mh1","51",common,Blue,Owned,,false,,,"","",72474
+"Harrier Strix",1,"Creature - Bird",U,"otj","52",common,Blue,Owned,,false,,,"","",124015
+"Jace's Phantasm",1,"Creature - Illusion",U,"m13","57",uncommon,Blue,Owned,,false,,,"","",45542
+"Merfolk Secretkeeper",1,"Creature - Merfolk Wizard",U,"eld","53",common,Blue,Owned,Foil,false,,,"","",78214
+"Merfolk Windrobber",1,"Creature - Merfolk Rogue",U,"znr","70",uncommon,Blue,Owned,Non-foil,false,,,"","",83093
+"Slither Blade",1,"Creature - Snake Rogue",U,"akh","71",common,Blue,Owned,,false,,,"","",63744
+"Wingcrafter",1,"Creature - Human Wizard",U,"avr","83",common,Blue,Not Owned,,false,,,"","",43849
+"Minor Misstep",1,"Instant",U,"one","64",uncommon,Blue,Owned,,false,,,"","",106343
+"Sapphire Charm",1,"Instant",U,"mir","89",common,Blue,Owned,,false,,,"","",7273
+"Vapor Snag",1,"Instant",U,"nph","48",common,Blue,Owned,,false,,,"","",39808
+"Ponder",1,"Sorcery",U,"m12","73",common,Blue,Owned,,false,,,"","",41241
+"Portent",1,"Sorcery",U,"c18","97",common,Blue,Owned,,false,,,"","",
+"Sleight of Hand",1,"Sorcery",U,"uma","70",uncommon,Blue,Owned,,false,,,"","",70213
+"Aether Spellbomb",1,"Artifact",,"mrd","141",common,Blue,Owned,,false,,,"","",19871
+"Curiosity",1,"Enchantment - Aura",U,"a25","52",uncommon,Blue,Owned,,false,,,"","",67018
+"Banehound",1,"Creature - Nightmare Dog",B,"war","77",common,Black,Owned,,false,,,"","",71760
+"Cabal Therapist",1,"Creature - Horror",B,"mh1","80",rare,Black,Owned,,false,,,"","",72532
+"Ecstatic Awakener",1,"Creature - Human Wizard",B,"mid","100",common,Black,Owned,,false,,,"","",93154
+"Faerie Dreamthief",1,"Creature - Faerie Warlock",B,"woe","89",uncommon,Black,Owned,,false,,,"","",116490
+"Gutterbones",1,"Creature - Skeleton Warrior",B,"rna","76",rare,Black,Owned,,false,,,"","",71152
+"Guul Draz Vampire",1,"Creature - Vampire Rogue",B,"zen","93",common,Black,Owned,,false,,,"","",34370
+"Sleeper Agent",1,"Creature - Phyrexian Minion",B,"10e","178",rare,Black,Owned,,false,,,"","",27278
+"Snarling Gorehound",1,"Creature - Dog",B,"mkm","105",common,Black,Owned,,false,,,"","",121688
+"Thieves' Guild Enforcer",1,"Creature - Human Rogue",B,"m21","125",rare,Black,Owned,,false,,,"","",81477
+"Tormented Soul",1,"Creature - Spirit",B,"dci","76",rare,Black,Owned,Foil,false,,,"","",
+"Vampire Lacerator",1,"Creature - Vampire Warrior",B,"zen","115",common,Black,Owned,Foil,false,,,"","",34680
+"Vampire of the Dire Moon",1,"Creature - Vampire",B,"m20","120",uncommon,Black,Owned,,false,,,"","",73139
+"Ebony Charm",1,"Instant",B,"mir","120",common,Black,Owned,,false,,,"","",6929
+"Fatal Push",1,"Instant",B,"2xm","93",uncommon,Black,Owned,,false,,,"","",82220
+"Village Rites",1,"Instant",B,"sta","35",uncommon,Black,Owned,,false,,,"","",89127
+"Innocent Blood",1,"Sorcery",B,"ema","94",common,Black,Owned,,false,,,"","",60691
+"Inquisition of Kozilek",1,"Sorcery",B,"2x2","80",uncommon,Black,Owned,,false,,,"","",101644
+"Unearth",1,"Sorcery",B,"a25","113",common,Black,Owned,Foil,false,,,"","",67140
+"Nihil Spellbomb",1,"Artifact",,"a25","226",common,Black,Owned,,false,,,"","",67366
+"Strange Augmentation",1,"Enchantment - Aura",B,"emn","105",common,Black,Owned,,false,,,"","",61378
+"Blazing Rootwalla",1,"Creature - Lizard",R,"sch","24",rare,Red,Owned,,false,,,"","",
+"Bomat Courier",1,"Artifact Creature - Construct",,"kld","199",rare,Red,Owned,,false,,,"","",62075
+"Dragon's Rage Channeler",1,"Creature - Human Shaman",R,"mh2","121",uncommon,Red,Owned,,false,,,"","",90615
+"Fearless Pup",1,"Creature - Wolf",R,"khm","136",common,Red,Owned,,false,,,"","",87607
+"Frenzied Goblin",1,"Creature - Goblin Berserker",R,"f15","1",rare,Red,Owned,Foil,false,,,"","",
+"Insolent Neonate",1,"Creature - Vampire",R,"soi","168",common,Red,Owned,,false,,,"","",60306
+"Norin, Swift Survivalist",1,"Legendary Creature - Human Coward",R,"dsk","145",uncommon,Red,Owned,,false,,,"","",130421
+"Reinforced Ronin",1,"Artifact Creature - Human Samurai",R,"neo","323",uncommon,Red,Owned,,false,,,"","",
+"Spark Elemental",1,"Creature - Elemental",R,"5dn","79",common,Red,Owned,Non-foil,false,,,"","",20928
+"Vexing Devil",1,"Creature - Devil",R,"uma","154",rare,Red,Owned,,false,,,"","",70381
+"Voldaren Stinger",1,"Creature - Vampire Warrior",R,"mid","167",common,Red,Owned,,false,,,"","",93316
+"Wayward Guide-Beast",1,"Creature - Beast",R,"znr","356",rare,Red,Owned,,false,,,"","",
+"Electrickery",1,"Instant",R,"rtr","93",common,Red,Owned,,false,,,"","",46339
+"Lightning Axe",1,"Instant",R,"tsr","174",uncommon,Red,Owned,,false,,,"","",86719
+"Panic",1,"Instant",R,"ice","212",common,Red,Owned,,false,,,"","",
+"Unholy Heat",1,"Instant",R,"mh2","145",common,Red,Owned,,false,,,"","",90667
+"Claim the Firstborn",1,"Sorcery",R,"eld","118",uncommon,Red,Owned,,false,,,"","",78360
+"Flame Slash",1,"Sorcery",R,"roe","145",common,Red,Owned,,false,,,"","",36640
+"Dragon Mantle",1,"Enchantment - Aura",R,"cmr","174",common,Red,Owned,,false,,,"","",85130
+"Prophetic Ravings",1,"Enchantment - Aura",R,"emn","139",common,Red,Owned,,false,,,"","",61420
+"Almighty Brushwagg",1,"Creature - Brushwagg",G,"iko","143",common,Green,Owned,,false,,,"","",80295
+"Basking Rootwalla",1,"Creature - Lizard",G,"gvl","2",common,Green,Owned,Non-foil,false,,,"","",
+"Ezuri's Archers",1,"Creature - Elf Archer",G,"som","120",common,Green,Owned,,false,,,"","",37983
+"Gnarlwood Dryad",1,"Creature - Dryad Horror",G,"emn","159",uncommon,Green,Owned,,false,,,"","",61256
+"Nimble Mongoose",1,"Creature - Mongoose",G,"mh1","174",common,Green,Owned,,false,,,"","",72720
+"Scythe Tiger",1,"Creature - Cat",G,"zen","183",common,Green,Owned,,false,,,"","",34422
+"Snarling Wolf",1,"Creature - Wolf",G,"mid","199",common,Green,Owned,,false,,,"","",93390
+"Spire Tracer",1,"Creature - Elf Scout",G,"gtc","135",common,Green,Owned,Foil,false,,,"","",47629
+"Spore Frog",1,"Creature - Frog",G,"mh1","180",common,Green,Owned,,false,,,"","",72732
+"Treetop Scout",1,"Creature - Elf Scout",G,"scg","130",common,Green,Owned,Foil,false,,,"","",18652
+"Ulvenwald Tracker",1,"Creature - Human Shaman",G,"avr","200",rare,Green,Owned,,false,,,"","",44071
+"Wasteland Viper",1,"Creature - Snake",G,"gtc","139",uncommon,Green,Owned,,false,,,"","",47741
+"Massive Might",1,"Instant",G,"vow","208",common,Green,Owned,Foil,false,,,"","",94776
+"Natural State",1,"Instant",G,"ogw","136",common,Green,Owned,,false,,,"","",59569
+"Reclaim",1,"Instant",G,"ori","195",common,Green,Owned,,false,,,"","",57616
+"Tail Swipe",1,"Instant",G,"dmu","182",uncommon,Green,Owned,,false,,,"","",102840
+"Commune with Nature",1,"Sorcery",G,"woe","166",common,Green,Owned,,false,,,"","",116668
+"Pick Your Poison",1,"Sorcery",G,"mkm","170",common,Green,Owned,,false,,,"","",121816
+"Audacity",1,"Enchantment - Aura",G,"bro","169",uncommon,Green,Owned,,false,,,"","",104956
+"Seal of Strength",1,"Enchantment",G,"ema","184",common,Green,Owned,,false,,,"","",60907
+"Seed of Hope",1,"Instant",G,"mom","204",common,Green,Owned,Non-foil,true,,,"","",110294
+"Nethergoyf",1,"Creature - Lhurgoyf",B,"mh3","103",mythic,Black,Owned,,true,,,"","",126223
+"Faithless Looting",1,"Sorcery",R,"dka","87",common,Red,Owned,,true,,,"","",43267
+"Patchwork Beastie",1,"Artifact Creature - Beast",G,"dsk","195",uncommon,Green,Owned,,true,,,"","",130521
+"Veteran Survivor",1,"Creature - Human Survivor",W,"dsk","40",uncommon,White,Owned,,true,,,"","",130211
+"Dragon Sniper",1,"Creature - Human Archer",G,"tdm","139",uncommon,Green,Owned,,true,,,"","",139235
+"Stitcher's Supplier",1,"Creature - Zombie",B,"m19","121",uncommon,Black,Owned,,true,,,"","",68403
+"Deadly Allure",1,"Sorcery",B,"dka","58",uncommon,Multicolored,Owned,,true,,,"","",43349
+"Holy Day",1,"Instant",W,"10e","21",common,White,Owned,,true,,,"","",27042
+"Slip Through Space",1,"Sorcery",,"ogw","47",common,Blue,Owned,,true,,,"","",59505
+"Fleeting Effigy",1,"Creature - Elemental",R,"tdm","108",uncommon,Red,Owned,,true,,,"","",139169
+"Cogwork Wrestler",1,"Artifact Creature - Gnome",U,"lci","49",common,Blue,Owned,,true,,,"","",117888
+"Children of Korlis",1,"Creature - Human Rebel Cleric",W,"tsp","8",common,White,Owned,,true,,,"","",25573
+"Faerie Impostor",1,"Creature - Faerie Rogue",U,"ddn","43",uncommon,Blue,Owned,,true,,,"","",
+"Grim Lavamancer",1,"Creature - Human Wizard",R,"dmr","434",rare,Red,Owned,,true,,,"","",108097

@@ -7,7 +7,9 @@ import type {
 	CardIdentifier,
 	ProgressCallback,
 	ScryfallCard,
-	ExportOptions
+	ExportOptions,
+	ScryfallSet,
+	ScryfallSetsResponse
 } from './types.js';
 
 // Rate limiting for Scryfall API (max 10 requests per second)
@@ -15,7 +17,7 @@ const RATE_LIMIT_DELAY = 100; // 100ms between requests
 const BATCH_SIZE = 75; // Scryfall collection endpoint limit
 
 // CSV format definitions
-const CSV_FORMATS: CsvFormat[] = [
+export const CSV_FORMATS: CsvFormat[] = [
 	{
 		name: 'ManaBox',
 		id: 'manabox',
@@ -101,7 +103,7 @@ const CSV_FORMATS: CsvFormat[] = [
 	{
 		name: 'CardCastle (Full)',
 		id: 'cardcastle-full',
-		description: 'CardCastle CSV with Scryfall IDs',
+		description: 'CardCastle CSV with Scryfall IDs (recommended over Simple version for accuracy)',
 		hasHeaders: true,
 		columnMappings: {
 			count: '1', // Fixed value since CardCastle doesn't include count
@@ -117,13 +119,22 @@ const CSV_FORMATS: CsvFormat[] = [
 		transformations: {
 			condition: (value: string) => normalizeCondition(value),
 			language: (value: string) => normalizeLanguage(value),
-			foil: (value: string) => (value.toLowerCase() === 'true' ? 'foil' : '')
+			foil: (value: string) => (value.toLowerCase() === 'true' ? 'foil' : ''),
+			scryfallId: (value: string) => {
+				// Fix CardCastle bug: remove trailing characters after 36th character for dual-faced cards
+				// Scryfall UUIDs are exactly 36 characters (including 4 hyphens)
+				if (value && value.length > 36) {
+					return value.substring(0, 36);
+				}
+				return value;
+			}
 		}
 	},
 	{
 		name: 'CardCastle (Simple)',
 		id: 'cardcastle-simple',
-		description: 'CardCastle Simple CSV',
+		description:
+			'CardCastle Simple CSV (⚠️ Use Full version for better accuracy - includes Scryfall IDs)',
 		hasHeaders: true,
 		columnMappings: {
 			count: 'Count',
@@ -145,6 +156,7 @@ const CSV_FORMATS: CsvFormat[] = [
 			count: 'Count',
 			name: 'Name',
 			edition: 'Edition Code',
+			editionName: 'Edition', // Full edition name for fuzzy matching
 			condition: 'Condition',
 			language: 'Language',
 			foil: 'Foil',
@@ -347,7 +359,8 @@ const CSV_FORMATS: CsvFormat[] = [
 		transformations: {
 			condition: (value: string) => normalizeCardsphereCondition(value),
 			language: (value: string) => normalizeLanguage(value),
-			foil: (value: string) => (value.toLowerCase() === 'foil' ? 'foil' : '')
+			foil: (value: string) => normalizeCardsphereFoil(value),
+			edition: (value: string) => normalizeCardsphereEdition(value)
 		}
 	},
 	{
@@ -372,6 +385,17 @@ const CSV_FORMATS: CsvFormat[] = [
 			language: (value: string) => normalizeLanguage(value),
 			foil: (value: string) =>
 				value.toLowerCase() === 'foil' || value.toLowerCase() === 'true' ? 'foil' : ''
+		}
+	},
+	{
+		name: 'Simple Test Format',
+		id: 'simple-test',
+		description: 'Simple format for testing fuzzy set matching',
+		hasHeaders: true,
+		columnMappings: {
+			count: 'Quantity',
+			name: 'Name',
+			editionName: 'Set' // Uses editionName to trigger fuzzy matching
 		}
 	}
 ];
@@ -624,6 +648,11 @@ async function fetchScryfallCollection(identifiers: CardIdentifier[]): Promise<S
 	try {
 		logDebug(`Making Scryfall API request for ${identifiers.length} cards`);
 
+		// Debug log the first few identifiers to check for issues
+		if (identifiers.length > 0) {
+			logDebug('First few identifiers:', identifiers.slice(0, 3));
+		}
+
 		const response = await fetch('https://api.scryfall.com/cards/collection', {
 			method: 'POST',
 			headers: {
@@ -693,13 +722,13 @@ function parseCSV(text: string, format: CsvFormat): ParsedCard[] {
 			values.forEach((value, index) => {
 				originalData[`column_${index}`] = value;
 			});
-		}
-		// Extract and normalize card data
+		} // Extract and normalize card data
 		const card: ParsedCard = {
 			originalData,
 			count: parseInt(getColumnValue(originalData, format.columnMappings.count, '1')) || 1,
 			name: getColumnValue(originalData, format.columnMappings.name, ''),
 			edition: getColumnValue(originalData, format.columnMappings.edition, ''),
+			editionName: getColumnValue(originalData, format.columnMappings.editionName, ''),
 			condition: getColumnValue(originalData, format.columnMappings.condition, ''),
 			language: getColumnValue(originalData, format.columnMappings.language, ''),
 			foil: getColumnValue(originalData, format.columnMappings.foil, ''),
@@ -734,6 +763,17 @@ function parseCSV(text: string, format: CsvFormat): ParsedCard[] {
 				}
 			});
 		}
+
+		// Special handling for Cardsphere etched foils
+		if (format.id === 'cardsphere') {
+			// Check if the original edition had "Etched Foil" suffix
+			const originalEdition = getColumnValue(originalData, format.columnMappings.edition, '');
+			if (originalEdition.endsWith(' Etched Foil') && card.foil === 'foil') {
+				// This is an etched foil card
+				card.foil = 'etched';
+			}
+		}
+
 		// Set needsLookup based on available identifiers
 		card.needsLookup = !card.scryfallId && !card.multiverseId && !card.mtgoId;
 
@@ -1016,75 +1056,137 @@ async function processCardLookupBatches(
 	exportOptions?: ExportOptions,
 	progressCallback?: ProgressCallback
 ): Promise<void> {
+	let remainingCards = [...cardsNeedingLookup];
+	const totalCount = cardsNeedingLookup.length;
+	let processedCount = 0;
+
 	// Strategy 1: Try set + collector number first (most precise after IDs)
-	const cardsWithSetAndCollector = cardsNeedingLookup.filter(
+	const cardsWithSetAndCollector = remainingCards.filter(
 		(card) => card.edition && card.collectorNumber
 	);
 
-	// Strategy 2: Try name + set (less precise)
-	const cardsWithNameAndSet = cardsNeedingLookup.filter(
-		(card) => !cardsWithSetAndCollector.includes(card) && card.edition
-	);
+	if (cardsWithSetAndCollector.length > 0) {
+		const strategyResults: ConversionResult[] = [];
+		await processBatchWithStrategy(
+			cardsWithSetAndCollector,
+			'set_collector',
+			'high',
+			strategyResults,
+			defaultCondition,
+			exportOptions,
+			(batchProgress) => {
+				if (progressCallback) {
+					const overallProgress =
+						((processedCount + (batchProgress * cardsWithSetAndCollector.length) / 100) /
+							totalCount) *
+						100;
+					progressCallback(Math.min(100, overallProgress));
+				}
+			}
+		);
+		// Add successful results and remove successful cards from remaining
+		strategyResults.forEach((result) => {
+			if (result.success) {
+				results.push(result);
+				remainingCards = remainingCards.filter((card) => card !== result.originalCard);
+			}
+			// Don't add failed results yet - they'll be tried in the next strategy
+		});
+		processedCount += cardsWithSetAndCollector.length;
+	}
+	// Strategy 2: Try name + set for remaining cards
+	const cardsWithNameAndSet = remainingCards.filter((card) => card.edition);
 
-	// Strategy 3: Try name only (least precise)
-	const cardsWithNameOnly = cardsNeedingLookup.filter(
-		(card) => !cardsWithSetAndCollector.includes(card) && !cardsWithNameAndSet.includes(card)
-	);
-	let processedCount = 0;
-	const totalCount = cardsNeedingLookup.length; // Process Strategy 1: Set + Collector Number
-	await processBatchWithStrategy(
-		cardsWithSetAndCollector,
-		'set_collector',
-		'high', // Set + collector number should be high confidence
-		results,
-		defaultCondition,
-		exportOptions,
-		(batchProgress) => {
-			if (progressCallback) {
-				const overallProgress =
-					((processedCount + (batchProgress * cardsWithSetAndCollector.length) / 100) /
-						totalCount) *
-					100;
-				progressCallback(Math.min(100, overallProgress));
+	console.log(`Strategy 2: Processing ${cardsWithNameAndSet.length} cards with name + set`);
+
+	if (cardsWithNameAndSet.length > 0) {
+		const strategyResults: ConversionResult[] = [];
+		await processBatchWithStrategy(
+			cardsWithNameAndSet,
+			'name_set',
+			'medium',
+			strategyResults,
+			defaultCondition,
+			exportOptions,
+			(batchProgress) => {
+				if (progressCallback) {
+					const overallProgress =
+						((processedCount + (batchProgress * cardsWithNameAndSet.length) / 100) / totalCount) *
+						100;
+					progressCallback(Math.min(100, overallProgress));
+				}
 			}
-		}
-	);
-	processedCount += cardsWithSetAndCollector.length;
-	// Process Strategy 2: Name + Set
-	await processBatchWithStrategy(
-		cardsWithNameAndSet,
-		'name_set',
-		'medium',
-		results,
-		defaultCondition,
-		exportOptions,
-		(batchProgress) => {
-			if (progressCallback) {
-				const overallProgress =
-					((processedCount + (batchProgress * cardsWithNameAndSet.length) / 100) / totalCount) *
-					100;
-				progressCallback(Math.min(100, overallProgress));
+		);
+		// Add successful results and remove successful cards from remaining
+		strategyResults.forEach((result) => {
+			if (result.success) {
+				results.push(result);
+				remainingCards = remainingCards.filter((card) => card !== result.originalCard);
 			}
-		}
-	);
-	processedCount += cardsWithNameAndSet.length;
-	// Process Strategy 3: Name Only
-	await processBatchWithStrategy(
-		cardsWithNameOnly,
-		'name_only',
-		'low',
-		results,
-		defaultCondition,
-		exportOptions,
-		(batchProgress) => {
-			if (progressCallback) {
-				const overallProgress =
-					((processedCount + (batchProgress * cardsWithNameOnly.length) / 100) / totalCount) * 100;
-				progressCallback(Math.min(100, overallProgress));
+			// Don't add failed results yet - they'll be tried in the next strategy
+		});
+		processedCount += cardsWithNameAndSet.length;
+
+		console.log(
+			`Strategy 2 completed: ${strategyResults.filter((r) => r.success).length} successful, ${remainingCards.length} remaining`
+		);
+	}
+
+	// Strategy 3: Try fuzzy set matching for remaining cards with edition names
+	const cardsWithFuzzySet = remainingCards.filter((card) => card.editionName);
+
+	console.log(`Strategy 3: Processing ${cardsWithFuzzySet.length} cards with fuzzy set matching`);
+	cardsWithFuzzySet.forEach((card) => {
+		console.log(`  - Card: ${card.name}, Edition: ${card.editionName}`);
+	});
+
+	if (cardsWithFuzzySet.length > 0) {
+		const strategyResults: ConversionResult[] = [];
+		await processFuzzySetStrategy(
+			cardsWithFuzzySet,
+			'fuzzy_set',
+			'medium',
+			strategyResults,
+			defaultCondition,
+			exportOptions,
+			(batchProgress) => {
+				if (progressCallback) {
+					const overallProgress =
+						((processedCount + (batchProgress * cardsWithFuzzySet.length) / 100) / totalCount) *
+						100;
+					progressCallback(Math.min(100, overallProgress));
+				}
 			}
-		}
-	);
-	processedCount += cardsWithNameOnly.length;
+		);
+		// Add successful results and remove successful cards from remaining
+		strategyResults.forEach((result) => {
+			if (result.success) {
+				results.push(result);
+				remainingCards = remainingCards.filter((card) => card !== result.originalCard);
+			}
+			// Don't add failed results yet - they'll be tried in the next strategy
+		});
+		processedCount += cardsWithFuzzySet.length;
+	}
+
+	// Strategy 4: Try name only for any remaining cards
+	if (remainingCards.length > 0) {
+		await processBatchWithStrategy(
+			remainingCards,
+			'name_only',
+			'low',
+			results,
+			defaultCondition,
+			exportOptions,
+			(batchProgress) => {
+				if (progressCallback) {
+					const overallProgress =
+						((processedCount + (batchProgress * remainingCards.length) / 100) / totalCount) * 100;
+					progressCallback(Math.min(100, overallProgress));
+				}
+			}
+		);
+	}
 }
 
 async function processBatchWithStrategy(
@@ -1115,13 +1217,12 @@ async function processBatchWithStrategy(
 				return identifier;
 			})
 			.filter((identifier) => Object.keys(identifier).length > 0); // Filter out empty identifiers
-
 		if (identifiers.length === 0) {
 			// Skip this batch if no valid identifiers
 			batch.forEach((card) => {
 				results.push({
 					originalCard: card,
-					moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition, exportOptions),
+					moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
 					success: false,
 					error: 'No valid identifiers for Scryfall lookup',
 					confidence: 'low',
@@ -1147,7 +1248,7 @@ async function processBatchWithStrategy(
 					results.push({
 						originalCard: card,
 						scryfallCard,
-						moxfieldRow: createMoxfieldRow(card, scryfallCard, defaultCondition, exportOptions),
+						moxfieldRow: createMoxfieldRow(card, scryfallCard, defaultCondition),
 						success: true,
 						confidence,
 						identificationMethod
@@ -1164,7 +1265,7 @@ async function processBatchWithStrategy(
 					}
 					results.push({
 						originalCard: card,
-						moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition, exportOptions),
+						moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
 						success: false,
 						error: errorMessage,
 						confidence: 'low',
@@ -1177,7 +1278,7 @@ async function processBatchWithStrategy(
 			batch.forEach((card) => {
 				results.push({
 					originalCard: card,
-					moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition, exportOptions),
+					moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
 					success: false,
 					error: error instanceof Error ? error.message : 'API error',
 					confidence: 'low',
@@ -1245,8 +1346,7 @@ function findBestMatch(
 function createMoxfieldRow(
 	card: ParsedCard,
 	scryfallCard?: ScryfallCard,
-	defaultCondition?: string,
-	exportOptions?: ExportOptions
+	defaultCondition?: string
 ): Record<string, string> {
 	const row: Record<string, string> = {
 		Count: card.count.toString(),
@@ -1257,49 +1357,43 @@ function createMoxfieldRow(
 		Language: card.language || 'English',
 		Foil: card.foil || '',
 		Tags: card.tags || '',
-		'Last Modified':
-			card.lastModified || new Date().toISOString().replace('T', ' ').replace('Z', ''),
+		'Last Modified': card.lastModified || '',
 		'Collector Number': scryfallCard?.collector_number || card.collectorNumber || '',
 		Alter: card.alter || 'False',
 		Proxy: card.proxy || 'False',
 		Signed: card.signed || 'False',
 		'Purchase Price': card.purchasePrice || ''
-	};
+	}; // Always populate additional fields when Scryfall data is available
+	// This allows users to toggle export options after conversion
+	if (scryfallCard) {
+		// Current prices for all currencies
+		row['Current Price USD'] = scryfallCard.prices.usd || '';
+		row['Current Price USD Foil'] = scryfallCard.prices.usd_foil || '';
+		row['Current Price USD Etched'] = scryfallCard.prices.usd_etched || '';
+		row['Current Price EUR'] = scryfallCard.prices.eur || '';
+		row['Current Price EUR Foil'] = scryfallCard.prices.eur_foil || '';
+		row['Current Price TIX'] = scryfallCard.prices.tix || '';
 
-	// Add optional additional fields based on export options
-	if (exportOptions && scryfallCard) {
-		if (exportOptions.includeCurrentPrice) {
-			let priceKey: keyof ScryfallCard['prices'] = exportOptions.priceType;
+		// Card IDs
+		row['MTGO ID'] = scryfallCard.mtgo_id?.toString() || '';
+		row['MTGO Foil ID'] = scryfallCard.mtgo_foil_id?.toString() || '';
+		row['Multiverse ID'] = scryfallCard.multiverse_ids?.[0]?.toString() || '';
+		row['TCGPlayer ID'] = scryfallCard.tcgplayer_id?.toString() || '';
+		row['CardMarket ID'] = scryfallCard.cardmarket_id?.toString() || '';
 
-			// Adjust price key based on card finish
-			if (card.foil === 'foil') {
-				if (exportOptions.priceType === 'usd') priceKey = 'usd_foil';
-				else if (exportOptions.priceType === 'eur') priceKey = 'eur_foil';
-			} else if (card.foil === 'etched' && exportOptions.priceType === 'usd') {
-				priceKey = 'usd_etched';
-			}
+		// Set the display price for the main "Current Price" field
+		// Always determine the appropriate price based on card finish
+		let priceKey: keyof ScryfallCard['prices'] = 'usd'; // Default to USD
 
-			const price = scryfallCard.prices[priceKey];
-			row['Current Price'] = price || '';
+		// Adjust price key based on card finish
+		if (card.foil === 'foil') {
+			priceKey = 'usd_foil';
+		} else if (card.foil === 'etched') {
+			priceKey = 'usd_etched';
 		}
 
-		if (exportOptions.includeMtgoIds) {
-			row['MTGO ID'] = scryfallCard.mtgo_id?.toString() || '';
-			row['MTGO Foil ID'] = scryfallCard.mtgo_foil_id?.toString() || '';
-		}
-
-		if (exportOptions.includeMultiverseId) {
-			// Use the first multiverse ID if multiple exist
-			row['Multiverse ID'] = scryfallCard.multiverse_ids?.[0]?.toString() || '';
-		}
-
-		if (exportOptions.includeTcgPlayerId) {
-			row['TCGPlayer ID'] = scryfallCard.tcgplayer_id?.toString() || '';
-		}
-
-		if (exportOptions.includeCardMarketId) {
-			row['CardMarket ID'] = scryfallCard.cardmarket_id?.toString() || '';
-		}
+		const price = scryfallCard.prices[priceKey];
+		row['Current Price'] = price || '';
 	}
 
 	// Add Notes column if there are extra notes that don't fit elsewhere
@@ -1530,10 +1624,14 @@ async function processCardsWithIds(
 			let identifier: CardIdentifier = {};
 			let identificationMethod: ConversionResult['identificationMethod'] = 'failed';
 			let confidence: ConversionResult['confidence'] = 'low';
-			let key: string = '';
-
-			// Priority: Scryfall ID > Multiverse ID > MTGO ID
+			let key: string = ''; // Priority: Scryfall ID > Multiverse ID > MTGO ID
 			if (card.scryfallId) {
+				// Debug logging for CardCastle dual-faced card fix
+				if (card.scryfallId.length > 36) {
+					logDebug(
+						`CardCastle fix: Trimming Scryfall ID "${card.scryfallId}" to "${card.scryfallId.substring(0, 36)}" for card: ${card.name}`
+					);
+				}
 				identifier = { id: card.scryfallId };
 				identificationMethod = 'scryfall_id';
 				confidence = 'high';
@@ -1565,7 +1663,7 @@ async function processCardsWithIds(
 				// Handle cards without valid identifiers
 				results.push({
 					originalCard: card,
-					moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition, exportOptions),
+					moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
 					success: false,
 					error: 'No valid identifiers found',
 					confidence: 'low',
@@ -1605,7 +1703,9 @@ async function processCardsWithIds(
 				if (scryfallCard.mtgo_foil_id) {
 					foundCards.set(`mtgo_id:${scryfallCard.mtgo_foil_id}`, scryfallCard);
 				}
-			}); // Match results back to original cards
+			});
+
+			// Match results back to original cards
 			cardsByIdentifier.forEach((cardInfos, key) => {
 				const scryfallCard = foundCards.get(key);
 
@@ -1615,7 +1715,7 @@ async function processCardsWithIds(
 						results.push({
 							originalCard: card,
 							scryfallCard,
-							moxfieldRow: createMoxfieldRow(card, scryfallCard, defaultCondition, exportOptions),
+							moxfieldRow: createMoxfieldRow(card, scryfallCard, defaultCondition),
 							success: true,
 							confidence,
 							identificationMethod: method
@@ -1623,7 +1723,7 @@ async function processCardsWithIds(
 					} else {
 						results.push({
 							originalCard: card,
-							moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition, exportOptions),
+							moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
 							success: false,
 							error: 'Card not found in Scryfall database',
 							confidence: 'low',
@@ -1638,7 +1738,7 @@ async function processCardsWithIds(
 				cardInfos.forEach(({ card }) => {
 					results.push({
 						originalCard: card,
-						moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition, exportOptions),
+						moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
 						success: false,
 						error: error instanceof Error ? error.message : 'API error',
 						confidence: 'low',
@@ -1656,23 +1756,241 @@ async function processCardsWithIds(
 	}
 }
 
+// Cache for Scryfall sets to avoid repeated API calls
+let scryfallSetsCache: ScryfallSet[] | null = null;
+
+async function fetchScryfallSets(): Promise<ScryfallSet[]> {
+	if (scryfallSetsCache) {
+		return scryfallSetsCache;
+	}
+
+	try {
+		const response = await fetch('https://api.scryfall.com/sets');
+
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+		}
+
+		const data: ScryfallSetsResponse = await response.json();
+		scryfallSetsCache = data.data;
+
+		logDebug(`Fetched ${data.data.length} Scryfall sets for fuzzy matching`);
+		return data.data;
+	} catch (error) {
+		logError(
+			'Failed to fetch Scryfall sets',
+			error instanceof Error ? error : new Error(String(error))
+		);
+		throw new ConversionError('Failed to fetch Scryfall sets for fuzzy matching');
+	}
+}
+
+async function searchScryfallCard(cardName: string, setCode: string): Promise<ScryfallCard | null> {
+	try {
+		const query = `"${cardName}" e:${setCode}`;
+		const encodedQuery = encodeURIComponent(query);
+		const response = await fetch(`https://api.scryfall.com/cards/search?q=${encodedQuery}`);
+
+		if (response.status === 404) {
+			// No cards found - this is expected for failed matches
+			return null;
+		}
+
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+		}
+
+		const data = await response.json();
+
+		// Return the first result if any cards were found
+		if (data.data && data.data.length > 0) {
+			logDebug(`Found card via fuzzy set matching: ${cardName} in ${setCode}`);
+			return data.data[0];
+		}
+
+		return null;
+	} catch (error) {
+		logError(
+			`Failed to search for card: ${cardName} in set ${setCode}`,
+			error instanceof Error ? error : new Error(String(error))
+		);
+		return null;
+	}
+}
+
+function fuzzyMatchSetName(editionName: string, scryfallSets: ScryfallSet[]): ScryfallSet | null {
+	if (!editionName) return null;
+
+	const cleanInput = editionName.toLowerCase().trim();
+
+	// First try exact match
+	for (const set of scryfallSets) {
+		if (set.name.toLowerCase() === cleanInput) {
+			return set;
+		}
+	}
+
+	// Handle World Championship Decks specifically
+	if (cleanInput.includes('world championship deck')) {
+		// Extract year from the input
+		const yearMatch = cleanInput.match(/(\d{4})/);
+		if (yearMatch) {
+			const year = yearMatch[1];
+			const targetName = `world championship decks ${year}`;
+
+			for (const set of scryfallSets) {
+				if (set.name.toLowerCase() === targetName) {
+					logDebug(
+						`Fuzzy matched World Championship Deck: "${editionName}" -> "${set.name}" (${set.code})`
+					);
+					return set;
+				}
+			}
+		}
+	}
+
+	// Try partial matching for other sets
+	for (const set of scryfallSets) {
+		const setName = set.name.toLowerCase();
+
+		// Check if the set name contains most of the input words
+		const inputWords = cleanInput.split(/\s+/).filter((word) => word.length > 2);
+		const matchedWords = inputWords.filter((word) => setName.includes(word));
+
+		// Require at least 70% of significant words to match
+		if (inputWords.length > 0 && matchedWords.length / inputWords.length >= 0.7) {
+			logDebug(`Fuzzy matched set: "${editionName}" -> "${set.name}" (${set.code})`);
+			return set;
+		}
+	}
+
+	logDebug(`No fuzzy match found for set: "${editionName}"`);
+	return null;
+}
+
+async function processFuzzySetStrategy(
+	cards: ParsedCard[],
+	identificationMethod: ConversionResult['identificationMethod'],
+	confidence: ConversionResult['confidence'],
+	results: ConversionResult[],
+	defaultCondition?: string,
+	exportOptions?: ExportOptions,
+	progressCallback?: ProgressCallback
+): Promise<void> {
+	if (cards.length === 0) return;
+	// Fetch Scryfall sets once for this batch
+	let scryfallSets: ScryfallSet[];
+	try {
+		scryfallSets = await fetchScryfallSets();
+		await delay(RATE_LIMIT_DELAY); // Respect rate limit
+	} catch (error) {
+		// If we can't fetch sets, mark all cards as failed
+		logError(
+			'Failed to fetch Scryfall sets for fuzzy matching',
+			error instanceof Error ? error : new Error(String(error))
+		);
+		cards.forEach((card) => {
+			results.push({
+				originalCard: card,
+				moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
+				success: false,
+				error: 'Failed to fetch Scryfall sets for fuzzy matching',
+				confidence: 'low',
+				identificationMethod: 'failed'
+			});
+		});
+		return;
+	}
+
+	for (let i = 0; i < cards.length; i++) {
+		const card = cards[i];
+
+		if (!card.editionName || !card.name) {
+			results.push({
+				originalCard: card,
+				moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
+				success: false,
+				error: 'Missing edition name or card name for fuzzy matching',
+				confidence: 'low',
+				identificationMethod: 'failed'
+			});
+			continue;
+		}
+		// Try to fuzzy match the edition name to a Scryfall set
+		const matchedSet = fuzzyMatchSetName(card.editionName!, scryfallSets);
+
+		if (!matchedSet) {
+			results.push({
+				originalCard: card,
+				moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
+				success: false,
+				error: `No fuzzy match found for edition: "${card.editionName}"`,
+				confidence: 'low',
+				identificationMethod: 'failed'
+			});
+			continue;
+		}
+
+		// Try to find the card in the matched set
+		await delay(RATE_LIMIT_DELAY); // Respect rate limit
+		const scryfallCard = await searchScryfallCard(card.name, matchedSet.code);
+
+		if (scryfallCard) {
+			results.push({
+				originalCard: card,
+				scryfallCard,
+				moxfieldRow: createMoxfieldRow(card, scryfallCard, defaultCondition),
+				success: true,
+				confidence,
+				identificationMethod
+			});
+		} else {
+			results.push({
+				originalCard: card,
+				moxfieldRow: createMoxfieldRow(card, undefined, defaultCondition),
+				success: false,
+				error: `Card "${card.name}" not found in fuzzy-matched set "${matchedSet.name}" (${matchedSet.code})`,
+				confidence: 'low',
+				identificationMethod: 'failed'
+			});
+		}
+		// Report progress
+		if (progressCallback) {
+			const progress = ((i + 1) / cards.length) * 100;
+			progressCallback(Math.min(100, progress));
+		}
+	}
+}
+
 function normalizeTappedOutFoil(foil: string): string {
-	if (foil === '-' || !foil) return '';
-
-	const normalized = foil.toLowerCase().trim();
-
-	// Handle TappedOut foil values
-	if (normalized === 'f') return 'foil';
-	if (normalized === 'f-etch') return 'etched';
-
-	return ''; // Default to non-foil for any other value
+	// TappedOut uses various foil indicators
+	const lowerFoil = foil.toLowerCase().trim();
+	if (lowerFoil === 'foil' || lowerFoil === 'yes' || lowerFoil === '1' || lowerFoil === 'true') {
+		return 'foil';
+	}
+	return '';
 }
 
 function normalizeTappedOutBoolean(value: string): string {
-	if (!value || value === '-' || value.toLowerCase().trim() === 'false') {
-		return 'False';
+	// TappedOut uses various boolean indicators for alter, proxy, signed
+	const lowerValue = value.toLowerCase().trim();
+	if (lowerValue === 'yes' || lowerValue === '1' || lowerValue === 'true' || lowerValue === 'x') {
+		return 'True';
 	}
+	return 'False';
+}
 
-	// Any other value (non-empty, not '-', not 'false') means True
-	return value.trim() !== '' ? 'True' : 'False';
+function normalizeCardsphereFoil(foil: string): string {
+	// Cardsphere uses 'F' for foil/etched and 'N' for non-foil
+	if (foil === 'F') return 'foil';
+	return '';
+}
+
+function normalizeCardsphereEdition(edition: string): string {
+	// Handle the etched foil edge case where Cardsphere appends "Etched Foil" to edition names
+	// This helps disambiguate cards that share Scryfall IDs between regular and etched versions
+	if (edition.endsWith(' Etched Foil')) {
+		return edition.slice(0, -12); // Remove " Etched Foil" suffix
+	}
+	return edition;
 }
