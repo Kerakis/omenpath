@@ -21,7 +21,8 @@ export const CSV_FORMATS: CsvFormat[] = [
 	{
 		name: 'Archidekt',
 		id: 'archidekt',
-		description: 'Archidekt collection export',
+		description:
+			'Archidekt collection export (💡 Tip: Include Scryfall ID, Condition, Language, and Foil finish when exporting for best accuracy)',
 		hasHeaders: true,
 		columnMappings: {
 			count: 'Quantity',
@@ -417,6 +418,30 @@ export const CSV_FORMATS: CsvFormat[] = [
 			condition: (value: string) => normalizeCondition(value),
 			language: (value: string) => normalizeTCGPlayerLanguage(value),
 			foil: (value: string) => (value.toLowerCase() === 'true' ? 'foil' : '')
+		}
+	},
+	{
+		name: 'DeckStats',
+		id: 'deckstats',
+		description:
+			'DeckStats collection export (⚠️ Check "Fill in missing printing data" when exporting for best accuracy)',
+		hasHeaders: true,
+		columnMappings: {
+			count: 'amount',
+			name: 'card_name',
+			edition: 'set_code',
+			collectorNumber: 'collector_number',
+			foil: 'is_foil',
+			signed: 'is_signed',
+			language: 'language',
+			condition: 'condition'
+		},
+		transformations: {
+			foil: (value: string) => (value === '1' || value.toLowerCase() === 'true' ? 'foil' : ''),
+			signed: (value: string) =>
+				value === '1' || value.toLowerCase() === 'true' ? 'True' : 'False',
+			condition: (value: string) => normalizeCondition(value),
+			language: (value: string) => normalizeLanguage(value)
 		}
 	}
 ];
@@ -2371,7 +2396,7 @@ function areResultsIdentical(result1: ConversionResult, result2: ConversionResul
 		return result1.error === result2.error;
 	}
 
-	// If both succeeded, compare the moxfield row data (excluding count fields)
+	// If both succeeded, compare the moxfield row data (excluding count-related fields)
 	if (result1.success && result2.success) {
 		const row1 = result1.moxfieldRow;
 		const row2 = result2.moxfieldRow;
