@@ -1,0 +1,9 @@
+"sep=,"
+Folder Name,Quantity,Trade Quantity,Card Name,Set Code,Set Name,Card Number,Condition,Printing,Language,Price Bought,Date Bought,LOW,MID,MARKET
+Test,1,0,Abrade,CMR,Commander Legends,410,Poor,Normal,English,0.13,2025-06-14,0.07,0.25,0.13
+Test,1,0,Abrade,DBL,Innistrad: Double Feature,406,Played,Foil,English,10.89,2025-06-14,8.27,14.99,10.89
+Test,1,0,Adorned Pouncer Token,THOU,Hour of Devastation Tokens,1,LightPlayed,Normal,English,0.64,2025-06-14,0.49,0.64,0.64
+Test,1,0,Aeromoeba,MH2,Modern Horizons 2,389,Mint,Foil,English,0.02,2025-06-14,0.01,0.25,0.02
+Test,1,0,Aeromoeba,MH2,Modern Horizons 2,389,Excellent,Normal,English,0.08,2025-06-14,0.01,0.15,0.08
+Test,1,0,Aeromoeba,MH2,Modern Horizons 2,389etc,Good,Etched,English,0.19,2025-06-14,0.01,0.25,0.19
+Test,1,0,Goblin Token,TBLC,Bloomburrow Commander Tokens,21,NearMint,Foil,English,0.00,2025-06-14,,,

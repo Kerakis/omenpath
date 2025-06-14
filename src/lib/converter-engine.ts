@@ -198,30 +198,9 @@ export const CSV_FORMATS: CsvFormat[] = [
 		}
 	},
 	{
-		name: 'DragonShield (App)',
-		id: 'dragonshield-app',
-		description: 'DragonShield mobile app export',
-		hasHeaders: true,
-		columnMappings: {
-			count: 'Quantity',
-			name: 'Name',
-			edition: 'Expansion Code',
-			condition: 'Condition',
-			language: 'Language',
-			foil: 'Foil',
-			purchasePrice: 'PurchasePrice',
-			collectorNumber: 'CardNumber'
-		},
-		transformations: {
-			condition: (value: string) => normalizeDragonShieldCondition(value),
-			language: (value: string) => normalizeLanguage(value),
-			foil: (value: string) => (value.toLowerCase() === 'true' ? 'foil' : '')
-		}
-	},
-	{
-		name: 'DragonShield (Web)',
-		id: 'dragonshield-web',
-		description: 'DragonShield website export',
+		name: 'DragonShield',
+		id: 'dragonshield',
+		description: 'DragonShield unified export (app & web)',
 		hasHeaders: true,
 		columnMappings: {
 			count: 'Quantity',
@@ -236,7 +215,9 @@ export const CSV_FORMATS: CsvFormat[] = [
 		transformations: {
 			condition: (value: string) => normalizeDragonShieldCondition(value),
 			language: (value: string) => normalizeLanguage(value),
-			foil: (value: string) => (value.toLowerCase() === 'foil' ? 'foil' : '')
+			foil: (value: string) => normalizeDragonShieldFoil(value),
+			collectorNumber: (value: string) => normalizeDragonShieldCollectorNumber(value),
+			name: (value: string) => normalizeDragonShieldCardName(value)
 		}
 	},
 	{
@@ -453,14 +434,14 @@ function normalizeCondition(condition: string): string {
 		.replace(/_/g, '')
 		.replace(/-/g, '');
 	const conditionMap: Record<string, string> = {
-		mint: 'Near Mint',
+		mint: 'Mint',
 		nearmint: 'Near Mint',
 		nm: 'Near Mint',
-		m: 'Near Mint',
+		m: 'Mint',
 		lightlyplayed: 'Lightly Played',
 		lightplayed: 'Lightly Played',
 		lp: 'Lightly Played',
-		excellent: 'Lightly Played', // Common alternate mapping
+		excellent: 'Near Mint', // "Excellent" maps to Near Mint
 		good: 'Lightly Played', // Common alternate mapping
 		moderately: 'Moderately Played',
 		moderatelyplayed: 'Moderately Played',
@@ -483,16 +464,38 @@ function normalizeCondition(condition: string): string {
 
 function normalizeDragonShieldCondition(condition: string): string {
 	const conditionMap: Record<string, string> = {
-		Mint: 'Near Mint',
+		Mint: 'Mint',
 		NearMint: 'Near Mint',
-		Excellent: 'Lightly Played',
+		Excellent: 'Near Mint', // "Excellent" maps to Near Mint
 		LightlyPlayed: 'Lightly Played',
+		LightPlayed: 'Lightly Played', // Single word variant
 		Good: 'Lightly Played',
 		Played: 'Heavily Played',
 		Poor: 'Damaged'
 	};
 
 	return conditionMap[condition] || condition;
+}
+
+function normalizeDragonShieldFoil(printing: string): string {
+	// DragonShield uses "Foil", "Normal", "Etched" in the Printing column
+	const lowerPrinting = printing.toLowerCase();
+	if (lowerPrinting === 'foil' || lowerPrinting === 'etched') {
+		return 'foil';
+	}
+	return '';
+}
+
+function normalizeDragonShieldCollectorNumber(collectorNumber: string): string {
+	// Remove "etc" suffix from etched foil cards
+	// e.g., "389etc" -> "389"
+	return collectorNumber.replace(/etc$/, '');
+}
+
+function normalizeDragonShieldCardName(cardName: string): string {
+	// Remove " Token" suffix for fallback name-only searches
+	// e.g., "Goblin Token" -> "Goblin"
+	return cardName.replace(/ Token$/, '');
 }
 
 function normalizeLanguage(language: string): string {
@@ -530,9 +533,9 @@ function normalizeLanguage(language: string): string {
 function normalizeManaBoxCondition(condition: string): string {
 	const normalized = condition.toLowerCase().replace(/\s+/g, '').replace(/_/g, '');
 	const conditionMap: Record<string, string> = {
-		mint: 'Near Mint',
+		mint: 'Mint',
 		nearmint: 'Near Mint',
-		excellent: 'Near Mint', // ManaBox specific - map to Near Mint
+		excellent: 'Near Mint', // ManaBox "excellent" maps to Near Mint
 		good: 'Lightly Played', // ManaBox specific - map to Lightly Played
 		lightplayed: 'Lightly Played',
 		lightlyplayed: 'Lightly Played',
@@ -553,7 +556,7 @@ function normalizeTappedOutCondition(condition: string): string {
 	const conditionMap: Record<string, string> = {
 		nm: 'Near Mint',
 		nearmint: 'Near Mint',
-		mint: 'Near Mint',
+		mint: 'Mint',
 		lp: 'Lightly Played',
 		lightlyplayed: 'Lightly Played',
 		sl: 'Lightly Played', // TappedOut uses "SL" for Slightly Played, map to Lightly Played
@@ -744,8 +747,13 @@ async function fetchScryfallCollection(identifiers: CardIdentifier[]): Promise<S
 }
 
 function parseCSV(text: string, format: CsvFormat): ParsedCard[] {
-	const lines = text.trim().split('\n');
+	let lines = text.trim().split('\n');
 	const delimiter = format.delimiter || ',';
+
+	// Handle DragonShield's "sep=," line at the beginning
+	if (format.id === 'dragonshield' && lines.length > 0 && lines[0].startsWith('"sep=')) {
+		lines = lines.slice(1); // Remove the sep line
+	}
 
 	// Parse headers
 	const headers = format.hasHeaders ? parseCSVLine(lines[0], delimiter) : [];
@@ -1079,8 +1087,7 @@ function getUniqueIdentifiers(formatId: string): string[] {
 		cubecobraa: ['cube name', 'cube id'],
 		cubecobrab: ['cube', 'board'],
 		helvault: ['extras'], // Helvault has a complex "extras" column
-		dragonshieldapp: ['folder id'],
-		dragonshieldweb: ['dragon shield'],
+		dragonshield: [], // Unified DragonShield format
 		deckstats: ['deck id'],
 		deckedbuilder: ['playable'],
 		urzasgatherer: ['quantity owned']
