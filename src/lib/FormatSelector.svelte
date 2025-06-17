@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CSV_FORMATS } from './converter-engine.js';
+	import { autoDetector } from './formats/index.js';
 
 	interface Props {
 		selectedFormat: string;
@@ -8,12 +8,21 @@
 
 	let { selectedFormat, onFormatChange }: Props = $props();
 
-	// Transform the CSV_FORMATS to match the component's expected format
-	const formats = CSV_FORMATS.map((format) => ({
-		id: format.id,
-		name: format.name,
-		description: format.description
-	}));
+	// Get all formats from the auto-detector and add the 'auto' option
+	const csvFormats = autoDetector.getAllFormats();
+	const formats = [
+		{
+			id: 'auto',
+			name: 'Auto-detect',
+			description: 'Automatically detect format from CSV headers'
+		},
+		...csvFormats.map((format) => ({
+			id: format.id,
+			name: format.name,
+			description: format.description
+		}))
+	];
+
 	function handleFormatChange(event: Event) {
 		const target = event.target as HTMLSelectElement;
 		onFormatChange(target.value);

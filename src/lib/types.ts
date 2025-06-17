@@ -64,6 +64,7 @@ export interface ScryfallCard {
 	reserved: boolean;
 	foil: boolean;
 	nonfoil: boolean;
+	finishes: string[];
 	prices: {
 		usd?: string;
 		usd_foil?: string;

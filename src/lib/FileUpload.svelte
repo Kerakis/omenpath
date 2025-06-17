@@ -1,9 +1,9 @@
 <script lang="ts">
 	interface Props {
-		onFilesSelected: (files: File[]) => void;
+		onFileSelected: (file: File) => void; // Changed to single file
 	}
 
-	let { onFilesSelected }: Props = $props();
+	let { onFileSelected }: Props = $props();
 
 	let isDragOver = $state(false);
 	let fileInput: HTMLInputElement;
@@ -27,7 +27,7 @@
 		);
 
 		if (files.length > 0) {
-			onFilesSelected(files);
+			onFileSelected(files[0]); // Only take the first file
 		}
 	}
 
@@ -36,7 +36,7 @@
 		const files = Array.from(target.files || []);
 
 		if (files.length > 0) {
-			onFilesSelected(files);
+			onFileSelected(files[0]); // Only take the first file
 		}
 	}
 
@@ -49,7 +49,6 @@
 	<input
 		bind:this={fileInput}
 		type="file"
-		multiple
 		accept=".csv"
 		onchange={handleFileSelect}
 		class="hidden"
@@ -85,18 +84,17 @@
 					d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
 				/>
 			</svg>
-
 			<div>
 				<p class="text-lg font-medium text-gray-700 dark:text-gray-200">
-					Drop CSV files here or click to browse
+					Drop a CSV file here or click to browse
 				</p>
 				<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-					Supports multiple files from various MTG collection apps
+					Upload one CSV file from your MTG collection app
 				</p>
 			</div>
 			<p class="text-xs text-gray-400 dark:text-gray-500">
-				Supported: Archidekt, CardCastle, CubeCobra, DeckBox, DelverLens, DragonShield, MTGO,
-				Moxfield, TCGPlayer, and more
+				Auto-detects format: Archidekt, CardCastle, CubeCobra, DeckBox, DelverLens, ManaBox, MTGO,
+				and more
 			</p>
 		</div>
 	</div>

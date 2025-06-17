@@ -19,14 +19,6 @@
 				Moxfield-compatible format with minimal effort.
 			</p>
 		</header>
-
-		<!-- Debug element to test dark mode -->
-		<div
-			class="mb-4 rounded border border-gray-300 bg-white p-4 text-black dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-		>
-			<p>Dark mode test - this should change colors when dark mode is active</p>
-			<p>Current HTML classes: <span id="html-classes"></span></p>
-		</div>
 		<script>
 			// Update the HTML classes display
 			const updateClasses = () => {
