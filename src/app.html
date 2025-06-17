@@ -5,10 +5,14 @@
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script>
-			// Dark mode detection and initialization
+			// Dark mode detection and initialization - must match ThemeToggle.svelte logic
+			const savedTheme = localStorage.getItem('theme');
+			const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
 			if (
-				localStorage.theme === 'dark' ||
-				(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+				savedTheme === 'dark' ||
+				(savedTheme === 'system' && systemPrefersDark) ||
+				(!savedTheme && systemPrefersDark)
 			) {
 				document.documentElement.classList.add('dark');
 			} else {

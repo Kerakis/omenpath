@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Custom scrollbar with dark mode support */
 ::-webkit-scrollbar {
 	@apply h-2 w-2;
