@@ -1,6 +1,6 @@
 <script lang="ts">
-	import CsvConverter from '../lib/CsvConverter.svelte';
-	import ThemeToggle from '../lib/ThemeToggle.svelte';
+	import CsvConverter from '../lib/components/conversion/CsvConverter.svelte';
+	import ThemeToggle from '../lib/components/ui/ThemeToggle.svelte';
 </script>
 
 <div
