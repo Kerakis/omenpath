@@ -163,14 +163,13 @@
 
 		return { veryHigh, high, medium, low, error, uncertain };
 	}
-
 	function getIdentificationMethods(result: any) {
 		if (!result.data) return {};
 
-		const successful = result.data.filter((r: any) => r.success);
+		// Count identification methods for all results, not just successful ones
 		const methods: Record<string, number> = {};
 
-		successful.forEach((r: any) => {
+		result.data.forEach((r: any) => {
 			const method = r.identificationMethod || 'unknown';
 			methods[method] = (methods[method] || 0) + 1;
 		});

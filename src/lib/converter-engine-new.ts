@@ -74,6 +74,32 @@ function validateLanguageMatch(originalLanguage: string, scryfallLanguage: strin
 	return false;
 }
 
+// Function to convert Scryfall language code to display name
+function getLanguageDisplayName(scryfallLanguageCode: string): string {
+	const languageNames: Record<string, string> = {
+		en: 'English',
+		es: 'Spanish',
+		fr: 'French',
+		de: 'German',
+		it: 'Italian',
+		pt: 'Portuguese',
+		ja: 'Japanese',
+		ko: 'Korean',
+		ru: 'Russian',
+		zhs: 'Chinese Simplified',
+		zht: 'Chinese Traditional',
+		he: 'Hebrew',
+		la: 'Latin',
+		grc: 'Ancient Greek',
+		ar: 'Arabic',
+		sa: 'Sanskrit',
+		ph: 'Phyrexian',
+		qya: 'Quenya'
+	};
+
+	return languageNames[scryfallLanguageCode.toLowerCase()] || scryfallLanguageCode;
+}
+
 // Validation function to check if Scryfall data matches original CSV data
 function validateScryfallMatch(
 	originalCard: ParsedCard,
@@ -820,12 +846,17 @@ function convertCardToMoxfieldRow(
 	const collectorNumber = card.collectorNumber || scryfallCard?.collector_number || '';
 	const name = card.name || scryfallCard?.name || '';
 
+	// Use the actual language from Scryfall if available, otherwise fall back to original
+	const language = scryfallCard?.lang
+		? getLanguageDisplayName(scryfallCard.lang)
+		: card.language || 'English';
+
 	return {
 		Count: card.count.toString(),
 		Name: name,
 		Edition: edition,
 		Condition: card.condition || defaultCondition || 'Near Mint',
-		Language: card.language || 'English',
+		Language: language,
 		Foil: card.foil || '',
 		Tags: card.tags || '',
 		'Last Modified': card.lastModified || '',
