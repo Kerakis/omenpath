@@ -6,9 +6,12 @@ import type {
 	ScryfallResponse,
 	CardIdentifier,
 	ProgressCallback,
-	ScryfallCard
+	ScryfallCard,
+	ApiHealthResult,
+	SetValidationResult
 } from './types.js';
 import { formatAutoDetector, type FormatDetectionResult } from './formats/index.js';
+import { checkScryfallApiHealth, validateSetCode, findSetCodeByName } from './scryfall-utils.js';
 import Papa from 'papaparse';
 
 // Rate limiting for Scryfall API (max 10 requests per second)
@@ -185,216 +188,6 @@ async function fetchScryfallCollection(identifiers: CardIdentifier[]): Promise<S
 	}
 }
 
-async function lookupCardsWithScryfall(
-	cards: ParsedCard[],
-	progressCallback?: ProgressCallback,
-	defaultCondition?: string
-): Promise<ConversionResult[]> {
-	const results: ConversionResult[] = [];
-	// Create identifiers for all cards using the best available data
-	const cardIdentifierPairs: { card: ParsedCard; identifier: CardIdentifier }[] = cards.map(
-		(card) => {
-			let identifier: CardIdentifier;
-
-			// Use the best identifier available, following the API's hierarchy
-			if (card.scryfallId) {
-				identifier = { id: card.scryfallId };
-			} else if (card.multiverseId) {
-				identifier = { multiverse_id: card.multiverseId };
-			} else if (card.mtgoId) {
-				identifier = { mtgo_id: card.mtgoId };
-			} else if (card.edition && card.collectorNumber) {
-				// Use set + collector_number (most precise for name-based lookup)
-				identifier = {
-					set: card.edition,
-					collector_number: card.collectorNumber
-				};
-			} else if (card.edition && card.name) {
-				// Use name + set
-				identifier = {
-					name: card.name,
-					set: card.edition
-				};
-			} else if (card.name) {
-				// Use name only (least precise)
-				identifier = { name: card.name };
-			} else {
-				// No valid identifier - this shouldn't happen but handle it
-				identifier = { name: card.name || 'Unknown Card' };
-			}
-
-			return { card, identifier };
-		}
-	);
-	let processedCount = 0;
-	const totalCards = cards.length;
-
-	// Process all cards in batches of up to 75
-	for (let i = 0; i < cardIdentifierPairs.length; i += BATCH_SIZE) {
-		const batch = cardIdentifierPairs.slice(i, i + BATCH_SIZE);
-		const identifiers = batch.map((pair) => pair.identifier);
-		const batchCards = batch.map((pair) => pair.card);
-
-		try {
-			const response = await fetchScryfallCollection(identifiers); // Match successful results back to original cards
-			response.data.forEach((scryfallCard) => {
-				const originalCard = batchCards.find((card) => {
-					// Try to match by ID first (most reliable)
-					if (card.scryfallId && scryfallCard.id === card.scryfallId) {
-						return true;
-					}
-					if (card.multiverseId && scryfallCard.multiverse_ids?.includes(card.multiverseId)) {
-						return true;
-					}
-					if (
-						card.mtgoId &&
-						(scryfallCard.mtgo_id === card.mtgoId || scryfallCard.mtgo_foil_id === card.mtgoId)
-					) {
-						return true;
-					}
-
-					// Match by set + collector number
-					if (card.edition && card.collectorNumber) {
-						return (
-							scryfallCard.set.toLowerCase() === card.edition.toLowerCase() &&
-							scryfallCard.collector_number === card.collectorNumber
-						);
-					}
-
-					// Match by name + set
-					if (card.edition) {
-						return (
-							scryfallCard.name.toLowerCase() === card.name.toLowerCase() &&
-							scryfallCard.set.toLowerCase() === card.edition.toLowerCase()
-						);
-					}
-
-					// Match by name only (least reliable)
-					return scryfallCard.name.toLowerCase() === card.name.toLowerCase();
-				});
-
-				if (originalCard) {
-					// Validate that the Scryfall data actually matches what was in the CSV
-					const validation = validateScryfallMatch(originalCard, scryfallCard);
-
-					if (!validation.isValid) {
-						// Data mismatch - treat as failed lookup
-						results.push({
-							originalCard,
-							moxfieldRow: convertCardToMoxfieldRow(originalCard, undefined, defaultCondition),
-							success: false,
-							confidence: 'low',
-							identificationMethod: 'failed',
-							error: `Data validation failed: ${validation.errors.join('; ')}`
-						});
-						return;
-					}
-
-					// Determine confidence and identification method
-					let confidence: 'high' | 'medium' | 'low' = 'low';
-					let identificationMethod: ConversionResult['identificationMethod'] = 'name_only';
-
-					if (originalCard.scryfallId) {
-						confidence = 'high';
-						identificationMethod = 'scryfall_id';
-					} else if (originalCard.multiverseId) {
-						confidence = 'high';
-						identificationMethod = 'multiverse_id';
-					} else if (originalCard.mtgoId) {
-						confidence = 'high';
-						identificationMethod = 'mtgo_id';
-					} else if (originalCard.edition && originalCard.collectorNumber) {
-						confidence = 'high';
-						identificationMethod = 'set_collector';
-					} else if (originalCard.edition) {
-						confidence = 'medium';
-						identificationMethod = 'name_set';
-					} else {
-						confidence = 'low';
-						identificationMethod = 'name_only';
-					}
-
-					results.push({
-						originalCard,
-						scryfallCard,
-						moxfieldRow: convertCardToMoxfieldRow(originalCard, scryfallCard, defaultCondition),
-						success: true,
-						confidence,
-						identificationMethod
-					});
-				}
-			});
-
-			// Handle not found cards
-			response.not_found?.forEach((identifier) => {
-				const originalCard = batchCards.find((card) => {
-					// Match the not found identifier back to original card
-					if (identifier.id && card.scryfallId === identifier.id) {
-						return true;
-					}
-					if (identifier.multiverse_id && card.multiverseId === identifier.multiverse_id) {
-						return true;
-					}
-					if (identifier.mtgo_id && card.mtgoId === identifier.mtgo_id) {
-						return true;
-					}
-					if (identifier.set && identifier.collector_number) {
-						return (
-							card.edition?.toLowerCase() === identifier.set.toLowerCase() &&
-							card.collectorNumber === identifier.collector_number
-						);
-					}
-					if (identifier.name && identifier.set) {
-						return (
-							card.name.toLowerCase() === identifier.name.toLowerCase() &&
-							card.edition?.toLowerCase() === identifier.set.toLowerCase()
-						);
-					}
-					if (identifier.name) {
-						return card.name.toLowerCase() === identifier.name.toLowerCase();
-					}
-					return false;
-				});
-
-				if (originalCard) {
-					results.push({
-						originalCard,
-						moxfieldRow: convertCardToMoxfieldRow(originalCard, undefined, defaultCondition),
-						success: false,
-						confidence: 'low',
-						identificationMethod: 'failed',
-						error: 'Card not found in Scryfall database'
-					});
-				}
-			});
-
-			processedCount += batchCards.length;
-			if (progressCallback) {
-				progressCallback((processedCount / totalCards) * 100);
-			}
-
-			// Rate limiting between batches
-			if (i + BATCH_SIZE < cardIdentifierPairs.length) {
-				await delay(RATE_LIMIT_DELAY);
-			}
-		} catch (error) {
-			console.error('Error in batch lookup:', error);
-			// Add failed results for this batch
-			batchCards.forEach((card) => {
-				results.push({
-					originalCard: card,
-					moxfieldRow: convertCardToMoxfieldRow(card, undefined, defaultCondition),
-					success: false,
-					confidence: 'low',
-					identificationMethod: 'failed',
-					error: 'API error during lookup'
-				});
-			});
-		}
-	}
-	return results;
-}
-
 // CSV export utility function
 export function formatAsMoxfieldCSV(results: ConversionResult[]): string {
 	const headers = [
@@ -449,26 +242,268 @@ export function createConverterEngine(): ConverterEngine {
 		parseFile: async (file: File, format: string): Promise<ParsedCard[]> => {
 			const content = await file.text();
 			return parseCSVContent(content, format);
-		},
-		// Convert file to Moxfield format
+		}, // Convert file to Moxfield format using the new 3-step process
 		convertFile: async (
 			file: File,
 			format: string,
 			progressCallback?: (progress: number) => void,
 			defaultCondition?: string
 		): Promise<ConversionResult[]> => {
-			if (progressCallback) progressCallback(0);
-
+			if (progressCallback) progressCallback(0); // Step 0: Parse CSV content
 			const content = await file.text();
-			const cards = await parseCSVContent(content, format, progressCallback);
+			const parsedCards = await parseCSVContent(content, format, progressCallback);
+
+			// Note: Set validation and confidence assignment should have happened at UI level
+			// If not, assign basic confidence levels as fallback
+			for (const card of parsedCards) {
+				if (!card.initialConfidence) {
+					if (card.scryfallId) {
+						card.initialConfidence = 'very_high';
+					} else if (card.multiverseId || card.mtgoId) {
+						card.initialConfidence = 'high';
+					} else if (card.edition && card.collectorNumber) {
+						card.initialConfidence = 'high';
+					} else if (card.edition && card.name) {
+						card.initialConfidence = 'medium';
+					} else if (card.name) {
+						card.initialConfidence = 'low';
+					} else {
+						card.initialConfidence = 'low';
+					}
+				}
+			}
+
+			if (progressCallback) progressCallback(20);
+
+			// Step 1: Perform primary lookups (set validation should have happened before conversion)
+			const primaryResults = await performPrimaryLookups(parsedCards, progressCallback);
 
 			if (progressCallback) progressCallback(80);
-			// Convert cards using Scryfall lookup
-			const results = await lookupCardsWithScryfall(cards, progressCallback, defaultCondition);
+
+			// Step 2: Language validation and secondary lookups
+			const finalResults = await performLanguageValidationAndSecondaryLookups(
+				primaryResults,
+				defaultCondition,
+				progressCallback
+			);
+			if (progressCallback) progressCallback(100);
+			return finalResults;
+		},
+
+		// Convert pre-validated cards (used when cards have already been parsed and validated)
+		convertPrevalidatedCards: async (
+			validatedCards: ParsedCard[],
+			progressCallback?: (progress: number) => void,
+			defaultCondition?: string
+		): Promise<ConversionResult[]> => {
+			if (progressCallback) progressCallback(0);
+
+			// Ensure all cards have confidence levels (fallback if missing)
+			for (const card of validatedCards) {
+				if (!card.initialConfidence) {
+					if (card.scryfallId) {
+						card.initialConfidence = 'very_high';
+					} else if (card.multiverseId || card.mtgoId) {
+						card.initialConfidence = 'high';
+					} else if (card.edition && card.collectorNumber) {
+						card.initialConfidence = card.setCodeCorrected ? 'medium' : 'high';
+					} else if (card.edition && card.name) {
+						card.initialConfidence = card.setCodeCorrected ? 'medium' : 'medium';
+					} else if (card.name) {
+						card.initialConfidence = 'low';
+					} else {
+						card.initialConfidence = 'low';
+					}
+				}
+			}
+
+			if (progressCallback) progressCallback(20);
+
+			// Step 1: Perform primary lookups using the validated cards
+			const primaryResults = await performPrimaryLookups(validatedCards, progressCallback);
+
+			if (progressCallback) progressCallback(80);
+
+			// Step 2: Language validation and secondary lookups
+			const finalResults = await performLanguageValidationAndSecondaryLookups(
+				primaryResults,
+				defaultCondition,
+				progressCallback
+			);
 
 			if (progressCallback) progressCallback(100);
 
-			return results;
+			return finalResults;
+		},
+
+		// Check API health
+		checkApiHealth: async (): Promise<ApiHealthResult> => {
+			return await checkScryfallApiHealth();
+		}, // Validate set codes in parsed cards (called after parsing, before conversion)
+		validateSetCodes: async (cards: ParsedCard[]): Promise<SetValidationResult> => {
+			// Debug: Add logging to see what's being detected
+			console.log(
+				'Set validation input:',
+				cards.map((c) => ({ name: c.name, edition: c.edition, editionName: c.editionName }))
+			);
+
+			const invalidSetCodes: string[] = [];
+			const correctedSetCodes: Array<{
+				original: string;
+				corrected: string;
+				confidence: number;
+				setName?: string;
+			}> = [];
+			const warnings: string[] = [];
+
+			// Get unique set codes from cards (including empty ones where we have set names)
+			const setCodes = [...new Set(cards.map((card) => card.edition).filter(Boolean))];
+
+			// Also collect cards that have editionName but no valid edition
+			const cardsWithOnlySetNames = cards.filter(
+				(card) => card.editionName && (!card.edition || card.edition.trim() === '')
+			);
+
+			// Build correction map
+			const correctionMap = new Map<string, string>(); // Process invalid set codes
+			for (const setCode of setCodes) {
+				const isValid = await validateSetCode(setCode!);
+
+				if (!isValid) {
+					invalidSetCodes.push(setCode!);
+
+					// Try to find correction using set names from cards with this set code
+					const cardsWithThisSet = cards.filter((card) => card.edition === setCode);
+					const setNames = [
+						...new Set(cardsWithThisSet.map((card) => card.editionName).filter(Boolean))
+					];
+					let bestCorrection: { code: string; confidence: number; matchedName?: string } | null =
+						null;
+					for (const setName of setNames) {
+						const correction = await findSetCodeByName(setName!, 0.7);
+
+						if (
+							correction.code &&
+							correction.confidence >= 0.7 &&
+							(!bestCorrection || correction.confidence > bestCorrection.confidence)
+						) {
+							bestCorrection = {
+								code: correction.code,
+								confidence: correction.confidence,
+								matchedName: correction.matchedName
+							};
+						}
+					}
+					if (bestCorrection) {
+						correctedSetCodes.push({
+							original: setCode!,
+							corrected: bestCorrection.code,
+							confidence: bestCorrection.confidence,
+							setName: bestCorrection.matchedName
+						});
+						correctionMap.set(setCode!, bestCorrection.code);
+					} else {
+						warnings.push(`Invalid set code "${setCode}" cannot be automatically corrected`);
+					}
+				}
+			}
+
+			// Process cards with only set names (no set codes)
+			const uniqueSetNames = [...new Set(cardsWithOnlySetNames.map((card) => card.editionName!))];
+			for (const setName of uniqueSetNames) {
+				const correction = await findSetCodeByName(setName, 0.7);
+				if (correction.code && correction.confidence >= 0.7) {
+					correctedSetCodes.push({
+						original: '', // No original set code
+						corrected: correction.code,
+						confidence: correction.confidence,
+						setName: correction.matchedName
+					});
+					// Use setName as key for cards with no set code
+					correctionMap.set(`setname:${setName}`, correction.code);
+				} else {
+					warnings.push(`Set name "${setName}" cannot be matched to a valid set code`);
+				}
+			} // Apply corrections to cards and update confidence levels
+			for (const card of cards) {
+				let correctionApplied = false;
+
+				if (card.edition && correctionMap.has(card.edition)) {
+					// Case 1: Invalid set code that was corrected
+					const correctedCode = correctionMap.get(card.edition)!;
+					const correction = correctedSetCodes.find((c) => c.original === card.edition);
+
+					card.edition = correctedCode;
+					card.setCodeCorrected = true; // Flag that this set code was corrected
+					card.warnings = card.warnings || [];
+					card.warnings.push(
+						`Set code "${correction?.original}" corrected to "${correctedCode}" based on set name "${correction?.setName}"`
+					);
+					correctionApplied = true;
+				} else if (card.editionName && (!card.edition || card.edition.trim() === '')) {
+					// Case 2: Missing set code but we have set name
+					const setNameKey = `setname:${card.editionName}`;
+					if (correctionMap.has(setNameKey)) {
+						const correctedCode = correctionMap.get(setNameKey)!;
+
+						card.edition = correctedCode;
+						card.setCodeCorrected = true; // Flag that this set code was added
+						card.warnings = card.warnings || [];
+						card.warnings.push(
+							`Set code added as "${correctedCode}" based on set name "${card.editionName}"`
+						);
+						correctionApplied = true;
+					}
+				}
+
+				// Update confidence levels based on identifiers and corrections
+				if (card.scryfallId) {
+					card.initialConfidence = 'very_high'; // Scryfall ID always wins
+				} else if (card.multiverseId || card.mtgoId) {
+					card.initialConfidence = 'high'; // ID-based lookups are still high
+				} else if (card.edition && card.collectorNumber) {
+					if (correctionApplied) {
+						// Set + collector number with corrected/added set = medium confidence
+						card.initialConfidence = 'medium';
+					} else {
+						// Valid set + collector number = high confidence
+						card.initialConfidence = 'high';
+					}
+				} else if (card.edition && card.name) {
+					if (correctionApplied) {
+						// Name + corrected/added set = medium confidence
+						card.initialConfidence = 'medium';
+					} else {
+						// Name + valid set = medium confidence (no correction needed)
+						card.initialConfidence = 'medium';
+					}
+				} else if (card.name) {
+					card.initialConfidence = 'low';
+					if (!card.edition) {
+						card.warnings = card.warnings || [];
+						card.warnings.push('Only card name available - correct version unlikely to be found');
+					}
+				} else {
+					card.initialConfidence = 'low';
+					card.warnings = card.warnings || [];
+					card.warnings.push('No usable identifiers available');
+				}
+
+				// Handle cases where set codes couldn't be corrected
+				if (card.edition && invalidSetCodes.includes(card.edition) && !correctionApplied) {
+					card.warnings = card.warnings || [];
+					card.warnings.push(
+						`Invalid set code "${card.edition}" - could not be corrected automatically`
+					);
+					card.initialConfidence = 'low'; // Invalid set code that can't be corrected = low confidence
+				}
+			}
+			return {
+				hasInvalidSetCodes: invalidSetCodes.length > 0,
+				invalidSetCodes,
+				correctedSetCodes,
+				warnings
+			};
 		}
 	};
 }
@@ -635,3 +670,391 @@ function convertCardToMoxfieldRow(
 		'Purchase Price': card.purchasePrice || ''
 	};
 }
+
+// ===== CONFIDENCE ASSIGNMENT =====
+
+// Assign initial confidence based on available identifiers (no set validation here)
+// ===== NEW 3-STEP CONVERSION PROCESS =====
+
+// Step 2: Perform primary lookups using Collection endpoint (PROPERLY MIXING IDENTIFIERS)
+async function performPrimaryLookups(
+	cards: ParsedCard[],
+	progressCallback?: ProgressCallback
+): Promise<Array<{ card: ParsedCard; result?: ConversionResult; needsRetry?: boolean }>> {
+	const results: Array<{ card: ParsedCard; result?: ConversionResult; needsRetry?: boolean }> = []; // All cards need API lookup to get complete Scryfall data for Moxfield conversion
+	const cardsNeedingLookup = cards;
+
+	// No cards are handled without lookup since we need complete Scryfall data
+
+	let processed = 0;
+	const total = cardsNeedingLookup.length;
+
+	console.log(
+		`Total cards: ${cards.length}, Cards needing API lookup: ${cardsNeedingLookup.length}`
+	);
+
+	if (cardsNeedingLookup.length === 0) {
+		if (progressCallback) progressCallback(60);
+		return results;
+	}
+
+	// Process cards that need lookup in batches of 75, mixing all identifier types as Scryfall recommends
+	for (let i = 0; i < cardsNeedingLookup.length; i += BATCH_SIZE) {
+		const batch = cardsNeedingLookup.slice(i, i + BATCH_SIZE);
+
+		console.log(`Processing batch ${Math.floor(i / BATCH_SIZE) + 1} with ${batch.length} cards...`);
+
+		const batchResults = await processCardBatch(batch);
+		for (const batchResult of batchResults) {
+			results.push({ card: batchResult.originalCard, result: batchResult });
+		}
+		processed += batch.length;
+		if (progressCallback) {
+			progressCallback(10 + (processed / total) * 50); // 10-60% range
+		}
+
+		// Rate limiting between batches
+		if (i + BATCH_SIZE < cardsNeedingLookup.length) {
+			await delay(RATE_LIMIT_DELAY);
+		}
+	}
+	return results;
+}
+
+// Process a batch of cards with mixed identifiers (as Scryfall recommends)
+async function processCardBatch(cards: ParsedCard[]): Promise<ConversionResult[]> {
+	const cardIdentifierPairs: Array<{ card: ParsedCard; identifier: CardIdentifier }> = [];
+
+	for (const card of cards) {
+		let identifier: CardIdentifier;
+		// Create identifier based on best available data (priority order)
+		if (card.scryfallId) {
+			// Validate and trim Scryfall ID to 36 characters
+			let scryfallId = card.scryfallId.trim();
+			if (scryfallId.length > 36) {
+				scryfallId = scryfallId.substring(0, 36);
+				card.warnings = card.warnings || [];
+				card.warnings.push('Scryfall ID was longer than 36 characters and has been trimmed');
+			}
+			console.log(`Using Scryfall ID for ${card.name}: ${scryfallId}`);
+			identifier = { id: scryfallId };
+		} else if (card.multiverseId) {
+			console.log(`Using Multiverse ID for ${card.name}: ${card.multiverseId}`);
+			identifier = { multiverse_id: card.multiverseId };
+		} else if (card.mtgoId) {
+			console.log(`Using MTGO ID for ${card.name}: ${card.mtgoId}`);
+			identifier = { mtgo_id: card.mtgoId };
+		} else if (card.edition && card.collectorNumber) {
+			console.log(`Using Set+CN for ${card.name}: ${card.edition}+${card.collectorNumber}`);
+			identifier = { set: card.edition, collector_number: card.collectorNumber };
+		} else if (card.name && card.edition) {
+			console.log(`Using Name+Set for ${card.name}: ${card.name}+${card.edition}`);
+			identifier = { name: card.name, set: card.edition };
+		} else if (card.name) {
+			console.log(`Using Name only for ${card.name}: ${card.name}`);
+			identifier = { name: card.name };
+		} else {
+			continue; // Skip cards with no valid identifiers
+		}
+
+		cardIdentifierPairs.push({ card, identifier });
+	}
+
+	return await processBatchWithIdentifiers(cardIdentifierPairs);
+}
+
+// Process cards with identifiers using Collection endpoint
+async function processBatchWithIdentifiers(
+	cardIdentifierPairs: Array<{ card: ParsedCard; identifier: CardIdentifier }>
+): Promise<ConversionResult[]> {
+	const results: ConversionResult[] = [];
+
+	// Process in batches of up to 75
+	for (let i = 0; i < cardIdentifierPairs.length; i += BATCH_SIZE) {
+		const batch = cardIdentifierPairs.slice(i, i + BATCH_SIZE);
+		const identifiers = batch.map((pair) => pair.identifier);
+		const batchCards = batch.map((pair) => pair.card);
+
+		try {
+			const response = await fetchScryfallCollection(identifiers);
+
+			// Match successful results back to original cards
+			response.data.forEach((scryfallCard) => {
+				const originalCard = findMatchingCard(batchCards, scryfallCard);
+
+				if (originalCard) {
+					// Validate that the Scryfall data actually matches what was in the CSV
+					const validation = validateScryfallMatch(originalCard, scryfallCard);
+
+					if (!validation.isValid) {
+						// Data mismatch - treat as failed lookup
+						results.push(
+							createFailedResult(
+								originalCard,
+								`Data validation failed: ${validation.errors.join('; ')}`
+							)
+						);
+						return;
+					}
+
+					// Create successful result
+					results.push(createSuccessfulResult(originalCard, scryfallCard));
+				}
+			});
+
+			// Handle not found cards
+			response.not_found?.forEach((identifier) => {
+				const originalCard = findCardByIdentifier(batchCards, identifier);
+
+				if (originalCard) {
+					results.push(createFailedResult(originalCard, 'Card not found in Scryfall database'));
+				}
+			});
+
+			// Rate limiting between batches
+			if (i + BATCH_SIZE < cardIdentifierPairs.length) {
+				await delay(RATE_LIMIT_DELAY);
+			}
+		} catch (error) {
+			console.error('Error in batch lookup:', error);
+			// Add failed results for this batch
+			batchCards.forEach((card) => {
+				results.push(createFailedResult(card, 'API error during lookup'));
+			});
+		}
+	}
+
+	return results;
+}
+
+// Helper to find matching card from Scryfall response
+function findMatchingCard(cards: ParsedCard[], scryfallCard: ScryfallCard): ParsedCard | undefined {
+	return cards.find((card) => {
+		// Try to match by ID first (most reliable)
+		if (card.scryfallId && scryfallCard.id === card.scryfallId.trim().substring(0, 36)) {
+			return true;
+		}
+		if (card.multiverseId && scryfallCard.multiverse_ids?.includes(card.multiverseId)) {
+			return true;
+		}
+		if (
+			card.mtgoId &&
+			(scryfallCard.mtgo_id === card.mtgoId || scryfallCard.mtgo_foil_id === card.mtgoId)
+		) {
+			return true;
+		}
+
+		// Match by set + collector number
+		if (card.edition && card.collectorNumber) {
+			return (
+				scryfallCard.set.toLowerCase() === card.edition.toLowerCase() &&
+				scryfallCard.collector_number === card.collectorNumber
+			);
+		}
+
+		// Match by name + set
+		if (card.edition) {
+			return (
+				scryfallCard.name.toLowerCase() === card.name.toLowerCase() &&
+				scryfallCard.set.toLowerCase() === card.edition.toLowerCase()
+			);
+		}
+
+		// Match by name only (least reliable)
+		return scryfallCard.name.toLowerCase() === card.name.toLowerCase();
+	});
+}
+
+// Helper to find card by identifier for not_found matches
+function findCardByIdentifier(
+	cards: ParsedCard[],
+	identifier: CardIdentifier
+): ParsedCard | undefined {
+	return cards.find((card) => {
+		if (identifier.id && card.scryfallId === identifier.id) {
+			return true;
+		}
+		if (identifier.multiverse_id && card.multiverseId === identifier.multiverse_id) {
+			return true;
+		}
+		if (identifier.mtgo_id && card.mtgoId === identifier.mtgo_id) {
+			return true;
+		}
+		if (identifier.set && identifier.collector_number) {
+			return (
+				card.edition?.toLowerCase() === identifier.set.toLowerCase() &&
+				card.collectorNumber === identifier.collector_number
+			);
+		}
+		if (identifier.name && identifier.set) {
+			return (
+				card.name.toLowerCase() === identifier.name.toLowerCase() &&
+				card.edition?.toLowerCase() === identifier.set.toLowerCase()
+			);
+		}
+		if (identifier.name) {
+			return card.name.toLowerCase() === identifier.name.toLowerCase();
+		}
+		return false;
+	});
+}
+
+// Helper to create successful result
+function createSuccessfulResult(card: ParsedCard, scryfallCard: ScryfallCard): ConversionResult {
+	// Start with the initial confidence (from parsing/validation phase)
+	let confidence = card.initialConfidence || 'low';
+	let identificationMethod: ConversionResult['identificationMethod'] = 'name_only';
+
+	// Determine identification method based on what was actually used
+	if (card.scryfallId) {
+		identificationMethod = 'scryfall_id';
+		// Very high confidence can't be downgraded by other factors
+		confidence = 'very_high';
+	} else if (card.multiverseId) {
+		identificationMethod = 'multiverse_id';
+		// Start with high confidence, but check for downgrades
+		if (confidence === 'very_high') confidence = 'high'; // Can't be higher than high for multiverse ID
+	} else if (card.mtgoId) {
+		identificationMethod = 'mtgo_id';
+		// Start with high confidence, but check for downgrades
+		if (confidence === 'very_high') confidence = 'high'; // Can't be higher than high for MTGO ID
+	} else if (card.edition && card.collectorNumber) {
+		if (card.setCodeCorrected) {
+			identificationMethod = 'set_collector_corrected';
+			// Medium confidence for corrected set codes (as per requirements)
+			if (confidence !== 'low') confidence = 'medium';
+		} else {
+			identificationMethod = 'set_collector';
+			// High confidence for valid set + collector (if not already downgraded)
+		}
+	} else if (card.edition) {
+		if (card.setCodeCorrected) {
+			identificationMethod = 'name_set_corrected';
+			// Medium confidence for corrected set codes (as per requirements)
+			if (confidence !== 'low') confidence = 'medium';
+		} else {
+			identificationMethod = 'name_set';
+			// Medium confidence for name + valid set (if not already downgraded)
+		}
+	} else {
+		identificationMethod = 'name_only';
+		confidence = 'low'; // Name only is always low
+	}
+
+	// Check for language mismatch and downgrade confidence if needed
+	if (card.language && card.language.trim() !== '') {
+		if (!validateLanguageMatch(card.language, scryfallCard.lang)) {
+			// Language mismatch causes confidence downgrade (as per requirements)
+			const downgradedConfidence = downgradeConfidence(confidence);
+			if (downgradedConfidence !== confidence) {
+				// Add warning about language mismatch affecting confidence
+				card.warnings = card.warnings || [];
+				card.warnings.push(
+					`Language mismatch: expected "${card.language}", got "${scryfallCard.lang}" - confidence downgraded from ${confidence} to ${downgradedConfidence}`
+				);
+				confidence = downgradedConfidence;
+			}
+		}
+	}
+
+	return {
+		originalCard: card,
+		scryfallCard,
+		moxfieldRow: convertCardToMoxfieldRow(card, scryfallCard),
+		success: true,
+		confidence,
+		initialConfidence: card.initialConfidence,
+		identificationMethod,
+		warnings: card.warnings,
+		setCodeCorrected: card.setCodeCorrected
+	};
+}
+
+// Helper function to downgrade confidence levels
+function downgradeConfidence(
+	confidence: ConversionResult['confidence']
+): ConversionResult['confidence'] {
+	switch (confidence) {
+		case 'very_high':
+			return 'high';
+		case 'high':
+			return 'medium';
+		case 'medium':
+			return 'low';
+		case 'low':
+		default:
+			return 'low'; // Can't go lower
+	}
+}
+
+// Helper to create failed result
+function createFailedResult(card: ParsedCard, errorMessage: string): ConversionResult {
+	return {
+		originalCard: card,
+		moxfieldRow: convertCardToMoxfieldRow(card),
+		success: false,
+		confidence: 'low',
+		initialConfidence: card.initialConfidence,
+		identificationMethod: 'failed',
+		error: errorMessage,
+		warnings: card.warnings,
+		setCodeCorrected: card.setCodeCorrected
+	};
+}
+
+// Step 3: Language validation and secondary lookups
+async function performLanguageValidationAndSecondaryLookups(
+	primaryResults: Array<{ card: ParsedCard; result?: ConversionResult; needsRetry?: boolean }>,
+	defaultCondition?: string,
+	progressCallback?: ProgressCallback
+): Promise<ConversionResult[]> {
+	const finalResults: ConversionResult[] = [];
+
+	for (const primaryResult of primaryResults) {
+		if (!primaryResult.result) {
+			// This shouldn't happen, but handle gracefully
+			finalResults.push(createFailedResult(primaryResult.card, 'No primary result available'));
+			continue;
+		}
+
+		const { card, result } = primaryResult;
+
+		// If lookup failed or no Scryfall card, add as-is
+		if (!result.success || !result.scryfallCard) {
+			finalResults.push(result);
+			continue;
+		}
+
+		// Check language match if language was specified
+		if (card.language && card.language.trim() !== '') {
+			const languageMatch = validateLanguageMatch(card.language, result.scryfallCard.lang);
+			if (!languageMatch) {
+				// Language mismatch - downgrade confidence and add warning instead of making another API call
+				const updatedResult = { ...result };
+
+				// Downgrade confidence due to language mismatch
+				updatedResult.confidence = downgradeConfidence(result.confidence);
+				updatedResult.languageMismatch = true;
+				updatedResult.warnings = [
+					...(result.warnings || []),
+					`Language mismatch: requested "${card.language}", got "${result.scryfallCard.lang}"`
+				];
+
+				finalResults.push(updatedResult);
+			} else {
+				// Language matches or no language specified
+				finalResults.push(result);
+			}
+		} else {
+			// No language specified
+			finalResults.push(result);
+		}
+	}
+
+	if (progressCallback) progressCallback(100);
+
+	return finalResults;
+}
+
+// Look up card with specific language using Search endpoint
+// ===== END NEW 3-STEP CONVERSION PROCESS =====

@@ -9,7 +9,9 @@ import type {
 	ScryfallCard,
 	ExportOptions,
 	ScryfallSet,
-	ScryfallSetsResponse
+	ScryfallSetsResponse,
+	ApiHealthResult,
+	SetValidationResult
 } from './types.js';
 
 // Rate limiting for Scryfall API (max 10 requests per second)
@@ -1242,7 +1244,7 @@ async function processCardLookupBatches(
 		const strategyResults: ConversionResult[] = [];
 		await processFuzzySetStrategy(
 			cardsWithFuzzySet,
-			'fuzzy_set',
+			'name_set_corrected',
 			'medium',
 			strategyResults,
 			defaultCondition,
@@ -1537,7 +1539,7 @@ export function formatAsMoxfieldCSV(
 	// Sort results: low confidence first, then by name alphabetically
 	const sortedResults = [...results].sort((a, b) => {
 		// First sort by confidence (low confidence first)
-		const confidenceOrder = { low: 0, medium: 1, high: 2 };
+		const confidenceOrder = { low: 0, medium: 1, high: 2, very_high: 3 };
 		const aConfidence = confidenceOrder[a.confidence] ?? 2;
 		const bConfidence = confidenceOrder[b.confidence] ?? 2;
 
@@ -1680,9 +1682,36 @@ export function createConverterEngine(): ConverterEngine {
 		getSupportedFormats(): CsvFormat[] {
 			return CSV_FORMATS;
 		},
-
 		detectFormat(headers: string[]): string | null {
 			return detectFormat(headers);
+		},
+
+		async checkApiHealth(): Promise<ApiHealthResult> {
+			// Stub implementation for old engine - just return available
+			return {
+				available: true
+			};
+		},
+
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		async convertPrevalidatedCards(
+			_validatedCards: ParsedCard[],
+			_progressCallback?: (progress: number) => void,
+			_defaultCondition?: string
+		): Promise<ConversionResult[]> {
+			// Stub implementation for old engine - just call convertFile with a dummy file
+			throw new Error('convertPrevalidatedCards not implemented in legacy engine');
+		},
+
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		async validateSetCodes(cards: ParsedCard[]): Promise<SetValidationResult> {
+			// Stub implementation for old engine - just return no corrections
+			return {
+				hasInvalidSetCodes: false,
+				invalidSetCodes: [],
+				correctedSetCodes: [],
+				warnings: []
+			};
 		}
 	};
 }

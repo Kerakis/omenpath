@@ -39,11 +39,10 @@
 	}
 	function downloadTXT(result: any) {
 		if (!result.data || !result.success) return;
-
 		// Sort results: low confidence first, then by name alphabetically (same as CSV)
 		const sortedResults = [...result.data].sort((a: any, b: any) => {
 			// First sort by confidence (low confidence first)
-			const confidenceOrder: Record<string, number> = { low: 0, medium: 1, high: 2 };
+			const confidenceOrder: Record<string, number> = { low: 0, medium: 1, high: 2, very_high: 3 };
 			const aConfidence = confidenceOrder[a.confidence as string] ?? 2;
 			const bConfidence = confidenceOrder[b.confidence as string] ?? 2;
 
@@ -135,17 +134,17 @@
 
 		return { total, successful, failed };
 	}
-
 	function getConfidenceStats(result: any) {
-		if (!result.data) return { high: 0, medium: 0, low: 0, uncertain: 0 };
+		if (!result.data) return { veryHigh: 0, high: 0, medium: 0, low: 0, uncertain: 0 };
 
 		const successful = result.data.filter((r: any) => r.success);
+		const veryHigh = successful.filter((r: any) => r.confidence === 'very_high').length;
 		const high = successful.filter((r: any) => r.confidence === 'high').length;
 		const medium = successful.filter((r: any) => r.confidence === 'medium').length;
 		const low = successful.filter((r: any) => r.confidence === 'low').length;
 		const uncertain = medium + low; // Cards that might need review
 
-		return { high, medium, low, uncertain };
+		return { veryHigh, high, medium, low, uncertain };
 	}
 
 	function getIdentificationMethods(result: any) {
@@ -172,8 +171,9 @@
 			multiverse_id: 'Multiverse ID',
 			mtgo_id: 'MTGO ID',
 			set_collector: 'Set + Collector #',
+			set_collector_corrected: 'Set + Collector # (Set Corrected)',
 			name_set: 'Name + Set',
-			fuzzy_set: 'Fuzzy Set Match',
+			name_set_corrected: 'Name + Set (Set Corrected)',
 			name_only: 'Name Only',
 			failed: 'Failed'
 		};
@@ -181,11 +181,10 @@
 	}
 	function getSortedResults(result: any) {
 		if (!result.data) return [];
-
 		// Sort results: low confidence first, then by name alphabetically
 		return [...result.data].sort((a: any, b: any) => {
 			// First sort by confidence (low confidence first)
-			const confidenceOrder: Record<string, number> = { low: 0, medium: 1, high: 2 };
+			const confidenceOrder: Record<string, number> = { low: 0, medium: 1, high: 2, very_high: 3 };
 			const aConfidence = confidenceOrder[a.confidence as string] ?? 2;
 			const bConfidence = confidenceOrder[b.confidence as string] ?? 2;
 
@@ -376,7 +375,13 @@
 								<h4 class="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
 									Identification Confidence:
 								</h4>
-								<div class="grid grid-cols-3 gap-4 text-sm">
+								<div class="grid grid-cols-2 gap-4 text-sm">
+									<div class="flex items-center">
+										<div class="mr-2 h-3 w-3 rounded-full bg-emerald-600"></div>
+										<span class="text-gray-700 dark:text-gray-300"
+											>Very High: {confidenceStats.veryHigh}</span
+										>
+									</div>
 									<div class="flex items-center">
 										<div class="mr-2 h-3 w-3 rounded-full bg-green-500"></div>
 										<span class="text-gray-700 dark:text-gray-300"
@@ -581,18 +586,36 @@
 															</td>
 														{/if}
 														<td class="px-2 py-1">
-															<span
-																class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium {card.confidence ===
-																'high'
-																	? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300'
-																	: card.confidence === 'medium'
-																		? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300'
-																		: card.confidence === 'low'
-																			? 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300'
-																			: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'}"
-															>
-																{card.confidence || 'unknown'}
-															</span>
+															<div class="flex items-center space-x-1">
+																<span
+																	class="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium {card.confidence ===
+																	'very_high'
+																		? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300'
+																		: card.confidence === 'high'
+																			? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300'
+																			: card.confidence === 'medium'
+																				? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300'
+																				: card.confidence === 'low'
+																					? 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300'
+																					: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'}"
+																>
+																	{card.confidence || 'unknown'}
+																</span>
+																{#if card.warnings && card.warnings.length > 0}
+																	<span
+																		class="inline-flex items-center text-amber-600 dark:text-amber-400"
+																		title="Warnings: {card.warnings.join('; ')}"
+																	>
+																		<svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+																			<path
+																				fill-rule="evenodd"
+																				d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z"
+																				clip-rule="evenodd"
+																			/>
+																		</svg>
+																	</span>
+																{/if}
+															</div>
 														</td>
 														<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
 															{getMethodLabel(card.identificationMethod || 'unknown')}
@@ -652,6 +675,14 @@
 												<strong>Error:</strong>
 												{failedCard.error || 'Unknown error'}
 											</div>
+											{#if failedCard.warnings && failedCard.warnings.length > 0}
+												<div
+													class="mt-1 rounded bg-amber-50 px-2 py-1 text-xs text-amber-700 dark:bg-amber-900/20 dark:text-amber-400"
+												>
+													<strong>Warnings:</strong>
+													{failedCard.warnings.join('; ')}
+												</div>
+											{/if}
 											{#if csvLine}
 												<div
 													class="mt-2 rounded border bg-gray-100 p-2 font-mono text-xs text-gray-800 dark:bg-gray-700 dark:text-gray-200"

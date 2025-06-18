@@ -107,6 +107,10 @@
 							class="px-3 py-2 text-left text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-300"
 							>ID Status</th
 						>
+						<th
+							class="px-3 py-2 text-left text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-300"
+							>Warnings</th
+						>
 					</tr>
 				</thead>
 				<tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
@@ -121,9 +125,17 @@
 							>
 								{card.name}
 							</td>
-							<td class="px-3 py-2 text-sm whitespace-nowrap text-gray-900 dark:text-gray-100"
-								>{card.edition || '-'}</td
-							>
+							<td class="px-3 py-2 text-sm whitespace-nowrap text-gray-900 dark:text-gray-100">
+								{card.edition || '-'}
+								{#if card.setCodeCorrected}
+									<span
+										class="ml-1 inline-flex items-center rounded-full bg-blue-100 px-1.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/50 dark:text-blue-300"
+										title="Set code was corrected"
+									>
+										corrected
+									</span>
+								{/if}
+							</td>
 							<td class="px-3 py-2 text-sm whitespace-nowrap text-gray-900 dark:text-gray-100"
 								>{card.collectorNumber || '-'}</td
 							>
@@ -172,6 +184,22 @@
 									>
 										Needs Lookup
 									</span>
+								{/if}
+							</td>
+							<td class="max-w-48 px-3 py-2 text-sm">
+								{#if card.warnings && card.warnings.length > 0}
+									<div class="space-y-1">
+										{#each card.warnings as warning}
+											<div
+												class="rounded bg-amber-50 px-2 py-1 text-xs text-amber-600 dark:bg-amber-900/20 dark:text-amber-400"
+												title={warning}
+											>
+												{warning.length > 60 ? warning.substring(0, 60) + '...' : warning}
+											</div>
+										{/each}
+									</div>
+								{:else}
+									<span class="text-gray-400 dark:text-gray-500">-</span>
 								{/if}
 							</td>
 						</tr>

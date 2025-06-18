@@ -36,14 +36,18 @@ export interface ParsedCard {
 	scryfallId?: string;
 	multiverseId?: number;
 	mtgoId?: number;
-
 	// Conversion tracking
 	needsLookup: boolean;
 	conversionStatus?: 'pending' | 'success' | 'failed';
 	error?: string;
 
+	// New 3-step process properties
+	initialConfidence?: 'very_high' | 'high' | 'medium' | 'low';
+	warnings?: string[];
+	setCodeCorrected?: boolean;
+
 	// Allow string indexing for transformations
-	[key: string]: string | number | Record<string, string> | boolean | undefined;
+	[key: string]: string | number | Record<string, string> | boolean | string[] | undefined;
 }
 
 export interface ScryfallCard {
@@ -99,16 +103,44 @@ export interface ConversionResult {
 	moxfieldRow: Record<string, string>;
 	success: boolean;
 	error?: string;
-	confidence: 'high' | 'medium' | 'low';
+	confidence: 'very_high' | 'high' | 'medium' | 'low';
+	initialConfidence?: 'very_high' | 'high' | 'medium' | 'low'; // Confidence at parse time (optional for backwards compatibility)
 	identificationMethod:
 		| 'scryfall_id'
 		| 'multiverse_id'
 		| 'mtgo_id'
 		| 'set_collector'
+		| 'set_collector_corrected' // Set code was corrected via fuzzy matching
 		| 'name_set'
-		| 'fuzzy_set'
+		| 'name_set_corrected' // Set code was corrected via fuzzy matching
 		| 'name_only'
 		| 'failed';
+	warnings?: string[]; // For validation warnings, language mismatches, etc.
+	setCodeCorrected?: boolean; // Whether the set code was corrected via fuzzy matching
+	languageMismatch?: boolean; // Whether there was a language mismatch that was corrected
+}
+
+export interface ValidationResult {
+	isValid: boolean;
+	warnings: string[];
+	errors: string[];
+}
+
+export interface ApiHealthResult {
+	available: boolean;
+	error?: string;
+}
+
+export interface SetValidationResult {
+	hasInvalidSetCodes: boolean;
+	invalidSetCodes: string[];
+	correctedSetCodes: Array<{
+		original: string;
+		corrected: string;
+		confidence: number;
+		setName?: string;
+	}>;
+	warnings: string[];
 }
 
 export interface CsvFormat {
@@ -130,10 +162,20 @@ export interface ConverterEngine {
 		exportOptions?: ExportOptions
 	) => Promise<ConversionResult[]>;
 
+	convertPrevalidatedCards: (
+		validatedCards: ParsedCard[],
+		progressCallback?: (progress: number) => void,
+		defaultCondition?: string
+	) => Promise<ConversionResult[]>;
+
 	parseFile: (file: File, format: string) => Promise<ParsedCard[]>;
 
 	getSupportedFormats: () => CsvFormat[];
 	detectFormat: (headers: string[]) => string | null;
+
+	// API health and validation methods
+	checkApiHealth: () => Promise<ApiHealthResult>;
+	validateSetCodes: (cards: ParsedCard[]) => Promise<SetValidationResult>;
 }
 
 export interface ScryfallResponse {

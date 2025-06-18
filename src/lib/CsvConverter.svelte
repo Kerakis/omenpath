@@ -66,10 +66,16 @@
 				} else {
 					throw new Error('Unable to auto-detect CSV format. Please select a format manually.');
 				}
+			} // Parse the file to get card data without API calls
+			const cards = await engine.parseFile(file, formatToUse);
+
+			// Validate set codes immediately after parsing
+			const setValidation = await engine.validateSetCodes(cards);
+
+			if (setValidation.hasInvalidSetCodes) {
+				console.warn('Invalid set codes detected:', setValidation.invalidSetCodes);
 			}
 
-			// Parse the file to get card data without API calls
-			const cards = await engine.parseFile(file, formatToUse);
 			previewData = cards;
 			showPreview = true;
 		} catch (error) {
@@ -84,45 +90,22 @@
 		}
 
 		if (!file) return;
-
 		isConverting = true;
 		conversionProgress = 0;
 		conversionStatus = 'Starting conversion...';
 		results = [];
 		errors = [];
-		showPreview = false;
+		// Keep showPreview = true so user can see parsed data vs converted data
 
 		// Scroll to progress section
 		scrollToElement('[data-section="progress"]');
 		try {
-			// Use detected format if available, otherwise auto-detect or use selected format
-			let formatToUse = selectedFormat;
-			if (selectedFormat === 'auto') {
-				if (detectedFormat) {
-					// Use previously detected format
-					formatToUse = detectedFormat;
-				} else {
-					// Auto-detect format
-					const content = await file.text();
-					const headers = content
-						.split('\n')[0]
-						.split(',')
-						.map((h) => h.trim().replace(/"/g, ''));
-					const detectedFormatId = engine.detectFormat(headers);
-					if (detectedFormatId) {
-						formatToUse = detectedFormatId;
-						detectedFormat = detectedFormatId;
-					} else {
-						throw new Error('Unable to auto-detect CSV format. Please select a format manually.');
-					}
-				}
-			}
-
 			conversionStatus = `Processing ${file.name}...`;
 
-			const result = await engine.convertFile(
-				file,
-				formatToUse,
+			// Use the already validated previewData instead of re-parsing the file
+			// This ensures we use the corrected set codes from validation
+			const result = await engine.convertPrevalidatedCards(
+				previewData,
 				(progress: number) => {
 					conversionProgress = progress;
 				},
@@ -181,7 +164,6 @@
 			setTimeout(() => handlePreview(), 100); // Small delay to ensure UI updates
 		}
 	}
-
 	function handleCancelPreview() {
 		showPreview = false;
 		previewData = null;

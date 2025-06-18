@@ -17,7 +17,6 @@ import { mtgoModule } from './mtgo.js';
 import { tappedOutModule } from './tappedout.js';
 import { tcgPlayerModule } from './tcgplayer.js';
 import { deckStatsModule } from './deckstats.js';
-import { genericCsvModule, simpleTestModule } from './generic.js';
 
 class FormatAutoDetector implements AutoDetector {
 	private formatModules: FormatModule[] = [
@@ -39,11 +38,7 @@ class FormatAutoDetector implements AutoDetector {
 		deckedBuilderModule,
 
 		// Lower confidence formats
-		cardCastleSimpleModule,
-		simpleTestModule,
-
-		// Fallback format last
-		genericCsvModule
+		cardCastleSimpleModule
 	];
 
 	detectFormat(headers: string[]): FormatDetectionResult | null {

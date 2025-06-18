@@ -70,6 +70,7 @@ export const archidektFormat: CsvFormat = {
 		count: 'Quantity',
 		name: 'Name',
 		edition: 'Edition Code',
+		editionName: 'Edition Name', // Full edition name for fuzzy matching
 		condition: 'Condition',
 		language: 'Language',
 		foil: 'Finish',
