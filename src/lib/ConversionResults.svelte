@@ -141,13 +141,17 @@
 		URL.revokeObjectURL(url);
 	}
 	function getStats(result: any) {
-		if (!result.data) return { total: 0, successful: 0, failed: 0 };
+		if (!result.data) return { totalEntries: 0, totalCards: 0, successful: 0, failed: 0 };
 
-		const total = result.data.length;
+		const totalEntries = result.data.length;
+		const totalCards = result.data.reduce(
+			(sum: number, r: any) => sum + (parseInt(r.originalCard?.count) || 1),
+			0
+		);
 		const successful = result.data.filter((r: any) => r.success).length;
-		const failed = total - successful;
+		const failed = totalEntries - successful;
 
-		return { total, successful, failed };
+		return { totalEntries, totalCards, successful, failed };
 	}
 	function getConfidenceStats(result: any) {
 		if (!result.data) return { veryHigh: 0, high: 0, medium: 0, low: 0, error: 0, uncertain: 0 };
@@ -159,7 +163,7 @@
 		const medium = successful.filter((r: any) => r.confidence === 'medium').length;
 		const low = successful.filter((r: any) => r.confidence === 'low').length;
 		const error = failed.length;
-		const uncertain = medium + low; // Cards that might need review
+		const uncertain = medium + low + error; // Cards that might need review (includes errors)
 
 		return { veryHigh, high, medium, low, error, uncertain };
 	}
@@ -303,7 +307,10 @@
 											d="M5 13l4 4L19 7"
 										></path>
 									</svg>
-									{pluralize(stats.successful, 'card')} processed
+									{pluralize(stats.totalEntries, 'entry', 'entries')} • {pluralize(
+										stats.totalCards,
+										'card'
+									)}
 								</span>
 
 								{#if stats.failed > 0}
@@ -321,7 +328,7 @@
 												d="M6 18L18 6M6 6l12 12"
 											></path>
 										</svg>
-										{pluralize(stats.failed, 'failed')}
+										{stats.failed} failed
 									</span>
 								{/if}
 							</div>
@@ -357,14 +364,18 @@
 					{/if}
 				</div>
 
-				{#if result.success && stats.total > 0}
+				{#if result.success && stats.totalEntries > 0}
 					<div class="space-y-3">
 						<!-- Basic Stats -->
 						<div class="rounded bg-gray-50 p-3 dark:bg-gray-700">
-							<div class="grid grid-cols-3 gap-4 text-sm">
+							<div class="grid grid-cols-4 gap-4 text-sm">
 								<div>
-									<span class="font-medium text-gray-700 dark:text-gray-300">Total Cards:</span>
-									<span class="text-gray-900 dark:text-gray-100">{stats.total}</span>
+									<span class="font-medium text-gray-700 dark:text-gray-300">Entries:</span>
+									<span class="text-gray-900 dark:text-gray-100">{stats.totalEntries}</span>
+								</div>
+								<div>
+									<span class="font-medium text-purple-700 dark:text-purple-400">Total Cards:</span>
+									<span class="text-purple-900 dark:text-purple-300">{stats.totalCards}</span>
 								</div>
 								<div>
 									<span class="font-medium text-green-700 dark:text-green-400">Successful:</span>
@@ -395,12 +406,13 @@
 									</svg>
 									<div class="text-sm">
 										<p class="font-semibold text-amber-800 dark:text-amber-300">
-											⚠️ {pluralize(confidenceStats.uncertain, 'card')} identified with lower confidence
+											⚠️ {pluralize(confidenceStats.uncertain, 'card')} need review (Medium + Low confidence
+											+ Errors)
 										</p>
 										<p class="mt-1 text-amber-700 dark:text-amber-400">
-											These cards were identified using less precise methods and may not be exactly
-											correct. <strong
-												>Low confidence cards are automatically placed at the top of your downloaded
+											These cards were identified using less precise methods, have conversion
+											errors, or couldn't be converted. <strong
+												>Cards needing review are automatically placed at the top of your downloaded
 												CSV file</strong
 											> and marked in the preview below for easy review.
 										</p>

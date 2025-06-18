@@ -100,6 +100,56 @@ function getLanguageDisplayName(scryfallLanguageCode: string): string {
 	return languageNames[scryfallLanguageCode.toLowerCase()] || scryfallLanguageCode;
 }
 
+// Function to check if a language is recognized (for preview warnings)
+function isLanguageRecognized(language: string): boolean {
+	if (!language || language.trim() === '') return true; // Empty is fine
+
+	const normalizedLanguage = language.toLowerCase().trim();
+
+	// Check if it matches any known language code or alias
+	for (const [scryfallCode, aliases] of Object.entries(LANGUAGE_MAPPINGS)) {
+		if (
+			scryfallCode === normalizedLanguage ||
+			aliases.some((alias) => alias.toLowerCase() === normalizedLanguage)
+		) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+// Parse Archidekt tags for proxy/signed/altered status
+function parseArchidektTags(tags: string): { proxy: string; signed: string; alter: string } {
+	if (!tags) return { proxy: 'FALSE', signed: 'FALSE', alter: 'FALSE' };
+
+	const tagList = tags
+		.toLowerCase()
+		.split(',')
+		.map((tag) => tag.trim());
+
+	// Check for proxy indicators
+	const isProxy = tagList.some((tag) => tag.includes('proxy') || tag.includes('proxies'));
+
+	// Check for signed indicators
+	const isSigned = tagList.some((tag) => tag.includes('signed'));
+
+	// Check for altered/custom art indicators
+	const isAltered = tagList.some(
+		(tag) =>
+			tag.includes('alter') ||
+			tag.includes('altered') ||
+			tag.includes('custom') ||
+			tag === 'custom art'
+	);
+
+	return {
+		proxy: isProxy ? 'TRUE' : 'FALSE',
+		signed: isSigned ? 'TRUE' : 'FALSE',
+		alter: isAltered ? 'TRUE' : 'FALSE'
+	};
+}
+
 // Validation function to check if Scryfall data matches original CSV data
 function validateScryfallMatch(
 	originalCard: ParsedCard,
@@ -219,11 +269,11 @@ export function formatAsMoxfieldCSV(results: ConversionResult[]): string {
 		'Condition',
 		'Language',
 		'Foil',
-		'Tags',
 		'Last Modified',
 		'Collector Number',
 		'Alter',
 		'Proxy',
+		'Signed',
 		'Purchase Price'
 	];
 
@@ -711,25 +761,49 @@ async function parseCSVContent(
 		throw new Error(`Unknown format: ${formatId}`);
 	}
 
-	// Use PapaParse to properly parse the CSV
-	const result = Papa.parse(csvContent, {
-		header: true,
-		skipEmptyLines: true,
-		delimiter: format.delimiter || ',',
-		transformHeader: (header: string) => header.trim()
-	});
+	let result: Papa.ParseResult<Record<string, string>>;
 
+	try {
+		// Use PapaParse to properly parse the CSV
+		result = Papa.parse(csvContent, {
+			header: true,
+			skipEmptyLines: true,
+			delimiter: format.delimiter || ',',
+			transformHeader: (header: string) => header.trim()
+		});
+	} catch (error) {
+		throw new Error(
+			`Failed to parse CSV file: ${error instanceof Error ? error.message : String(error)}`
+		);
+	}
+
+	// Handle PapaParse errors
 	if (result.errors.length > 0) {
 		console.warn('CSV parsing errors:', result.errors);
-		// Only throw if there are fatal errors
-		const fatalErrors = result.errors.filter((error) => error.type === 'Delimiter');
-		if (fatalErrors.length > 0) {
-			throw new Error(`CSV parsing error: ${fatalErrors[0].message}`);
+
+		// Check for critical errors that should stop processing
+		const criticalErrors = result.errors.filter(
+			(error) =>
+				error.type === 'Delimiter' || error.type === 'Quotes' || error.code === 'MissingQuotes'
+		);
+
+		if (criticalErrors.length > 0) {
+			const errorMessages = criticalErrors.map(
+				(error) =>
+					`${error.type || error.code}: ${error.message} (Row ${error.row || 'unknown'})${error.index !== undefined ? ` at position ${error.index}` : ''}`
+			);
+			throw new Error(`CSV parsing failed:\n${errorMessages.join('\n')}`);
+		}
+
+		// For non-critical errors, log them but continue processing
+		const warningErrors = result.errors.filter((error) => !criticalErrors.includes(error));
+		if (warningErrors.length > 0) {
+			console.warn('Non-critical CSV parsing warnings:', warningErrors);
 		}
 	}
 
-	if (result.data.length === 0) {
-		throw new Error('CSV file is empty or contains no valid data');
+	if (!result.data || result.data.length === 0) {
+		throw new Error('CSV file is empty or contains no valid data rows');
 	}
 
 	if (progressCallback) progressCallback(20);
@@ -815,6 +889,16 @@ function parseCardRow(
 	} // Don't exclude cards based on missing name - all entries should be shown in preview
 	// Cards with insufficient data will get appropriate warnings and fail during conversion
 
+	// Parse tags for special card properties (Archidekt format)
+	if (format.id === 'archidekt' && card.tags) {
+		const tagParsing = parseArchidektTags(card.tags);
+		card.proxy = tagParsing.proxy;
+		card.signed = tagParsing.signed;
+		card.alter = tagParsing.alter;
+		// Clear the tags field since we don't use it in output
+		card.tags = '';
+	}
+
 	// Add preview warnings for special cases
 	if (
 		card.name &&
@@ -829,6 +913,14 @@ function parseCardRow(
 		card.warnings = card.warnings || [];
 		card.warnings.push(
 			'Will attempt to find correct printing using name + collector number during conversion'
+		);
+	}
+
+	// Add warning for unrecognized language codes
+	if (card.language && !isLanguageRecognized(card.language)) {
+		card.warnings = card.warnings || [];
+		card.warnings.push(
+			`Unrecognized language code "${card.language}" - may cause conversion issues`
 		);
 	}
 
@@ -850,7 +942,6 @@ function convertCardToMoxfieldRow(
 	const language = scryfallCard?.lang
 		? getLanguageDisplayName(scryfallCard.lang)
 		: card.language || 'English';
-
 	return {
 		Count: card.count.toString(),
 		Name: name,
@@ -858,11 +949,11 @@ function convertCardToMoxfieldRow(
 		Condition: card.condition || defaultCondition || 'Near Mint',
 		Language: language,
 		Foil: card.foil || '',
-		Tags: card.tags || '',
 		'Last Modified': card.lastModified || '',
 		'Collector Number': collectorNumber,
-		Alter: card.alter || '',
-		Proxy: card.proxy || '',
+		Alter: card.alter || 'FALSE',
+		Proxy: card.proxy || 'FALSE',
+		Signed: card.signed || 'FALSE',
 		'Purchase Price': card.purchasePrice || ''
 	};
 }

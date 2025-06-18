@@ -6,14 +6,14 @@
 		onCancel: () => void;
 		showActionButtons?: boolean; // New prop to control button visibility
 	}
-
 	let { cards, onProceed, onCancel, showActionButtons = true }: Props = $props();
 	let showAdditionalColumns = $state(false);
-	const totalCards = cards.length;
+	const totalEntries = cards.length;
+	const totalCards = cards.reduce((sum, card) => sum + (card.count || 1), 0);
 	const cardsWithSpecificIds = cards.filter(
 		(card) => card.scryfallId || card.multiverseId || card.mtgoId
 	).length;
-	const cardsWithOtherMethods = totalCards - cardsWithSpecificIds;
+	const cardsWithOtherMethods = totalEntries - cardsWithSpecificIds;
 
 	// Helper function for proper pluralization
 	function pluralize(count: number, singular: string, plural?: string): string {
@@ -36,12 +36,15 @@
 
 <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
 	<h2 class="mb-4 text-2xl font-semibold text-gray-800 dark:text-gray-200">Preview Parsed Data</h2>
-
 	<div class="mb-6">
-		<div class="grid grid-cols-3 gap-4 text-sm">
+		<div class="grid grid-cols-4 gap-4 text-sm">
 			<div class="rounded bg-blue-50 p-3 dark:bg-blue-900/20">
-				<div class="font-medium text-blue-800 dark:text-blue-300">Total Cards</div>
-				<div class="text-2xl font-bold text-blue-900 dark:text-blue-200">{totalCards}</div>
+				<div class="font-medium text-blue-800 dark:text-blue-300">Total Entries</div>
+				<div class="text-2xl font-bold text-blue-900 dark:text-blue-200">{totalEntries}</div>
+			</div>
+			<div class="rounded bg-purple-50 p-3 dark:bg-purple-900/20">
+				<div class="font-medium text-purple-800 dark:text-purple-300">Total Cards</div>
+				<div class="text-2xl font-bold text-purple-900 dark:text-purple-200">{totalCards}</div>
 			</div>
 			<div class="rounded bg-green-50 p-3 dark:bg-green-900/20">
 				<div class="font-medium text-green-800 dark:text-green-300">Direct IDs</div>
@@ -60,7 +63,7 @@
 	<div class="mb-6">
 		<div class="mb-3 flex items-center justify-between">
 			<h3 class="text-lg font-medium text-gray-700 dark:text-gray-300">
-				All {pluralize(totalCards, 'card')}:
+				All {pluralize(totalEntries, 'entry', 'entries')}:
 			</h3>
 			<button
 				onclick={() => (showAdditionalColumns = !showAdditionalColumns)}

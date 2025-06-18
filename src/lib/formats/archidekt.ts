@@ -79,12 +79,14 @@ export const archidektFormat: CsvFormat = {
 		purchasePrice: 'Purchase Price',
 		collectorNumber: 'Collector Number',
 		scryfallId: 'Scryfall ID',
-		multiverseId: 'Multiverse Id'
+		multiverseId: 'Multiverse Id',
+		tags: 'Tags' // We'll parse this for proxy/signed/altered status
 	},
 	transformations: {
 		condition: normalizeCondition,
 		language: normalizeLanguage,
-		foil: (value: string) => (value.toLowerCase() === 'foil' ? 'foil' : '')
+		foil: (value: string) => (value.toLowerCase() === 'foil' ? 'foil' : ''),
+		tags: (value: string) => value // Keep tags as-is for parsing later
 	}
 };
 
