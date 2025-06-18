@@ -57,7 +57,9 @@ function normalizeLanguage(value: string): string {
 		ru: 'Russian',
 		russian: 'Russian'
 	};
-	return languageMap[normalized] || 'English';
+	// Return the mapped value if found, otherwise return the original value
+	// This preserves unknown language codes like "qqq" for proper validation
+	return languageMap[normalized] || value;
 }
 
 export const archidektFormat: CsvFormat = {

@@ -39,36 +39,35 @@
 	}
 	function downloadTXT(result: any) {
 		if (!result.data || !result.success) return;
-		// Sort results: low confidence first, then by name alphabetically (same as CSV)
-		const sortedResults = [...result.data].sort((a: any, b: any) => {
-			// First sort by confidence (errors and low confidence first)
-			const confidenceOrder: Record<string, number> = {
-				error: -1, // Failed cards first
-				low: 0,
-				medium: 1,
-				high: 2,
-				very_high: 3
-			};
-			const aConfidence = a.success ? (confidenceOrder[a.confidence as string] ?? 2) : -1;
-			const bConfidence = b.success ? (confidenceOrder[b.confidence as string] ?? 2) : -1;
 
-			if (aConfidence !== bConfidence) {
-				return aConfidence - bConfidence;
+		// Sort results: errors first, then warnings, then successful entries
+		const sortedResults = [...result.data].sort((a: any, b: any) => {
+			// Priority: errors (0), warnings (1), success (2)
+			const aPriority = !a.success || a.error ? 0 : a.warnings && a.warnings.length > 0 ? 1 : 2;
+			const bPriority = !b.success || b.error ? 0 : b.warnings && b.warnings.length > 0 ? 1 : 2;
+
+			if (aPriority !== bPriority) {
+				return aPriority - bPriority;
 			}
 
-			// Then sort alphabetically by name
-			const aName = a.moxfieldRow?.Name || a.originalCard?.name || '';
-			const bName = b.moxfieldRow?.Name || b.originalCard?.name || '';
+			// Within same priority, sort alphabetically by name
+			const aName = a.moxfieldRow?.Name || '';
+			const bName = b.moxfieldRow?.Name || '';
 			return aName.localeCompare(bName);
+		});
+
+		// Track output row numbers
+		sortedResults.forEach((result, index) => {
+			result.outputRowNumber = index + 1; // 1-based for TXT format
 		});
 
 		const txtContent = sortedResults
 			.map((r: any) => {
 				if (r.success) {
-					// Successful card conversion
+					// Successful card conversion - use Moxfield format
 					const count = r.moxfieldRow.Count || '1';
 					const name = r.moxfieldRow.Name || '';
-					const setCode = r.moxfieldRow.Edition ? `(${r.moxfieldRow.Edition.toUpperCase()})` : '';
+					const setCode = r.moxfieldRow.Edition ? `(${r.moxfieldRow.Edition})` : '';
 					const collectorNumber = r.moxfieldRow['Collector Number'] || '';
 
 					// Handle foil types correctly for Moxfield format
@@ -80,7 +79,7 @@
 						foilSuffix = ' *E*';
 					}
 
-					// Format: {count} {name} ({set-code}) {collector-number} *{foil-type}*
+					// Format: {count} {name} ({set-code}) {collector-number} {foil}
 					let line = `${count} ${name}`;
 					if (setCode) {
 						line += ` ${setCode}`;
@@ -92,12 +91,22 @@
 						line += foilSuffix;
 					}
 
+					// Add comments for warnings/errors
+					const comments = [];
+					if (r.warnings && r.warnings.length > 0) {
+						comments.push(...r.warnings.map((w: string) => `WARNING: ${w}`));
+					}
+
+					if (comments.length > 0) {
+						line += ` // ${comments.join('; ')}`;
+					}
+
 					return line;
 				} else {
 					// Failed card - include as comment so user knows it was there
 					const count = r.originalCard.count || '1';
 					const name = r.originalCard.name || 'Unknown Card';
-					const setCode = r.originalCard.edition ? `(${r.originalCard.edition.toUpperCase()})` : '';
+					const setCode = r.originalCard.edition ? `(${r.originalCard.edition})` : '';
 					const collectorNumber = r.originalCard.collectorNumber || '';
 					const foil = r.originalCard.foil || '';
 
@@ -182,6 +191,7 @@
 			set_collector_corrected: 'Set + Collector # (Set Corrected)',
 			name_set: 'Name + Set',
 			name_set_corrected: 'Name + Set (Set Corrected)',
+			name_collector: 'Name + Collector #',
 			name_only: 'Name Only',
 			failed: 'Failed'
 		};
@@ -499,6 +509,10 @@
 												<tr>
 													<th
 														class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
+														>Row</th
+													>
+													<th
+														class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
 														>Count</th
 													>
 													<th
@@ -563,6 +577,11 @@
 																? 'border-red-200 bg-red-50 dark:border-red-700 dark:bg-red-900/20'
 																: 'bg-white dark:bg-gray-800'}"
 													>
+														<td
+															class="px-2 py-1 font-mono text-xs text-gray-500 dark:text-gray-400"
+														>
+															{card.outputRowNumber || '-'}
+														</td>
 														<td
 															class="px-2 py-1 {card.confidence === 'low'
 																? 'text-amber-700 dark:text-amber-400'

@@ -22,6 +22,7 @@
 	let showPreview = $state(false);
 	let detectedFormat: string | null = $state(null); // Track auto-detected format
 	let apiHealthError: string | null = $state(null); // Track API health errors specifically
+	let showPreviewButtons = $state(true); // Track whether to show buttons in preview
 
 	// Smooth scroll utility using selectors
 	function scrollToElement(selector: string) {
@@ -91,6 +92,10 @@
 		}
 
 		if (!file) return;
+
+		// Hide the action buttons once conversion starts
+		showPreviewButtons = false;
+
 		isConverting = true;
 		conversionProgress = 0;
 		conversionStatus = 'Starting conversion...';
@@ -146,6 +151,7 @@
 		showPreview = false;
 		detectedFormat = null; // Reset detected format when file changes
 		apiHealthError = null; // Reset API health error
+		showPreviewButtons = true; // Re-enable buttons when file changes
 
 		// Check API health when a file is first selected
 		if (file) {
@@ -296,7 +302,12 @@
 		</div>
 	{/if}
 	{#if showPreview && previewData && !apiHealthError}
-		<DataPreview cards={previewData} onProceed={handleConvert} onCancel={handleCancelPreview} />
+		<DataPreview
+			cards={previewData}
+			onProceed={handleConvert}
+			onCancel={handleCancelPreview}
+			showActionButtons={showPreviewButtons}
+		/>
 	{/if}
 	{#if isConverting && !apiHealthError}
 		<div data-section="progress">

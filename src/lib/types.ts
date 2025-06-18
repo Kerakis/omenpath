@@ -45,9 +45,19 @@ export interface ParsedCard {
 	initialConfidence?: 'very_high' | 'high' | 'medium' | 'low';
 	warnings?: string[];
 	setCodeCorrected?: boolean;
+	foundViaNameCollectorSearch?: boolean; // Flag for cards found via special name+collector# search
+	scryfallCardData?: ScryfallCard; // Full Scryfall card data (when found via search)
+	sourceRowNumber?: number; // Row number in the source CSV (1-based, excluding header)
 
 	// Allow string indexing for transformations
-	[key: string]: string | number | Record<string, string> | boolean | string[] | undefined;
+	[key: string]:
+		| string
+		| number
+		| Record<string, string>
+		| boolean
+		| string[]
+		| ScryfallCard
+		| undefined;
 }
 
 export interface ScryfallCard {
@@ -113,11 +123,14 @@ export interface ConversionResult {
 		| 'set_collector_corrected' // Set code was corrected via fuzzy matching
 		| 'name_set'
 		| 'name_set_corrected' // Set code was corrected via fuzzy matching
+		| 'name_collector' // Found via name + collector number search
 		| 'name_only'
 		| 'failed';
 	warnings?: string[]; // For validation warnings, language mismatches, etc.
 	setCodeCorrected?: boolean; // Whether the set code was corrected via fuzzy matching
 	languageMismatch?: boolean; // Whether there was a language mismatch that was corrected
+	sourceRowNumber?: number; // Row number in the source CSV (1-based, excluding header)
+	outputRowNumber?: number; // Row number in the output CSV (1-based, excluding header)
 }
 
 export interface ValidationResult {

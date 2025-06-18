@@ -1,13 +1,13 @@
 <script lang="ts">
 	import type { ParsedCard } from './types.js';
-
 	interface Props {
 		cards: ParsedCard[];
 		onProceed: () => void;
 		onCancel: () => void;
+		showActionButtons?: boolean; // New prop to control button visibility
 	}
 
-	let { cards, onProceed, onCancel }: Props = $props();
+	let { cards, onProceed, onCancel, showActionButtons = true }: Props = $props();
 	let showAdditionalColumns = $state(false);
 	const totalCards = cards.length;
 	const cardsWithSpecificIds = cards.filter(
@@ -28,6 +28,7 @@
 		if (card.mtgoId) return 'MTGO ID';
 		if (card.edition && card.collectorNumber) return 'Set + Collector #';
 		if (card.edition && card.name) return 'Name + Set';
+		if (card.name && card.collectorNumber && !card.edition) return 'Name + Collector #';
 		if (card.name) return 'Name Only';
 		return 'Insufficient Data';
 	}
@@ -73,6 +74,10 @@
 			<table class="min-w-full">
 				<thead class="sticky top-0 bg-gray-50 dark:bg-gray-700">
 					<tr>
+						<th
+							class="px-3 py-2 text-left text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-300"
+							>Row</th
+						>
 						<th
 							class="px-3 py-2 text-left text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-300"
 							>Count</th
@@ -128,6 +133,10 @@
 				<tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
 					{#each cards as card}
 						<tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+							<td
+								class="px-3 py-2 font-mono text-sm whitespace-nowrap text-gray-500 dark:text-gray-400"
+								>{card.sourceRowNumber || '-'}</td
+							>
 							<td class="px-3 py-2 text-sm whitespace-nowrap text-gray-900 dark:text-gray-100"
 								>{card.count}</td
 							>
@@ -260,19 +269,21 @@
 				</div>
 			</div>
 		{/if}
-		<div class="flex flex-col justify-center gap-4 sm:flex-row sm:justify-start">
-			<button
-				onclick={onProceed}
-				class="min-w-fit rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600"
-			>
-				Proceed with Conversion
-			</button>
-			<button
-				onclick={onCancel}
-				class="min-w-fit rounded-lg bg-gray-300 px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-400 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
-			>
-				Cancel
-			</button>
-		</div>
+		{#if showActionButtons}
+			<div class="flex flex-col justify-center gap-4 sm:flex-row sm:justify-start">
+				<button
+					onclick={onProceed}
+					class="min-w-fit rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600"
+				>
+					Proceed with Conversion
+				</button>
+				<button
+					onclick={onCancel}
+					class="min-w-fit rounded-lg bg-gray-300 px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-400 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
+				>
+					Cancel
+				</button>
+			</div>
+		{/if}
 	</div>
 </div>
