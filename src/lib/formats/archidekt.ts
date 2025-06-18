@@ -85,7 +85,12 @@ export const archidektFormat: CsvFormat = {
 	transformations: {
 		condition: normalizeCondition,
 		language: normalizeLanguage,
-		foil: (value: string) => (value.toLowerCase() === 'foil' ? 'foil' : ''),
+		foil: (value: string) => {
+			const normalized = value.toLowerCase().trim();
+			if (normalized === 'foil') return 'foil';
+			if (normalized === 'etched') return 'etched';
+			return ''; // Normal, Non-foil, etc.
+		},
 		tags: (value: string) => value // Keep tags as-is for parsing later
 	}
 };
