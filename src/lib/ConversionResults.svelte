@@ -41,10 +41,16 @@
 		if (!result.data || !result.success) return;
 		// Sort results: low confidence first, then by name alphabetically (same as CSV)
 		const sortedResults = [...result.data].sort((a: any, b: any) => {
-			// First sort by confidence (low confidence first)
-			const confidenceOrder: Record<string, number> = { low: 0, medium: 1, high: 2, very_high: 3 };
-			const aConfidence = confidenceOrder[a.confidence as string] ?? 2;
-			const bConfidence = confidenceOrder[b.confidence as string] ?? 2;
+			// First sort by confidence (errors and low confidence first)
+			const confidenceOrder: Record<string, number> = {
+				error: -1, // Failed cards first
+				low: 0,
+				medium: 1,
+				high: 2,
+				very_high: 3
+			};
+			const aConfidence = a.success ? (confidenceOrder[a.confidence as string] ?? 2) : -1;
+			const bConfidence = b.success ? (confidenceOrder[b.confidence as string] ?? 2) : -1;
 
 			if (aConfidence !== bConfidence) {
 				return aConfidence - bConfidence;
@@ -135,16 +141,18 @@
 		return { total, successful, failed };
 	}
 	function getConfidenceStats(result: any) {
-		if (!result.data) return { veryHigh: 0, high: 0, medium: 0, low: 0, uncertain: 0 };
+		if (!result.data) return { veryHigh: 0, high: 0, medium: 0, low: 0, error: 0, uncertain: 0 };
 
 		const successful = result.data.filter((r: any) => r.success);
+		const failed = result.data.filter((r: any) => !r.success);
 		const veryHigh = successful.filter((r: any) => r.confidence === 'very_high').length;
 		const high = successful.filter((r: any) => r.confidence === 'high').length;
 		const medium = successful.filter((r: any) => r.confidence === 'medium').length;
 		const low = successful.filter((r: any) => r.confidence === 'low').length;
+		const error = failed.length;
 		const uncertain = medium + low; // Cards that might need review
 
-		return { veryHigh, high, medium, low, uncertain };
+		return { veryHigh, high, medium, low, error, uncertain };
 	}
 
 	function getIdentificationMethods(result: any) {
@@ -183,10 +191,16 @@
 		if (!result.data) return [];
 		// Sort results: low confidence first, then by name alphabetically
 		return [...result.data].sort((a: any, b: any) => {
-			// First sort by confidence (low confidence first)
-			const confidenceOrder: Record<string, number> = { low: 0, medium: 1, high: 2, very_high: 3 };
-			const aConfidence = confidenceOrder[a.confidence as string] ?? 2;
-			const bConfidence = confidenceOrder[b.confidence as string] ?? 2;
+			// First sort by confidence (errors and low confidence first)
+			const confidenceOrder: Record<string, number> = {
+				error: -1, // Failed cards first
+				low: 0,
+				medium: 1,
+				high: 2,
+				very_high: 3
+			};
+			const aConfidence = a.success ? (confidenceOrder[a.confidence as string] ?? 2) : -1;
+			const bConfidence = b.success ? (confidenceOrder[b.confidence as string] ?? 2) : -1;
 
 			if (aConfidence !== bConfidence) {
 				return aConfidence - bConfidence;
@@ -212,6 +226,26 @@
 			return str;
 		});
 		return values.join(',');
+	}
+
+	// Function to format confidence display
+	function formatConfidence(card: any): string {
+		if (!card.success) {
+			return 'Error';
+		}
+
+		switch (card.confidence) {
+			case 'very_high':
+				return 'Very High';
+			case 'high':
+				return 'High';
+			case 'medium':
+				return 'Medium';
+			case 'low':
+				return 'Low';
+			default:
+				return 'Unknown';
+		}
 	}
 </script>
 
@@ -296,18 +330,17 @@
 							</div>
 						{/if}
 					</div>
-
 					{#if result.success && stats.successful > 0}
-						<div class="flex space-x-2">
+						<div class="flex flex-col gap-2 sm:flex-row">
 							<button
 								onclick={() => downloadCSV(result)}
-								class="rounded bg-blue-600 px-3 py-1 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+								class="rounded bg-blue-600 px-3 py-1 text-sm font-medium whitespace-nowrap text-white transition-colors hover:bg-blue-700"
 							>
 								Download CSV
 							</button>
 							<button
 								onclick={() => downloadTXT(result)}
-								class="rounded bg-green-600 px-3 py-1 text-sm font-medium text-white transition-colors hover:bg-green-700"
+								class="rounded bg-green-600 px-3 py-1 text-sm font-medium whitespace-nowrap text-white transition-colors hover:bg-green-700"
 							>
 								Download TXT
 							</button>
@@ -398,6 +431,14 @@
 										<div class="mr-2 h-3 w-3 rounded-full bg-red-500"></div>
 										<span class="text-gray-700 dark:text-gray-300">Low: {confidenceStats.low}</span>
 									</div>
+									{#if confidenceStats.error > 0}
+										<div class="flex items-center">
+											<div class="mr-2 h-3 w-3 rounded-full bg-red-700"></div>
+											<span class="text-gray-700 dark:text-gray-300"
+												>Error: {confidenceStats.error}</span
+											>
+										</div>
+									{/if}
 								</div>
 							</div>
 						{/if}
@@ -599,7 +640,7 @@
 																					? 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300'
 																					: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'}"
 																>
-																	{card.confidence || 'unknown'}
+																	{formatConfidence(card)}
 																</span>
 																{#if card.warnings && card.warnings.length > 0}
 																	<span

@@ -21,6 +21,7 @@
 	let previewData: ParsedCard[] | null = $state(null);
 	let showPreview = $state(false);
 	let detectedFormat: string | null = $state(null); // Track auto-detected format
+	let apiHealthError: string | null = $state(null); // Track API health errors specifically
 
 	// Smooth scroll utility using selectors
 	function scrollToElement(selector: string) {
@@ -137,15 +138,34 @@
 			isConverting = false;
 		}
 	}
-	function handleFileSelected(selectedFile: File | null) {
+	async function handleFileSelected(selectedFile: File | null) {
 		file = selectedFile;
 		results = [];
 		errors = [];
 		previewData = null;
 		showPreview = false;
 		detectedFormat = null; // Reset detected format when file changes
-		// Automatically trigger preview after file is selected
+		apiHealthError = null; // Reset API health error
+
+		// Check API health when a file is first selected
 		if (file) {
+			try {
+				conversionStatus = 'Checking API availability...';
+				const apiHealth = await engine.checkApiHealth();
+				if (!apiHealth.available) {
+					apiHealthError = `Scryfall API is not available: ${apiHealth.error || 'Unknown error'}`;
+					conversionStatus = 'API unavailable';
+					return;
+				}
+				conversionStatus = 'API available';
+			} catch (error) {
+				const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+				apiHealthError = `API health check failed: ${errorMessage}`;
+				conversionStatus = 'API check failed';
+				return;
+			}
+
+			// Automatically trigger preview after API check passes
 			setTimeout(() => {
 				handlePreview();
 				// Smooth scroll to settings section
@@ -174,7 +194,7 @@
 	}
 </script>
 
-<div class="mx-auto max-w-4xl">
+<div class="mx-auto w-full max-w-none px-4 sm:px-6 lg:px-8" style="max-width: 1800px;">
 	<div
 		class="card-hover mb-6 rounded-lg bg-white p-6 shadow-lg transition-all duration-200 dark:bg-gray-800"
 	>
@@ -191,7 +211,51 @@
 			</div>
 		{/if}
 	</div>
-	{#if file}
+
+	<!-- API Health Error Display -->
+	{#if apiHealthError}
+		<div
+			class="card-hover mb-6 rounded-lg border border-red-200 bg-red-50 p-6 shadow-lg dark:border-red-800 dark:bg-red-900/20"
+		>
+			<div class="flex items-start">
+				<div class="flex-shrink-0">
+					<svg
+						class="h-6 w-6 text-red-600 dark:text-red-400"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 16.5c-.77.833.192 2.5 1.732 2.5z"
+						/>
+					</svg>
+				</div>
+				<div class="ml-3">
+					<h3 class="text-lg font-medium text-red-800 dark:text-red-200">API Connection Error</h3>
+					<div class="mt-2 text-sm text-red-700 dark:text-red-300">
+						<p>
+							The Scryfall API is currently unavailable and this app cannot function without it.
+						</p>
+						<p class="mt-2 font-medium">
+							Please try again later or check your internet connection.
+						</p>
+					</div>
+					{#if apiHealthError.includes('API health check failed')}
+						<div
+							class="mt-3 rounded bg-red-100 p-2 font-mono text-xs text-red-600 dark:bg-red-800/30 dark:text-red-400"
+						>
+							Technical details: {apiHealthError}
+						</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+	{/if}
+
+	{#if file && !apiHealthError}
 		<div
 			data-section="settings"
 			class="card-hover mb-6 rounded-lg bg-white p-6 shadow-lg transition-all duration-200 dark:bg-gray-800"
@@ -231,11 +295,10 @@
 			/>
 		</div>
 	{/if}
-
-	{#if showPreview && previewData}
+	{#if showPreview && previewData && !apiHealthError}
 		<DataPreview cards={previewData} onProceed={handleConvert} onCancel={handleCancelPreview} />
 	{/if}
-	{#if isConverting}
+	{#if isConverting && !apiHealthError}
 		<div data-section="progress">
 			<ConversionProgress progress={conversionProgress} status={conversionStatus} />
 		</div>

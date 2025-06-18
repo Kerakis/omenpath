@@ -9,17 +9,27 @@
 
 	let { cards, onProceed, onCancel }: Props = $props();
 	let showAdditionalColumns = $state(false);
-
 	const totalCards = cards.length;
-	const cardsWithIds = cards.filter(
+	const cardsWithSpecificIds = cards.filter(
 		(card) => card.scryfallId || card.multiverseId || card.mtgoId
 	).length;
-	const cardsNeedingLookup = totalCards - cardsWithIds;
+	const cardsWithOtherMethods = totalCards - cardsWithSpecificIds;
 
 	// Helper function for proper pluralization
 	function pluralize(count: number, singular: string, plural?: string): string {
 		if (count === 1) return `${count} ${singular}`;
 		return `${count} ${plural || singular + 's'}`;
+	}
+
+	// Function to determine the lookup method that will be used for a card
+	function getLookupMethod(card: any): string {
+		if (card.scryfallId) return 'Scryfall ID';
+		if (card.multiverseId) return 'Multiverse ID';
+		if (card.mtgoId) return 'MTGO ID';
+		if (card.edition && card.collectorNumber) return 'Set + Collector #';
+		if (card.edition && card.name) return 'Name + Set';
+		if (card.name) return 'Name Only';
+		return 'Insufficient Data';
 	}
 </script>
 
@@ -33,13 +43,15 @@
 				<div class="text-2xl font-bold text-blue-900 dark:text-blue-200">{totalCards}</div>
 			</div>
 			<div class="rounded bg-green-50 p-3 dark:bg-green-900/20">
-				<div class="font-medium text-green-800 dark:text-green-300">Have IDs</div>
-				<div class="text-2xl font-bold text-green-900 dark:text-green-200">{cardsWithIds}</div>
+				<div class="font-medium text-green-800 dark:text-green-300">Direct IDs</div>
+				<div class="text-2xl font-bold text-green-900 dark:text-green-200">
+					{cardsWithSpecificIds}
+				</div>
 			</div>
-			<div class="rounded bg-yellow-50 p-3 dark:bg-yellow-900/20">
-				<div class="font-medium text-yellow-800 dark:text-yellow-300">Need Lookup</div>
-				<div class="text-2xl font-bold text-yellow-900 dark:text-yellow-200">
-					{cardsNeedingLookup}
+			<div class="rounded bg-blue-50 p-3 dark:bg-blue-900/20">
+				<div class="font-medium text-blue-800 dark:text-blue-300">Other Methods</div>
+				<div class="text-2xl font-bold text-blue-900 dark:text-blue-200">
+					{cardsWithOtherMethods}
 				</div>
 			</div>
 		</div>
@@ -179,10 +191,18 @@
 										MTGO ID
 									</span>
 								{:else}
+									{@const lookupMethod = getLookupMethod(card)}
 									<span
-										class="inline-flex items-center rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300"
+										class="inline-flex items-center rounded-full {lookupMethod ===
+										'Set + Collector #'
+											? 'bg-cyan-100 text-cyan-800 dark:bg-cyan-900/50 dark:text-cyan-300'
+											: lookupMethod === 'Name + Set'
+												? 'bg-orange-100 text-orange-800 dark:bg-orange-900/50 dark:text-orange-300'
+												: lookupMethod === 'Name Only'
+													? 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300'
+													: 'bg-gray-100 text-gray-800 dark:bg-gray-900/50 dark:text-gray-300'} px-2 py-1 text-xs font-medium"
 									>
-										Needs Lookup
+										{lookupMethod}
 									</span>
 								{/if}
 							</td>
@@ -209,13 +229,13 @@
 		</div>
 	</div>
 	<div class="space-y-4">
-		{#if cardsNeedingLookup > 0}
+		{#if cardsWithOtherMethods > 0}
 			<div
-				class="rounded-md border border-yellow-200 bg-yellow-50 p-4 dark:border-yellow-700 dark:bg-yellow-900/20"
+				class="rounded-md border border-orange-200 bg-orange-50 p-4 dark:border-orange-700 dark:bg-orange-900/20"
 			>
 				<div class="flex">
 					<svg
-						class="mt-0.5 mr-2 h-5 w-5 text-yellow-400"
+						class="mt-0.5 mr-2 h-5 w-5 text-orange-400"
 						fill="none"
 						stroke="currentColor"
 						viewBox="0 0 24 24"
@@ -224,33 +244,32 @@
 							stroke-linecap="round"
 							stroke-linejoin="round"
 							stroke-width="2"
-							d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+							d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 						/>
 					</svg>
 					<div>
-						<h4 class="text-sm font-medium text-yellow-800 dark:text-yellow-300">
-							Cards require Scryfall lookup
+						<h4 class="text-sm font-medium text-orange-800 dark:text-orange-300">
+							Alternative lookup methods
 						</h4>
-						<p class="mt-1 text-sm text-yellow-700 dark:text-yellow-400">
-							{pluralize(cardsNeedingLookup, 'card')} don't have Scryfall IDs and will need to be looked
-							up by name/set/collector number. This may take longer and could result in some cards not
-							being found if the names or sets don't match exactly.
+						<p class="mt-1 text-sm text-orange-700 dark:text-orange-400">
+							{pluralize(cardsWithOtherMethods, 'card')} will be looked up using set/collector numbers
+							and/or card names rather than direct IDs. These lookups may take slightly longer but are
+							generally reliable.
 						</p>
 					</div>
 				</div>
 			</div>
 		{/if}
-
-		<div class="flex space-x-4">
+		<div class="flex flex-col justify-center gap-4 sm:flex-row sm:justify-start">
 			<button
 				onclick={onProceed}
-				class="flex-1 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600"
+				class="min-w-fit rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600"
 			>
 				Proceed with Conversion
 			</button>
 			<button
 				onclick={onCancel}
-				class="flex-1 rounded-lg bg-gray-300 px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-400 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
+				class="min-w-fit rounded-lg bg-gray-300 px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-400 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500"
 			>
 				Cancel
 			</button>

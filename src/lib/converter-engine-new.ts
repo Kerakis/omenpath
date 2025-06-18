@@ -138,15 +138,8 @@ function validateScryfallMatch(
 				`Finish not available: "${originalCard.foil}" not available for this card (available: ${scryfallCard.finishes?.join(', ') || 'none'})`
 			);
 		}
-	}
-	// Validate language match (if provided in original)
-	if (originalCard.language && originalCard.language.trim() !== '') {
-		if (!validateLanguageMatch(originalCard.language, scryfallCard.lang)) {
-			errors.push(
-				`Language mismatch: expected "${originalCard.language}", got "${scryfallCard.lang}"`
-			);
-		}
-	}
+	} // NOTE: Language validation is now handled separately in performLanguageValidationAndSecondaryLookups
+	// We don't validate language match here to avoid failing cards that could be corrected via Search API
 
 	return {
 		isValid: errors.length === 0,
@@ -336,7 +329,7 @@ export function createConverterEngine(): ConverterEngine {
 			return finalResults;
 		},
 
-		// Check API health
+		// Check API `hea`lth
 		checkApiHealth: async (): Promise<ApiHealthResult> => {
 			return await checkScryfallApiHealth();
 		}, // Validate set codes in parsed cards (called after parsing, before conversion)
@@ -940,22 +933,8 @@ function createSuccessfulResult(card: ParsedCard, scryfallCard: ScryfallCard): C
 		identificationMethod = 'name_only';
 		confidence = 'low'; // Name only is always low
 	}
-
-	// Check for language mismatch and downgrade confidence if needed
-	if (card.language && card.language.trim() !== '') {
-		if (!validateLanguageMatch(card.language, scryfallCard.lang)) {
-			// Language mismatch causes confidence downgrade (as per requirements)
-			const downgradedConfidence = downgradeConfidence(confidence);
-			if (downgradedConfidence !== confidence) {
-				// Add warning about language mismatch affecting confidence
-				card.warnings = card.warnings || [];
-				card.warnings.push(
-					`Language mismatch: expected "${card.language}", got "${scryfallCard.lang}" - confidence downgraded from ${confidence} to ${downgradedConfidence}`
-				);
-				confidence = downgradedConfidence;
-			}
-		}
-	}
+	// Language mismatch handling is now done in performLanguageValidationAndSecondaryLookups
+	// This function just creates the basic result structure
 
 	return {
 		originalCard: card,
@@ -1009,11 +988,14 @@ async function performLanguageValidationAndSecondaryLookups(
 	progressCallback?: ProgressCallback
 ): Promise<ConversionResult[]> {
 	const finalResults: ConversionResult[] = [];
+	let processed = 0;
+	const total = primaryResults.length;
 
 	for (const primaryResult of primaryResults) {
 		if (!primaryResult.result) {
 			// This shouldn't happen, but handle gracefully
 			finalResults.push(createFailedResult(primaryResult.card, 'No primary result available'));
+			processed++;
 			continue;
 		}
 
@@ -1022,32 +1004,148 @@ async function performLanguageValidationAndSecondaryLookups(
 		// If lookup failed or no Scryfall card, add as-is
 		if (!result.success || !result.scryfallCard) {
 			finalResults.push(result);
+			processed++;
 			continue;
 		}
 
 		// Check language match if language was specified
 		if (card.language && card.language.trim() !== '') {
 			const languageMatch = validateLanguageMatch(card.language, result.scryfallCard.lang);
+
 			if (!languageMatch) {
-				// Language mismatch - downgrade confidence and add warning instead of making another API call
-				const updatedResult = { ...result };
+				// Language mismatch detected
+				console.log(
+					`Language mismatch for ${card.name}: requested "${card.language}", got "${result.scryfallCard.lang}"`
+				);
 
-				// Downgrade confidence due to language mismatch
-				updatedResult.confidence = downgradeConfidence(result.confidence);
-				updatedResult.languageMismatch = true;
-				updatedResult.warnings = [
-					...(result.warnings || []),
-					`Language mismatch: requested "${card.language}", got "${result.scryfallCard.lang}"`
-				];
+				// Check if this was a name-only lookup - if so, don't attempt secondary lookup
+				const isNameOnlyLookup = result.identificationMethod === 'name_only';
 
-				finalResults.push(updatedResult);
+				if (isNameOnlyLookup) {
+					// For name-only entries, pass through the source language but warn about potential issues
+					console.log(`Skipping language lookup for name-only card: ${card.name}`);
+					const updatedResult = { ...result };
+
+					// Get proper Scryfall language code for output
+					const scryfallLanguageCode = getScryfallLanguageCode(card.language);
+					if (scryfallLanguageCode) {
+						// Update the result to use the requested language
+						updatedResult.scryfallCard = {
+							...result.scryfallCard,
+							lang: scryfallLanguageCode
+						};
+					}
+
+					// Downgrade confidence and add warning
+					updatedResult.confidence = downgradeConfidence(result.confidence);
+					updatedResult.languageMismatch = true;
+					updatedResult.warnings = [
+						...(result.warnings || []),
+						`Language mismatch for name-only lookup: requested "${card.language}", using original data with confidence downgrade`
+					];
+
+					finalResults.push(updatedResult);
+				} else {
+					// Attempt secondary lookup with specific language using Search endpoint
+					const scryfallLanguageCode = getScryfallLanguageCode(card.language);
+
+					if (
+						scryfallLanguageCode &&
+						result.scryfallCard.set &&
+						result.scryfallCard.collector_number
+					) {
+						try {
+							console.log(
+								`Attempting language-specific lookup for ${card.name} in ${scryfallLanguageCode}`
+							);
+
+							// Add rate limiting delay before secondary lookup
+							await delay(RATE_LIMIT_DELAY);
+
+							const languageSpecificCard = await fetchScryfallCardByLanguage(
+								result.scryfallCard.set,
+								result.scryfallCard.collector_number,
+								scryfallLanguageCode
+							);
+
+							if (languageSpecificCard) {
+								// Found language-specific version
+								console.log(`Found language-specific card for ${card.name}`);
+								const languageResult = createSuccessfulResult(card, languageSpecificCard);
+
+								// Downgrade confidence due to language mismatch correction
+								languageResult.confidence = downgradeConfidence(languageResult.confidence);
+								languageResult.languageMismatch = true;
+								languageResult.warnings = [
+									...(languageResult.warnings || []),
+									`Language corrected: found "${scryfallLanguageCode}" version via secondary lookup`
+								];
+
+								finalResults.push(languageResult);
+							} else {
+								// Language-specific version not found, fall back to original with warning
+								console.log(
+									`Language-specific card not found for ${card.name}, falling back to original`
+								);
+								const fallbackResult = { ...result };
+
+								fallbackResult.confidence = downgradeConfidence(result.confidence);
+								fallbackResult.languageMismatch = true;
+								fallbackResult.warnings = [
+									...(result.warnings || []),
+									`Language mismatch: requested "${card.language}", "${scryfallLanguageCode}" version not available, using "${result.scryfallCard.lang}" version`
+								];
+
+								finalResults.push(fallbackResult);
+							}
+						} catch (error) {
+							console.error(`Error during language-specific lookup for ${card.name}:`, error);
+
+							// Fall back to original result with warning about failed lookup
+							const errorResult = { ...result };
+							errorResult.confidence = downgradeConfidence(result.confidence);
+							errorResult.languageMismatch = true;
+							errorResult.warnings = [
+								...(result.warnings || []),
+								`Language mismatch: requested "${card.language}", secondary lookup failed, using "${result.scryfallCard.lang}" version`
+							];
+
+							finalResults.push(errorResult);
+						}
+					} else {
+						// Invalid language code or missing set/collector info
+						const updatedResult = { ...result };
+						updatedResult.confidence = downgradeConfidence(result.confidence);
+						updatedResult.languageMismatch = true;
+
+						if (!scryfallLanguageCode) {
+							updatedResult.warnings = [
+								...(result.warnings || []),
+								`Language mismatch: unrecognized language "${card.language}", using "${result.scryfallCard.lang}" version`
+							];
+						} else {
+							updatedResult.warnings = [
+								...(result.warnings || []),
+								`Language mismatch: requested "${card.language}", cannot perform secondary lookup (missing set/collector info), using "${result.scryfallCard.lang}" version`
+							];
+						}
+
+						finalResults.push(updatedResult);
+					}
+				}
 			} else {
-				// Language matches or no language specified
+				// Language matches or validates correctly
 				finalResults.push(result);
 			}
 		} else {
 			// No language specified
 			finalResults.push(result);
+		}
+
+		processed++;
+		if (progressCallback) {
+			const progress = 80 + (processed / total) * 20; // 80-100% range
+			progressCallback(Math.min(100, progress));
 		}
 	}
 
@@ -1056,5 +1154,74 @@ async function performLanguageValidationAndSecondaryLookups(
 	return finalResults;
 }
 
-// Look up card with specific language using Search endpoint
-// ===== END NEW 3-STEP CONVERSION PROCESS =====
+// Function to get Scryfall language code from various input formats
+function getScryfallLanguageCode(inputLanguage: string): string | null {
+	if (!inputLanguage || inputLanguage.trim() === '') {
+		return null;
+	}
+
+	const normalizedInput = inputLanguage.toLowerCase().trim();
+
+	// Check if input is already a valid Scryfall language code
+	if (Object.keys(LANGUAGE_MAPPINGS).includes(normalizedInput)) {
+		return normalizedInput;
+	}
+
+	// Find matching Scryfall language code from aliases
+	for (const [scryfallCode, aliases] of Object.entries(LANGUAGE_MAPPINGS)) {
+		if (aliases.some((alias) => alias.toLowerCase() === normalizedInput)) {
+			return scryfallCode;
+		}
+	}
+
+	return null; // Unknown language
+}
+
+// Fetch card using Search endpoint with specific language
+async function fetchScryfallCardByLanguage(
+	setCode: string,
+	collectorNumber: string,
+	languageCode: string
+): Promise<ScryfallCard | null> {
+	try {
+		const query = `e:${setCode} cn:${collectorNumber} lang:${languageCode}`;
+		const encodedQuery = encodeURIComponent(query);
+		const url = `https://api.scryfall.com/cards/search?q=${encodedQuery}`;
+
+		console.log(`Searching for card with language: ${url}`);
+
+		const response = await fetch(url, {
+			headers: {
+				'User-Agent': 'Omenpath/1.0',
+				Accept: 'application/json'
+			}
+		});
+
+		if (!response.ok) {
+			if (response.status === 404) {
+				// No cards found - this is expected for language mismatches
+				console.log(`No cards found for language query: ${query}`);
+				return null;
+			}
+
+			const errorText = await response.text();
+			console.error(
+				`Scryfall Search API error: ${response.status} ${response.statusText}`,
+				errorText
+			);
+			throw new Error(`Scryfall Search API error: ${response.status} ${response.statusText}`);
+		}
+
+		const data = await response.json();
+
+		if (data.data && data.data.length > 0) {
+			console.log(`Found ${data.data.length} card(s) for language query`);
+			return data.data[0]; // Return first match
+		}
+
+		return null;
+	} catch (error) {
+		console.error('Error fetching card by language:', error);
+		throw error;
+	}
+}

@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* This causes a build warning, but everything works fine. https://github.com/tailwindlabs/tailwindcss/issues/16582 */
+@custom-variant dark (.dark &, :where(.dark) &);
 
 /* Custom scrollbar with dark mode support */
 ::-webkit-scrollbar {

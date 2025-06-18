@@ -17,7 +17,6 @@ export * from './mtgo.js';
 export * from './tappedout.js';
 export * from './tcgplayer.js';
 export * from './deckstats.js';
-export * from './generic.js';
 
 // Re-export the auto-detector for easy access
 export { formatAutoDetector as autoDetector } from './auto-detector.js';
