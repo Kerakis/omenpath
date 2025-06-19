@@ -8,24 +8,34 @@ export const moxfield: CsvFormat = {
 	description: 'Moxfield collection export',
 	hasHeaders: true,
 	columnMappings: {
-		count: 'Quantity',
+		count: 'Count',
+		tradelistCount: 'Tradelist Count',
 		name: 'Name',
 		edition: 'Edition',
-		collectorNumber: 'Collector Number',
 		condition: 'Condition',
+		language: 'Language',
 		foil: 'Foil',
-		scryfallId: 'Scryfall ID'
+		tags: 'Tags',
+		lastModified: 'Last Modified',
+		collectorNumber: 'Collector Number',
+		alter: 'Alter',
+		proxy: 'Proxy',
+		purchasePrice: 'Purchase Price'
 	},
 	transformations: {
 		condition: (value: string) => value.trim(),
 		foil: (value: string) =>
-			value.toLowerCase() === 'true' || value.toLowerCase() === 'foil' ? 'foil' : ''
+			value.toLowerCase() === 'true' || value.toLowerCase() === 'foil' ? 'foil' : '',
+		alter: (value: string) =>
+			value.toLowerCase() === 'true' || value.toLowerCase() === 'yes' ? 'TRUE' : 'FALSE',
+		proxy: (value: string) =>
+			value.toLowerCase() === 'true' || value.toLowerCase() === 'yes' ? 'TRUE' : 'FALSE'
 	}
 };
 
 export const moxfieldModule: FormatModule = createStandardFormatModule(
 	moxfield,
-	['Scryfall ID', 'Edition'], // Strong indicators
-	['Quantity', 'Name', 'Collector Number', 'Condition', 'Foil'],
-	['Quantity', 'Name']
+	['Alter', 'Proxy'], // Strong indicators - these are unique to Moxfield among formats with "Tradelist Count"
+	['Tradelist Count', 'Last Modified', 'Purchase Price'],
+	['Count', 'Name']
 );

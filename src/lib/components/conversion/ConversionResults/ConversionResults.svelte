@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ConversionResult } from '../../../types.js';
+	import type { ConversionResult, ExportOptions } from '../../../types.js';
 	import ExportButtons from './ExportButtons.svelte';
 	import ConversionStats from './ConversionStats.svelte';
 	import ResultsTable from './ResultsTable.svelte';
@@ -19,8 +19,10 @@
 			error?: string;
 		}>;
 		errors: string[];
+		exportOptions: ExportOptions;
+		defaultCondition?: string;
 	}
-	let { results, errors }: Props = $props();
+	let { results, errors, exportOptions, defaultCondition }: Props = $props();
 
 	// State for showing additional columns in preview
 	let showAdditionalColumns = $state(false);
@@ -35,7 +37,7 @@
 		>
 			<h3 class="mb-2 text-lg font-medium text-red-800 dark:text-red-300">⚠️ Errors</h3>
 			<ul class="space-y-1 text-sm text-red-700 dark:text-red-400">
-				{#each errors as error}
+				{#each errors as error, index (index)}
 					<li>• {error}</li>
 				{/each}
 			</ul>
@@ -43,7 +45,7 @@
 	{/if}
 
 	<div class="space-y-4">
-		{#each results as result}
+		{#each results as result, index (index)}
 			{@const stats = getStats(result)}
 			{@const confidenceStats = getConfidenceStats(result)}
 			{@const methods = getIdentificationMethods(result)}
@@ -114,7 +116,7 @@
 					</div>
 
 					{#if result.success && stats.successful > 0}
-						<ExportButtons {result} />
+						<ExportButtons {result} {exportOptions} {defaultCondition} />
 					{/if}
 				</div>
 
@@ -125,7 +127,12 @@
 
 						<!-- Results Table Component -->
 						{#if stats.successful > 0}
-							<ResultsTable {result} bind:showAdditionalColumns />
+							<ResultsTable
+								{result}
+								bind:showAdditionalColumns
+								{exportOptions}
+								{defaultCondition}
+							/>
 						{/if}
 
 						<!-- Failed Cards Display Component -->

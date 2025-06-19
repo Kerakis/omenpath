@@ -1,4 +1,9 @@
-import type { ParsedCard, ConversionResult, ProgressCallback } from '../../../types.js';
+import type {
+	ParsedCard,
+	ConversionResult,
+	ProgressCallback,
+	ExportOptions
+} from '../../../types.js';
 import { validateLanguageMatch, getScryfallLanguageCode } from '../api/language-validator.js';
 import { fetchScryfallCardByLanguage, applyRateLimit } from '../api/scryfall-api.js';
 import { createSuccessfulResult, downgradeConfidence } from '../result-formatter.js';
@@ -9,7 +14,8 @@ import { createSuccessfulResult, downgradeConfidence } from '../result-formatter
 export async function performLanguageValidationAndSecondaryLookups(
 	primaryResults: Array<{ card: ParsedCard; result?: ConversionResult; needsRetry?: boolean }>,
 	defaultCondition?: string,
-	progressCallback?: ProgressCallback
+	progressCallback?: ProgressCallback,
+	exportOptions?: ExportOptions
 ): Promise<ConversionResult[]> {
 	const finalResults: ConversionResult[] = [];
 	let processed = 0;
@@ -119,7 +125,12 @@ export async function performLanguageValidationAndSecondaryLookups(
 							if (languageSpecificCard) {
 								// Found language-specific version - this is a complete success
 								console.log(`Found language-specific card for ${card.name}`);
-								const languageResult = createSuccessfulResult(card, languageSpecificCard);
+								const languageResult = createSuccessfulResult(
+									card,
+									languageSpecificCard,
+									defaultCondition,
+									exportOptions
+								);
 								finalResults.push(languageResult);
 							} else {
 								// Language-specific version not found - THIS IS THE ONLY TRUE MISMATCH

@@ -1,4 +1,4 @@
-import type { ParsedCard, ScryfallCard, ConversionResult } from '../../types.js';
+import type { ParsedCard, ScryfallCard, ConversionResult, ExportOptions } from '../../types.js';
 import { getLanguageDisplayName } from './api/language-validator.js';
 
 /**
@@ -7,7 +7,8 @@ import { getLanguageDisplayName } from './api/language-validator.js';
 function convertCardToMoxfieldRow(
 	card: ParsedCard,
 	scryfallCard?: ScryfallCard,
-	defaultCondition?: string
+	defaultCondition?: string,
+	exportOptions?: ExportOptions
 ): Record<string, string> {
 	// If we have Scryfall data, use it to fill in missing information
 	const edition = card.edition || scryfallCard?.set || '';
@@ -19,20 +20,111 @@ function convertCardToMoxfieldRow(
 		? getLanguageDisplayName(scryfallCard.lang)
 		: card.language || 'English';
 
-	return {
+	// Handle foil and etched foil for Moxfield format
+	let foilValue = '';
+	if (card.isEtched) {
+		foilValue = 'etched';
+	} else if (card.foil) {
+		// Normalize various foil representations to Moxfield format
+		const foilLower = card.foil.toLowerCase();
+		if (foilLower === 'foil' || foilLower === 'f' || foilLower === 'yes' || foilLower === 'true') {
+			foilValue = 'foil';
+		} else if (foilLower === 'etched' || foilLower === 'etch') {
+			foilValue = 'etched';
+		} else if (
+			foilLower === 'normal' ||
+			foilLower === 'n' ||
+			foilLower === 'no' ||
+			foilLower === 'false' ||
+			foilLower === ''
+		) {
+			foilValue = '';
+		} else {
+			// Pass through other values as-is for now
+			foilValue = card.foil;
+		}
+	}
+
+	const baseRow: Record<string, string> = {
 		Count: card.count.toString(),
+		'Tradelist Count': '', // Empty for now, could be filled if we track trading
 		Name: name,
 		Edition: edition,
 		Condition: card.condition || defaultCondition || 'Near Mint',
 		Language: language,
-		Foil: card.foil || '',
+		Foil: foilValue,
+		Tags: card.tags || '',
 		'Last Modified': card.lastModified || '',
 		'Collector Number': collectorNumber,
 		Alter: card.alter || 'FALSE',
 		Proxy: card.proxy || 'FALSE',
 		Signed: card.signed || 'FALSE',
-		'Purchase Price': card.purchasePrice || ''
+		'Purchase Price': card.purchasePrice || '',
+		'Scryfall ID': scryfallCard?.id || card.scryfallId || ''
 	};
+
+	// Add optional export fields if requested
+	if (exportOptions) {
+		console.log('Export options received:', exportOptions);
+
+		if (exportOptions.includeCurrentPrice) {
+			const priceField = `Current Price (${exportOptions.priceType.toUpperCase()})`;
+			const priceValue =
+				getPriceFromScryfallCard(scryfallCard, exportOptions.priceType, card.foil) || '';
+			baseRow[priceField] = priceValue;
+			console.log(`Added price field: ${priceField} = ${priceValue}`);
+		}
+
+		if (exportOptions.includeMtgoIds) {
+			baseRow['MTGO ID'] = scryfallCard?.mtgo_id?.toString() || card.mtgoId?.toString() || '';
+			console.log(`Added MTGO ID: ${baseRow['MTGO ID']}`);
+		}
+
+		if (exportOptions.includeMultiverseId) {
+			baseRow['Multiverse ID'] =
+				scryfallCard?.multiverse_ids?.[0]?.toString() || card.multiverseId?.toString() || '';
+			console.log(`Added Multiverse ID: ${baseRow['Multiverse ID']}`);
+		}
+
+		if (exportOptions.includeTcgPlayerId) {
+			baseRow['TCGPlayer ID'] = scryfallCard?.tcgplayer_id?.toString() || '';
+			console.log(`Added TCGPlayer ID: ${baseRow['TCGPlayer ID']}`);
+		}
+
+		if (exportOptions.includeCardMarketId) {
+			baseRow['CardMarket ID'] = scryfallCard?.cardmarket_id?.toString() || '';
+			console.log(`Added CardMarket ID: ${baseRow['CardMarket ID']}`);
+		}
+	} else {
+		console.log('No export options provided');
+	}
+
+	return baseRow;
+}
+
+/**
+ * Helper function to get price from Scryfall card based on currency and foil status
+ */
+function getPriceFromScryfallCard(
+	scryfallCard: ScryfallCard | undefined,
+	priceType: 'usd' | 'eur' | 'tix',
+	foil?: string
+): string | undefined {
+	if (!scryfallCard?.prices) return undefined;
+
+	const isFoil = foil?.toLowerCase() === 'foil';
+	const prices = scryfallCard.prices;
+
+	switch (priceType) {
+		case 'usd':
+			return isFoil ? prices.usd_foil : prices.usd;
+		case 'eur':
+			return isFoil ? prices.eur_foil : prices.eur;
+		case 'tix':
+			return prices.tix; // MTGO tickets don't have foil variants
+		default:
+			return undefined;
+	}
 }
 
 /**
@@ -40,7 +132,9 @@ function convertCardToMoxfieldRow(
  */
 export function createSuccessfulResult(
 	card: ParsedCard,
-	scryfallCard: ScryfallCard
+	scryfallCard: ScryfallCard,
+	defaultCondition?: string,
+	exportOptions?: ExportOptions
 ): ConversionResult {
 	// Start with the initial confidence (from parsing/validation phase)
 	let confidence = card.initialConfidence || 'low';
@@ -92,7 +186,7 @@ export function createSuccessfulResult(
 	return {
 		originalCard: card,
 		scryfallCard,
-		moxfieldRow: convertCardToMoxfieldRow(card, scryfallCard),
+		moxfieldRow: convertCardToMoxfieldRow(card, scryfallCard, defaultCondition, exportOptions),
 		success: true,
 		confidence,
 		initialConfidence: card.initialConfidence,
@@ -144,20 +238,38 @@ export function downgradeConfidence(
  * CSV export utility function
  */
 export function formatAsMoxfieldCSV(results: ConversionResult[]): string {
-	const baseHeaders = [
+	// Get all unique column names from the moxfieldRow data dynamically
+	const allColumns = new Set<string>();
+	results.forEach((result) => {
+		if (result.moxfieldRow) {
+			Object.keys(result.moxfieldRow).forEach((key) => allColumns.add(key));
+		}
+	});
+
+	// Define the core columns in preferred order
+	const coreColumns = [
 		'Count',
+		'Tradelist Count',
 		'Name',
 		'Edition',
 		'Condition',
 		'Language',
 		'Foil',
+		'Tags',
 		'Last Modified',
 		'Collector Number',
 		'Alter',
 		'Proxy',
 		'Signed',
-		'Purchase Price'
+		'Purchase Price',
+		'Scryfall ID'
 	];
+
+	// Get additional export columns (prices, IDs, etc.) that aren't in core columns
+	const exportColumns = Array.from(allColumns).filter((col) => !coreColumns.includes(col));
+
+	// Combine core columns with export columns, only including columns that exist in the data
+	const headers = [...coreColumns.filter((col) => allColumns.has(col)), ...exportColumns];
 
 	// Check if any results have warnings or errors
 	const hasIssues = results.some(
@@ -165,8 +277,8 @@ export function formatAsMoxfieldCSV(results: ConversionResult[]): string {
 	);
 
 	// Add Notes column if there are any issues
-	const headers = hasIssues ? [...baseHeaders, 'Notes'] : baseHeaders;
-	const csvLines = [headers.map((h) => `"${h}"`).join(',')];
+	const finalHeaders = hasIssues ? [...headers, 'Notes'] : headers;
+	const csvLines = [finalHeaders.map((h) => `"${h}"`).join(',')];
 
 	// Use the results in their current order (already sorted during conversion)
 	// Only re-assign output row numbers if they weren't already assigned
@@ -178,7 +290,7 @@ export function formatAsMoxfieldCSV(results: ConversionResult[]): string {
 	}
 
 	results.forEach((result) => {
-		const row = baseHeaders.map((header) => {
+		const row = headers.map((header) => {
 			const value = result.moxfieldRow[header] || '';
 			return `"${value.replace(/"/g, '""')}"`;
 		});
@@ -200,4 +312,20 @@ export function formatAsMoxfieldCSV(results: ConversionResult[]): string {
 	});
 
 	return csvLines.join('\n');
+}
+
+/**
+ * Dynamically regenerate moxfieldRow for a conversion result based on current export options
+ */
+export function regenerateMoxfieldRow(
+	result: ConversionResult,
+	exportOptions: ExportOptions,
+	defaultCondition?: string
+): Record<string, string> {
+	return convertCardToMoxfieldRow(
+		result.originalCard,
+		result.scryfallCard,
+		defaultCondition,
+		exportOptions
+	);
 }

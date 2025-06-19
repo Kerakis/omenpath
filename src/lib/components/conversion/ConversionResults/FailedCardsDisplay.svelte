@@ -70,7 +70,7 @@
 						</tr>
 					</thead>
 					<tbody class="divide-y divide-red-200 bg-white dark:divide-red-700 dark:bg-gray-800">
-						{#each failedCards() as card}
+						{#each failedCards() as card, index (index)}
 							<tr class="hover:bg-red-50 dark:hover:bg-red-900/10">
 								<td class="px-4 py-3 text-sm font-medium text-gray-900 dark:text-gray-100">
 									{card.originalCard?.name || 'Unknown'}

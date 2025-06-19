@@ -21,7 +21,9 @@ export interface ParsedCard {
 	condition?: string;
 	language?: string;
 	foil?: string;
+	isEtched?: boolean; // Whether this card is etched foil
 	tags?: string;
+	extras?: string; // For format-specific extra data (e.g., Helvault extras)
 	purchasePrice?: string;
 	collectorNumber?: string;
 	// Additional Moxfield/advanced fields
@@ -31,11 +33,11 @@ export interface ParsedCard {
 	proxy?: string;
 	signed?: string;
 	notes?: string; // For extra tags that don't fit elsewhere
-
 	// Scryfall identifiers (if available from CSV)
 	scryfallId?: string;
 	multiverseId?: number;
 	mtgoId?: number;
+	jsonId?: string; // CardCastle's JSON ID field (Scryfall ID with potential DFC issue)
 	// Conversion tracking
 	needsLookup: boolean;
 	conversionStatus?: 'pending' | 'success' | 'failed';
@@ -178,7 +180,8 @@ export interface ConverterEngine {
 	convertPrevalidatedCards: (
 		validatedCards: ParsedCard[],
 		progressCallback?: (progress: number) => void,
-		defaultCondition?: string
+		defaultCondition?: string,
+		exportOptions?: ExportOptions
 	) => Promise<ConversionResult[]>;
 
 	parseFile: (file: File, format: string) => Promise<ParsedCard[]>;

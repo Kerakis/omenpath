@@ -1,1 +1,0 @@
-This app seems to do fine for matching Moxfield's format now that they've changed "Edition" to be set codes rather than set names.

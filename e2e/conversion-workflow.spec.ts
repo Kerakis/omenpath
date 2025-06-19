@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import path from 'path';
+import fs from 'fs';
 
 // Test the complete CSV conversion workflow
 test.describe('CSV Conversion Workflow', () => {
@@ -42,7 +43,6 @@ test.describe('CSV Conversion Workflow', () => {
 		await download.saveAs(downloadPath);
 
 		// Could add more detailed content verification here
-		const fs = require('fs');
 		const downloadedContent = fs.readFileSync(downloadPath, 'utf8');
 		expect(downloadedContent).toContain('Count,Name,Edition,Collector Number');
 	});

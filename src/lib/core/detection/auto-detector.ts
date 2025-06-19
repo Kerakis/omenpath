@@ -15,8 +15,9 @@ import { helvaultModule } from '../formats/helvault.js';
 import { moxfieldModule } from '../formats/moxfield.js';
 import { mtgoModule } from '../formats/mtgo.js';
 import { tappedOutModule } from '../formats/tappedout.js';
-import { tcgPlayerModule } from '../formats/tcgplayer.js';
+import { tcgPlayerUserModule, tcgPlayerSellerModule } from '../formats/tcgplayer.js';
 import { deckStatsModule } from '../formats/deckstats.js';
+import { urzasGathererModule } from '../formats/urzasgatherer.js';
 
 class FormatAutoDetector implements AutoDetector {
 	private formatModules: FormatModule[] = [
@@ -33,9 +34,11 @@ class FormatAutoDetector implements AutoDetector {
 		moxfieldModule,
 		mtgoModule,
 		tappedOutModule,
-		tcgPlayerModule,
+		tcgPlayerUserModule,
+		tcgPlayerSellerModule,
 		deckStatsModule,
 		deckedBuilderModule,
+		urzasGathererModule,
 
 		// Lower confidence formats
 		cardCastleSimpleModule

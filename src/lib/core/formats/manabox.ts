@@ -11,15 +11,19 @@ function normalizeManaBoxCondition(value: string): string {
 			return 'Mint';
 		case 'near mint':
 		case 'nm':
+		case 'excellent': // ManaBox uses 'excellent' for near mint condition
 			return 'Near Mint';
 		case 'lightly played':
 		case 'light played':
+		case 'light_played': // ManaBox uses underscore
 		case 'slightly played':
 		case 'lp':
 		case 'sp':
+		case 'good': // ManaBox uses 'good' for lightly played
 			return 'Lightly Played';
 		case 'moderately played':
 		case 'mp':
+		case 'played': // ManaBox uses 'played' for moderately played
 			return 'Moderately Played';
 		case 'heavily played':
 		case 'hp':
@@ -27,6 +31,7 @@ function normalizeManaBoxCondition(value: string): string {
 		case 'damaged':
 		case 'dmg':
 		case 'd':
+		case 'poor': // ManaBox uses 'poor' for damaged
 			return 'Damaged';
 		default:
 			return 'Near Mint';

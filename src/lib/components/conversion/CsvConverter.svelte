@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { ConverterEngine, ParsedCard, CsvFormat } from '../../types.js';
+	import type {
+		ConverterEngine,
+		ParsedCard,
+		ConversionResult,
+		ExportOptions
+	} from '../../types.js';
 	import { createConverterEngine } from '../../core/converter/converter-engine.js';
 	import FileUpload from '../forms/FileUpload.svelte';
 	import ConversionProgress from './ConversionProgress.svelte';
@@ -8,17 +13,32 @@
 	import FormatSelector from '../forms/FormatSelector.svelte';
 	import DataPreview from './DataPreview.svelte';
 	import DefaultConditionSelector from '../forms/DefaultConditionSelector.svelte';
+	import ExportOptionsSelector from '../forms/ExportOptionsSelector.svelte';
 
 	let engine: ConverterEngine = $state() as ConverterEngine;
 	let file: File | null = $state(null); // Changed from files array to single file
 	let selectedFormat: string = $state('auto'); // Default to auto-detect
 	let defaultCondition: string = $state('Near Mint');
+	let exportOptions: ExportOptions = $state({
+		includeCurrentPrice: false,
+		priceType: 'usd',
+		includeMtgoIds: false,
+		includeMultiverseId: false,
+		includeTcgPlayerId: false,
+		includeCardMarketId: false
+	});
 	let isConverting = $state(false);
 	let conversionProgress = $state(0);
 	let conversionStatus = $state('');
-	let results: any[] = $state([]);
+	let results: Array<{
+		filename: string;
+		success: boolean;
+		data?: ConversionResult[];
+		error?: string;
+	}> = $state([]);
 	let errors: string[] = $state([]);
 	let previewData: ParsedCard[] | null = $state(null);
+	let previewError: string | null = $state(null); // Track preview-specific errors
 	let showPreview = $state(false);
 	let detectedFormat: string | null = $state(null); // Track auto-detected format
 	let apiHealthError: string | null = $state(null); // Track API health errors specifically
@@ -49,6 +69,10 @@
 
 	async function handlePreview() {
 		if (!file) return;
+
+		// Clear previous preview error
+		previewError = null;
+
 		try {
 			// Auto-detect format if 'auto' is selected
 			let formatToUse = selectedFormat;
@@ -82,7 +106,9 @@
 			showPreview = true;
 		} catch (error) {
 			console.error('Preview failed:', error);
-			errors.push(`Preview failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+			const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+			previewError = errorMessage;
+			errors.push(`Preview failed: ${errorMessage}`);
 		}
 	}
 	async function handleConvert() {
@@ -115,7 +141,8 @@
 				(progress: number) => {
 					conversionProgress = progress;
 				},
-				defaultCondition
+				defaultCondition,
+				exportOptions
 			);
 
 			results.push({
@@ -148,6 +175,7 @@
 		results = [];
 		errors = [];
 		previewData = null;
+		previewError = null; // Clear preview error when file changes
 		showPreview = false;
 		detectedFormat = null; // Reset detected format when file changes
 		apiHealthError = null; // Reset API health error
@@ -182,6 +210,7 @@
 	function handleFormatChange(format: string) {
 		selectedFormat = format;
 		previewData = null;
+		previewError = null; // Clear preview error when format changes
 		showPreview = false;
 		detectedFormat = null; // Reset detected format when format selection changes
 
@@ -193,10 +222,15 @@
 	function handleCancelPreview() {
 		showPreview = false;
 		previewData = null;
+		previewError = null; // Clear preview error when cancelling
 	}
 
 	function handleConditionChange(condition: string) {
 		defaultCondition = condition;
+	}
+
+	function handleExportOptionsChange(options: ExportOptions) {
+		exportOptions = options;
 	}
 </script>
 
@@ -261,6 +295,43 @@
 		</div>
 	{/if}
 
+	<!-- Preview Error Display -->
+	{#if previewError && !apiHealthError}
+		<div
+			class="card-hover mb-6 rounded-lg border border-amber-200 bg-amber-50 p-6 shadow-lg dark:border-amber-800 dark:bg-amber-900/20"
+		>
+			<div class="flex items-start">
+				<div class="flex-shrink-0">
+					<svg
+						class="h-6 w-6 text-amber-600 dark:text-amber-400"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 16.5c-.77.833.192 2.5 1.732 2.5z"
+						/>
+					</svg>
+				</div>
+				<div class="ml-3">
+					<h3 class="text-lg font-medium text-amber-800 dark:text-amber-200">Preview Error</h3>
+					<div class="mt-2 text-sm text-amber-700 dark:text-amber-300">
+						<p>{previewError}</p>
+						{#if previewError.includes('Unable to auto-detect')}
+							<p class="mt-2 font-medium">
+								Try selecting a specific format from the dropdown below, or check if your CSV file
+								has proper headers.
+							</p>
+						{/if}
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
+
 	{#if file && !apiHealthError}
 		<div
 			data-section="settings"
@@ -299,15 +370,21 @@
 				{defaultCondition}
 				onConditionChange={handleConditionChange}
 			/>
+
+			<div class="mt-6">
+				<ExportOptionsSelector {exportOptions} onOptionsChange={handleExportOptionsChange} />
+			</div>
 		</div>
 	{/if}
 	{#if showPreview && previewData && !apiHealthError}
-		<DataPreview
-			cards={previewData}
-			onProceed={handleConvert}
-			onCancel={handleCancelPreview}
-			showActionButtons={showPreviewButtons}
-		/>
+		<div class="mb-6">
+			<DataPreview
+				cards={previewData}
+				onProceed={handleConvert}
+				onCancel={handleCancelPreview}
+				showActionButtons={showPreviewButtons}
+			/>
+		</div>
 	{/if}
 	{#if isConverting && !apiHealthError}
 		<div data-section="progress">
@@ -317,7 +394,7 @@
 
 	{#if results.length > 0}
 		<div data-section="results">
-			<ConversionResults {results} {errors} />
+			<ConversionResults {results} {errors} {exportOptions} {defaultCondition} />
 		</div>
 	{/if}
 </div>

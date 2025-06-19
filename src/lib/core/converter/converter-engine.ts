@@ -5,7 +5,8 @@ import type {
 	CsvFormat,
 	ApiHealthResult,
 	SetValidationResult,
-	ProgressCallback
+	ProgressCallback,
+	ExportOptions
 } from '../../types.js';
 import { formatAutoDetector, type FormatDetectionResult } from '../detection/index.js';
 import {
@@ -15,6 +16,8 @@ import {
 } from '../../utils/scryfall-utils.js';
 import { isLanguageRecognized } from './api/language-validator.js';
 import { parseArchidektTags } from './validation/card-validator.js';
+import { parseHelvaultExtras } from '../formats/helvault.js';
+import { parseEtchedFoil } from '../../utils/format-helpers.js';
 import { formatAsMoxfieldCSV } from './result-formatter.js';
 import { performNameAndCollectorNumberLookups } from './strategies/name-collector-lookup.js';
 import { performPrimaryLookups } from './strategies/primary-lookup.js';
@@ -46,7 +49,8 @@ export function createConverterEngine(): ConverterEngine {
 			file: File,
 			format: string,
 			progressCallback?: ProgressCallback,
-			defaultCondition?: string
+			defaultCondition?: string,
+			exportOptions?: ExportOptions
 		): Promise<ConversionResult[]> => {
 			if (progressCallback) progressCallback(0);
 
@@ -54,16 +58,17 @@ export function createConverterEngine(): ConverterEngine {
 			const content = await file.text();
 			const parsedCards = await parseCSVContent(content, format, progressCallback);
 
-			return convertParsedCards(parsedCards, progressCallback, defaultCondition);
+			return convertParsedCards(parsedCards, progressCallback, defaultCondition, exportOptions);
 		},
 
 		// Convert pre-validated cards (used when cards have already been parsed and validated)
 		convertPrevalidatedCards: async (
 			validatedCards: ParsedCard[],
 			progressCallback?: ProgressCallback,
-			defaultCondition?: string
+			defaultCondition?: string,
+			exportOptions?: ExportOptions
 		): Promise<ConversionResult[]> => {
-			return convertParsedCards(validatedCards, progressCallback, defaultCondition);
+			return convertParsedCards(validatedCards, progressCallback, defaultCondition, exportOptions);
 		},
 
 		// Check API health
@@ -290,7 +295,8 @@ function assignInitialConfidence(card: ParsedCard) {
 async function convertParsedCards(
 	parsedCards: ParsedCard[],
 	progressCallback?: ProgressCallback,
-	defaultCondition?: string
+	defaultCondition?: string,
+	exportOptions?: ExportOptions
 ): Promise<ConversionResult[]> {
 	// Ensure all cards have confidence levels (fallback if missing)
 	for (const card of parsedCards) {
@@ -310,7 +316,9 @@ async function convertParsedCards(
 		if (card.foundViaNameCollectorSearch && card.scryfallCardData) {
 			// Use the stored Scryfall card data directly - no need for additional API calls
 			const { createSuccessfulResult } = await import('./result-formatter.js');
-			searchResults.push(createSuccessfulResult(card, card.scryfallCardData));
+			searchResults.push(
+				createSuccessfulResult(card, card.scryfallCardData, defaultCondition, exportOptions)
+			);
 		} else {
 			// Card without stored data should go to primary lookup
 			nameOnlyCards.push(card);
@@ -323,7 +331,12 @@ async function convertParsedCards(
 	if (progressCallback) progressCallback(30);
 
 	// Step 2: Perform primary lookups (set validation should have happened before conversion)
-	const primaryResults = await performPrimaryLookups(allCardsForPrimaryLookup, progressCallback);
+	const primaryResults = await performPrimaryLookups(
+		allCardsForPrimaryLookup,
+		progressCallback,
+		defaultCondition,
+		exportOptions
+	);
 
 	if (progressCallback) progressCallback(80);
 
@@ -331,7 +344,8 @@ async function convertParsedCards(
 	const finalResults = await performLanguageValidationAndSecondaryLookups(
 		primaryResults,
 		defaultCondition,
-		progressCallback
+		progressCallback,
+		exportOptions
 	);
 
 	// Combine search results with final results
@@ -529,7 +543,6 @@ function parseCardRow(
 
 	// Don't exclude cards based on missing name - all entries should be shown in preview
 	// Cards with insufficient data will get appropriate warnings and fail during conversion
-
 	// Parse tags for special card properties (Archidekt format)
 	if (format.id === 'archidekt' && card.tags) {
 		const tagParsing = parseArchidektTags(card.tags);
@@ -538,6 +551,28 @@ function parseCardRow(
 		card.alter = tagParsing.alter;
 		// Clear the tags field since we don't use it in output
 		card.tags = '';
+	} // Parse extras for special card properties (Helvault format)
+	if (format.id === 'helvault' && card.extras) {
+		const extrasParsing = parseHelvaultExtras(card.extras as string);
+		card.foil = extrasParsing.foil;
+		card.proxy = extrasParsing.proxy;
+		card.signed = extrasParsing.signed;
+		card.alter = extrasParsing.alter;
+		// Clear the extras field since we don't use it in output
+		card.extras = '';
+	}
+
+	// Process CardCastle JSON ID (fix DFC trailing 0 issue)
+	if (format.id === 'cardcastle-full' && card.jsonId) {
+		const jsonId = card.jsonId as string;
+		// Handle dual-faced card issue - remove trailing 0 if present and length suggests it
+		if (jsonId.length > 36 && jsonId.endsWith('0')) {
+			card.scryfallId = jsonId.slice(0, -1);
+		} else {
+			card.scryfallId = jsonId;
+		}
+		// Clear the jsonId field since we've converted it to scryfallId
+		card.jsonId = '';
 	}
 
 	// Add preview warnings for special cases
@@ -563,6 +598,26 @@ function parseCardRow(
 		card.warnings.push(
 			`Unrecognized language code "${card.language}" - may cause conversion issues`
 		);
+	}
+
+	// Parse etched foil information for all formats
+	const etchedResult = parseEtchedFoil(format.id, row, card.edition, card.editionName);
+	if (etchedResult.isEtched) {
+		card.isEtched = true;
+
+		// Update set information if it was cleaned
+		if (etchedResult.cleanedSetCode && etchedResult.cleanedSetCode !== card.edition) {
+			card.edition = etchedResult.cleanedSetCode;
+		}
+		if (etchedResult.cleanedSetName && etchedResult.cleanedSetName !== card.editionName) {
+			card.editionName = etchedResult.cleanedSetName;
+		}
+
+		// Add warnings if any were generated
+		if (etchedResult.warnings && etchedResult.warnings.length > 0) {
+			card.warnings = card.warnings || [];
+			card.warnings.push(...etchedResult.warnings);
+		}
 	}
 
 	return card;

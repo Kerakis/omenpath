@@ -22,7 +22,7 @@
 	}
 
 	// Function to determine the lookup method that will be used for a card
-	function getLookupMethod(card: any): string {
+	function getLookupMethod(card: ParsedCard): string {
 		if (card.scryfallId) return 'Scryfall ID';
 		if (card.multiverseId) return 'Multiverse ID';
 		if (card.mtgoId) return 'MTGO ID';
@@ -134,7 +134,7 @@
 					</tr>
 				</thead>
 				<tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
-					{#each cards as card}
+					{#each cards as card, index (index)}
 						<tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
 							<td
 								class="px-3 py-2 font-mono text-sm whitespace-nowrap text-gray-500 dark:text-gray-400"
@@ -221,7 +221,7 @@
 							<td class="max-w-48 px-3 py-2 text-sm">
 								{#if card.warnings && card.warnings.length > 0}
 									<div class="space-y-1">
-										{#each card.warnings as warning}
+										{#each card.warnings as warning, index (index)}
 											<div
 												class="rounded bg-amber-50 px-2 py-1 text-xs text-amber-600 dark:bg-amber-900/20 dark:text-amber-400"
 												title={warning}

@@ -8,21 +8,26 @@ export const cubeCobra: CsvFormat = {
 	description: 'CubeCobra cube export',
 	hasHeaders: true,
 	columnMappings: {
-		count: 'count',
+		// CubeCobra doesn't have a count column - each row is 1 card
+		// count: undefined, // Will default to 1 in converter
 		name: 'name',
-		edition: 'set',
-		collectorNumber: 'collector_number',
-		rarity: 'rarity',
-		scryfallId: 'scryfall_id'
+		edition: 'Set',
+		collectorNumber: 'Collector Number',
+		foil: 'Finish', // 'Foil' or empty
+		notes: 'Notes',
+		tags: 'tags',
+		mtgoId: 'MTGO ID'
 	},
 	transformations: {
-		rarity: (value: string) => value.toLowerCase().trim()
+		foil: (value: string) => (value.toLowerCase() === 'foil' ? 'foil' : ''),
+		notes: (value: string) => value.trim(),
+		tags: (value: string) => value.trim()
 	}
 };
 
 export const cubeCobraModule: FormatModule = createStandardFormatModule(
 	cubeCobra,
-	['scryfall_id'], // Strong indicators
-	['count', 'name', 'set', 'collector_number', 'rarity'], // Common indicators
-	['count', 'name'] // Required headers
+	['status', 'maybeboard', 'Color Category'], // Strong indicators - unique to CubeCobra
+	['name', 'Set', 'Collector Number', 'Rarity', 'Finish'],
+	['name'] // Only name is required
 );

@@ -1,6 +1,9 @@
-import type { ConversionResult } from '../../types.js';
+import type { ConversionResult, ExportOptions } from '../../types.js';
 import type { ConversionResultFile } from './stats-calculator.js';
-import { formatAsMoxfieldCSV } from '../../core/converter/result-formatter.js';
+import {
+	formatAsMoxfieldCSV,
+	regenerateMoxfieldRow
+} from '../../core/converter/result-formatter.js';
 
 /**
  * Get original CSV line from card data
@@ -24,11 +27,24 @@ export function getOriginalCsvLine(card: ConversionResult): string {
 /**
  * Download CSV file
  */
-export function downloadCSV(result: ConversionResultFile) {
+export function downloadCSV(
+	result: ConversionResultFile,
+	exportOptions?: ExportOptions,
+	defaultCondition?: string
+) {
 	if (!result.data || !result.success) return;
 
+	// Regenerate moxfieldRows with current export options if provided
+	let dataToExport = result.data;
+	if (exportOptions) {
+		dataToExport = result.data.map((card) => ({
+			...card,
+			moxfieldRow: regenerateMoxfieldRow(card, exportOptions, defaultCondition)
+		}));
+	}
+
 	// Export as CSV
-	const csvContent = formatAsMoxfieldCSV(result.data);
+	const csvContent = formatAsMoxfieldCSV(dataToExport);
 	const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
 	const link = document.createElement('a');
 
@@ -46,10 +62,24 @@ export function downloadCSV(result: ConversionResultFile) {
 /**
  * Download TXT file for MTG Arena/deck format
  */
-export function downloadTXT(result: ConversionResultFile) {
+export function downloadTXT(
+	result: ConversionResultFile,
+	exportOptions?: ExportOptions,
+	defaultCondition?: string
+) {
 	if (!result.data || !result.success) return;
+
+	// Regenerate moxfieldRows with current export options if provided
+	let dataToExport = result.data;
+	if (exportOptions) {
+		dataToExport = result.data.map((card) => ({
+			...card,
+			moxfieldRow: regenerateMoxfieldRow(card, exportOptions, defaultCondition)
+		}));
+	}
+
 	// Sort results: errors first, then warnings, then successful entries
-	const sortedResults = [...result.data].sort((a: ConversionResult, b: ConversionResult) => {
+	const sortedResults = [...dataToExport].sort((a: ConversionResult, b: ConversionResult) => {
 		// Priority: errors (0), warnings (1), success (2)
 		const aPriority = !a.success || a.error ? 0 : a.warnings && a.warnings.length > 0 ? 1 : 2;
 		const bPriority = !b.success || b.error ? 0 : b.warnings && b.warnings.length > 0 ? 1 : 2;

@@ -125,7 +125,7 @@
 				Identification Methods Used:
 			</h4>
 			<div class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-				{#each Object.entries(methods) as [method, count]}
+				{#each Object.entries(methods) as [method, count] (method)}
 					<div class="flex justify-between">
 						<span>{getMethodLabel(method)}:</span>
 						<span class="font-medium">{count}</span>

@@ -2,7 +2,8 @@ import type {
 	ParsedCard,
 	ConversionResult,
 	CardIdentifier,
-	ProgressCallback
+	ProgressCallback,
+	ExportOptions
 } from '../../../types.js';
 import {
 	fetchScryfallCollection,
@@ -18,7 +19,9 @@ import { createSuccessfulResult, createFailedResult } from '../result-formatter.
  */
 export async function performPrimaryLookups(
 	cards: ParsedCard[],
-	progressCallback?: ProgressCallback
+	progressCallback?: ProgressCallback,
+	defaultCondition?: string,
+	exportOptions?: ExportOptions
 ): Promise<Array<{ card: ParsedCard; result?: ConversionResult; needsRetry?: boolean }>> {
 	const results: Array<{ card: ParsedCard; result?: ConversionResult; needsRetry?: boolean }> = [];
 
@@ -45,7 +48,7 @@ export async function performPrimaryLookups(
 
 		console.log(`Processing batch ${Math.floor(i / batchSize) + 1} with ${batch.length} cards...`);
 
-		const batchResults = await processCardBatch(batch);
+		const batchResults = await processCardBatch(batch, defaultCondition, exportOptions);
 		for (const batchResult of batchResults) {
 			results.push({ card: batchResult.originalCard, result: batchResult });
 		}
@@ -67,7 +70,15 @@ export async function performPrimaryLookups(
 /**
  * Process a batch of cards with mixed identifiers (as Scryfall recommends)
  */
-async function processCardBatch(cards: ParsedCard[]): Promise<ConversionResult[]> {
+async function processCardBatch(
+	cards: ParsedCard[],
+	defaultCondition?: string,
+	exportOptions?: ExportOptions
+): Promise<ConversionResult[]> {
+	// Capture parameters for use in nested callbacks
+	const batchDefaultCondition = defaultCondition;
+	const batchExportOptions = exportOptions;
+
 	const cardIdentifierPairs: Array<{ card: ParsedCard; identifier: CardIdentifier }> = [];
 	const cardsWithoutIdentifiers: ParsedCard[] = [];
 
@@ -123,7 +134,13 @@ async function processCardBatch(cards: ParsedCard[]): Promise<ConversionResult[]
 
 	// Process cards with identifiers via API
 	const apiResults =
-		cardIdentifierPairs.length > 0 ? await processBatchWithIdentifiers(cardIdentifierPairs) : [];
+		cardIdentifierPairs.length > 0
+			? await processBatchWithIdentifiers(
+					cardIdentifierPairs,
+					batchDefaultCondition,
+					batchExportOptions
+				)
+			: [];
 
 	// Create failed results for cards without identifiers
 	const failedResults = cardsWithoutIdentifiers.map((card) =>
@@ -137,7 +154,9 @@ async function processCardBatch(cards: ParsedCard[]): Promise<ConversionResult[]
  * Process cards with identifiers using Collection endpoint
  */
 async function processBatchWithIdentifiers(
-	cardIdentifierPairs: Array<{ card: ParsedCard; identifier: CardIdentifier }>
+	cardIdentifierPairs: Array<{ card: ParsedCard; identifier: CardIdentifier }>,
+	defaultCondition?: string,
+	exportOptions?: ExportOptions
 ): Promise<ConversionResult[]> {
 	const results: ConversionResult[] = [];
 	const batchSize = getBatchSize();
@@ -184,7 +203,9 @@ async function processBatchWithIdentifiers(
 							}
 
 							// Create successful result preserving original card properties
-							results.push(createSuccessfulResult(originalCard, scryfallCard));
+							results.push(
+								createSuccessfulResult(originalCard, scryfallCard, defaultCondition, exportOptions)
+							);
 						});
 
 						// Remove this identifier from the map so we don't process it again

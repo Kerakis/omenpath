@@ -8,22 +8,21 @@ export const deckedBuilder: CsvFormat = {
 	description: 'Decked Builder deck export',
 	hasHeaders: true,
 	columnMappings: {
-		count: 'Count',
+		count: 'Total Qty', // Total quantity of the card
 		name: 'Card',
-		editionName: 'Set', // Full set name for fuzzy matching like DeckBox
-		condition: 'Condition',
-		foil: 'Foil'
+		editionName: 'Set' // Full set name for fuzzy matching
+		// Note: No condition column in Decked Builder exports
+		// Note: Foil handling is via separate Reg Qty and Foil Qty columns
 	},
 	transformations: {
-		condition: (value: string) => value.trim(),
-		foil: (value: string) =>
-			value.toLowerCase() === 'true' || value.toLowerCase() === 'foil' ? 'foil' : ''
+		// Decked Builder has separate Regular and Foil quantity columns
+		// The converter engine will need to handle this during parsing
 	}
 };
 
 export const deckedBuilderModule: FormatModule = createStandardFormatModule(
 	deckedBuilder,
-	[], // No strong indicators
-	['Count', 'Card', 'Set', 'Condition', 'Foil'], // Common indicators
-	['Count', 'Card'] // Required headers
+	['Total Qty', 'Reg Qty', 'Foil Qty'], // Strong indicators - unique combination of quantity columns
+	['Card', 'Set', 'Mana Cost', 'Card Type', 'Color', 'Rarity', 'Mvid'],
+	['Total Qty', 'Card'] // Required headers
 );

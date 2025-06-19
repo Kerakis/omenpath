@@ -1,27 +1,51 @@
 import type { CsvFormat } from '../../types.js';
 import type { FormatModule } from './base.js';
-import { createStandardFormatModule } from '../../utils/format-helpers.js';
 
 export const mtgo: CsvFormat = {
-	name: 'MTGO (.csv)',
+	name: 'MTGO',
 	id: 'mtgo',
-	description: 'Magic: The Gathering Online collection export',
+	description: 'Magic: The Gathering Online collection export (CSV and DEK formats)',
 	hasHeaders: true,
 	columnMappings: {
-		count: 'Qty',
 		name: 'Card Name',
+		count: 'Quantity',
+		mtgoId: 'ID #',
+		rarity: 'Rarity',
 		edition: 'Set',
-		foil: 'Premium'
+		collectorNumber: 'Collector #',
+		foil: 'Premium',
+		annotation: 'Annotation'
 	},
 	transformations: {
 		foil: (value: string) =>
-			value.toLowerCase() === 'yes' || value.toLowerCase() === 'true' ? 'foil' : ''
+			value.toLowerCase() === 'yes' || value.toLowerCase() === 'true' ? 'foil' : '',
+		count: (value: string) => value || '1'
 	}
 };
 
-export const mtgoModule: FormatModule = createStandardFormatModule(
-	mtgo,
-	['Premium'], // Strong indicator
-	['Qty', 'Card Name', 'Set'],
-	['Qty', 'Card Name']
-);
+export const mtgoModule: FormatModule = {
+	format: mtgo,
+	detectFormat: (headers: string[]): number => {
+		const headerSet = new Set(headers.map((h) => h.toLowerCase()));
+
+		// Primary indicator: "ID #" column is unique to MTGO CSV format
+		if (headerSet.has('id #')) {
+			return 100; // 100% confidence
+		}
+
+		// Check for other MTGO-specific patterns
+		const mtgoPatterns = [
+			['card name', 'quantity', 'rarity', 'set'],
+			['card name', 'quantity', 'premium']
+		];
+
+		for (const pattern of mtgoPatterns) {
+			const matches = pattern.filter((header) => headerSet.has(header)).length;
+			if (matches === pattern.length) {
+				return 70; // High confidence
+			}
+		}
+
+		return 0;
+	}
+};

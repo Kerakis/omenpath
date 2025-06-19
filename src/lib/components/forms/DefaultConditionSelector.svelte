@@ -52,7 +52,7 @@
 				on:change={handleConditionChange}
 				class="focus-ring w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 md:max-w-[200px] md:min-w-[150px] dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"
 			>
-				{#each MOXFIELD_CONDITIONS as condition}
+				{#each MOXFIELD_CONDITIONS as condition (condition)}
 					<option value={condition}>{condition}</option>
 				{/each}
 			</select>

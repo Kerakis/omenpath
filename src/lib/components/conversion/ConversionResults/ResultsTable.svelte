@@ -1,22 +1,83 @@
 <script lang="ts">
-	import type { ConversionResult } from '../../../types.js';
 	import type { ConversionResultFile } from '../../../utils/conversion/stats-calculator.js';
+	import type { ExportOptions } from '../../../types.js';
 	import {
 		getSortedResults,
 		formatConfidence,
 		getMethodLabel,
 		getConfidenceStats
 	} from '../../../utils/conversion/stats-calculator.js';
+	import { regenerateMoxfieldRow } from '../../../core/converter/result-formatter.js';
 
 	interface Props {
 		result: ConversionResultFile;
 		showAdditionalColumns: boolean;
+		exportOptions: ExportOptions;
+		defaultCondition?: string;
 	}
 
-	let { result, showAdditionalColumns = $bindable() }: Props = $props();
+	let {
+		result,
+		showAdditionalColumns = $bindable(),
+		exportOptions,
+		defaultCondition
+	}: Props = $props();
 
 	const sortedResults = $derived(getSortedResults(result));
 	const confidenceStats = $derived(getConfidenceStats(result));
+
+	// Dynamically regenerate moxfieldRows based on current export options
+	const resultsWithDynamicRows = $derived.by(() => {
+		return sortedResults.map((card) => ({
+			...card,
+			dynamicMoxfieldRow: regenerateMoxfieldRow(card, exportOptions, defaultCondition)
+		}));
+	});
+
+	// Get all unique column names from the dynamically generated moxfieldRow data
+	const allColumns = $derived.by(() => {
+		const columnSet = new Set<string>();
+		resultsWithDynamicRows.forEach((card) => {
+			Object.keys(card.dynamicMoxfieldRow).forEach((key) => columnSet.add(key));
+		});
+		return Array.from(columnSet);
+	});
+
+	// Define core columns that should always be shown
+	const coreColumns = ['Count', 'Name', 'Edition', 'Collector Number', 'Condition', 'Foil'];
+
+	// Define additional columns that should only be shown when toggle is on
+	const additionalColumns = [
+		'Tradelist Count',
+		'Language',
+		'Tags',
+		'Last Modified',
+		'Alter',
+		'Proxy',
+		'Signed',
+		'Purchase Price',
+		'Scryfall ID'
+	];
+
+	// Get dynamic export columns (prices, IDs, etc.)
+	const exportColumns = $derived.by(() => {
+		return allColumns.filter(
+			(col: string) =>
+				!coreColumns.includes(col) &&
+				!additionalColumns.includes(col) &&
+				(col.includes('Current Price') || col.includes('ID'))
+		);
+	});
+
+	// Get columns to display based on toggle state
+	const columnsToShow = $derived.by(() => {
+		let columns = [...coreColumns];
+		if (showAdditionalColumns) {
+			columns.push(...additionalColumns);
+			columns.push(...exportColumns);
+		}
+		return columns.filter((col) => allColumns.includes(col));
+	});
 </script>
 
 <div class="rounded border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-700">
@@ -50,26 +111,11 @@
 				<thead class="sticky top-0 bg-gray-100 dark:bg-gray-700">
 					<tr>
 						<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300">Row</th>
-						<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300">Count</th>
-						<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300">Name</th>
-						<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300">Set</th>
-						<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300">CN</th>
-						<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
-							>Condition</th
-						>
-						<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300">Foil</th>
-						{#if showAdditionalColumns}
-							<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300">Alter</th
-							>
-							<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300">Proxy</th
-							>
-							<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
-								>Signed</th
-							>
-							<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300">Price</th
-							>
-							<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300">Lang</th>
-						{/if}
+						{#each columnsToShow as column (column)}
+							<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300">
+								{column === 'Edition' ? 'Set' : column === 'Collector Number' ? 'CN' : column}
+							</th>
+						{/each}
 						<th class="px-2 py-1 text-left font-medium text-gray-700 dark:text-gray-300"
 							>Confidence</th
 						>
@@ -77,7 +123,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each sortedResults as card}
+					{#each resultsWithDynamicRows as card, index (index)}
 						<tr
 							class="border-t border-gray-100 dark:border-gray-700 {card.confidence === 'low'
 								? 'border-amber-200 bg-amber-50 dark:border-amber-700 dark:bg-amber-900/20'
@@ -88,66 +134,43 @@
 							<td class="px-2 py-1 font-mono text-xs text-gray-500 dark:text-gray-400">
 								{card.outputRowNumber || '-'}
 							</td>
-							<td
-								class="px-2 py-1 {card.confidence === 'low'
-									? 'text-amber-700 dark:text-amber-400'
-									: !card.success
-										? 'text-red-700 dark:text-red-400'
-										: 'text-gray-900 dark:text-gray-100'}"
-							>
-								{card.moxfieldRow?.Count || card.originalCard?.count || '1'}
-							</td>
-							<td
-								class="px-2 py-1 font-medium {card.confidence === 'low'
-									? 'text-amber-900 dark:text-amber-300'
-									: !card.success
-										? 'text-red-900 dark:text-red-400'
-										: 'text-gray-900 dark:text-gray-100'}"
-							>
-								{#if card.confidence === 'low'}
-									<span
-										class="mr-1 text-amber-600 dark:text-amber-400"
-										title="Low confidence - please review">⚠️</span
-									>
-								{/if}
-								{#if !card.success}
-									<span class="mr-1 text-red-600 dark:text-red-400" title="Failed to convert"
-										>❌</span
-									>
-								{/if}
-								{card.moxfieldRow?.Name || card.originalCard?.name || 'Unknown'}
-							</td>
-							<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
-								{card.moxfieldRow?.Edition || card.originalCard?.edition || '-'}
-							</td>
-							<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
-								{card.moxfieldRow?.['Collector Number'] ||
-									card.originalCard?.collectorNumber ||
-									'-'}
-							</td>
-							<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
-								{card.moxfieldRow?.Condition || card.originalCard?.condition || '-'}
-							</td>
-							<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
-								{card.moxfieldRow?.Foil || card.originalCard?.foil || '-'}
-							</td>
-							{#if showAdditionalColumns}
-								<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
-									{card.moxfieldRow?.Alter || card.originalCard?.alter || '-'}
+							{#each columnsToShow as column (column)}
+								<td
+									class="px-2 py-1 {card.confidence === 'low'
+										? 'text-amber-700 dark:text-amber-400'
+										: !card.success
+											? 'text-red-700 dark:text-red-400'
+											: 'text-gray-900 dark:text-gray-100'} {column === 'Name'
+										? 'font-medium'
+										: ''}"
+									title={card.dynamicMoxfieldRow?.[column as string] || ''}
+								>
+									{#if column === 'Name'}
+										<div class="flex items-center">
+											{#if card.confidence === 'low'}
+												<span
+													class="mr-1 text-amber-600 dark:text-amber-400"
+													title="Low confidence - please review">⚠️</span
+												>
+											{/if}
+											{#if !card.success}
+												<span class="mr-1 text-red-600 dark:text-red-400" title="Failed to convert"
+													>❌</span
+												>
+											{/if}
+											<div class="max-w-32 truncate">
+												{card.dynamicMoxfieldRow?.[column as string] ||
+													card.originalCard?.name ||
+													'-'}
+											</div>
+										</div>
+									{:else}
+										<div class="max-w-20 truncate">
+											{card.dynamicMoxfieldRow?.[column as string] || '-'}
+										</div>
+									{/if}
 								</td>
-								<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
-									{card.moxfieldRow?.Proxy || card.originalCard?.proxy || '-'}
-								</td>
-								<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
-									{card.moxfieldRow?.Signed || card.originalCard?.signed || '-'}
-								</td>
-								<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
-									{card.moxfieldRow?.['Purchase Price'] || card.originalCard?.purchasePrice || '-'}
-								</td>
-								<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
-									{card.moxfieldRow?.Language || card.originalCard?.language || '-'}
-								</td>
-							{/if}
+							{/each}
 							<td class="px-2 py-1">
 								<div class="flex items-center space-x-1">
 									<span
@@ -180,7 +203,7 @@
 									{/if}
 								</div>
 							</td>
-							<td class="px-2 py-1 text-gray-600 dark:text-gray-400">
+							<td class="px-2 py-1 text-xs text-gray-600 dark:text-gray-400">
 								{getMethodLabel(card.identificationMethod || 'unknown')}
 							</td>
 						</tr>
