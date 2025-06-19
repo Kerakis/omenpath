@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { formatAutoDetector } from '../../../lib/core/detection/index.js';
-import { createConverterEngine } from '../../../lib/core/converter/converter-engine.js';
-import type { ConversionResult } from '../../../lib/types.js';
+import { formatAutoDetector } from '../lib/core/detection/index.js';
+import { createConverterEngine } from '../lib/core/converter/converter-engine.js';
+import type { ConversionResult } from '../lib/types.js';
 
 // Mock Scryfall API to avoid hitting real endpoints during tests
-vi.mock('../../../lib/utils/scryfall-utils.js', () => ({
+vi.mock('../lib/scryfall-utils.js', () => ({
 	checkScryfallApiHealth: vi.fn().mockResolvedValue({ healthy: true }),
 	validateSetCode: vi.fn().mockResolvedValue({ valid: true }),
 	findSetCodeByName: vi.fn().mockResolvedValue('M21')

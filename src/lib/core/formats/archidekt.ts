@@ -80,7 +80,24 @@ export const archidektFormat: CsvFormat = {
 		collectorNumber: 'Collector Number',
 		scryfallId: 'Scryfall ID',
 		multiverseId: 'Multiverse Id',
-		tags: 'Tags' // We'll parse this for proxy/signed/altered status
+		mtgoId: 'MTGO ID', // Digital card support
+		scryfallOracleId: 'Scryfall Oracle ID', // Additional Scryfall field
+		tags: 'Tags', // We'll parse this for proxy/signed/altered status
+		dateAdded: 'Date Added', // Archidekt-specific tracking
+		rarity: 'Rarity',
+		manaValue: 'Mana Value',
+		manaCost: 'Mana cost',
+		colors: 'Colors',
+		colorIdentity: 'Identities',
+		types: 'Types',
+		subtypes: 'Sub-types',
+		supertypes: 'Super-types',
+		// Price fields from various vendors
+		priceCardKingdom: 'Price (Card Kingdom)',
+		priceTcgPlayer: 'Price (TCG Player)',
+		priceStarCityGames: 'Price (Star City Games)',
+		priceCardHoarder: 'Price (Card Hoarder)',
+		priceCardMarket: 'Price (Card Market)'
 	},
 	transformations: {
 		condition: normalizeCondition,
@@ -91,7 +108,43 @@ export const archidektFormat: CsvFormat = {
 			if (normalized === 'etched') return 'etched';
 			return ''; // Normal, Non-foil, etc.
 		},
-		tags: (value: string) => value // Keep tags as-is for parsing later
+		tags: (value: string) => value, // Keep tags as-is for parsing later
+		// Normalize comma-separated lists to consistent format
+		colors: (value: string) =>
+			value
+				? value
+						.split(',')
+						.map((c) => c.trim())
+						.join(', ')
+				: '',
+		colorIdentity: (value: string) =>
+			value
+				? value
+						.split(',')
+						.map((c) => c.trim())
+						.join(', ')
+				: '',
+		types: (value: string) =>
+			value
+				? value
+						.split(',')
+						.map((t) => t.trim())
+						.join(', ')
+				: '',
+		subtypes: (value: string) =>
+			value
+				? value
+						.split(',')
+						.map((t) => t.trim())
+						.join(', ')
+				: '',
+		supertypes: (value: string) =>
+			value
+				? value
+						.split(',')
+						.map((t) => t.trim())
+						.join(', ')
+				: ''
 	}
 };
 
@@ -100,10 +153,14 @@ export const archidektModule: FormatModule = {
 	detectFormat: (headers: string[]): number => {
 		const headerSet = new Set(headers.map((h) => h.toLowerCase()));
 
-		// Strong indicators for Archidekt
+		// Strong indicators for Archidekt (unique or very distinctive columns)
 		const strongIndicators = [
-			'multiverse id', // Archidekt-specific capitalization
-			'edition code' // Common in Archidekt exports
+			'date added', // Very distinctive to Archidekt
+			'scryfall oracle id', // Archidekt includes both Scryfall ID and Oracle ID
+			'finish', // Archidekt uses "Finish" instead of "Foil"
+			'price (card kingdom)', // Specific pricing format
+			'price (tcg player)', // Specific pricing format
+			'identities' // Color identity field unique to Archidekt
 		];
 
 		// Common Archidekt indicators
@@ -112,10 +169,21 @@ export const archidektModule: FormatModule = {
 			'name',
 			'condition',
 			'language',
-			'finish', // Archidekt uses "Finish" instead of "Foil"
 			'purchase price',
+			'tags',
+			'edition name', // Both Edition Name and Code
+			'edition code',
+			'multiverse id', // Archidekt-specific capitalization
+			'scryfall id',
+			'mtgo id',
 			'collector number',
-			'scryfall id'
+			'mana value',
+			'colors',
+			'mana cost',
+			'types',
+			'sub-types',
+			'super-types',
+			'rarity'
 		];
 
 		let score = 0;
@@ -125,20 +193,41 @@ export const archidektModule: FormatModule = {
 		for (const indicator of strongIndicators) {
 			if (headerSet.has(indicator)) {
 				strongMatches++;
-				score += 0.4; // Each strong match is worth 40%
+				score += 0.35; // Each strong match is worth 35%
 			}
 		}
 
 		// Check common indicators
 		for (const indicator of commonIndicators) {
 			if (headerSet.has(indicator)) {
-				score += 0.08; // Each common match is worth 8%
+				score += 0.05; // Each common match is worth 5%
 			}
 		}
 
-		// Special bonus for having "Finish" instead of "Foil"
+		// Special bonuses for Archidekt-specific combinations
 		if (headerSet.has('finish') && !headerSet.has('foil')) {
-			score += 0.15;
+			score += 0.2; // Strong indicator when Finish is used instead of Foil
+		}
+
+		if (headerSet.has('edition name') && headerSet.has('edition code')) {
+			score += 0.15; // Archidekt often exports both
+		}
+
+		if (headerSet.has('scryfall id') && headerSet.has('scryfall oracle id')) {
+			score += 0.15; // Both Scryfall fields is very distinctive
+		}
+
+		// Multiple price fields indicate full Archidekt export
+		const priceFields = [
+			'price (card kingdom)',
+			'price (tcg player)',
+			'price (star city games)',
+			'price (card hoarder)',
+			'price (card market)'
+		];
+		const priceMatches = priceFields.filter((field) => headerSet.has(field)).length;
+		if (priceMatches >= 3) {
+			score += 0.2; // Multiple vendor prices are very distinctive
 		}
 
 		// If we have strong indicators, this is likely Archidekt
