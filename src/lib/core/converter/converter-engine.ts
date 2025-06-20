@@ -226,6 +226,18 @@ function applySetCorrections(
 		card.warnings.push(
 			`Set code "${correction?.original}" corrected to "${correctedCode}" based on set name "${correction?.setName}"`
 		);
+
+		// Check if this card needs token prefix after correction
+		if (
+			shouldAddTokenPrefix(card) &&
+			!correctedCode.startsWith('t') &&
+			!correctedCode.startsWith('T')
+		) {
+			card.edition = `t${correctedCode}`;
+			card.warnings.push(
+				`Added token prefix to corrected set code: ${correctedCode} → t${correctedCode}`
+			);
+		}
 	} else if (card.editionName && (!card.edition || card.edition.trim() === '')) {
 		// Case 2: Missing set code but we have set name
 		const setNameKey = `setname:${card.editionName}`;
@@ -238,8 +250,35 @@ function applySetCorrections(
 			card.warnings.push(
 				`Set code added as "${correctedCode}" based on set name "${card.editionName}"`
 			);
+
+			// Check if this card needs token prefix after correction
+			if (
+				shouldAddTokenPrefix(card) &&
+				!correctedCode.startsWith('t') &&
+				!correctedCode.startsWith('T')
+			) {
+				card.edition = `t${correctedCode}`;
+				card.warnings.push(
+					`Added token prefix to corrected set code: ${correctedCode} → t${correctedCode}`
+				);
+			}
 		}
 	}
+}
+
+// Helper function to determine if a card needs token prefix
+function shouldAddTokenPrefix(card: ParsedCard): boolean {
+	// Check if it's marked as a token
+	if (card.isToken === 'true') {
+		return true;
+	}
+
+	// Check if the name contains "Token" (common pattern in TCGPlayer data)
+	if (card.name && card.name.includes(' Token')) {
+		return true;
+	}
+
+	return false;
 }
 
 // Helper function to assign initial confidence levels
@@ -669,9 +708,9 @@ function parseCardRow(
 				if (face.collectorNumber) {
 					faceCard.collectorNumber = face.collectorNumber;
 				}
-				// Add warnings about double-faced token handling
-				faceCard.warnings = faceCard.warnings || [];
-				faceCard.warnings.push(`Double-faced token face ${index + 1} of ${faces.length}`);
+				// Add warnings about double-faced token handling (only add face-specific info)
+				faceCard.warnings = [...(card.warnings || [])]; // Copy original warnings
+				faceCard.warnings.push(`Face ${index + 1} of ${faces.length}: ${face.name}`);
 				cards.push(faceCard);
 			});
 

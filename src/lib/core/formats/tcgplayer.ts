@@ -396,13 +396,24 @@ function parseSellerRow(row: Record<string, string>, format: CsvFormat): Record<
 	const setName = row['Set Name'] || '';
 	const warnings: string[] = [];
 
-	// Check for double-faced tokens first
-	const doubleFacedTokenInfo = parseDoubleFacedToken(productName, parsedRow.edition);
+	// First, detect if this is a token BEFORE processing double-faced tokens
+	// This ensures we can detect " Token" text before it gets split
+	const isToken = productName.toLowerCase().includes(' token');
+	let tokenSetCode = parsedRow.edition;
+	if (isToken && tokenSetCode && !tokenSetCode.startsWith('t')) {
+		tokenSetCode = `t${tokenSetCode.toLowerCase()}`;
+	}
+
+	// Check for double-faced tokens
+	const doubleFacedTokenInfo = parseDoubleFacedToken(productName, tokenSetCode);
 
 	if (doubleFacedTokenInfo.isDoubleFacedToken) {
 		// For double-faced tokens, we need to create multiple entries
 		parsedRow.isDoubleFacedToken = 'true';
 		parsedRow.doubleFacedTokenFaces = JSON.stringify(doubleFacedTokenInfo.faces);
+		parsedRow.isToken = 'true'; // Mark as token since it's a double-faced token
+
+		// Use the adjusted set code (with 't' prefix)
 		if (doubleFacedTokenInfo.adjustedSetCode) {
 			parsedRow.edition = doubleFacedTokenInfo.adjustedSetCode;
 		}
@@ -417,8 +428,12 @@ function parseSellerRow(row: Record<string, string>, format: CsvFormat): Record<
 		parsedRow.name = cardTypeInfo.cleanedName;
 
 		// Store card type info for later use in fuzzy matching
-		if (cardTypeInfo.isToken) {
+		if (cardTypeInfo.isToken || isToken) {
 			parsedRow.isToken = 'true';
+			// Apply token set code if detected
+			if (tokenSetCode !== parsedRow.edition) {
+				parsedRow.edition = tokenSetCode;
+			}
 		}
 		if (cardTypeInfo.isArtCard) {
 			parsedRow.isArtCard = 'true';

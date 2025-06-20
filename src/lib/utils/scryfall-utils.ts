@@ -13,6 +13,46 @@ function fuzzyMatch(needle: string, haystack: string): number {
 	// Exact match gets perfect score
 	if (needleLower === haystackLower) return 1.0;
 
+	// Create a normalized version for edition matching
+	const normalizeEdition = (text: string): string => {
+		const numberMap: Record<string, string> = {
+			'4th': 'fourth',
+			'5th': 'fifth',
+			'6th': 'sixth',
+			'7th': 'seventh',
+			'8th': 'eighth',
+			'9th': 'ninth',
+			'10th': 'tenth'
+		};
+
+		let normalized = text.toLowerCase();
+
+		// Replace numbered forms with word forms
+		for (const [num, word] of Object.entries(numberMap)) {
+			normalized = normalized.replace(new RegExp(`\\b${num}\\b`, 'g'), word);
+		}
+
+		return normalized;
+	};
+
+	// Check if both are editions and normalize them for comparison
+	if (needleLower.includes('edition') && haystackLower.includes('edition')) {
+		const normalizedNeedle = normalizeEdition(needleLower);
+		const normalizedHaystack = normalizeEdition(haystackLower);
+
+		if (normalizedNeedle === normalizedHaystack) {
+			return 1.0; // Perfect match after normalization
+		}
+	}
+
+	// Special handling for "Collectors' Edition" - prevent matching with numbered editions
+	if (needleLower.includes('collectors') || haystackLower.includes('collectors')) {
+		if (needleLower !== haystackLower && !normalizeEdition(needleLower).includes('collectors')) {
+			// Only match collectors' edition with exact matches or other collectors' variants
+			return 0;
+		}
+	}
+
 	// Tokenize both strings into words
 	const needleWords = needleLower.split(/\s+/).filter((word) => word.length > 0);
 	const haystackWords = haystackLower.split(/\s+/).filter((word) => word.length > 0);
@@ -218,6 +258,9 @@ export async function findSetCodeByName(
 }> {
 	if (!setName) return { code: null, confidence: 0 };
 
+	// Strip "Universes Beyond: " prefix before fuzzy matching
+	const cleanedSetName = setName.replace(/^Universes Beyond:\s+/i, '').trim();
+
 	const sets = await loadSetsData();
 	let bestMatch: { set: SetData; score: number } | null = null;
 
@@ -276,7 +319,7 @@ export async function findSetCodeByName(
 
 	// First pass: Look for EXACT matches first (highest priority)
 	for (const set of filteredSets) {
-		if (set.name.toLowerCase() === setName.toLowerCase()) {
+		if (set.name.toLowerCase() === cleanedSetName.toLowerCase()) {
 			return {
 				code: set.code,
 				confidence: 1.0,
@@ -287,10 +330,10 @@ export async function findSetCodeByName(
 
 	// Second pass: Look for parent sets (non-child sets) with massive bonuses
 	if (!options?.preferTokens && !options?.preferArtSeries) {
-		const parentSets = filteredSets.filter((set) => !isChildSet(set.name, setName));
+		const parentSets = filteredSets.filter((set) => !isChildSet(set.name, cleanedSetName));
 
 		for (const set of parentSets) {
-			const score = fuzzyMatch(setName, set.name);
+			const score = fuzzyMatch(cleanedSetName, set.name);
 			// Give MASSIVE bonus to parent sets to ensure they beat child sets
 			const adjustedScore = score * 1.7; // 70% bonus for parent sets
 
@@ -313,11 +356,15 @@ export async function findSetCodeByName(
 	if (!bestMatch || bestMatch.score < 0.9) {
 		// Only do this if we don't have a very good parent match
 		for (const set of filteredSets) {
-			const score = fuzzyMatch(setName, set.name);
+			const score = fuzzyMatch(cleanedSetName, set.name);
 			let adjustedScore = score;
 
 			// Apply heavy penalty to child sets when not specifically looking for them
-			if (!options?.preferTokens && !options?.preferArtSeries && isChildSet(set.name, setName)) {
+			if (
+				!options?.preferTokens &&
+				!options?.preferArtSeries &&
+				isChildSet(set.name, cleanedSetName)
+			) {
 				adjustedScore = score * 0.4; // 60% penalty for child sets
 			}
 
@@ -331,7 +378,7 @@ export async function findSetCodeByName(
 	// fall back to searching all sets
 	if (!bestMatch && (options?.preferTokens || options?.preferArtSeries)) {
 		for (const set of sets) {
-			const score = fuzzyMatch(setName, set.name);
+			const score = fuzzyMatch(cleanedSetName, set.name);
 			if (score >= threshold && (!bestMatch || score > bestMatch.score)) {
 				bestMatch = { set, score };
 			}
