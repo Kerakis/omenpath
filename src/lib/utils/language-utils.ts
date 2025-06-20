@@ -124,3 +124,42 @@ export function getScryfallLanguageCode(inputLanguage: string): string | null {
 
 	return null; // Unknown language
 }
+
+/**
+ * Check if there is a true language mismatch (different languages) vs just alias differences
+ * Returns true if the languages are truly different (e.g., Japanese vs English)
+ * Returns false if they're the same language with different aliases (e.g., 'jp' vs 'ja')
+ */
+export function isTrueLanguageMismatch(
+	originalLanguage: string,
+	scryfallLanguage: string
+): boolean {
+	if (!originalLanguage || !scryfallLanguage) {
+		return false; // No mismatch if either is missing
+	}
+
+	const normalizedOriginal = originalLanguage.toLowerCase().trim();
+	const normalizedScryfall = scryfallLanguage.toLowerCase().trim();
+
+	// Direct match - no mismatch
+	if (normalizedOriginal === normalizedScryfall) {
+		return false;
+	}
+
+	// Get the Scryfall language codes for both inputs
+	const originalCode = getScryfallLanguageCode(normalizedOriginal);
+	const scryfallCode = getScryfallLanguageCode(normalizedScryfall);
+
+	// If we can't identify either language, assume it's a mismatch to be safe
+	if (!originalCode || !scryfallCode) {
+		return true;
+	}
+
+	// If both map to the same language code, it's just an alias difference
+	if (originalCode === scryfallCode) {
+		return false;
+	}
+
+	// Different language codes = true language mismatch
+	return true;
+}

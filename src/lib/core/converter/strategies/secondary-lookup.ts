@@ -4,9 +4,17 @@ import type {
 	ProgressCallback,
 	ExportOptions
 } from '../../../types.js';
-import { validateLanguageMatch, getScryfallLanguageCode } from '../api/language-validator.js';
+import {
+	validateLanguageMatch,
+	getScryfallLanguageCode,
+	isTrueLanguageMismatch
+} from '../../../utils/language-utils.js';
 import { fetchScryfallCardByLanguage, applyRateLimit } from '../api/scryfall-api.js';
-import { createSuccessfulResult, downgradeConfidence } from '../result-formatter.js';
+import {
+	createSuccessfulResult,
+	downgradeConfidence,
+	capConfidenceForLanguageMismatch
+} from '../result-formatter.js';
 
 /**
  * Step 3: Language validation and secondary lookups
@@ -139,7 +147,15 @@ export async function performLanguageValidationAndSecondaryLookups(
 								);
 								const fallbackResult = { ...result };
 
-								fallbackResult.confidence = downgradeConfidence(result.confidence);
+								// Check if it's a true language mismatch
+								const isTrueMismatch = isTrueLanguageMismatch(
+									card.language,
+									result.scryfallCard.lang
+								);
+
+								fallbackResult.confidence = isTrueMismatch
+									? capConfidenceForLanguageMismatch(result.confidence)
+									: downgradeConfidence(result.confidence);
 								fallbackResult.languageMismatch = true;
 								fallbackResult.warnings = [
 									...(result.warnings || []),
@@ -153,7 +169,16 @@ export async function performLanguageValidationAndSecondaryLookups(
 
 							// Fall back to original result with warning about failed lookup - THIS IS A TRUE MISMATCH
 							const errorResult = { ...result };
-							errorResult.confidence = downgradeConfidence(result.confidence);
+
+							// Check if it's a true language mismatch
+							const isTrueMismatch = isTrueLanguageMismatch(
+								card.language,
+								result.scryfallCard.lang
+							);
+
+							errorResult.confidence = isTrueMismatch
+								? capConfidenceForLanguageMismatch(result.confidence)
+								: downgradeConfidence(result.confidence);
 							errorResult.languageMismatch = true;
 							errorResult.warnings = [
 								...(result.warnings || []),
@@ -168,7 +193,13 @@ export async function performLanguageValidationAndSecondaryLookups(
 							`Cannot perform secondary lookup for ${card.name}: scryfallLanguageCode=${scryfallLanguageCode}, set=${result.scryfallCard.set}, collector_number=${result.scryfallCard.collector_number}`
 						);
 						const updatedResult = { ...result };
-						updatedResult.confidence = downgradeConfidence(result.confidence);
+
+						// Check if it's a true language mismatch
+						const isTrueMismatch = isTrueLanguageMismatch(card.language, result.scryfallCard.lang);
+
+						updatedResult.confidence = isTrueMismatch
+							? capConfidenceForLanguageMismatch(result.confidence)
+							: downgradeConfidence(result.confidence);
 						updatedResult.languageMismatch = true;
 
 						if (!scryfallLanguageCode) {

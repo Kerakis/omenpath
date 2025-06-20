@@ -235,6 +235,23 @@ export function downgradeConfidence(
 }
 
 /**
+ * Helper function to cap confidence at medium for true language mismatches
+ */
+export function capConfidenceForLanguageMismatch(
+	confidence: ConversionResult['confidence']
+): ConversionResult['confidence'] {
+	switch (confidence) {
+		case 'very_high':
+		case 'high':
+			return 'medium';
+		case 'medium':
+		case 'low':
+		default:
+			return confidence; // Keep as is if already medium or low
+	}
+}
+
+/**
  * CSV export utility function
  */
 export function formatAsMoxfieldCSV(results: ConversionResult[]): string {
