@@ -80,6 +80,10 @@ class FormatAutoDetector implements AutoDetector {
 		return this.formatModules.map((module) => module.format);
 	}
 
+	getFormatModule(formatId: string): FormatModule | null {
+		return this.formatModules.find((module) => module.format.id === formatId) || null;
+	}
+
 	private findMatchingHeaders(headers: string[], format: CsvFormat): string[] {
 		const headerSet = new Set(headers.map((h) => h.toLowerCase()));
 		const matchingHeaders: string[] = [];

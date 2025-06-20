@@ -13,6 +13,79 @@ import {
 } from '../api/scryfall-api.js';
 import { validateScryfallMatch } from '../validation/card-validator.js';
 import { createSuccessfulResult, createFailedResult } from '../result-formatter.js';
+import { searchScryfallCards } from '../../../utils/scryfall-utils.js';
+
+/**
+ * Handle special promo card search cases (Judge, Prerelease, Promo Pack)
+ */
+async function handleSpecialPromoSearch(
+	card: ParsedCard,
+	defaultCondition?: string,
+	exportOptions?: ExportOptions
+): Promise<ConversionResult | null> {
+	const specialSearchQuery = (card as Record<string, unknown>).specialSearchQuery as
+		| string
+		| undefined;
+	if (!specialSearchQuery) {
+		return null; // Not a special promo card
+	}
+
+	try {
+		const searchResult = await searchScryfallCards(card.name, specialSearchQuery);
+
+		if (searchResult.cards.length === 0) {
+			// No cards found
+			return createFailedResult(card, 'No matching promo cards found via special search');
+		}
+
+		const selectedCard = searchResult.cards[0]; // Use the first result
+		let confidence: 'very_high' | 'high' | 'medium' | 'low' = 'high';
+		const warnings: string[] = [];
+
+		// Add search warnings
+		if (searchResult.warnings) {
+			warnings.push(...searchResult.warnings);
+		}
+
+		// Adjust confidence based on number of results
+		if (searchResult.cards.length > 1) {
+			confidence = 'medium'; // Reduce confidence when multiple options exist
+			warnings.push(
+				`Multiple promo versions found (${searchResult.cards.length}), using first result - please verify`
+			);
+		}
+
+		// Validate the match (if we have enough data to validate)
+		const validation = validateScryfallMatch(card, selectedCard);
+		if (!validation.isValid && validation.errors.length > 0) {
+			// Only fail on set/collector number mismatches, not name mismatches for promos
+			const criticalErrors = validation.errors.filter((error) => !error.includes('Name mismatch'));
+
+			if (criticalErrors.length > 0) {
+				warnings.push(...criticalErrors);
+				confidence = 'low'; // Reduce confidence but don't fail
+			}
+		}
+
+		// Create successful result with special promo handling
+		const result = createSuccessfulResult(card, selectedCard, defaultCondition, exportOptions);
+
+		// Override confidence and add warnings
+		result.confidence = confidence;
+		result.identificationMethod = 'special_case'; // Special promo search uses dedicated handling
+		if (warnings.length > 0) {
+			result.warnings = warnings;
+		}
+
+		return result;
+	} catch (error) {
+		console.error('Special promo search error:', error);
+		return createFailedResult(
+			card,
+			`Special promo search failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+		);
+	}
+}
 
 /**
  * Perform primary lookups using Collection endpoint (PROPERLY MIXING IDENTIFIERS)
@@ -40,11 +113,40 @@ export async function performPrimaryLookups(
 		return results;
 	}
 
+	// First, handle special promo searches individually (these need the search endpoint)
+	const regularCards: ParsedCard[] = [];
+
+	for (const card of cardsNeedingLookup) {
+		const cardAsRecord = card as Record<string, unknown>;
+		const specialSearchQuery = cardAsRecord.specialSearchQuery as string | undefined;
+
+		if (specialSearchQuery) {
+			// Handle special promo search
+			console.log(`Handling special promo search for: ${card.name} (${specialSearchQuery})`);
+			const specialResult = await handleSpecialPromoSearch(card, defaultCondition, exportOptions);
+
+			if (specialResult) {
+				results.push({ card, result: specialResult });
+				processed++;
+				if (progressCallback) {
+					progressCallback(10 + (processed / total) * 50); // 10-60% range
+				}
+
+				// Rate limiting for search endpoint
+				await applyRateLimit();
+				continue;
+			}
+		}
+
+		// Card doesn't need special handling, add to regular batch
+		regularCards.push(card);
+	}
+
+	// Process remaining cards in batches using the collection endpoint
 	const batchSize = getBatchSize();
 
-	// Process cards that need lookup in batches of 75, mixing all identifier types as Scryfall recommends
-	for (let i = 0; i < cardsNeedingLookup.length; i += batchSize) {
-		const batch = cardsNeedingLookup.slice(i, i + batchSize);
+	for (let i = 0; i < regularCards.length; i += batchSize) {
+		const batch = regularCards.slice(i, i + batchSize);
 
 		console.log(`Processing batch ${Math.floor(i / batchSize) + 1} with ${batch.length} cards...`);
 
@@ -59,7 +161,7 @@ export async function performPrimaryLookups(
 		}
 
 		// Rate limiting between batches
-		if (i + batchSize < cardsNeedingLookup.length) {
+		if (i + batchSize < regularCards.length) {
 			await applyRateLimit();
 		}
 	}
@@ -203,9 +305,20 @@ async function processBatchWithIdentifiers(
 							}
 
 							// Create successful result preserving original card properties
-							results.push(
-								createSuccessfulResult(originalCard, scryfallCard, defaultCondition, exportOptions)
+							const successResult = createSuccessfulResult(
+								originalCard,
+								scryfallCard,
+								defaultCondition,
+								exportOptions
 							);
+
+							// Add validation warnings if any
+							if (validation.warnings && validation.warnings.length > 0) {
+								const existingWarnings = successResult.warnings || [];
+								successResult.warnings = [...existingWarnings, ...validation.warnings];
+							}
+
+							results.push(successResult);
 						});
 
 						// Remove this identifier from the map so we don't process it again

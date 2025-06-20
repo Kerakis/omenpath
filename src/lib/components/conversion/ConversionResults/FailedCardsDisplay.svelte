@@ -9,9 +9,15 @@
 
 	let { results, showAdditionalColumns }: Props = $props();
 
-	// Get failed cards (errors or warnings)
+	// Get failed cards (only actual errors, not warnings) sorted by row number
 	const failedCards = $derived(() => {
-		return results.filter((card) => !card.success || (card.warnings && card.warnings.length > 0));
+		return results
+			.filter((card) => !card.success)
+			.sort((a, b) => {
+				const rowA = a.originalCard?.sourceRowNumber || 0;
+				const rowB = b.originalCard?.sourceRowNumber || 0;
+				return rowA - rowB;
+			});
 	});
 </script>
 

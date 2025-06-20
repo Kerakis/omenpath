@@ -159,8 +159,16 @@ export function parseEtchedFoil(
  * Parse TCGPlayer card name to remove extra information like (Foil Etched), (Extended Art), etc.
  */
 export function cleanTCGPlayerCardName(cardName: string): string {
+	// Remove " Art Card" suffix first (for art cards)
+	let cleaned = cardName.replace(/\s+Art Card$/, '');
+
+	// Remove " Token" suffix (for tokens)
+	cleaned = cleaned.replace(/\s+Token$/, '');
+
 	// Remove anything in parentheses and the space before it
-	return cardName.replace(/\s+\([^)]*\)/g, '').trim();
+	cleaned = cleaned.replace(/\s+\([^)]*\)/g, '').trim();
+
+	return cleaned;
 }
 
 /**
@@ -180,5 +188,159 @@ export function parseTCGPlayerSellerCondition(condition: string): {
 	return {
 		condition: condition.trim(),
 		foil: ''
+	};
+}
+
+/**
+ * Parse TCGPlayer card name to detect tokens and art cards, and adjust set codes accordingly
+ */
+export function parseTCGPlayerCardType(
+	cardName: string,
+	setCode?: string
+): {
+	cleanedName: string;
+	adjustedSetCode?: string;
+	isToken: boolean;
+	isArtCard: boolean;
+	warnings?: string[];
+} {
+	const warnings: string[] = [];
+	const cleanedName = cleanTCGPlayerCardName(cardName);
+	let isToken = false;
+	let isArtCard = false;
+	let adjustedSetCode = setCode;
+
+	// Check for tokens
+	if (cardName.includes(' Token')) {
+		isToken = true;
+		if (setCode && !setCode.startsWith('T')) {
+			adjustedSetCode = `T${setCode}`;
+			warnings.push(`Detected token card, adjusted set code from ${setCode} to ${adjustedSetCode}`);
+		}
+	}
+
+	// Check for art cards
+	if (cardName.includes(' Art Card')) {
+		isArtCard = true;
+		if (setCode && !setCode.startsWith('A')) {
+			adjustedSetCode = `A${setCode}`;
+			warnings.push(`Detected art card, adjusted set code from ${setCode} to ${adjustedSetCode}`);
+		}
+	}
+
+	return {
+		cleanedName,
+		adjustedSetCode,
+		isToken,
+		isArtCard,
+		warnings: warnings.length > 0 ? warnings : undefined
+	};
+}
+
+/**
+ * Detect special promo types from TCGPlayer set information
+ */
+export function detectTCGPlayerPromoType(
+	setCode?: string,
+	setName?: string
+): {
+	isJudgePromo: boolean;
+	isPrereleasePromo: boolean;
+	isPromoPackCard: boolean;
+	searchQuery?: string;
+} {
+	const setCodeLower = setCode?.toLowerCase() || '';
+	const setNameLower = setName?.toLowerCase() || '';
+
+	// Judge Promos
+	if (setCodeLower === 'jdg' || setNameLower.includes('judge promos')) {
+		return {
+			isJudgePromo: true,
+			isPrereleasePromo: false,
+			isPromoPackCard: false,
+			searchQuery: 'is:judge ++'
+		};
+	}
+
+	// Prerelease Promos
+	if (setCodeLower === 'pre' || setNameLower.includes('prerelease')) {
+		return {
+			isJudgePromo: false,
+			isPrereleasePromo: true,
+			isPromoPackCard: false,
+			searchQuery: 'is:prerelease ++'
+		};
+	}
+
+	// Promo Pack Cards
+	if (setNameLower.includes('promo pack:')) {
+		return {
+			isJudgePromo: false,
+			isPrereleasePromo: false,
+			isPromoPackCard: true,
+			searchQuery: 'is:promopack ++'
+		};
+	}
+
+	return {
+		isJudgePromo: false,
+		isPrereleasePromo: false,
+		isPromoPackCard: false
+	};
+}
+
+/**
+ * Parse double-faced tokens from TCGPlayer data
+ */
+export function parseDoubleFacedToken(
+	cardName: string,
+	setCode?: string
+): {
+	isDoubleFacedToken: boolean;
+	faces?: Array<{ name: string; collectorNumber?: string }>;
+	adjustedSetCode?: string;
+	warnings?: string[];
+} {
+	const warnings: string[] = [];
+
+	// Check if this is a double-faced token
+	const isDoubleFacedToken = cardName.includes(' // ') && cardName.includes(' Token');
+
+	if (!isDoubleFacedToken) {
+		return { isDoubleFacedToken: false };
+	}
+
+	// Add token prefix to set code
+	const adjustedSetCode = setCode && !setCode.startsWith('T') ? `T${setCode}` : setCode;
+
+	// Parse faces from different formats
+	let faces: Array<{ name: string; collectorNumber?: string }> = [];
+
+	// TCGPlayer Seller format: "Human (001) // Vampire (016) Double-Sided Token"
+	const sellerMatch = cardName.match(
+		/^(.+?)\s+\((\d+)\)\s+\/\/\s+(.+?)\s+\((\d+)\)\s+Double-Sided Token$/i
+	);
+	if (sellerMatch) {
+		faces = [
+			{ name: sellerMatch[1].trim(), collectorNumber: sellerMatch[2] },
+			{ name: sellerMatch[3].trim(), collectorNumber: sellerMatch[4] }
+		];
+	} else {
+		// TCGPlayer User format: "Illusion // Plant Double-sided Token"
+		const userMatch = cardName.match(/^(.+?)\s+\/\/\s+(.+?)\s+Double-sided Token$/i);
+		if (userMatch) {
+			faces = [{ name: userMatch[1].trim() }, { name: userMatch[2].trim() }];
+		}
+	}
+
+	warnings.push(
+		'Double-faced token detected - Scryfall may not handle these well, treating as separate entries'
+	);
+
+	return {
+		isDoubleFacedToken: true,
+		faces,
+		adjustedSetCode,
+		warnings
 	};
 }

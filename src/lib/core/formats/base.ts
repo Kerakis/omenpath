@@ -15,4 +15,5 @@ export interface FormatModule {
 export interface AutoDetector {
 	detectFormat: (headers: string[]) => FormatDetectionResult | null;
 	getAllFormats: () => CsvFormat[];
+	getFormatModule: (formatId: string) => FormatModule | null;
 }

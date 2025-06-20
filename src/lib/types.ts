@@ -22,6 +22,8 @@ export interface ParsedCard {
 	language?: string;
 	foil?: string;
 	isEtched?: boolean; // Whether this card is etched foil
+	isToken?: string; // Whether this card is a token ('true' when detected)
+	isArtCard?: string; // Whether this card is an art card ('true' when detected)
 	tags?: string;
 	extras?: string; // For format-specific extra data (e.g., Helvault extras)
 	purchasePrice?: string;
@@ -127,6 +129,7 @@ export interface ConversionResult {
 		| 'name_set_corrected' // Set code was corrected via fuzzy matching
 		| 'name_collector' // Found via name + collector number search
 		| 'name_only'
+		| 'special_case' // Special promo handling (judge, prerelease, promo pack)
 		| 'failed';
 	warnings?: string[]; // For validation warnings, language mismatches, etc.
 	setCodeCorrected?: boolean; // Whether the set code was corrected via fuzzy matching

@@ -9,6 +9,7 @@ import type {
 	ExportOptions
 } from '../../types.js';
 import { formatAutoDetector, type FormatDetectionResult } from '../detection/index.js';
+import type { FormatModule } from '../formats/base.js';
 import {
 	checkScryfallApiHealth,
 	validateSetCode,
@@ -120,7 +121,26 @@ export function createConverterEngine(): ConverterEngine {
 						null;
 
 					for (const setName of setNames) {
-						const correction = await findSetCodeByName(setName!, 0.7);
+						// Check if any cards with this set code are tokens or art cards
+						const hasTokens = cardsWithThisSet.some(
+							(card) =>
+								card.isToken === 'true' ||
+								card.name?.toLowerCase().includes('token') ||
+								card.edition?.startsWith('T')
+						);
+						const hasArtCards = cardsWithThisSet.some(
+							(card) =>
+								card.isArtCard === 'true' ||
+								card.name?.toLowerCase().includes('art card') ||
+								card.edition?.startsWith('A')
+						);
+
+						const options = {
+							preferTokens: hasTokens,
+							preferArtSeries: hasArtCards
+						};
+
+						const correction = await findSetCodeByName(setName!, 0.7, options);
 
 						if (
 							correction.code &&
@@ -413,6 +433,9 @@ async function parseCSVContent(
 		throw new Error(`Unknown format: ${formatId}`);
 	}
 
+	// Get the format module for custom parsing if available
+	const formatModule = formatAutoDetector.getFormatModule(formatId);
+
 	let result: Papa.ParseResult<Record<string, string>>;
 
 	try {
@@ -473,17 +496,9 @@ async function parseCSVContent(
 		if (!row || Object.keys(row).length === 0) continue;
 
 		try {
-			const card = parseCardRow(row, format, i + 2); // Row number is i + 2 (1-based, accounting for header)
-			if (card) {
-				console.log(`Parsed card from row ${i + 2}:`, {
-					name: card.name,
-					language: card.language,
-					edition: card.edition,
-					collectorNumber: card.collectorNumber,
-					multiverseId: card.multiverseId,
-					scryfallId: card.scryfallId
-				});
-				cards.push(card);
+			const parsedCards = parseCardRow(row, format, formatModule, i + 2); // Row number is i + 2 (1-based, accounting for header)
+			if (parsedCards && parsedCards.length > 0) {
+				cards.push(...parsedCards);
 			}
 		} catch (error) {
 			console.warn(`Error parsing row ${i + 2}:`, error);
@@ -492,12 +507,13 @@ async function parseCSVContent(
 	return cards;
 }
 
-// Helper function to parse a single card row
+// Helper function to parse a single card row (may return multiple cards for double-faced tokens)
 function parseCardRow(
 	row: Record<string, string>,
 	format: CsvFormat,
+	formatModule: FormatModule | null,
 	rowNumber: number
-): ParsedCard | null {
+): ParsedCard[] {
 	// Create base card object
 	const card: ParsedCard = {
 		originalData: row,
@@ -517,27 +533,43 @@ function parseCardRow(
 		sourceRowNumber: rowNumber
 	};
 
-	// Apply column mappings
-	for (const [cardField, columnName] of Object.entries(format.columnMappings)) {
-		if (columnName && row[columnName] !== undefined) {
-			let value = row[columnName];
+	// Use custom parseRow function if available, otherwise use standard column mappings
+	let parsedData: Record<string, string>;
+	if (formatModule?.parseRow) {
+		parsedData = formatModule.parseRow(row, format);
+	} else {
+		// Apply standard column mappings
+		parsedData = {};
+		for (const [cardField, columnName] of Object.entries(format.columnMappings)) {
+			if (columnName && row[columnName] !== undefined) {
+				let value = row[columnName];
 
-			// Apply transformations if they exist
-			if (format.transformations && format.transformations[cardField]) {
-				value = format.transformations[cardField](value);
-			}
+				// Apply transformations if they exist
+				if (format.transformations && format.transformations[cardField]) {
+					value = format.transformations[cardField](value);
+				}
 
-			// Set the value on the card object
-			if (cardField === 'count') {
-				card.count = parseInt(value) || 1;
-			} else if (cardField === 'multiverseId') {
-				card.multiverseId = value ? parseInt(value) : undefined;
-			} else if (cardField === 'mtgoId') {
-				card.mtgoId = value ? parseInt(value) : undefined;
-			} else {
-				// Use type assertion for dynamic property assignment
-				(card as Record<string, string | number | undefined>)[cardField] = value;
+				parsedData[cardField] = value;
 			}
+		}
+	}
+
+	// Apply parsed data to card object
+	for (const [cardField, value] of Object.entries(parsedData)) {
+		if (cardField === 'count') {
+			card.count = parseInt(value) || 1;
+		} else if (cardField === 'multiverseId') {
+			card.multiverseId = value ? parseInt(value) : undefined;
+		} else if (cardField === 'mtgoId') {
+			card.mtgoId = value ? parseInt(value) : undefined;
+		} else if (cardField === 'warnings') {
+			// Handle warnings specially - they can come from parsing
+			card.warnings = card.warnings || [];
+			card.warnings.push(value);
+		} else {
+			// Use type assertion for dynamic property assignment
+			// This handles all fields including custom ones like specialSearchQuery
+			(card as Record<string, string | number | undefined>)[cardField] = value;
 		}
 	}
 
@@ -620,7 +652,37 @@ function parseCardRow(
 		}
 	}
 
-	return card;
+	// Check if this is a double-faced token that needs to be split
+	const cardAsRecord = card as Record<string, unknown>;
+	if (cardAsRecord.isDoubleFacedToken === 'true' && cardAsRecord.doubleFacedTokenFaces) {
+		try {
+			const faces = JSON.parse(cardAsRecord.doubleFacedTokenFaces as string) as Array<{
+				name: string;
+				collectorNumber?: string;
+			}>;
+
+			// Create separate cards for each face
+			const cards: ParsedCard[] = [];
+			faces.forEach((face, index) => {
+				const faceCard: ParsedCard = { ...card };
+				faceCard.name = face.name;
+				if (face.collectorNumber) {
+					faceCard.collectorNumber = face.collectorNumber;
+				}
+				// Add warnings about double-faced token handling
+				faceCard.warnings = faceCard.warnings || [];
+				faceCard.warnings.push(`Double-faced token face ${index + 1} of ${faces.length}`);
+				cards.push(faceCard);
+			});
+
+			return cards;
+		} catch (error) {
+			console.warn('Failed to parse double-faced token faces:', error);
+			// Fall back to single card
+		}
+	}
+
+	return [card];
 }
 
 // Re-export the formatAsMoxfieldCSV function

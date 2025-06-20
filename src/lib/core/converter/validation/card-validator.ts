@@ -39,16 +39,38 @@ export function parseArchidektTags(tags: string): { proxy: string; signed: strin
 export function validateScryfallMatch(
 	originalCard: ParsedCard,
 	scryfallCard: ScryfallCard
-): { isValid: boolean; errors: string[] } {
+): { isValid: boolean; errors: string[]; warnings: string[] } {
 	const errors: string[] = [];
+	const warnings: string[] = [];
 
 	// Validate name match (only if name was provided in original)
-	if (
-		originalCard.name &&
-		originalCard.name.trim() !== '' &&
-		originalCard.name.toLowerCase() !== scryfallCard.name.toLowerCase()
-	) {
-		errors.push(`Name mismatch: expected "${originalCard.name}", got "${scryfallCard.name}"`);
+	// Allow for dual-faced card (DFC) flexibility
+	if (originalCard.name && originalCard.name.trim() !== '') {
+		let nameMatches = false;
+		const originalNameLower = originalCard.name.toLowerCase().trim();
+		const scryfallNameLower = scryfallCard.name.toLowerCase().trim();
+
+		// Direct match
+		if (originalNameLower === scryfallNameLower) {
+			nameMatches = true;
+		} else {
+			// Check for dual-faced card flexibility
+			// Either the Scryfall card is a DFC and original matches one face,
+			// or the original might be a DFC and Scryfall matches one face
+			if (scryfallCard.name.includes(' // ')) {
+				// Scryfall card is DFC, check if original matches either face
+				const faces = scryfallCard.name.split(' // ').map((face) => face.trim().toLowerCase());
+				nameMatches = faces.some((face) => face === originalNameLower);
+			} else if (originalCard.name.includes(' // ')) {
+				// Original is DFC, check if Scryfall matches either face
+				const faces = originalCard.name.split(' // ').map((face) => face.trim().toLowerCase());
+				nameMatches = faces.some((face) => face === scryfallNameLower);
+			}
+		}
+
+		if (!nameMatches) {
+			errors.push(`Name mismatch: expected "${originalCard.name}", got "${scryfallCard.name}"`);
+		}
 	}
 
 	// Validate set code match (if provided in original)
@@ -99,9 +121,16 @@ export function validateScryfallMatch(
 		}
 
 		if (!availableFinishes.includes(expectedFinish)) {
-			errors.push(
-				`Finish not available: "${originalCard.foil}" not available for this card (available: ${scryfallCard.finishes?.join(', ') || 'none'})`
-			);
+			// For etched foil detected from name, treat as warning rather than error
+			if (expectedFinish === 'etched') {
+				warnings.push(
+					`Etched foil detected from name but not available in Scryfall (available: ${scryfallCard.finishes?.join(', ') || 'none'})`
+				);
+			} else {
+				errors.push(
+					`Finish not available: "${originalCard.foil}" not available for this card (available: ${scryfallCard.finishes?.join(', ') || 'none'})`
+				);
+			}
 		}
 	}
 
@@ -110,6 +139,7 @@ export function validateScryfallMatch(
 
 	return {
 		isValid: errors.length === 0,
-		errors
+		errors,
+		warnings
 	};
 }

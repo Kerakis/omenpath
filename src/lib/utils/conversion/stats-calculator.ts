@@ -83,6 +83,7 @@ export function getMethodLabel(method: string): string {
 		name_set_corrected: 'Name + Set (Set Corrected)',
 		name_collector: 'Name + Collector #',
 		name_only: 'Name Only',
+		special_case: 'Special Case',
 		failed: 'Failed'
 	};
 
