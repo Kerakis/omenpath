@@ -1,5 +1,5 @@
 import type { ParsedCard, ScryfallCard, ConversionResult, ExportOptions } from '../../types.js';
-import { getLanguageDisplayName } from './api/language-validator.js';
+import { getLanguageDisplayName } from './validation/language-validator.js';
 
 /**
  * Helper function to convert ParsedCard to Moxfield row format

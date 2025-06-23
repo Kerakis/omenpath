@@ -8,7 +8,7 @@ import {
 	validateLanguageMatch,
 	getScryfallLanguageCode,
 	isTrueLanguageMismatch
-} from '../../../utils/language-utils.js';
+} from '../validation/language-validator.js';
 import { fetchScryfallCardByLanguage, applyRateLimit } from '../api/scryfall-api.js';
 import {
 	createSuccessfulResult,
