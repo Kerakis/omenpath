@@ -187,7 +187,11 @@ export interface ConverterEngine {
 		exportOptions?: ExportOptions
 	) => Promise<ConversionResult[]>;
 
-	parseFile: (file: File, format: string) => Promise<ParsedCard[]>;
+	parseFile: (
+		file: File,
+		format: string,
+		progressCallback?: ProgressCallback
+	) => Promise<ParsedCard[]>;
 
 	getSupportedFormats: () => CsvFormat[];
 	detectFormat: (headers: string[]) => string | null;

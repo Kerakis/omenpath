@@ -28,6 +28,8 @@
 		includeCardMarketId: false
 	});
 	let isConverting = $state(false);
+	let isParsing = $state(false); // New parsing state
+	let parsingProgress = $state(0); // New parsing progress state
 	let conversionProgress = $state(0);
 	let conversionStatus = $state('');
 	let results: Array<{
@@ -72,6 +74,12 @@
 
 		// Clear previous preview error
 		previewError = null;
+		isParsing = true; // Start parsing state
+		parsingProgress = 0; // Reset parsing progress
+
+		// Add a minimum loading time to ensure the user sees the loading message
+		const startTime = Date.now();
+		const minLoadingTime = 500; // 500ms minimum
 
 		try {
 			// Auto-detect format if 'auto' is selected
@@ -93,13 +101,21 @@
 					throw new Error('Unable to auto-detect CSV format. Please select a format manually.');
 				}
 			} // Parse the file to get card data without API calls
-			const cards = await engine.parseFile(file, formatToUse);
+			const cards = await engine.parseFile(file, formatToUse, (progress) => {
+				parsingProgress = progress;
+			});
 
 			// Validate set codes immediately after parsing
 			const setValidation = await engine.validateSetCodes(cards);
 
 			if (setValidation.hasInvalidSetCodes) {
 				console.warn('Invalid set codes detected:', setValidation.invalidSetCodes);
+			}
+
+			// Ensure minimum loading time has passed
+			const elapsedTime = Date.now() - startTime;
+			if (elapsedTime < minLoadingTime) {
+				await new Promise((resolve) => setTimeout(resolve, minLoadingTime - elapsedTime));
 			}
 
 			previewData = cards;
@@ -109,6 +125,8 @@
 			const errorMessage = error instanceof Error ? error.message : 'Unknown error';
 			previewError = errorMessage;
 			errors.push(`Preview failed: ${errorMessage}`);
+		} finally {
+			isParsing = false; // End parsing state
 		}
 	}
 	async function handleConvert() {
@@ -180,6 +198,8 @@
 		detectedFormat = null; // Reset detected format when file changes
 		apiHealthError = null; // Reset API health error
 		showPreviewButtons = true; // Re-enable buttons when file changes
+		isParsing = false; // Reset parsing state when file changes
+		parsingProgress = 0; // Reset parsing progress when file changes
 
 		// Check API health when a file is first selected
 		if (file) {
@@ -213,6 +233,8 @@
 		previewError = null; // Clear preview error when format changes
 		showPreview = false;
 		detectedFormat = null; // Reset detected format when format selection changes
+		isParsing = false; // Reset parsing state when format changes
+		parsingProgress = 0; // Reset parsing progress when format changes
 
 		// Automatically retrigger preview when format changes
 		if (file) {
@@ -223,6 +245,8 @@
 		showPreview = false;
 		previewData = null;
 		previewError = null; // Clear preview error when cancelling
+		isParsing = false; // Reset parsing state when cancelling
+		parsingProgress = 0; // Reset parsing progress when cancelling
 	}
 
 	function handleConditionChange(condition: string) {
@@ -376,6 +400,55 @@
 			</div>
 		</div>
 	{/if}
+
+	<!-- Parsing Loading Message -->
+	{#if isParsing && !apiHealthError}
+		<div
+			class="card-hover mb-6 rounded-lg bg-blue-50 p-6 shadow-lg transition-all duration-200 dark:bg-blue-900/20"
+		>
+			<div class="flex items-center">
+				<div class="flex-shrink-0">
+					<svg
+						class="h-6 w-6 animate-spin text-blue-600 dark:text-blue-400"
+						fill="none"
+						viewBox="0 0 24 24"
+					>
+						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
+						></circle>
+						<path
+							class="opacity-75"
+							fill="currentColor"
+							d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+						></path>
+					</svg>
+				</div>
+				<div class="ml-3 flex-grow">
+					<h3 class="text-lg font-medium text-blue-800 dark:text-blue-200">Parsing CSV File...</h3>
+					<p class="mt-1 text-sm text-blue-600 dark:text-blue-300">
+						Reading and validating {file?.name || 'your file'}. This may take a moment for large
+						files.
+					</p>
+					{#if parsingProgress > 0}
+						<div class="mt-3">
+							<div class="flex items-center justify-between text-sm">
+								<span class="text-blue-600 dark:text-blue-300">Progress:</span>
+								<span class="font-medium text-blue-700 dark:text-blue-200"
+									>{Math.round(parsingProgress)}%</span
+								>
+							</div>
+							<div class="mt-2 h-2 w-full rounded-full bg-blue-200 dark:bg-blue-800">
+								<div
+									class="h-2 rounded-full bg-blue-600 transition-all duration-300 dark:bg-blue-400"
+									style="width: {parsingProgress}%"
+								></div>
+							</div>
+						</div>
+					{/if}
+				</div>
+			</div>
+		</div>
+	{/if}
+
 	{#if showPreview && previewData && !apiHealthError}
 		<div class="mb-6">
 			<DataPreview

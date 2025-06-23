@@ -19,7 +19,7 @@ import { isLanguageRecognized } from './api/language-validator.js';
 import { parseArchidektTags } from './validation/card-validator.js';
 import { parseHelvaultExtras } from '../formats/helvault.js';
 import { parseEtchedFoil } from '../../utils/format-helpers.js';
-import { formatAsMoxfieldCSV } from './result-formatter.js';
+import { formatAsMoxfieldCSV, createSuccessfulResult } from './result-formatter.js';
 import { performNameAndCollectorNumberLookups } from './strategies/name-collector-lookup.js';
 import { performPrimaryLookups } from './strategies/primary-lookup.js';
 import { performLanguageValidationAndSecondaryLookups } from './strategies/secondary-lookup.js';
@@ -40,9 +40,13 @@ export function createConverterEngine(): ConverterEngine {
 		},
 
 		// Parse file into ParsedCard array
-		parseFile: async (file: File, format: string): Promise<ParsedCard[]> => {
+		parseFile: async (
+			file: File,
+			format: string,
+			progressCallback?: ProgressCallback
+		): Promise<ParsedCard[]> => {
 			const content = await file.text();
-			return parseCSVContent(content, format);
+			return parseCSVContent(content, format, progressCallback);
 		},
 
 		// Convert file to Moxfield format using the new 3-step process
@@ -79,10 +83,23 @@ export function createConverterEngine(): ConverterEngine {
 
 		// Validate set codes in parsed cards (called after parsing, before conversion)
 		validateSetCodes: async (cards: ParsedCard[]): Promise<SetValidationResult> => {
-			// Debug: Add logging to see what's being detected
+			// Filter out cards that have direct IDs - they don't need set code validation
+			const cardsNeedingValidation = cards.filter((card) => {
+				// Skip validation if card has any direct identifier
+				const hasDirectId = !!(card.scryfallId || card.multiverseId || card.mtgoId);
+
+				// Only validate cards without direct IDs
+				return !hasDirectId;
+			});
+
+			// Debug: Add logging to see what's being validated
 			console.log(
-				'Set validation input:',
-				cards.map((c) => ({ name: c.name, edition: c.edition, editionName: c.editionName }))
+				'Set validation input (excluding cards with direct IDs):',
+				cardsNeedingValidation.map((c) => ({
+					name: c.name,
+					edition: c.edition,
+					editionName: c.editionName
+				}))
 			);
 
 			const invalidSetCodes: string[] = [];
@@ -94,11 +111,13 @@ export function createConverterEngine(): ConverterEngine {
 			}> = [];
 			const warnings: string[] = [];
 
-			// Get unique set codes from cards (including empty ones where we have set names)
-			const setCodes = [...new Set(cards.map((card) => card.edition).filter(Boolean))];
+			// Get unique set codes from cards that need validation (including empty ones where we have set names)
+			const setCodes = [
+				...new Set(cardsNeedingValidation.map((card) => card.edition).filter(Boolean))
+			];
 
-			// Also collect cards that have editionName but no valid edition
-			const cardsWithOnlySetNames = cards.filter(
+			// Also collect cards that have editionName but no valid edition (and no direct IDs)
+			const cardsWithOnlySetNames = cardsNeedingValidation.filter(
 				(card) => card.editionName && (!card.edition || card.edition.trim() === '')
 			);
 
@@ -113,7 +132,9 @@ export function createConverterEngine(): ConverterEngine {
 					invalidSetCodes.push(setCode!);
 
 					// Try to find correction using set names from cards with this set code
-					const cardsWithThisSet = cards.filter((card) => card.edition === setCode);
+					const cardsWithThisSet = cardsNeedingValidation.filter(
+						(card) => card.edition === setCode
+					);
 					const setNames = [
 						...new Set(cardsWithThisSet.map((card) => card.editionName).filter(Boolean))
 					];
@@ -189,6 +210,7 @@ export function createConverterEngine(): ConverterEngine {
 			}
 
 			// Apply corrections to cards and update confidence levels
+			// Note: Cards with direct IDs won't be affected since they're not in the correction map
 			for (const card of cards) {
 				applySetCorrections(card, correctionMap, correctedSetCodes);
 				assignInitialConfidence(card);
@@ -374,7 +396,6 @@ async function convertParsedCards(
 	for (const card of processedCards) {
 		if (card.foundViaNameCollectorSearch && card.scryfallCardData) {
 			// Use the stored Scryfall card data directly - no need for additional API calls
-			const { createSuccessfulResult } = await import('./result-formatter.js');
 			searchResults.push(
 				createSuccessfulResult(card, card.scryfallCardData, defaultCondition, exportOptions)
 			);
