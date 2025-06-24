@@ -88,14 +88,13 @@
 
 			if (selectedFormat === 'auto') {
 				const content = await file.text();
-				const headers = content
-					.split('\n')[0]
-					.split(',')
-					.map((h) => h.trim().replace(/"/g, ''));
-				const detectedFormatId = engine.detectFormat(headers);
-				if (detectedFormatId) {
-					formatToUse = detectedFormatId;
-					detectedFormat = detectedFormatId;
+				// Use the detectFormatFromContent function which handles preprocessing
+				const detection = await import('../../core/converter/parsing/csv-parser.js').then(
+					(module) => module.detectFormatFromContent(content)
+				);
+				if (detection) {
+					formatToUse = detection.format.id;
+					detectedFormat = detection.format.id;
 					console.log(`Auto-detected format: ${formatToUse}`);
 				} else {
 					throw new Error('Unable to auto-detect CSV format. Please select a format manually.');

@@ -60,7 +60,7 @@ export const cardCastleFullModule: FormatModule = {
 
 		// Primary indicator: "JSON ID" is unique to CardCastle
 		if (headerSet.has('json id')) {
-			return 100; // 100% confidence
+			return 1.0; // 100% confidence
 		}
 
 		// Secondary indicators for CardCastle Full
@@ -68,7 +68,7 @@ export const cardCastleFullModule: FormatModule = {
 		const matches = cardCastlePattern.filter((header) => headerSet.has(header)).length;
 
 		if (matches >= 2) {
-			return 70; // High confidence
+			return 0.7; // High confidence
 		}
 
 		return 0;
@@ -90,7 +90,7 @@ export const cardCastleSimpleModule: FormatModule = {
 		const matches = simplePattern.filter((header) => headerSet.has(header)).length;
 
 		if (matches >= 4) {
-			return 80; // High confidence
+			return 0.8; // High confidence
 		}
 
 		return 0;

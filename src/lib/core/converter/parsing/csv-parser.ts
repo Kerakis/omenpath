@@ -8,11 +8,33 @@ import { isLanguageRecognized } from '../validation/language-validator.js';
 import Papa from 'papaparse';
 
 /**
+ * Preprocesses CSV content to handle special cases like separator lines.
+ * Removes lines like "sep=," that some applications add at the beginning.
+ */
+function preprocessCSVContent(csvContent: string): string {
+	const lines = csvContent.split('\n');
+
+	// Check if the first line is a separator line (like "sep=," or '"sep=,"')
+	if (lines.length > 0) {
+		const firstLine = lines[0].trim();
+		if (firstLine === '"sep=,"' || firstLine === 'sep=,' || firstLine.startsWith('sep=')) {
+			// Remove the separator line
+			return lines.slice(1).join('\n');
+		}
+	}
+
+	return csvContent;
+}
+
+/**
  * Detects the CSV format from content by parsing headers.
  */
 export function detectFormatFromContent(csvContent: string): FormatDetectionResult | null {
+	// Preprocess content to handle separator lines like "sep=,"
+	const processedContent = preprocessCSVContent(csvContent);
+
 	// Use PapaParse to properly parse the CSV headers
-	const result = Papa.parse(csvContent, {
+	const result = Papa.parse(processedContent, {
 		header: false,
 		skipEmptyLines: true,
 		preview: 1 // Only parse the first row to get headers
@@ -40,6 +62,9 @@ export async function parseCSVContent(
 ): Promise<ParsedCard[]> {
 	if (progressCallback) progressCallback(10);
 
+	// Preprocess content to handle separator lines like "sep=,"
+	const processedContent = preprocessCSVContent(csvContent);
+
 	// Find format
 	const allFormats = formatAutoDetector.getAllFormats();
 	const format = allFormats.find((f) => f.id === formatId);
@@ -54,7 +79,7 @@ export async function parseCSVContent(
 
 	try {
 		// Use PapaParse to properly parse the CSV
-		result = Papa.parse(csvContent, {
+		result = Papa.parse(processedContent, {
 			header: true,
 			skipEmptyLines: true,
 			delimiter: format.delimiter || ',',

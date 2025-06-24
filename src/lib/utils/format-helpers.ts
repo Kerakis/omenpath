@@ -15,31 +15,40 @@ export function createStandardFormatModule(
 
 			// Check required headers first
 			if (requiredHeaders.length > 0) {
-				const hasRequired = requiredHeaders.every((h) => headerSet.has(h));
+				const hasRequired = requiredHeaders.every((h) => headerSet.has(h.toLowerCase()));
 				if (!hasRequired) return 0;
 			}
 
 			let score = 0;
 			let strongMatches = 0;
 
-			// Check strong indicators (highly weighted)
+			// Check strong indicators (highly weighted - these should be unique to this format)
 			for (const indicator of strongIndicators) {
 				if (headerSet.has(indicator.toLowerCase())) {
 					strongMatches++;
-					score += 0.3;
+					score += 0.5; // Increased from 0.3 to 0.5
 				}
 			}
 
-			// Check common indicators
+			// Check common indicators (lower weight)
 			for (const indicator of commonIndicators) {
 				if (headerSet.has(indicator.toLowerCase())) {
-					score += 0.1;
+					score += 0.05; // Decreased from 0.1 to 0.05
 				}
 			}
 
-			// Bonus for having strong indicators
-			if (strongMatches > 0) {
-				score += 0.2;
+			// Big bonus for having multiple strong indicators
+			if (strongMatches >= 3) {
+				score += 0.8; // Massive bonus for 3+ strong indicators
+			} else if (strongMatches >= 2) {
+				score += 0.4; // Good bonus for 2+ strong indicators
+			} else if (strongMatches >= 1) {
+				score += 0.2; // Small bonus for 1 strong indicator
+			}
+
+			// If we have all strong indicators, this should be a very high confidence match
+			if (strongIndicators.length > 0 && strongMatches === strongIndicators.length) {
+				score += 0.5; // Perfect match bonus
 			}
 
 			return Math.min(score, 1.0);

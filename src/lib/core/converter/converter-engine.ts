@@ -38,7 +38,7 @@ export function createConverterEngine(): ConverterEngine {
 			return parseCSVContent(content, format, progressCallback);
 		},
 
-		// Convert file to Moxfield format using the new 3-step process
+		// Convert file to Moxfield format
 		convertFile: async (
 			file: File,
 			format: string,
