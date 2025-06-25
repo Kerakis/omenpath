@@ -8,31 +8,63 @@ import {
 } from '../../lib/utils/format-helpers.js';
 import type { CsvFormat } from '../../lib/types.js';
 
-import { describe, it, expect } from 'vitest';
-import {
-	parseEtchedFoil,
-	cleanTCGPlayerCardName,
-	parseTCGPlayerSellerCondition,
-	parseDoubleFacedToken
-} from '../../lib/utils/format-helpers.js';
-
 describe('format-helpers', () => {
+	describe('createStandardFormatModule', () => {
+		const testFormat: CsvFormat = {
+			name: 'Test Format',
+			id: 'test',
+			description: 'Test format',
+			columnMappings: {},
+			hasHeaders: true
+		};
+
+		it('should create a format module with correct format', () => {
+			const module = createStandardFormatModule(testFormat);
+			expect(module.format).toBe(testFormat);
+		});
+
+		it('should detect format based on strong indicators', () => {
+			const module = createStandardFormatModule(testFormat, ['unique_header'], [], []);
+			const headers = ['unique_header', 'card_name'];
+			const score = module.detectFormat(headers);
+			expect(score).toBeGreaterThan(0.5);
+		});
+
+		it('should require headers when specified', () => {
+			const module = createStandardFormatModule(
+				testFormat,
+				['strong_indicator'],
+				[],
+				['required_header']
+			);
+			const headersWithoutRequired = ['card_name'];
+			const headersWithRequired = ['required_header', 'strong_indicator'];
+
+			expect(module.detectFormat(headersWithoutRequired)).toBe(0);
+			expect(module.detectFormat(headersWithRequired)).toBeGreaterThan(0);
+		});
+	});
+
 	describe('parseEtchedFoil', () => {
-		it('should detect etched foil markers', () => {
-			expect(parseEtchedFoil('etched', false)).toBe(true);
-			expect(parseEtchedFoil('Etched', false)).toBe(true);
-			expect(parseEtchedFoil('ETCHED', false)).toBe(true);
+		it('should detect etched foil from archidekt format', () => {
+			const result = parseEtchedFoil('archidekt', { Finish: 'Etched' });
+			expect(result.isEtched).toBe(true);
+		});
+
+		it('should detect etched foil from cardsphere format', () => {
+			const result = parseEtchedFoil('cardsphere', {}, 'NEO', 'Kamigawa: Neon Dynasty Etched Foil');
+			expect(result.isEtched).toBe(true);
+			expect(result.cleanedSetName).toBe('Kamigawa: Neon Dynasty');
 		});
 
 		it('should not detect etched when not present', () => {
-			expect(parseEtchedFoil('foil', false)).toBe(false);
-			expect(parseEtchedFoil('normal', false)).toBe(false);
-			expect(parseEtchedFoil('', false)).toBe(false);
+			const result = parseEtchedFoil('archidekt', { Finish: 'Foil' });
+			expect(result.isEtched).toBe(false);
 		});
 
-		it('should respect existing etched status', () => {
-			expect(parseEtchedFoil('foil', true)).toBe(true);
-			expect(parseEtchedFoil('normal', true)).toBe(true);
+		it('should handle unknown formats', () => {
+			const result = parseEtchedFoil('unknown', {});
+			expect(result.isEtched).toBe(false);
 		});
 	});
 
@@ -58,57 +90,59 @@ describe('format-helpers', () => {
 	});
 
 	describe('parseTCGPlayerSellerCondition', () => {
-		it('should parse condition with quantity', () => {
-			const result = parseTCGPlayerSellerCondition('Near Mint (15)');
+		it('should parse condition and foil status', () => {
+			const result = parseTCGPlayerSellerCondition('Near Mint Foil');
 			expect(result.condition).toBe('Near Mint');
-			expect(result.quantity).toBe(15);
+			expect(result.foil).toBe('foil');
 		});
 
-		it('should handle condition without quantity', () => {
+		it('should handle condition without foil', () => {
 			const result = parseTCGPlayerSellerCondition('Light Play');
 			expect(result.condition).toBe('Light Play');
-			expect(result.quantity).toBe(1);
-		});
-
-		it('should handle malformed input', () => {
-			const result = parseTCGPlayerSellerCondition('Near Mint (abc)');
-			expect(result.condition).toBe('Near Mint');
-			expect(result.quantity).toBe(1);
+			expect(result.foil).toBe('');
 		});
 
 		it('should handle empty input', () => {
 			const result = parseTCGPlayerSellerCondition('');
-			expect(result.condition).toBe('Near Mint');
-			expect(result.quantity).toBe(1);
+			expect(result.condition).toBe('');
+			expect(result.foil).toBe('');
 		});
 	});
 
 	describe('parseDoubleFacedToken', () => {
-		it('should parse double-faced card names', () => {
-			const result = parseDoubleFacedToken('Delver of Secrets // Insectile Aberration');
-			expect(result.frontName).toBe('Delver of Secrets');
-			expect(result.backName).toBe('Insectile Aberration');
-			expect(result.isDoubleFaced).toBe(true);
+		it('should parse TCGPlayer seller format double-faced tokens', () => {
+			const result = parseDoubleFacedToken(
+				'Human (001) // Vampire (016) Double-Sided Token',
+				'VOW'
+			);
+			expect(result.isDoubleFacedToken).toBe(true);
+			expect(result.faces).toEqual([
+				{ name: 'Human', collectorNumber: '001' },
+				{ name: 'Vampire', collectorNumber: '016' }
+			]);
+			expect(result.adjustedSetCode).toBe('TVOW');
+			expect(result.warnings).toContain(
+				'Double-faced token detected - Scryfall may not handle these well, treating as separate entries'
+			);
 		});
 
-		it('should handle adventure cards', () => {
-			const result = parseDoubleFacedToken('Bonecrusher Giant // Stomp');
-			expect(result.frontName).toBe('Bonecrusher Giant');
-			expect(result.backName).toBe('Stomp');
-			expect(result.isDoubleFaced).toBe(true);
+		it('should parse TCGPlayer user format double-faced tokens', () => {
+			const result = parseDoubleFacedToken('Illusion // Plant Double-sided Token');
+			expect(result.isDoubleFacedToken).toBe(true);
+			expect(result.faces).toEqual([{ name: 'Illusion' }, { name: 'Plant' }]);
 		});
 
 		it('should handle single-faced cards', () => {
 			const result = parseDoubleFacedToken('Lightning Bolt');
-			expect(result.frontName).toBe('Lightning Bolt');
-			expect(result.backName).toBe('');
-			expect(result.isDoubleFaced).toBe(false);
+			expect(result.isDoubleFacedToken).toBe(false);
 		});
 
-		it('should trim whitespace', () => {
-			const result = parseDoubleFacedToken(' Delver of Secrets  //  Insectile Aberration ');
-			expect(result.frontName).toBe('Delver of Secrets');
-			expect(result.backName).toBe('Insectile Aberration');
+		it('should handle set code adjustments for tokens', () => {
+			const result = parseDoubleFacedToken(
+				'Human (001) // Vampire (016) Double-Sided Token',
+				'VOW'
+			);
+			expect(result.adjustedSetCode).toBe('TVOW');
 		});
 	});
 });
