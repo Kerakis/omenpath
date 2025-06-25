@@ -11,7 +11,7 @@
 			<div class="mb-4 flex items-center justify-between">
 				<div class="w-10"></div>
 				<!-- Spacer for centering -->
-				<h1 class="text-4xl font-bold text-gray-800 dark:text-gray-100">OmenPath</h1>
+				<h1 class="text-4xl font-bold text-gray-800 dark:text-gray-100">Omenpath</h1>
 				<ThemeToggle />
 			</div>
 			<p class="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-300">

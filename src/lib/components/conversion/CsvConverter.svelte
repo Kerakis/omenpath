@@ -21,7 +21,7 @@
 	let defaultCondition: string = $state('Near Mint');
 	let exportOptions: ExportOptions = $state({
 		includeCurrentPrice: false,
-		priceType: 'usd',
+		priceTypes: ['usd'],
 		includeMtgoIds: false,
 		includeMultiverseId: false,
 		includeTcgPlayerId: false,
@@ -321,12 +321,12 @@
 	<!-- Preview Error Display -->
 	{#if previewError && !apiHealthError}
 		<div
-			class="card-hover mb-6 rounded-lg border border-amber-200 bg-amber-50 p-6 shadow-lg dark:border-amber-800 dark:bg-amber-900/20"
+			class="card-hover mb-6 rounded-lg border border-orange-200 bg-orange-50 p-6 shadow-lg dark:border-orange-800 dark:bg-orange-900/20"
 		>
 			<div class="flex items-start">
 				<div class="flex-shrink-0">
 					<svg
-						class="h-6 w-6 text-amber-600 dark:text-amber-400"
+						class="h-6 w-6 text-orange-600 dark:text-orange-400"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
@@ -340,8 +340,8 @@
 					</svg>
 				</div>
 				<div class="ml-3">
-					<h3 class="text-lg font-medium text-amber-800 dark:text-amber-200">Preview Error</h3>
-					<div class="mt-2 text-sm text-amber-700 dark:text-amber-300">
+					<h3 class="text-lg font-medium text-orange-800 dark:text-orange-200">Preview Error</h3>
+					<div class="mt-2 text-sm text-orange-700 dark:text-orange-300">
 						<p>{previewError}</p>
 						{#if previewError.includes('Unable to auto-detect')}
 							<p class="mt-2 font-medium">

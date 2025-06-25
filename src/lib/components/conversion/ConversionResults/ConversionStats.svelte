@@ -50,10 +50,12 @@
 
 	<!-- Confidence Warning -->
 	{#if confidenceStats.uncertain > 0}
-		<div class="mt-2 rounded-md border-2 border-amber-300 bg-amber-50 p-4">
+		<div
+			class="mt-2 rounded-md border-2 border-orange-300 bg-orange-50 p-4 dark:border-orange-700 dark:bg-orange-900/20"
+		>
 			<div class="flex items-start">
 				<svg
-					class="mt-0.5 mr-3 h-5 w-5 flex-shrink-0 text-amber-600"
+					class="mt-0.5 mr-3 h-5 w-5 flex-shrink-0 text-orange-600 dark:text-orange-400"
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"
@@ -66,17 +68,17 @@
 					></path>
 				</svg>
 				<div class="text-sm">
-					<p class="font-semibold text-amber-800 dark:text-amber-300">
+					<p class="font-semibold text-orange-800 dark:text-orange-300">
 						⚠️ {pluralize(confidenceStats.uncertain, 'card')} need review (Medium + Low confidence +
 						Errors)
 					</p>
-					<p class="mt-1 text-amber-700 dark:text-amber-400">
+					<p class="mt-1 text-orange-700 dark:text-orange-400">
 						These cards were identified using less precise methods, have conversion errors, or
 						couldn't be converted. <strong
 							>Cards needing review are automatically placed at the top of your downloaded CSV file</strong
 						> and marked in the preview below for easy review.
 					</p>
-					<p class="mt-2 text-xs font-medium text-amber-600 dark:text-amber-400">
+					<p class="mt-2 text-xs font-medium text-orange-600 dark:text-orange-400">
 						💡 Review these cards carefully before importing to ensure accuracy.
 					</p>
 				</div>

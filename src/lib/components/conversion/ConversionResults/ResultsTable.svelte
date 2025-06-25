@@ -94,7 +94,7 @@
 			</label>
 			<div class="text-xs text-gray-500 dark:text-gray-400">
 				{#if confidenceStats.low > 0}
-					<span class="flex items-center text-amber-600 dark:text-amber-400">
+					<span class="flex items-center text-orange-600 dark:text-orange-400">
 						⚠️ Low confidence cards shown first
 					</span>
 				{:else}
@@ -126,7 +126,7 @@
 					{#each resultsWithDynamicRows as card, index (index)}
 						<tr
 							class="border-t border-gray-100 dark:border-gray-700 {card.confidence === 'low'
-								? 'border-amber-200 bg-amber-50 dark:border-amber-700 dark:bg-amber-900/20'
+								? 'border-orange-200 bg-orange-50 dark:border-orange-700 dark:bg-orange-900/20'
 								: !card.success
 									? 'border-red-200 bg-red-50 dark:border-red-700 dark:bg-red-900/20'
 									: 'bg-white dark:bg-gray-800'}"
@@ -137,7 +137,7 @@
 							{#each columnsToShow as column (column)}
 								<td
 									class="px-2 py-1 {card.confidence === 'low'
-										? 'text-amber-700 dark:text-amber-400'
+										? 'text-orange-700 dark:text-orange-400'
 										: !card.success
 											? 'text-red-700 dark:text-red-400'
 											: 'text-gray-900 dark:text-gray-100'} {column === 'Name'
@@ -149,7 +149,7 @@
 										<div class="flex items-center">
 											{#if card.confidence === 'low'}
 												<span
-													class="mr-1 text-amber-600 dark:text-amber-400"
+													class="mr-1 text-orange-600 dark:text-orange-400"
 													title="Low confidence - please review">⚠️</span
 												>
 											{/if}
@@ -189,7 +189,7 @@
 									</span>
 									{#if card.warnings && card.warnings.length > 0}
 										<span
-											class="inline-flex items-center text-amber-600 dark:text-amber-400"
+											class="inline-flex items-center text-orange-600 dark:text-orange-400"
 											title="Warnings: {card.warnings.join('; ')}"
 										>
 											<svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
@@ -216,7 +216,7 @@
 		💡 This preview shows the same order as your CSV/TXT download. You can resize this table by
 		dragging the bottom edge.
 		{#if confidenceStats.low > 0}
-			Low confidence cards (⚠️) are at the top and highlighted in amber.
+			Low confidence cards (⚠️) are at the top and highlighted in orange.
 		{/if}
 	</div>
 </div>

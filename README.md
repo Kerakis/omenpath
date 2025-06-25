@@ -1,6 +1,6 @@
-# OmenPath - MTG Collection CSV Converter
+# Omenpath - MTG Collection CSV Converter
 
-OmenPath is a web application that converts Magic: The Gathering collection CSV files from various apps and websites into Moxfield-compatible format. It uses the Scryfall API to ensure accurate card identification and data.
+Omenpath is a web application that converts Magic: The Gathering collection CSV files from various apps and websites into Moxfield-compatible format. It uses the Scryfall API to ensure accurate card identification and data.
 
 ## Features
 
@@ -69,8 +69,8 @@ For maximum accuracy, the converter uses this identification hierarchy:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/omenpath.git
-cd omenpath
+git clone https://github.com/yourusername/Omenpath.git
+cd Omenpath
 
 # Install dependencies
 npm install
@@ -177,12 +177,12 @@ Most other formats use name/set/collector number lookup.
 
 ## API Usage & Rate Limits
 
-OmenPath uses the [Scryfall API](https://scryfall.com/docs/api) responsibly:
+Omenpath uses the [Scryfall API](https://scryfall.com/docs/api) responsibly:
 
 - **Rate Limit**: 10 requests per second maximum
 - **Batch Size**: 75 cards per request (Scryfall limit)
 - **Delay**: 100ms between requests
-- **User Agent**: Proper identification as "OmenPath/1.0"
+- **User Agent**: Proper identification as "Omenpath/1.0"
 
 Large collections may take several minutes to process.
 
@@ -255,7 +255,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Disclaimer
 
-OmenPath is unofficial Fan Content permitted under the Wizards of the Coast Fan Content Policy. Magic: The Gathering is copyright Wizards of the Coast, LLC. This project is not produced by or endorsed by Wizards of the Coast.
+Omenpath is unofficial Fan Content permitted under the Wizards of the Coast Fan Content Policy. Magic: The Gathering is copyright Wizards of the Coast, LLC. This project is not produced by or endorsed by Wizards of the Coast.
 
 ---
 

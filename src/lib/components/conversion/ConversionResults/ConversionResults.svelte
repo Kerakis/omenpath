@@ -135,8 +135,8 @@
 							/>
 						{/if}
 
-						<!-- Failed Cards Display Component -->
-						{#if stats.failed > 0 && result.data}
+						<!-- Conversion Issues Display Component -->
+						{#if (stats.failed > 0 || result.data?.some((card) => card.warnings && card.warnings.length > 0)) && result.data}
 							<FailedCardsDisplay results={result.data} {showAdditionalColumns} />
 						{/if}
 
@@ -146,10 +146,12 @@
 								TXT format for deck lists.
 							</div>
 							{#if confidenceStats.low > 0}
-								<div class="mt-2 rounded border border-amber-200 bg-amber-50 px-3 py-2 text-xs">
+								<div
+									class="mt-2 rounded border border-orange-200 bg-orange-50 px-3 py-2 text-xs dark:border-orange-700 dark:bg-orange-900/20"
+								>
 									<div class="flex items-center">
 										<svg
-											class="mr-1 h-4 w-4 text-amber-600"
+											class="mr-1 h-4 w-4 text-orange-600 dark:text-orange-400"
 											fill="none"
 											stroke="currentColor"
 											viewBox="0 0 24 24"
@@ -161,7 +163,7 @@
 												d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 											></path>
 										</svg>
-										<span class="font-semibold text-amber-800 dark:text-amber-300">
+										<span class="font-semibold text-orange-800 dark:text-orange-300">
 											Low confidence cards are automatically placed at the top of your downloaded
 											CSV and TXT files for easy review.
 										</span>

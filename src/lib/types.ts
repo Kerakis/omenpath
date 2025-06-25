@@ -212,7 +212,7 @@ export type ProgressCallback = (progress: number) => void;
 
 export interface ExportOptions {
 	includeCurrentPrice: boolean;
-	priceType: 'usd' | 'eur' | 'tix'; // Will be modified based on foil/etched status
+	priceTypes: ('usd' | 'eur' | 'tix')[]; // Array to support multiple currencies
 	includeMtgoIds: boolean;
 	includeMultiverseId: boolean;
 	includeTcgPlayerId: boolean;

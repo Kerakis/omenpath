@@ -67,12 +67,13 @@ function convertCardToMoxfieldRow(
 	if (exportOptions) {
 		console.log('Export options received:', exportOptions);
 
-		if (exportOptions.includeCurrentPrice) {
-			const priceField = `Current Price (${exportOptions.priceType.toUpperCase()})`;
-			const priceValue =
-				getPriceFromScryfallCard(scryfallCard, exportOptions.priceType, card.foil) || '';
-			baseRow[priceField] = priceValue;
-			console.log(`Added price field: ${priceField} = ${priceValue}`);
+		if (exportOptions.includeCurrentPrice && exportOptions.priceTypes?.length > 0) {
+			exportOptions.priceTypes.forEach((priceType) => {
+				const priceField = `Current Price (${priceType.toUpperCase()})`;
+				const priceValue = getPriceFromScryfallCard(scryfallCard, priceType, card.foil) || '';
+				baseRow[priceField] = priceValue;
+				console.log(`Added price field: ${priceField} = ${priceValue}`);
+			});
 		}
 
 		if (exportOptions.includeMtgoIds) {

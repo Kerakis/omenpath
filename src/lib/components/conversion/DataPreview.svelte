@@ -223,7 +223,7 @@
 									<div class="space-y-1">
 										{#each card.warnings as warning, index (index)}
 											<div
-												class="rounded bg-amber-50 px-2 py-1 text-xs text-amber-600 dark:bg-amber-900/20 dark:text-amber-400"
+												class="rounded bg-orange-50 px-2 py-1 text-xs text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
 												title={warning}
 											>
 												{warning.length > 60 ? warning.substring(0, 60) + '...' : warning}

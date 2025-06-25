@@ -8,9 +8,18 @@
 
 	let { exportOptions, onOptionsChange }: Props = $props();
 
-	function handleOptionChange(key: keyof ExportOptions, value: boolean | string) {
+	function handleOptionChange(key: keyof ExportOptions, value: boolean | string | string[]) {
 		const newOptions = { ...exportOptions, [key]: value };
 		onOptionsChange(newOptions);
+	}
+
+	function handlePriceTypeChange(priceType: 'usd' | 'eur' | 'tix', checked: boolean) {
+		const currentPriceTypes = exportOptions.priceTypes || [];
+		const newPriceTypes = checked
+			? [...currentPriceTypes.filter((p) => p !== priceType), priceType]
+			: currentPriceTypes.filter((p) => p !== priceType);
+
+		handleOptionChange('priceTypes', newPriceTypes);
 	}
 </script>
 
@@ -42,37 +51,33 @@
 			</div>
 			{#if exportOptions.includeCurrentPrice}
 				<div class="ml-6 space-y-2">
-					<div class="text-xs font-medium text-gray-600 dark:text-gray-300">Price Currency:</div>
+					<div class="text-xs font-medium text-gray-600 dark:text-gray-300">
+						Price Currencies (select all that apply):
+					</div>
 					<div class="space-y-1">
 						<label class="flex items-center space-x-2">
 							<input
-								type="radio"
-								name="priceType"
-								value="usd"
-								checked={exportOptions.priceType === 'usd'}
-								onchange={(e) => handleOptionChange('priceType', e.currentTarget.value)}
+								type="checkbox"
+								checked={exportOptions.priceTypes?.includes('usd') || false}
+								onchange={(e) => handlePriceTypeChange('usd', e.currentTarget.checked)}
 								class="h-3 w-3 border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-500 dark:text-blue-400"
 							/>
 							<span class="text-xs text-gray-700 dark:text-gray-300">USD ($)</span>
 						</label>
 						<label class="flex items-center space-x-2">
 							<input
-								type="radio"
-								name="priceType"
-								value="eur"
-								checked={exportOptions.priceType === 'eur'}
-								onchange={(e) => handleOptionChange('priceType', e.currentTarget.value)}
+								type="checkbox"
+								checked={exportOptions.priceTypes?.includes('eur') || false}
+								onchange={(e) => handlePriceTypeChange('eur', e.currentTarget.checked)}
 								class="h-3 w-3 border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-500 dark:text-blue-400"
 							/>
 							<span class="text-xs text-gray-700 dark:text-gray-300">EUR (€)</span>
 						</label>
 						<label class="flex items-center space-x-2">
 							<input
-								type="radio"
-								name="priceType"
-								value="tix"
-								checked={exportOptions.priceType === 'tix'}
-								onchange={(e) => handleOptionChange('priceType', e.currentTarget.value)}
+								type="checkbox"
+								checked={exportOptions.priceTypes?.includes('tix') || false}
+								onchange={(e) => handlePriceTypeChange('tix', e.currentTarget.checked)}
 								class="h-3 w-3 border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-500 dark:text-blue-400"
 							/>
 							<span class="text-xs text-gray-700 dark:text-gray-300">MTGO Tickets (TIX)</span>
