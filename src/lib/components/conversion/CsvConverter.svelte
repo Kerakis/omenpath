@@ -88,10 +88,8 @@
 
 			if (selectedFormat === 'auto') {
 				const content = await file.text();
-				// Use the detectFormatFromContent function which handles preprocessing
-				const detection = await import('../../core/converter/parsing/csv-parser.js').then(
-					(module) => module.detectFormatFromContent(content)
-				);
+				// Use the detectFormatFromContent function through the engine
+				const detection = await engine.detectFormatFromContent(content);
 				if (detection) {
 					formatToUse = detection.format.id;
 					detectedFormat = detection.format.id;

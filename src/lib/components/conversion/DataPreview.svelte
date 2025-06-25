@@ -219,16 +219,28 @@
 								{/if}
 							</td>
 							<td class="max-w-48 px-3 py-2 text-sm">
-								{#if card.warnings && card.warnings.length > 0}
+								{#if (card.warnings && card.warnings.length > 0) || (card.previewWarnings && card.previewWarnings.length > 0)}
 									<div class="space-y-1">
-										{#each card.warnings as warning, index (index)}
-											<div
-												class="rounded bg-orange-50 px-2 py-1 text-xs text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
-												title={warning}
-											>
-												{warning.length > 60 ? warning.substring(0, 60) + '...' : warning}
-											</div>
-										{/each}
+										{#if card.warnings && card.warnings.length > 0}
+											{#each card.warnings as warning, index (index)}
+												<div
+													class="rounded bg-orange-50 px-2 py-1 text-xs text-orange-600 dark:bg-orange-900/20 dark:text-orange-400"
+													title={warning}
+												>
+													{warning.length > 60 ? warning.substring(0, 60) + '...' : warning}
+												</div>
+											{/each}
+										{/if}
+										{#if card.previewWarnings && card.previewWarnings.length > 0}
+											{#each card.previewWarnings as warning, index (index)}
+												<div
+													class="rounded bg-blue-50 px-2 py-1 text-xs text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
+													title={warning}
+												>
+													{warning.length > 60 ? warning.substring(0, 60) + '...' : warning}
+												</div>
+											{/each}
+										{/if}
 									</div>
 								{:else}
 									<span class="text-gray-400 dark:text-gray-500">-</span>

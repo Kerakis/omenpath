@@ -201,6 +201,20 @@
 											</svg>
 										</span>
 									{/if}
+									{#if !card.success}
+										<span
+											class="inline-flex items-center text-red-600 dark:text-red-400"
+											title="Error: {card.error || 'Conversion failed'}"
+										>
+											<svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+												<path
+													fill-rule="evenodd"
+													d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
+													clip-rule="evenodd"
+												/>
+											</svg>
+										</span>
+									{/if}
 								</div>
 							</td>
 							<td class="px-2 py-1 text-xs text-gray-600 dark:text-gray-400">

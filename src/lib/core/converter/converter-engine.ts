@@ -11,7 +11,7 @@ import { formatAutoDetector } from '../detection/index.js';
 import { checkScryfallApiHealth } from '../../utils/scryfall-utils.js';
 import { formatAsMoxfieldCSV } from './result-formatter.js';
 import { validateSetCodes } from './validation/set-validator.js';
-import { parseCSVContent } from './parsing/csv-parser.js';
+import { parseCSVContent, detectFormatFromContent } from './parsing/csv-parser.js';
 import { convertParsedCards } from './orchestration/conversion-orchestrator.js';
 
 // Create main converter engine
@@ -26,6 +26,11 @@ export function createConverterEngine(): ConverterEngine {
 		detectFormat: (headers: string[]) => {
 			const detection = formatAutoDetector.detectFormat(headers);
 			return detection?.format.id || null;
+		},
+
+		// Auto-detect format from CSV content
+		detectFormatFromContent: async (csvContent: string) => {
+			return detectFormatFromContent(csvContent);
 		},
 
 		// Parse file into ParsedCard array
@@ -79,4 +84,3 @@ export function createConverterEngine(): ConverterEngine {
 
 // Re-export functions from extracted modules
 export { formatAsMoxfieldCSV };
-export { detectFormatFromContent } from './parsing/csv-parser.js';

@@ -290,6 +290,7 @@ function processFormatSpecificProperties(
 
 /**
  * Adds preview warnings for special cases.
+ * These warnings appear only in the data preview, not in conversion results or exports.
  */
 function addPreviewWarnings(card: ParsedCard) {
 	// Warning for cards with name + collector number but no set info
@@ -302,13 +303,13 @@ function addPreviewWarnings(card: ParsedCard) {
 		!card.multiverseId &&
 		!card.mtgoId
 	) {
-		card.warnings = card.warnings || [];
-		card.warnings.push(
+		card.previewWarnings = card.previewWarnings || [];
+		card.previewWarnings.push(
 			'Will attempt to find correct printing using name + collector number during conversion'
 		);
 	}
 
-	// Warning for unrecognized language codes
+	// Warning for unrecognized language codes - this affects conversion, so use regular warnings
 	if (card.language && !isLanguageRecognized(card.language)) {
 		card.warnings = card.warnings || [];
 		card.warnings.push(

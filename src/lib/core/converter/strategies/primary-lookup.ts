@@ -53,9 +53,7 @@ async function handleSpecialPromoSearch(
 			warnings.push(
 				`Multiple promo versions found (${searchResult.cards.length}), using first result - please verify`
 			);
-		}
-
-		// Validate the match (if we have enough data to validate)
+		} // Validate the match (if we have enough data to validate)
 		const validation = validateScryfallMatch(card, selectedCard);
 		if (!validation.isValid && validation.errors.length > 0) {
 			// Only fail on set/collector number mismatches, not name mismatches for promos

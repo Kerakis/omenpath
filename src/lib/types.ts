@@ -47,7 +47,8 @@ export interface ParsedCard {
 
 	// New 3-step process properties
 	initialConfidence?: 'very_high' | 'high' | 'medium' | 'low';
-	warnings?: string[];
+	warnings?: string[]; // Conversion warnings that affect results/exports
+	previewWarnings?: string[]; // Preview-only warnings (not included in conversion results)
 	setCodeCorrected?: boolean;
 	foundViaNameCollectorSearch?: boolean; // Flag for cards found via special name+collector# search
 	scryfallCardData?: ScryfallCard; // Full Scryfall card data (when found via search)
@@ -195,6 +196,9 @@ export interface ConverterEngine {
 
 	getSupportedFormats: () => CsvFormat[];
 	detectFormat: (headers: string[]) => string | null;
+	detectFormatFromContent: (
+		csvContent: string
+	) => Promise<{ format: { id: string; name: string } } | null>;
 
 	// API health and validation methods
 	checkApiHealth: () => Promise<ApiHealthResult>;
