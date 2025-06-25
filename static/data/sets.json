@@ -1,3886 +1,3906 @@
 [
-	{
-		"code": "tspm",
-		"name": "Marvel's Spider-Man Tokens"
-	},
-	{
-		"code": "spm",
-		"name": "Marvel's Spider-Man"
-	},
-	{
-		"code": "spe",
-		"name": "Marvel's Spider-Man Eternal"
-	},
-	{
-		"code": "mar",
-		"name": "Marvel Universe"
-	},
-	{
-		"code": "rfin",
-		"name": "Final Fantasy Regional Promos"
-	},
-	{
-		"code": "tfin",
-		"name": "Final Fantasy Tokens"
-	},
-	{
-		"code": "fic",
-		"name": "Final Fantasy Commander"
-	},
-	{
-		"code": "afin",
-		"name": "Final Fantasy Art Series"
-	},
-	{
-		"code": "fca",
-		"name": "Final Fantasy: Through the Ages"
-	},
-	{
-		"code": "tfic",
-		"name": "Final Fantasy Commander Tokens"
-	},
-	{
-		"code": "pss5",
-		"name": "FIN Standard Showdown"
-	},
-	{
-		"code": "pfin",
-		"name": "Final Fantasy Promos"
-	},
-	{
-		"code": "fin",
-		"name": "Final Fantasy"
-	},
-	{
-		"code": "ytdm",
-		"name": "Alchemy: Tarkir"
-	},
-	{
-		"code": "ttdc",
-		"name": "Tarkir: Dragonstorm Commander Tokens"
-	},
-	{
-		"code": "ptdm",
-		"name": "Tarkir: Dragonstorm Promos"
-	},
-	{
-		"code": "ttdm",
-		"name": "Tarkir: Dragonstorm Tokens"
-	},
-	{
-		"code": "atdm",
-		"name": "Tarkir: Dragonstorm Art Series"
-	},
-	{
-		"code": "tdc",
-		"name": "Tarkir: Dragonstorm Commander"
-	},
-	{
-		"code": "tdm",
-		"name": "Tarkir: Dragonstorm"
-	},
-	{
-		"code": "plg25",
-		"name": "Love Your LGS 2025"
-	},
-	{
-		"code": "ydft",
-		"name": "Alchemy: Aetherdrift"
-	},
-	{
-		"code": "pssc",
-		"name": "Secret Lair Showcase Planes"
-	},
-	{
-		"code": "adft",
-		"name": "Aetherdrift Art Series"
-	},
-	{
-		"code": "pdft",
-		"name": "Aetherdrift Promos"
-	},
-	{
-		"code": "drc",
-		"name": "Aetherdrift Commander"
-	},
-	{
-		"code": "tdft",
-		"name": "Aetherdrift Tokens"
-	},
-	{
-		"code": "tdrc",
-		"name": "Aetherdrift Commander Tokens"
-	},
-	{
-		"code": "pl25",
-		"name": "Year of the Snake 2025"
-	},
-	{
-		"code": "dft",
-		"name": "Aetherdrift"
-	},
-	{
-		"code": "pjsc",
-		"name": "Japan Standard Cup"
-	},
-	{
-		"code": "pf25",
-		"name": "MagicFest 2025"
-	},
-	{
-		"code": "ainr",
-		"name": "Innistrad Remastered Art Series"
-	},
-	{
-		"code": "inr",
-		"name": "Innistrad Remastered"
-	},
-	{
-		"code": "tinr",
-		"name": "Innistrad Remastered Tokens"
-	},
-	{
-		"code": "pspl",
-		"name": "Spotlight Series"
-	},
-	{
-		"code": "pw25",
-		"name": "Wizards Play Network 2025"
-	},
-	{
-		"code": "pio",
-		"name": "Pioneer Masters"
-	},
-	{
-		"code": "pfdn",
-		"name": "Foundations Promos"
-	},
-	{
-		"code": "afdn",
-		"name": "Foundations Art Series"
-	},
-	{
-		"code": "j25",
-		"name": "Foundations Jumpstart"
-	},
-	{
-		"code": "fdc",
-		"name": "Foundations Commander"
-	},
-	{
-		"code": "tfdn",
-		"name": "Foundations Tokens"
-	},
-	{
-		"code": "fdn",
-		"name": "Foundations"
-	},
-	{
-		"code": "ffdn",
-		"name": "Foundations Front Cards"
-	},
-	{
-		"code": "fj25",
-		"name": "Foundations Jumpstart Front Cards"
-	},
-	{
-		"code": "pltc",
-		"name": "Tales of Middle-earth Deluxe Commander Kit"
-	},
-	{
-		"code": "ydsk",
-		"name": "Alchemy: Duskmourn"
-	},
-	{
-		"code": "tdsk",
-		"name": "Duskmourn: House of Horror Tokens"
-	},
-	{
-		"code": "adsk",
-		"name": "Duskmourn: House of Horror Art Series"
-	},
-	{
-		"code": "pdsk",
-		"name": "Duskmourn: House of Horror Promos"
-	},
-	{
-		"code": "tdsc",
-		"name": "Duskmourn Commander Tokens"
-	},
-	{
-		"code": "dsc",
-		"name": "Duskmourn: House of Horror Commander"
-	},
-	{
-		"code": "dsk",
-		"name": "Duskmourn: House of Horror"
-	},
-	{
-		"code": "yblb",
-		"name": "Alchemy: Bloomburrow"
-	},
-	{
-		"code": "plg24",
-		"name": "Love Your LGS 2024"
-	},
-	{
-		"code": "tblb",
-		"name": "Bloomburrow Tokens"
-	},
-	{
-		"code": "pblb",
-		"name": "Bloomburrow Promos"
-	},
-	{
-		"code": "ablb",
-		"name": "Bloomburrow Art Series"
-	},
-	{
-		"code": "tblc",
-		"name": "Bloomburrow Commander Tokens"
-	},
-	{
-		"code": "pcbb",
-		"name": "Cowboy Bebop"
-	},
-	{
-		"code": "mb2",
-		"name": "Mystery Booster 2"
-	},
-	{
-		"code": "blb",
-		"name": "Bloomburrow"
-	},
-	{
-		"code": "blc",
-		"name": "Bloomburrow Commander"
-	},
-	{
-		"code": "macr",
-		"name": "Assassin's Creed Minigames"
-	},
-	{
-		"code": "tacr",
-		"name": "Assassin's Creed Tokens"
-	},
-	{
-		"code": "acr",
-		"name": "Assassin's Creed"
-	},
-	{
-		"code": "aacr",
-		"name": "Assassin's Creed Art Series"
-	},
-	{
-		"code": "pmh3",
-		"name": "Modern Horizons 3 Promos"
-	},
-	{
-		"code": "smh3",
-		"name": "Modern Horizons 3 Substitute Cards"
-	},
-	{
-		"code": "tm3c",
-		"name": "Modern Horizons 3 Commander Tokens"
-	},
-	{
-		"code": "tmh3",
-		"name": "Modern Horizons 3 Tokens"
-	},
-	{
-		"code": "m3c",
-		"name": "Modern Horizons 3 Commander"
-	},
-	{
-		"code": "amh3",
-		"name": "Modern Horizons 3 Art Series"
-	},
-	{
-		"code": "mh3",
-		"name": "Modern Horizons 3"
-	},
-	{
-		"code": "h2r",
-		"name": "Modern Horizons 2 Timeshifts"
-	},
-	{
-		"code": "yotj",
-		"name": "Alchemy: Outlaws of Thunder Junction"
-	},
-	{
-		"code": "totj",
-		"name": "Outlaws of Thunder Junction Tokens"
-	},
-	{
-		"code": "aotj",
-		"name": "Outlaws of Thunder Junction Art Series"
-	},
-	{
-		"code": "potj",
-		"name": "Outlaws of Thunder Junction Promos"
-	},
-	{
-		"code": "otp",
-		"name": "Breaking News"
-	},
-	{
-		"code": "otj",
-		"name": "Outlaws of Thunder Junction"
-	},
-	{
-		"code": "big",
-		"name": "The Big Score"
-	},
-	{
-		"code": "totp",
-		"name": "Breaking News Tokens"
-	},
-	{
-		"code": "tbig",
-		"name": "The Big Score Tokens"
-	},
-	{
-		"code": "otc",
-		"name": "Outlaws of Thunder Junction Commander"
-	},
-	{
-		"code": "totc",
-		"name": "Outlaws of Thunder Junction Commander Tokens"
-	},
-	{
-		"code": "tpip",
-		"name": "Fallout Tokens"
-	},
-	{
-		"code": "pip",
-		"name": "Fallout"
-	},
-	{
-		"code": "ymkm",
-		"name": "Alchemy: Murders at Karlov Manor "
-	},
-	{
-		"code": "fclu",
-		"name": "Ravnica: Clue Edition Front Cards"
-	},
-	{
-		"code": "clu",
-		"name": "Ravnica: Clue Edition"
-	},
-	{
-		"code": "pss4",
-		"name": "MKM Standard Showdown"
-	},
-	{
-		"code": "pmkm",
-		"name": "Murders at Karlov Manor Promos"
-	},
-	{
-		"code": "tmkc",
-		"name": "Murders at Karlov Manor Commander Tokens"
-	},
-	{
-		"code": "amkm",
-		"name": "Murders at Karlov Manor Art Series"
-	},
-	{
-		"code": "tmkm",
-		"name": "Murders at Karlov Manor Tokens"
-	},
-	{
-		"code": "mkc",
-		"name": "Murders at Karlov Manor Commander"
-	},
-	{
-		"code": "mkm",
-		"name": "Murders at Karlov Manor"
-	},
-	{
-		"code": "wmkm",
-		"name": "MKM Japanese Promo Tokens"
-	},
-	{
-		"code": "pl24",
-		"name": "Year of the Dragon 2024"
-	},
-	{
-		"code": "rvr",
-		"name": "Ravnica Remastered"
-	},
-	{
-		"code": "trvr",
-		"name": "Ravnica Remastered Tokens"
-	},
-	{
-		"code": "pf24",
-		"name": "MagicFest 2024"
-	},
-	{
-		"code": "pw24",
-		"name": "Wizards Play Network 2024"
-	},
-	{
-		"code": "ylci",
-		"name": "Alchemy: Ixalan"
-	},
-	{
-		"code": "spg",
-		"name": "Special Guests"
-	},
-	{
-		"code": "alci",
-		"name": "The Lost Caverns of Ixalan Art Series"
-	},
-	{
-		"code": "plci",
-		"name": "The Lost Caverns of Ixalan Promos"
-	},
-	{
-		"code": "slci",
-		"name": "The Lost Caverns of Ixalan Substitute Cards"
-	},
-	{
-		"code": "lcc",
-		"name": "The Lost Caverns of Ixalan Commander"
-	},
-	{
-		"code": "pmat",
-		"name": "March of the Machine: The Aftermath Promos"
-	},
-	{
-		"code": "lci",
-		"name": "The Lost Caverns of Ixalan"
-	},
-	{
-		"code": "tlcc",
-		"name": "The Lost Caverns of Ixalan Commander Tokens"
-	},
-	{
-		"code": "tlci",
-		"name": "The Lost Caverns of Ixalan Tokens"
-	},
-	{
-		"code": "rex",
-		"name": "Jurassic World Collection"
-	},
-	{
-		"code": "trex",
-		"name": "Jurassic World Collection Tokens"
-	},
-	{
-		"code": "altc",
-		"name": "Tales of Middle-earth Scene Box"
-	},
-	{
-		"code": "who",
-		"name": "Doctor Who"
-	},
-	{
-		"code": "twho",
-		"name": "Doctor Who Tokens"
-	},
-	{
-		"code": "ywoe",
-		"name": "Alchemy: Wilds of Eldraine"
-	},
-	{
-		"code": "pwoe",
-		"name": "Wilds of Eldraine Promos"
-	},
-	{
-		"code": "woc",
-		"name": "Wilds of Eldraine Commander"
-	},
-	{
-		"code": "twoc",
-		"name": "Wilds of Eldraine Commander Tokens"
-	},
-	{
-		"code": "twoe",
-		"name": "Wilds of Eldraine Tokens"
-	},
-	{
-		"code": "wot",
-		"name": "Wilds of Eldraine: Enchanting Tales"
-	},
-	{
-		"code": "awoe",
-		"name": "Wilds of Eldraine Art Series"
-	},
-	{
-		"code": "wwoe",
-		"name": "WOE Japanese Promo Tokens"
-	},
-	{
-		"code": "pmda",
-		"name": "Magic × Duel Masters Promos"
-	},
-	{
-		"code": "woe",
-		"name": "Wilds of Eldraine"
-	},
-	{
-		"code": "ptsr",
-		"name": "Time Spiral Remastered Promos"
-	},
-	{
-		"code": "p30t",
-		"name": "30th Anniversary Celebration Tokyo"
-	},
-	{
-		"code": "acmm",
-		"name": "Commander Masters Art Series"
-	},
-	{
-		"code": "tcmm",
-		"name": "Commander Masters Tokens"
-	},
-	{
-		"code": "cmm",
-		"name": "Commander Masters"
-	},
-	{
-		"code": "ph22",
-		"name": "2022 Heroes of the Realm"
-	},
-	{
-		"code": "ha7",
-		"name": "Historic Anthology 7"
-	},
-	{
-		"code": "ea3",
-		"name": "Explorer Anthology 3"
-	},
-	{
-		"code": "pf23",
-		"name": "MagicFest 2023"
-	},
-	{
-		"code": "pltr",
-		"name": "Tales of Middle-earth Promos"
-	},
-	{
-		"code": "ltc",
-		"name": "Tales of Middle-earth Commander"
-	},
-	{
-		"code": "altr",
-		"name": "Tales of Middle-earth Art Series"
-	},
-	{
-		"code": "fltr",
-		"name": "Tales of Middle-earth Front Cards"
-	},
-	{
-		"code": "tltr",
-		"name": "Tales of Middle-earth Tokens"
-	},
-	{
-		"code": "tltc",
-		"name": "Tales of Middle-earth Commander Tokens"
-	},
-	{
-		"code": "ltr",
-		"name": "The Lord of the Rings: Tales of Middle-earth"
-	},
-	{
-		"code": "mat",
-		"name": "March of the Machine: The Aftermath"
-	},
-	{
-		"code": "fmom",
-		"name": "March of the Machine Jumpstart Front Cards"
-	},
-	{
-		"code": "tmoc",
-		"name": "March of the Machine Commander Tokens"
-	},
-	{
-		"code": "mul",
-		"name": "Multiverse Legends"
-	},
-	{
-		"code": "moc",
-		"name": "March of the Machine Commander"
-	},
-	{
-		"code": "wmom",
-		"name": "MOM Japanese Promo Tokens"
-	},
-	{
-		"code": "tmul",
-		"name": "Multiverse Legends Tokens"
-	},
-	{
-		"code": "smom",
-		"name": "March of the Machine Substitute Cards"
-	},
-	{
-		"code": "amom",
-		"name": "March of the Machine Art Series"
-	},
-	{
-		"code": "pmom",
-		"name": "March of the Machine Promos"
-	},
-	{
-		"code": "mom",
-		"name": "March of the Machine"
-	},
-	{
-		"code": "tmom",
-		"name": "March of the Machine Tokens"
-	},
-	{
-		"code": "sis",
-		"name": "Shadows of the Past"
-	},
-	{
-		"code": "sir",
-		"name": "Shadows over Innistrad Remastered"
-	},
-	{
-		"code": "yone",
-		"name": "Alchemy: Phyrexia"
-	},
-	{
-		"code": "slp",
-		"name": "Secret Lair Showdown"
-	},
-	{
-		"code": "unk",
-		"name": "Unknown Event"
-	},
-	{
-		"code": "pl23",
-		"name": "Year of the Rabbit 2023"
-	},
-	{
-		"code": "pone",
-		"name": "Phyrexia: All Will Be One Promos"
-	},
-	{
-		"code": "tone",
-		"name": "Phyrexia: All Will Be One Tokens"
-	},
-	{
-		"code": "tonc",
-		"name": "Phyrexia: All Will Be One Commander Tokens"
-	},
-	{
-		"code": "mone",
-		"name": "Phyrexia: All Will Be One Minigames"
-	},
-	{
-		"code": "onc",
-		"name": "Phyrexia: All Will Be One Commander"
-	},
-	{
-		"code": "fone",
-		"name": "Phyrexia: All Will Be One Jumpstart Front Cards"
-	},
-	{
-		"code": "one",
-		"name": "Phyrexia: All Will Be One"
-	},
-	{
-		"code": "aone",
-		"name": "Phyrexia: All Will Be One Art Series"
-	},
-	{
-		"code": "wone",
-		"name": "ONE Japanese Promo Tokens"
-	},
-	{
-		"code": "dmr",
-		"name": "Dominaria Remastered"
-	},
-	{
-		"code": "tdmr",
-		"name": "Dominaria Remastered Tokens"
-	},
-	{
-		"code": "pr23",
-		"name": "Regional Championship Qualifiers 2023"
-	},
-	{
-		"code": "p23",
-		"name": "Judge Gift Cards 2023"
-	},
-	{
-		"code": "pw23",
-		"name": "Wizards Play Network 2023"
-	},
-	{
-		"code": "ybro",
-		"name": "Alchemy: The Brothers' War"
-	},
-	{
-		"code": "ea2",
-		"name": "Explorer Anthology 2"
-	},
-	{
-		"code": "tscd",
-		"name": "Starter Commander Deck Tokens"
-	},
-	{
-		"code": "scd",
-		"name": "Starter Commander Decks"
-	},
-	{
-		"code": "fj22",
-		"name": "Jumpstart 2022 Front Cards"
-	},
-	{
-		"code": "j22",
-		"name": "Jumpstart 2022"
-	},
-	{
-		"code": "30a",
-		"name": "30th Anniversary Edition"
-	},
-	{
-		"code": "t30a",
-		"name": "30th Anniversary Tokens"
-	},
-	{
-		"code": "pewk",
-		"name": "Eternal Weekend"
-	},
-	{
-		"code": "brc",
-		"name": "The Brothers' War Commander"
-	},
-	{
-		"code": "brr",
-		"name": "The Brothers' War Retro Artifacts"
-	},
-	{
-		"code": "pbro",
-		"name": "The Brothers' War Promos"
-	},
-	{
-		"code": "tbot",
-		"name": "Transformers Tokens"
-	},
-	{
-		"code": "bot",
-		"name": "Transformers"
-	},
-	{
-		"code": "ptbro",
-		"name": "The Brothers' War Southeast Asia Tokens"
-	},
-	{
-		"code": "tbrc",
-		"name": "The Brothers' War Commander Tokens"
-	},
-	{
-		"code": "fbro",
-		"name": "The Brothers' War Jumpstart Front Cards"
-	},
-	{
-		"code": "abro",
-		"name": "The Brothers' War Art Series"
-	},
-	{
-		"code": "bro",
-		"name": "The Brothers' War"
-	},
-	{
-		"code": "mbro",
-		"name": "The Brothers' War Minigames"
-	},
-	{
-		"code": "tbro",
-		"name": "The Brothers' War Tokens"
-	},
-	{
-		"code": "sbro",
-		"name": "The Brothers' War Substitute Cards"
-	},
-	{
-		"code": "slc",
-		"name": "Secret Lair 30th Anniversary Countdown Kit"
-	},
-	{
-		"code": "tgn3",
-		"name": "Game Night: Free-for-All Tokens"
-	},
-	{
-		"code": "gn3",
-		"name": "Game Night: Free-for-All"
-	},
-	{
-		"code": "ulst",
-		"name": "The List (Unfinity Foil Edition)"
-	},
-	{
-		"code": "tunf",
-		"name": "Unfinity Tokens"
-	},
-	{
-		"code": "unf",
-		"name": "Unfinity"
-	},
-	{
-		"code": "sunf",
-		"name": "Unfinity Sticker Sheets"
-	},
-	{
-		"code": "t40k",
-		"name": "Warhammer 40,000 Tokens"
-	},
-	{
-		"code": "40k",
-		"name": "Warhammer 40,000 Commander"
-	},
-	{
-		"code": "ydmu",
-		"name": "Alchemy: Dominaria"
-	},
-	{
-		"code": "prcq",
-		"name": "Regional Championship Qualifiers 2022"
-	},
-	{
-		"code": "p30h",
-		"name": "30th Anniversary History Promos"
-	},
-	{
-		"code": "pdmu",
-		"name": "Dominaria United Promos"
-	},
-	{
-		"code": "ptdmu",
-		"name": "Dominaria United Southeast Asia Tokens"
-	},
-	{
-		"code": "tdmc",
-		"name": "Dominaria United Commander Tokens"
-	},
-	{
-		"code": "fdmu",
-		"name": "Dominaria United Jumpstart Front Cards"
-	},
-	{
-		"code": "dmu",
-		"name": "Dominaria United"
-	},
-	{
-		"code": "mdmu",
-		"name": "Dominaria United Minigames"
-	},
-	{
-		"code": "dmc",
-		"name": "Dominaria United Commander"
-	},
-	{
-		"code": "admu",
-		"name": "Dominaria United Art Series"
-	},
-	{
-		"code": "tdmu",
-		"name": "Dominaria United Tokens"
-	},
-	{
-		"code": "wdmu",
-		"name": "DMU Japanese Promo Tokens"
-	},
-	{
-		"code": "p30a",
-		"name": "30th Anniversary Play Promos"
-	},
-	{
-		"code": "p30m",
-		"name": "30th Anniversary Misc Promos"
-	},
-	{
-		"code": "psvc",
-		"name": "Summer Vacation Promos 2022"
-	},
-	{
-		"code": "ph21",
-		"name": "2021 Heroes of the Realm"
-	},
-	{
-		"code": "ha6",
-		"name": "Historic Anthology 6"
-	},
-	{
-		"code": "ea1",
-		"name": "Explorer Anthology 1"
-	},
-	{
-		"code": "sch",
-		"name": "Store Championships"
-	},
-	{
-		"code": "2x2",
-		"name": "Double Masters 2022"
-	},
-	{
-		"code": "t2x2",
-		"name": "Double Masters 2022 Tokens"
-	},
-	{
-		"code": "hbg",
-		"name": "Alchemy Horizons: Baldur's Gate"
-	},
-	{
-		"code": "plg22",
-		"name": "Love Your LGS 2022"
-	},
-	{
-		"code": "pclb",
-		"name": "Battle for Baldur's Gate Promos"
-	},
-	{
-		"code": "mclb",
-		"name": "Commander Legends: Battle for Baldur's Gate Minigames"
-	},
-	{
-		"code": "tclb",
-		"name": "Battle for Baldur's Gate Tokens"
-	},
-	{
-		"code": "clb",
-		"name": "Commander Legends: Battle for Baldur's Gate"
-	},
-	{
-		"code": "aclb",
-		"name": "Battle for Baldur's Gate Art Series"
-	},
-	{
-		"code": "ysnc",
-		"name": "Alchemy: New Capenna"
-	},
-	{
-		"code": "ptsnc",
-		"name": "Streets of New Capenna Southeast Asia Tokens"
-	},
-	{
-		"code": "pncc",
-		"name": "New Capenna Commander Promos"
-	},
-	{
-		"code": "tsnc",
-		"name": "Streets of New Capenna Tokens"
-	},
-	{
-		"code": "snc",
-		"name": "Streets of New Capenna"
-	},
-	{
-		"code": "ncc",
-		"name": "New Capenna Commander"
-	},
-	{
-		"code": "tncc",
-		"name": "New Capenna Commander Tokens"
-	},
-	{
-		"code": "psnc",
-		"name": "Streets of New Capenna Promos"
-	},
-	{
-		"code": "msnc",
-		"name": "Streets of New Capenna Minigames"
-	},
-	{
-		"code": "asnc",
-		"name": "New Capenna Art Series"
-	},
-	{
-		"code": "gdy",
-		"name": "Game Day Promos"
-	},
-	{
-		"code": "q07",
-		"name": "Challenger Decks 2022"
-	},
-	{
-		"code": "yneo",
-		"name": "Alchemy: Kamigawa"
-	},
-	{
-		"code": "pw22",
-		"name": "Wizards Play Network 2022"
-	},
-	{
-		"code": "slx",
-		"name": "Universes Within"
-	},
-	{
-		"code": "pl22",
-		"name": "Year of the Tiger 2022"
-	},
-	{
-		"code": "pneo",
-		"name": "Kamigawa: Neon Dynasty Promos"
-	},
-	{
-		"code": "mneo",
-		"name": "Kamigawa: Neon Dynasty Minigames"
-	},
-	{
-		"code": "sneo",
-		"name": "Kamigawa: Neon Dynasty Substitute Cards"
-	},
-	{
-		"code": "tneo",
-		"name": "Kamigawa: Neon Dynasty Tokens"
-	},
-	{
-		"code": "tnec",
-		"name": "Neon Dynasty Commander Tokens"
-	},
-	{
-		"code": "neo",
-		"name": "Kamigawa: Neon Dynasty"
-	},
-	{
-		"code": "nec",
-		"name": "Neon Dynasty Commander"
-	},
-	{
-		"code": "aneo",
-		"name": "Neon Dynasty Art Series"
-	},
-	{
-		"code": "cc2",
-		"name": "Commander Collection: Black"
-	},
-	{
-		"code": "dbl",
-		"name": "Innistrad: Double Feature"
-	},
-	{
-		"code": "p22",
-		"name": "Judge Gift Cards 2022"
-	},
-	{
-		"code": "ymid",
-		"name": "Alchemy: Innistrad"
-	},
-	{
-		"code": "pvow",
-		"name": "Innistrad: Crimson Vow Promos"
-	},
-	{
-		"code": "tvow",
-		"name": "Innistrad: Crimson Vow Tokens"
-	},
-	{
-		"code": "tvoc",
-		"name": "Crimson Vow Commander Tokens"
-	},
-	{
-		"code": "ovoc",
-		"name": "Crimson Vow Commander Display Commanders"
-	},
-	{
-		"code": "mvow",
-		"name": "Innistrad: Crimson Vow Minigames"
-	},
-	{
-		"code": "svow",
-		"name": "Innistrad: Crimson Vow Substitute Cards"
-	},
-	{
-		"code": "vow",
-		"name": "Innistrad: Crimson Vow"
-	},
-	{
-		"code": "avow",
-		"name": "Crimson Vow Art Series"
-	},
-	{
-		"code": "voc",
-		"name": "Crimson Vow Commander"
-	},
-	{
-		"code": "q06",
-		"name": "Pioneer Challenger Decks 2021"
-	},
-	{
-		"code": "smid",
-		"name": "Innistrad: Midnight Hunt Substitute Cards"
-	},
-	{
-		"code": "tmic",
-		"name": "Midnight Hunt Commander Tokens"
-	},
-	{
-		"code": "amid",
-		"name": "Midnight Hunt Art Series"
-	},
-	{
-		"code": "tmid",
-		"name": "Innistrad: Midnight Hunt Tokens"
-	},
-	{
-		"code": "omic",
-		"name": "Midnight Hunt Commander Display Commanders"
-	},
-	{
-		"code": "pmid",
-		"name": "Innistrad: Midnight Hunt Promos"
-	},
-	{
-		"code": "mic",
-		"name": "Midnight Hunt Commander"
-	},
-	{
-		"code": "mmid",
-		"name": "Innistrad: Midnight Hunt Minigames"
-	},
-	{
-		"code": "mid",
-		"name": "Innistrad: Midnight Hunt"
-	},
-	{
-		"code": "j21",
-		"name": "Jumpstart: Historic Horizons"
-	},
-	{
-		"code": "cmb2",
-		"name": "Mystery Booster Playtest Cards 2021"
-	},
-	{
-		"code": "ph20",
-		"name": "2020 Heroes of the Realm"
-	},
-	{
-		"code": "pafr",
-		"name": "Adventures in the Forgotten Realms Promos"
-	},
-	{
-		"code": "oafc",
-		"name": "Forgotten Realms Commander Display Commanders"
-	},
-	{
-		"code": "afc",
-		"name": "Forgotten Realms Commander"
-	},
-	{
-		"code": "aafr",
-		"name": "Adventures in the Forgotten Realms Art Series"
-	},
-	{
-		"code": "tafc",
-		"name": "Forgotten Realms Commander Tokens"
-	},
-	{
-		"code": "tafr",
-		"name": "Adventures in the Forgotten Realms Tokens"
-	},
-	{
-		"code": "mafr",
-		"name": "Adventures in the Forgotten Realms Minigames"
-	},
-	{
-		"code": "afr",
-		"name": "Adventures in the Forgotten Realms"
-	},
-	{
-		"code": "plg21",
-		"name": "Love Your LGS 2021"
-	},
-	{
-		"code": "pmh2",
-		"name": "Modern Horizons 2 Promos"
-	},
-	{
-		"code": "mmh2",
-		"name": "Modern Horizons 2 Minigames"
-	},
-	{
-		"code": "tmh2",
-		"name": "Modern Horizons 2 Tokens"
-	},
-	{
-		"code": "amh2",
-		"name": "Modern Horizons 2 Art Series"
-	},
-	{
-		"code": "h1r",
-		"name": "Modern Horizons 1 Timeshifts"
-	},
-	{
-		"code": "pw21",
-		"name": "Wizards Play Network 2021"
-	},
-	{
-		"code": "mh2",
-		"name": "Modern Horizons 2"
-	},
-	{
-		"code": "ha5",
-		"name": "Historic Anthology 5"
-	},
-	{
-		"code": "pstx",
-		"name": "Strixhaven: School of Mages Promos"
-	},
-	{
-		"code": "tc21",
-		"name": "Commander 2021 Tokens"
-	},
-	{
-		"code": "tstx",
-		"name": "Strixhaven: School of Mages Tokens"
-	},
-	{
-		"code": "sstx",
-		"name": "Strixhaven: School of Mages Substitute Cards"
-	},
-	{
-		"code": "mstx",
-		"name": "Strixhaven: School of Mages Minigames"
-	},
-	{
-		"code": "astx",
-		"name": "Strixhaven Art Series"
-	},
-	{
-		"code": "stx",
-		"name": "Strixhaven: School of Mages"
-	},
-	{
-		"code": "oc21",
-		"name": "Commander 2021 Display Commanders"
-	},
-	{
-		"code": "c21",
-		"name": "Commander 2021"
-	},
-	{
-		"code": "sta",
-		"name": "Strixhaven Mystical Archive"
-	},
-	{
-		"code": "ttsr",
-		"name": "Time Spiral Remastered Tokens"
-	},
-	{
-		"code": "tsr",
-		"name": "Time Spiral Remastered"
-	},
-	{
-		"code": "ha4",
-		"name": "Historic Anthology 4"
-	},
-	{
-		"code": "pkhm",
-		"name": "Kaldheim Promos"
-	},
-	{
-		"code": "mkhm",
-		"name": "Kaldheim Minigames"
-	},
-	{
-		"code": "skhm",
-		"name": "Kaldheim Substitute Cards"
-	},
-	{
-		"code": "tkhm",
-		"name": "Kaldheim Tokens"
-	},
-	{
-		"code": "akhm",
-		"name": "Kaldheim Art Series"
-	},
-	{
-		"code": "tkhc",
-		"name": "Kaldheim Commander Tokens"
-	},
-	{
-		"code": "khc",
-		"name": "Kaldheim Commander"
-	},
-	{
-		"code": "khm",
-		"name": "Kaldheim"
-	},
-	{
-		"code": "pl21",
-		"name": "Year of the Ox 2021"
-	},
-	{
-		"code": "pj21",
-		"name": "Judge Gift Cards 2021"
-	},
-	{
-		"code": "cc1",
-		"name": "Commander Collection: Green"
-	},
-	{
-		"code": "pcmr",
-		"name": "Commander Legends Promos"
-	},
-	{
-		"code": "cmr",
-		"name": "Commander Legends"
-	},
-	{
-		"code": "tcmr",
-		"name": "Commander Legends Tokens"
-	},
-	{
-		"code": "klr",
-		"name": "Kaladesh Remastered"
-	},
-	{
-		"code": "plst",
-		"name": "The List"
-	},
-	{
-		"code": "pznr",
-		"name": "Zendikar Rising Promos"
-	},
-	{
-		"code": "tznc",
-		"name": "Zendikar Rising Commander Tokens"
-	},
-	{
-		"code": "aznr",
-		"name": "Zendikar Rising Art Series"
-	},
-	{
-		"code": "sznr",
-		"name": "Zendikar Rising Substitute Cards"
-	},
-	{
-		"code": "zne",
-		"name": "Zendikar Rising Expeditions"
-	},
-	{
-		"code": "znr",
-		"name": "Zendikar Rising"
-	},
-	{
-		"code": "tznr",
-		"name": "Zendikar Rising Tokens"
-	},
-	{
-		"code": "znc",
-		"name": "Zendikar Rising Commander"
-	},
-	{
-		"code": "mznr",
-		"name": "Zendikar Rising Minigames"
-	},
-	{
-		"code": "akr",
-		"name": "Amonkhet Remastered"
-	},
-	{
-		"code": "anb",
-		"name": "Arena Beginner Set"
-	},
-	{
-		"code": "2xm",
-		"name": "Double Masters"
-	},
-	{
-		"code": "t2xm",
-		"name": "Double Masters Tokens"
-	},
-	{
-		"code": "ph19",
-		"name": "2019 Heroes of the Realm"
-	},
-	{
-		"code": "ajmp",
-		"name": "Jumpstart Arena Exclusives"
-	},
-	{
-		"code": "jmp",
-		"name": "Jumpstart"
-	},
-	{
-		"code": "pm21",
-		"name": "Core Set 2021 Promos"
-	},
-	{
-		"code": "tm21",
-		"name": "Core Set 2021 Tokens"
-	},
-	{
-		"code": "m21",
-		"name": "Core Set 2021"
-	},
-	{
-		"code": "ss3",
-		"name": "Signature Spellbook: Chandra"
-	},
-	{
-		"code": "fjmp",
-		"name": "Jumpstart Front Cards"
-	},
-	{
-		"code": "slu",
-		"name": "Secret Lair: Ultimate Edition"
-	},
-	{
-		"code": "ha3",
-		"name": "Historic Anthology 3"
-	},
-	{
-		"code": "plg20",
-		"name": "Love Your LGS 2020"
-	},
-	{
-		"code": "piko",
-		"name": "Ikoria: Lair of Behemoths Promos"
-	},
-	{
-		"code": "iko",
-		"name": "Ikoria: Lair of Behemoths"
-	},
-	{
-		"code": "tiko",
-		"name": "Ikoria: Lair of Behemoths Tokens"
-	},
-	{
-		"code": "oc20",
-		"name": "Commander 2020 Oversized"
-	},
-	{
-		"code": "c20",
-		"name": "Commander 2020"
-	},
-	{
-		"code": "tc20",
-		"name": "Commander 2020 Tokens"
-	},
-	{
-		"code": "ha2",
-		"name": "Historic Anthology 2"
-	},
-	{
-		"code": "tund",
-		"name": "Unsanctioned Tokens"
-	},
-	{
-		"code": "und",
-		"name": "Unsanctioned"
-	},
-	{
-		"code": "pthb",
-		"name": "Theros Beyond Death Promos"
-	},
-	{
-		"code": "tthb",
-		"name": "Theros Beyond Death Tokens"
-	},
-	{
-		"code": "thb",
-		"name": "Theros Beyond Death"
-	},
-	{
-		"code": "pf20",
-		"name": "MagicFest 2020"
-	},
-	{
-		"code": "j20",
-		"name": "Judge Gift Cards 2020"
-	},
-	{
-		"code": "sld",
-		"name": "Secret Lair Drop"
-	},
-	{
-		"code": "ha1",
-		"name": "Historic Anthology 1"
-	},
-	{
-		"code": "tgn2",
-		"name": "Game Night 2019 Tokens"
-	},
-	{
-		"code": "gn2",
-		"name": "Game Night 2019"
-	},
-	{
-		"code": "cmb1",
-		"name": "Mystery Booster Playtest Cards 2019"
-	},
-	{
-		"code": "ptg",
-		"name": "Ponies: The Galloping"
-	},
-	{
-		"code": "teld",
-		"name": "Throne of Eldraine Tokens"
-	},
-	{
-		"code": "peld",
-		"name": "Throne of Eldraine Promos"
-	},
-	{
-		"code": "eld",
-		"name": "Throne of Eldraine"
-	},
-	{
-		"code": "pwcs",
-		"name": "Planeswalker Championship Promos"
-	},
-	{
-		"code": "oc19",
-		"name": "Commander 2019 Oversized"
-	},
-	{
-		"code": "c19",
-		"name": "Commander 2019"
-	},
-	{
-		"code": "tc19",
-		"name": "Commander 2019 Tokens"
-	},
-	{
-		"code": "ph18",
-		"name": "2018 Heroes of the Realm"
-	},
-	{
-		"code": "ps19",
-		"name": "San Diego Comic-Con 2019"
-	},
-	{
-		"code": "tm20",
-		"name": "Core Set 2020 Tokens"
-	},
-	{
-		"code": "ppp1",
-		"name": "M20 Promo Packs"
-	},
-	{
-		"code": "pm20",
-		"name": "Core Set 2020 Promos"
-	},
-	{
-		"code": "m20",
-		"name": "Core Set 2020"
-	},
-	{
-		"code": "ss2",
-		"name": "Signature Spellbook: Gideon"
-	},
-	{
-		"code": "pmh1",
-		"name": "Modern Horizons Promos"
-	},
-	{
-		"code": "mh1",
-		"name": "Modern Horizons"
-	},
-	{
-		"code": "amh1",
-		"name": "Modern Horizons Art Series"
-	},
-	{
-		"code": "tmh1",
-		"name": "Modern Horizons Tokens"
-	},
-	{
-		"code": "pwar",
-		"name": "War of the Spark Promos"
-	},
-	{
-		"code": "twar",
-		"name": "War of the Spark Tokens"
-	},
-	{
-		"code": "war",
-		"name": "War of the Spark"
-	},
-	{
-		"code": "j19",
-		"name": "Judge Gift Cards 2019"
-	},
-	{
-		"code": "prw2",
-		"name": "RNA Ravnica Weekend"
-	},
-	{
-		"code": "gk2",
-		"name": "RNA Guild Kit"
-	},
-	{
-		"code": "tgk2",
-		"name": "RNA Guild Kit Tokens"
-	},
-	{
-		"code": "prna",
-		"name": "Ravnica Allegiance Promos"
-	},
-	{
-		"code": "rna",
-		"name": "Ravnica Allegiance"
-	},
-	{
-		"code": "trna",
-		"name": "Ravnica Allegiance Tokens"
-	},
-	{
-		"code": "pf19",
-		"name": "MagicFest 2019"
-	},
-	{
-		"code": "opca",
-		"name": "Planechase Anthology Planes"
-	},
-	{
-		"code": "puma",
-		"name": "Ultimate Box Topper"
-	},
-	{
-		"code": "tuma",
-		"name": "Ultimate Masters Tokens"
-	},
-	{
-		"code": "uma",
-		"name": "Ultimate Masters"
-	},
-	{
-		"code": "g18",
-		"name": "M19 Gift Pack"
-	},
-	{
-		"code": "gnt",
-		"name": "Game Night"
-	},
-	{
-		"code": "prwk",
-		"name": "GRN Ravnica Weekend"
-	},
-	{
-		"code": "tgk1",
-		"name": "GRN Guild Kit Tokens"
-	},
-	{
-		"code": "gk1",
-		"name": "GRN Guild Kit"
-	},
-	{
-		"code": "tgrn",
-		"name": "Guilds of Ravnica Tokens"
-	},
-	{
-		"code": "pgrn",
-		"name": "Guilds of Ravnica Promos"
-	},
-	{
-		"code": "grn",
-		"name": "Guilds of Ravnica"
-	},
-	{
-		"code": "tmed",
-		"name": "Mythic Edition Tokens"
-	},
-	{
-		"code": "med",
-		"name": "Mythic Edition"
-	},
-	{
-		"code": "oc18",
-		"name": "Commander 2018 Oversized"
-	},
-	{
-		"code": "tc18",
-		"name": "Commander 2018 Tokens"
-	},
-	{
-		"code": "c18",
-		"name": "Commander 2018"
-	},
-	{
-		"code": "ph17",
-		"name": "2017 Heroes of the Realm"
-	},
-	{
-		"code": "ps18",
-		"name": "San Diego Comic-Con 2018"
-	},
-	{
-		"code": "xana",
-		"name": "Arena New Player Experience Extras"
-	},
-	{
-		"code": "ana",
-		"name": "Arena New Player Experience"
-	},
-	{
-		"code": "pana",
-		"name": "MTG Arena Promos"
-	},
-	{
-		"code": "oana",
-		"name": "Arena New Player Experience Cards"
-	},
-	{
-		"code": "pm19",
-		"name": "Core Set 2019 Promos"
-	},
-	{
-		"code": "m19",
-		"name": "Core Set 2019"
-	},
-	{
-		"code": "tm19",
-		"name": "Core Set 2019 Tokens"
-	},
-	{
-		"code": "pss3",
-		"name": "M19 Standard Showdown"
-	},
-	{
-		"code": "gs1",
-		"name": "Global Series Jiang Yanggu & Mu Yanling"
-	},
-	{
-		"code": "ss1",
-		"name": "Signature Spellbook: Jace"
-	},
-	{
-		"code": "pbbd",
-		"name": "Battlebond Promos"
-	},
-	{
-		"code": "tbbd",
-		"name": "Battlebond Tokens"
-	},
-	{
-		"code": "cm2",
-		"name": "Commander Anthology Volume II"
-	},
-	{
-		"code": "tcm2",
-		"name": "Commander Anthology Volume II Tokens"
-	},
-	{
-		"code": "bbd",
-		"name": "Battlebond"
-	},
-	{
-		"code": "pdom",
-		"name": "Dominaria Promos"
-	},
-	{
-		"code": "tdom",
-		"name": "Dominaria Tokens"
-	},
-	{
-		"code": "dom",
-		"name": "Dominaria"
-	},
-	{
-		"code": "tddu",
-		"name": "Duel Decks: Elves vs. Inventors Tokens"
-	},
-	{
-		"code": "ddu",
-		"name": "Duel Decks: Elves vs. Inventors"
-	},
-	{
-		"code": "a25",
-		"name": "Masters 25"
-	},
-	{
-		"code": "ta25",
-		"name": "Masters 25 Tokens"
-	},
-	{
-		"code": "plny",
-		"name": "Lunar New Year 2018"
-	},
-	{
-		"code": "pnat",
-		"name": "Nationals Promos"
-	},
-	{
-		"code": "prix",
-		"name": "Rivals of Ixalan Promos"
-	},
-	{
-		"code": "trix",
-		"name": "Rivals of Ixalan Tokens"
-	},
-	{
-		"code": "rix",
-		"name": "Rivals of Ixalan"
-	},
-	{
-		"code": "j18",
-		"name": "Judge Gift Cards 2018"
-	},
-	{
-		"code": "f18",
-		"name": "Friday Night Magic 2018"
-	},
-	{
-		"code": "pust",
-		"name": "Unstable Promos"
-	},
-	{
-		"code": "tust",
-		"name": "Unstable Tokens"
-	},
-	{
-		"code": "ust",
-		"name": "Unstable"
-	},
-	{
-		"code": "tima",
-		"name": "Iconic Masters Tokens"
-	},
-	{
-		"code": "e02",
-		"name": "Explorers of Ixalan"
-	},
-	{
-		"code": "v17",
-		"name": "From the Vault: Transform"
-	},
-	{
-		"code": "pxtc",
-		"name": "XLN Treasure Chest"
-	},
-	{
-		"code": "ima",
-		"name": "Iconic Masters"
-	},
-	{
-		"code": "ddt",
-		"name": "Duel Decks: Merfolk vs. Goblins"
-	},
-	{
-		"code": "tddt",
-		"name": "Duel Decks: Merfolk vs. Goblins Tokens"
-	},
-	{
-		"code": "g17",
-		"name": "2017 Gift Pack"
-	},
-	{
-		"code": "pxln",
-		"name": "Ixalan Promos"
-	},
-	{
-		"code": "xln",
-		"name": "Ixalan"
-	},
-	{
-		"code": "txln",
-		"name": "Ixalan Tokens"
-	},
-	{
-		"code": "pss2",
-		"name": "XLN Standard Showdown"
-	},
-	{
-		"code": "h17",
-		"name": "HasCon 2017"
-	},
-	{
-		"code": "phtr",
-		"name": "2016 Heroes of the Realm"
-	},
-	{
-		"code": "te01",
-		"name": "Archenemy: Nicol Bolas Tokens"
-	},
-	{
-		"code": "oc17",
-		"name": "Commander 2017 Oversized"
-	},
-	{
-		"code": "c17",
-		"name": "Commander 2017"
-	},
-	{
-		"code": "tc17",
-		"name": "Commander 2017 Tokens"
-	},
-	{
-		"code": "ps17",
-		"name": "San Diego Comic-Con 2017"
-	},
-	{
-		"code": "phou",
-		"name": "Hour of Devastation Promos"
-	},
-	{
-		"code": "hou",
-		"name": "Hour of Devastation"
-	},
-	{
-		"code": "thou",
-		"name": "Hour of Devastation Tokens"
-	},
-	{
-		"code": "oe01",
-		"name": "Archenemy: Nicol Bolas Schemes"
-	},
-	{
-		"code": "e01",
-		"name": "Archenemy: Nicol Bolas"
-	},
-	{
-		"code": "tcma",
-		"name": "Commander Anthology Tokens"
-	},
-	{
-		"code": "cma",
-		"name": "Commander Anthology"
-	},
-	{
-		"code": "pakh",
-		"name": "Amonkhet Promos"
-	},
-	{
-		"code": "takh",
-		"name": "Amonkhet Tokens"
-	},
-	{
-		"code": "mp2",
-		"name": "Amonkhet Invocations"
-	},
-	{
-		"code": "akh",
-		"name": "Amonkhet"
-	},
-	{
-		"code": "w17",
-		"name": "Welcome Deck 2017"
-	},
-	{
-		"code": "tdds",
-		"name": "Duel Decks: Mind vs. Might Tokens"
-	},
-	{
-		"code": "dds",
-		"name": "Duel Decks: Mind vs. Might"
-	},
-	{
-		"code": "mm3",
-		"name": "Modern Masters 2017"
-	},
-	{
-		"code": "tmm3",
-		"name": "Modern Masters 2017 Tokens"
-	},
-	{
-		"code": "paer",
-		"name": "Aether Revolt Promos"
-	},
-	{
-		"code": "taer",
-		"name": "Aether Revolt Tokens"
-	},
-	{
-		"code": "aer",
-		"name": "Aether Revolt"
-	},
-	{
-		"code": "l17",
-		"name": "League Tokens 2017"
-	},
-	{
-		"code": "j17",
-		"name": "Judge Gift Cards 2017"
-	},
-	{
-		"code": "f17",
-		"name": "Friday Night Magic 2017"
-	},
-	{
-		"code": "pca",
-		"name": "Planechase Anthology"
-	},
-	{
-		"code": "tpca",
-		"name": "Planechase Anthology Tokens"
-	},
-	{
-		"code": "pz2",
-		"name": "Treasure Chest"
-	},
-	{
-		"code": "oc16",
-		"name": "Commander 2016 Oversized"
-	},
-	{
-		"code": "c16",
-		"name": "Commander 2016"
-	},
-	{
-		"code": "tc16",
-		"name": "Commander 2016 Tokens"
-	},
-	{
-		"code": "ps16",
-		"name": "San Diego Comic-Con 2016"
-	},
-	{
-		"code": "pkld",
-		"name": "Kaladesh Promos"
-	},
-	{
-		"code": "kld",
-		"name": "Kaladesh"
-	},
-	{
-		"code": "tkld",
-		"name": "Kaladesh Tokens"
-	},
-	{
-		"code": "mps",
-		"name": "Kaladesh Inventions"
-	},
-	{
-		"code": "ddr",
-		"name": "Duel Decks: Nissa vs. Ob Nixilis"
-	},
-	{
-		"code": "tcn2",
-		"name": "Conspiracy: Take the Crown Tokens"
-	},
-	{
-		"code": "cn2",
-		"name": "Conspiracy: Take the Crown"
-	},
-	{
-		"code": "v16",
-		"name": "From the Vault: Lore"
-	},
-	{
-		"code": "pemn",
-		"name": "Eldritch Moon Promos"
-	},
-	{
-		"code": "temn",
-		"name": "Eldritch Moon Tokens"
-	},
-	{
-		"code": "emn",
-		"name": "Eldritch Moon"
-	},
-	{
-		"code": "ema",
-		"name": "Eternal Masters"
-	},
-	{
-		"code": "tema",
-		"name": "Eternal Masters Tokens"
-	},
-	{
-		"code": "psoi",
-		"name": "Shadows over Innistrad Promos"
-	},
-	{
-		"code": "tsoi",
-		"name": "Shadows over Innistrad Tokens"
-	},
-	{
-		"code": "w16",
-		"name": "Welcome Deck 2016"
-	},
-	{
-		"code": "soi",
-		"name": "Shadows over Innistrad"
-	},
-	{
-		"code": "ddq",
-		"name": "Duel Decks: Blessed vs. Cursed"
-	},
-	{
-		"code": "ogw",
-		"name": "Oath of the Gatewatch"
-	},
-	{
-		"code": "togw",
-		"name": "Oath of the Gatewatch Tokens"
-	},
-	{
-		"code": "pogw",
-		"name": "Oath of the Gatewatch Promos"
-	},
-	{
-		"code": "l16",
-		"name": "League Tokens 2016"
-	},
-	{
-		"code": "f16",
-		"name": "Friday Night Magic 2016"
-	},
-	{
-		"code": "j16",
-		"name": "Judge Gift Cards 2016"
-	},
-	{
-		"code": "pz1",
-		"name": "Legendary Cube Prize Pack"
-	},
-	{
-		"code": "oc15",
-		"name": "Commander 2015 Oversized"
-	},
-	{
-		"code": "c15",
-		"name": "Commander 2015"
-	},
-	{
-		"code": "tc15",
-		"name": "Commander 2015 Tokens"
-	},
-	{
-		"code": "pbfz",
-		"name": "Battle for Zendikar Promos"
-	},
-	{
-		"code": "tbfz",
-		"name": "Battle for Zendikar Tokens"
-	},
-	{
-		"code": "pss1",
-		"name": "BFZ Standard Series"
-	},
-	{
-		"code": "exp",
-		"name": "Zendikar Expeditions"
-	},
-	{
-		"code": "bfz",
-		"name": "Battle for Zendikar"
-	},
-	{
-		"code": "ddp",
-		"name": "Duel Decks: Zendikar vs. Eldrazi"
-	},
-	{
-		"code": "v15",
-		"name": "From the Vault: Angels"
-	},
-	{
-		"code": "cp3",
-		"name": "Magic Origins Clash Pack"
-	},
-	{
-		"code": "pori",
-		"name": "Magic Origins Promos"
-	},
-	{
-		"code": "tori",
-		"name": "Magic Origins Tokens"
-	},
-	{
-		"code": "ori",
-		"name": "Magic Origins"
-	},
-	{
-		"code": "ps15",
-		"name": "San Diego Comic-Con 2015"
-	},
-	{
-		"code": "mm2",
-		"name": "Modern Masters 2015"
-	},
-	{
-		"code": "tmm2",
-		"name": "Modern Masters 2015 Tokens"
-	},
-	{
-		"code": "tpr",
-		"name": "Tempest Remastered"
-	},
-	{
-		"code": "ptkdf",
-		"name": "Tarkir Dragonfury"
-	},
-	{
-		"code": "pdtk",
-		"name": "Dragons of Tarkir Promos"
-	},
-	{
-		"code": "dtk",
-		"name": "Dragons of Tarkir"
-	},
-	{
-		"code": "tdtk",
-		"name": "Dragons of Tarkir Tokens"
-	},
-	{
-		"code": "ddo",
-		"name": "Duel Decks: Elspeth vs. Kiora"
-	},
-	{
-		"code": "pfrf",
-		"name": "Fate Reforged Promos"
-	},
-	{
-		"code": "cp2",
-		"name": "Fate Reforged Clash Pack"
-	},
-	{
-		"code": "frf",
-		"name": "Fate Reforged"
-	},
-	{
-		"code": "tfrf",
-		"name": "Fate Reforged Tokens"
-	},
-	{
-		"code": "ugin",
-		"name": "Ugin's Fate"
-	},
-	{
-		"code": "l15",
-		"name": "League Tokens 2015"
-	},
-	{
-		"code": "f15",
-		"name": "Friday Night Magic 2015"
-	},
-	{
-		"code": "j15",
-		"name": "Judge Gift Cards 2015"
-	},
-	{
-		"code": "tjvc",
-		"name": "Duel Decks Anthology: Jace vs. Chandra Tokens"
-	},
-	{
-		"code": "tdvd",
-		"name": "Duel Decks Anthology: Divine vs. Demonic Tokens"
-	},
-	{
-		"code": "tgvl",
-		"name": "Duel Decks Anthology: Garruk vs. Liliana Tokens"
-	},
-	{
-		"code": "tevg",
-		"name": "Duel Decks Anthology: Elves vs. Goblins Tokens"
-	},
-	{
-		"code": "evg",
-		"name": "Duel Decks Anthology: Elves vs. Goblins"
-	},
-	{
-		"code": "jvc",
-		"name": "Duel Decks Anthology: Jace vs. Chandra"
-	},
-	{
-		"code": "gvl",
-		"name": "Duel Decks Anthology: Garruk vs. Liliana"
-	},
-	{
-		"code": "dvd",
-		"name": "Duel Decks Anthology: Divine vs. Demonic"
-	},
-	{
-		"code": "oc14",
-		"name": "Commander 2014 Oversized"
-	},
-	{
-		"code": "c14",
-		"name": "Commander 2014"
-	},
-	{
-		"code": "tc14",
-		"name": "Commander 2014 Tokens"
-	},
-	{
-		"code": "pktk",
-		"name": "Khans of Tarkir Promos"
-	},
-	{
-		"code": "ktk",
-		"name": "Khans of Tarkir"
-	},
-	{
-		"code": "tktk",
-		"name": "Khans of Tarkir Tokens"
-	},
-	{
-		"code": "ddn",
-		"name": "Duel Decks: Speed vs. Cunning"
-	},
-	{
-		"code": "v14",
-		"name": "From the Vault: Annihilation"
-	},
-	{
-		"code": "m15",
-		"name": "Magic 2015"
-	},
-	{
-		"code": "cp1",
-		"name": "Magic 2015 Clash Pack"
-	},
-	{
-		"code": "tm15",
-		"name": "Magic 2015 Tokens"
-	},
-	{
-		"code": "pm15",
-		"name": "Magic 2015 Promos"
-	},
-	{
-		"code": "ppc1",
-		"name": "M15 Prerelease Challenge"
-	},
-	{
-		"code": "pdp15",
-		"name": "Duels of the Planeswalkers 2015 Promos"
-	},
-	{
-		"code": "ps14",
-		"name": "San Diego Comic-Con 2014"
-	},
-	{
-		"code": "vma",
-		"name": "Vintage Masters"
-	},
-	{
-		"code": "pcns",
-		"name": "Conspiracy Promos"
-	},
-	{
-		"code": "tcns",
-		"name": "Conspiracy Tokens"
-	},
-	{
-		"code": "cns",
-		"name": "Conspiracy"
-	},
-	{
-		"code": "tmd1",
-		"name": "Modern Event Deck 2014 Tokens"
-	},
-	{
-		"code": "md1",
-		"name": "Modern Event Deck 2014"
-	},
-	{
-		"code": "tdag",
-		"name": "Defeat a God"
-	},
-	{
-		"code": "jou",
-		"name": "Journey into Nyx"
-	},
-	{
-		"code": "thp3",
-		"name": "Journey into Nyx Hero's Path"
-	},
-	{
-		"code": "tjou",
-		"name": "Journey into Nyx Tokens"
-	},
-	{
-		"code": "pjou",
-		"name": "Journey into Nyx Promos"
-	},
-	{
-		"code": "ddm",
-		"name": "Duel Decks: Jace vs. Vraska"
-	},
-	{
-		"code": "tddm",
-		"name": "Duel Decks: Jace vs. Vraska Tokens"
-	},
-	{
-		"code": "tbth",
-		"name": "Battle the Horde"
-	},
-	{
-		"code": "tbng",
-		"name": "Born of the Gods Tokens"
-	},
-	{
-		"code": "bng",
-		"name": "Born of the Gods"
-	},
-	{
-		"code": "thp2",
-		"name": "Born of the Gods Hero's Path"
-	},
-	{
-		"code": "pbng",
-		"name": "Born of the Gods Promos"
-	},
-	{
-		"code": "l14",
-		"name": "League Tokens 2014"
-	},
-	{
-		"code": "j14",
-		"name": "Judge Gift Cards 2014"
-	},
-	{
-		"code": "f14",
-		"name": "Friday Night Magic 2014"
-	},
-	{
-		"code": "oc13",
-		"name": "Commander 2013 Oversized"
-	},
-	{
-		"code": "c13",
-		"name": "Commander 2013"
-	},
-	{
-		"code": "tfth",
-		"name": "Face the Hydra"
-	},
-	{
-		"code": "tths",
-		"name": "Theros Tokens"
-	},
-	{
-		"code": "thp1",
-		"name": "Theros Hero's Path"
-	},
-	{
-		"code": "ths",
-		"name": "Theros"
-	},
-	{
-		"code": "pths",
-		"name": "Theros Promos"
-	},
-	{
-		"code": "ddl",
-		"name": "Duel Decks: Heroes vs. Monsters"
-	},
-	{
-		"code": "tddl",
-		"name": "Duel Decks: Heroes vs. Monsters Tokens"
-	},
-	{
-		"code": "v13",
-		"name": "From the Vault: Twenty"
-	},
-	{
-		"code": "tm14",
-		"name": "Magic 2014 Tokens"
-	},
-	{
-		"code": "m14",
-		"name": "Magic 2014"
-	},
-	{
-		"code": "pm14",
-		"name": "Magic 2014 Promos"
-	},
-	{
-		"code": "psdc",
-		"name": "San Diego Comic-Con 2013"
-	},
-	{
-		"code": "tmma",
-		"name": "Modern Masters Tokens"
-	},
-	{
-		"code": "mma",
-		"name": "Modern Masters"
-	},
-	{
-		"code": "dgm",
-		"name": "Dragon's Maze"
-	},
-	{
-		"code": "tdgm",
-		"name": "Dragon's Maze Tokens"
-	},
-	{
-		"code": "pdgm",
-		"name": "Dragon's Maze Promos"
-	},
-	{
-		"code": "wmc",
-		"name": "World Magic Cup Qualifiers"
-	},
-	{
-		"code": "tddk",
-		"name": "Duel Decks: Sorin vs. Tibalt Tokens"
-	},
-	{
-		"code": "ddk",
-		"name": "Duel Decks: Sorin vs. Tibalt"
-	},
-	{
-		"code": "gtc",
-		"name": "Gatecrash"
-	},
-	{
-		"code": "tgtc",
-		"name": "Gatecrash Tokens"
-	},
-	{
-		"code": "pgtc",
-		"name": "Gatecrash Promos"
-	},
-	{
-		"code": "pdp14",
-		"name": "Duels of the Planeswalkers 2014 Promos"
-	},
-	{
-		"code": "l13",
-		"name": "League Tokens 2013"
-	},
-	{
-		"code": "j13",
-		"name": "Judge Gift Cards 2013"
-	},
-	{
-		"code": "f13",
-		"name": "Friday Night Magic 2013"
-	},
-	{
-		"code": "ocm1",
-		"name": "Commander's Arsenal Oversized"
-	},
-	{
-		"code": "cm1",
-		"name": "Commander's Arsenal"
-	},
-	{
-		"code": "rtr",
-		"name": "Return to Ravnica"
-	},
-	{
-		"code": "prtr",
-		"name": "Return to Ravnica Promos"
-	},
-	{
-		"code": "trtr",
-		"name": "Return to Ravnica Tokens"
-	},
-	{
-		"code": "tddj",
-		"name": "Duel Decks: Izzet vs. Golgari Tokens"
-	},
-	{
-		"code": "ddj",
-		"name": "Duel Decks: Izzet vs. Golgari"
-	},
-	{
-		"code": "v12",
-		"name": "From the Vault: Realms"
-	},
-	{
-		"code": "tm13",
-		"name": "Magic 2013 Tokens"
-	},
-	{
-		"code": "m13",
-		"name": "Magic 2013"
-	},
-	{
-		"code": "pm13",
-		"name": "Magic 2013 Promos"
-	},
-	{
-		"code": "opc2",
-		"name": "Planechase 2012 Planes"
-	},
-	{
-		"code": "pc2",
-		"name": "Planechase 2012"
-	},
-	{
-		"code": "tavr",
-		"name": "Avacyn Restored Tokens"
-	},
-	{
-		"code": "avr",
-		"name": "Avacyn Restored"
-	},
-	{
-		"code": "phel",
-		"name": "Open the Helvault"
-	},
-	{
-		"code": "pavr",
-		"name": "Avacyn Restored Promos"
-	},
-	{
-		"code": "tddi",
-		"name": "Duel Decks: Venser vs. Koth Tokens"
-	},
-	{
-		"code": "ddi",
-		"name": "Duel Decks: Venser vs. Koth"
-	},
-	{
-		"code": "tdka",
-		"name": "Dark Ascension Tokens"
-	},
-	{
-		"code": "dka",
-		"name": "Dark Ascension"
-	},
-	{
-		"code": "pdka",
-		"name": "Dark Ascension Promos"
-	},
-	{
-		"code": "pw12",
-		"name": "Wizards Play Network 2012"
-	},
-	{
-		"code": "pdp13",
-		"name": "Duels of the Planeswalkers 2013 Promos"
-	},
-	{
-		"code": "pidw",
-		"name": "IDW Comics Inserts"
-	},
-	{
-		"code": "l12",
-		"name": "League Tokens 2012"
-	},
-	{
-		"code": "f12",
-		"name": "Friday Night Magic 2012"
-	},
-	{
-		"code": "j12",
-		"name": "Judge Gift Cards 2012"
-	},
-	{
-		"code": "pd3",
-		"name": "Premium Deck Series: Graveborn"
-	},
-	{
-		"code": "tisd",
-		"name": "Innistrad Tokens"
-	},
-	{
-		"code": "isd",
-		"name": "Innistrad"
-	},
-	{
-		"code": "pisd",
-		"name": "Innistrad Promos"
-	},
-	{
-		"code": "ddh",
-		"name": "Duel Decks: Ajani vs. Nicol Bolas"
-	},
-	{
-		"code": "tddh",
-		"name": "Duel Decks: Ajani vs. Nicol Bolas Tokens"
-	},
-	{
-		"code": "v11",
-		"name": "From the Vault: Legends"
-	},
-	{
-		"code": "tm12",
-		"name": "Magic 2012 Tokens"
-	},
-	{
-		"code": "m12",
-		"name": "Magic 2012"
-	},
-	{
-		"code": "pm12",
-		"name": "Magic 2012 Promos"
-	},
-	{
-		"code": "ocmd",
-		"name": "Commander 2011 Oversized"
-	},
-	{
-		"code": "cmd",
-		"name": "Commander 2011"
-	},
-	{
-		"code": "pcmd",
-		"name": "Commander 2011 Launch Party"
-	},
-	{
-		"code": "td2",
-		"name": "Duel Decks: Mirrodin Pure vs. New Phyrexia"
-	},
-	{
-		"code": "nph",
-		"name": "New Phyrexia"
-	},
-	{
-		"code": "tnph",
-		"name": "New Phyrexia Tokens"
-	},
-	{
-		"code": "pnph",
-		"name": "New Phyrexia Promos"
-	},
-	{
-		"code": "tddg",
-		"name": "Duel Decks: Knights vs. Dragons Tokens"
-	},
-	{
-		"code": "ddg",
-		"name": "Duel Decks: Knights vs. Dragons"
-	},
-	{
-		"code": "tmbs",
-		"name": "Mirrodin Besieged Tokens"
-	},
-	{
-		"code": "mbs",
-		"name": "Mirrodin Besieged"
-	},
-	{
-		"code": "pmbs",
-		"name": "Mirrodin Besieged Promos"
-	},
-	{
-		"code": "me4",
-		"name": "Masters Edition IV"
-	},
-	{
-		"code": "pmps11",
-		"name": "Magic Premiere Shop 2011"
-	},
-	{
-		"code": "pw11",
-		"name": "Wizards Play Network 2011"
-	},
-	{
-		"code": "pdp12",
-		"name": "Duels of the Planeswalkers 2012 Promos"
-	},
-	{
-		"code": "p11",
-		"name": "Magic Player Rewards 2011"
-	},
-	{
-		"code": "ps11",
-		"name": "Salvat 2011"
-	},
-	{
-		"code": "g11",
-		"name": "Judge Gift Cards 2011"
-	},
-	{
-		"code": "olgc",
-		"name": "Legacy Championship"
-	},
-	{
-		"code": "f11",
-		"name": "Friday Night Magic 2011"
-	},
-	{
-		"code": "pd2",
-		"name": "Premium Deck Series: Fire and Lightning"
-	},
-	{
-		"code": "td0",
-		"name": "Magic Online Theme Decks"
-	},
-	{
-		"code": "tsom",
-		"name": "Scars of Mirrodin Tokens"
-	},
-	{
-		"code": "som",
-		"name": "Scars of Mirrodin"
-	},
-	{
-		"code": "psom",
-		"name": "Scars of Mirrodin Promos"
-	},
-	{
-		"code": "ddf",
-		"name": "Duel Decks: Elspeth vs. Tezzeret"
-	},
-	{
-		"code": "tddf",
-		"name": "Duel Decks: Elspeth vs. Tezzeret Tokens"
-	},
-	{
-		"code": "v10",
-		"name": "From the Vault: Relics"
-	},
-	{
-		"code": "m11",
-		"name": "Magic 2011"
-	},
-	{
-		"code": "tm11",
-		"name": "Magic 2011 Tokens"
-	},
-	{
-		"code": "pm11",
-		"name": "Magic 2011 Promos"
-	},
-	{
-		"code": "oarc",
-		"name": "Archenemy Schemes"
-	},
-	{
-		"code": "arc",
-		"name": "Archenemy"
-	},
-	{
-		"code": "dpa",
-		"name": "Duels of the Planeswalkers"
-	},
-	{
-		"code": "proe",
-		"name": "Rise of the Eldrazi Promos"
-	},
-	{
-		"code": "roe",
-		"name": "Rise of the Eldrazi"
-	},
-	{
-		"code": "troe",
-		"name": "Rise of the Eldrazi Tokens"
-	},
-	{
-		"code": "dde",
-		"name": "Duel Decks: Phyrexia vs. the Coalition"
-	},
-	{
-		"code": "tdde",
-		"name": "Duel Decks: Phyrexia vs. the Coalition Tokens"
-	},
-	{
-		"code": "pwwk",
-		"name": "Worldwake Promos"
-	},
-	{
-		"code": "twwk",
-		"name": "Worldwake Tokens"
-	},
-	{
-		"code": "wwk",
-		"name": "Worldwake"
-	},
-	{
-		"code": "pdp10",
-		"name": "Duels of the Planeswalkers 2010 Promos"
-	},
-	{
-		"code": "pmps10",
-		"name": "Magic Premiere Shop 2010"
-	},
-	{
-		"code": "g10",
-		"name": "Judge Gift Cards 2010"
-	},
-	{
-		"code": "p10",
-		"name": "Magic Player Rewards 2010"
-	},
-	{
-		"code": "f10",
-		"name": "Friday Night Magic 2010"
-	},
-	{
-		"code": "h09",
-		"name": "Premium Deck Series: Slivers"
-	},
-	{
-		"code": "ddd",
-		"name": "Duel Decks: Garruk vs. Liliana"
-	},
-	{
-		"code": "tddd",
-		"name": "Duel Decks: Garruk vs. Liliana Tokens"
-	},
-	{
-		"code": "pzen",
-		"name": "Zendikar Promos"
-	},
-	{
-		"code": "zen",
-		"name": "Zendikar"
-	},
-	{
-		"code": "tzen",
-		"name": "Zendikar Tokens"
-	},
-	{
-		"code": "me3",
-		"name": "Masters Edition III"
-	},
-	{
-		"code": "ohop",
-		"name": "Planechase Planes"
-	},
-	{
-		"code": "hop",
-		"name": "Planechase"
-	},
-	{
-		"code": "phop",
-		"name": "Planechase Promos"
-	},
-	{
-		"code": "v09",
-		"name": "From the Vault: Exiled"
-	},
-	{
-		"code": "tm10",
-		"name": "Magic 2010 Tokens"
-	},
-	{
-		"code": "m10",
-		"name": "Magic 2010"
-	},
-	{
-		"code": "pm10",
-		"name": "Magic 2010 Promos"
-	},
-	{
-		"code": "parb",
-		"name": "Alara Reborn Promos"
-	},
-	{
-		"code": "tarb",
-		"name": "Alara Reborn Tokens"
-	},
-	{
-		"code": "arb",
-		"name": "Alara Reborn"
-	},
-	{
-		"code": "ddc",
-		"name": "Duel Decks: Divine vs. Demonic"
-	},
-	{
-		"code": "tddc",
-		"name": "Duel Decks: Divine vs. Demonic Tokens"
-	},
-	{
-		"code": "purl",
-		"name": "URL/Convention Promos"
-	},
-	{
-		"code": "pcon",
-		"name": "Conflux Promos"
-	},
-	{
-		"code": "tcon",
-		"name": "Conflux Tokens"
-	},
-	{
-		"code": "con",
-		"name": "Conflux"
-	},
-	{
-		"code": "pdtp",
-		"name": "Duels of the Planeswalkers 2009 Promos"
-	},
-	{
-		"code": "pmps09",
-		"name": "Magic Premiere Shop 2009"
-	},
-	{
-		"code": "p09",
-		"name": "Magic Player Rewards 2009"
-	},
-	{
-		"code": "f09",
-		"name": "Friday Night Magic 2009"
-	},
-	{
-		"code": "g09",
-		"name": "Judge Gift Cards 2009"
-	},
-	{
-		"code": "tdd2",
-		"name": "Duel Decks: Jace vs. Chandra Tokens"
-	},
-	{
-		"code": "dd2",
-		"name": "Duel Decks: Jace vs. Chandra"
-	},
-	{
-		"code": "pala",
-		"name": "Shards of Alara Promos"
-	},
-	{
-		"code": "tala",
-		"name": "Shards of Alara Tokens"
-	},
-	{
-		"code": "ala",
-		"name": "Shards of Alara"
-	},
-	{
-		"code": "me2",
-		"name": "Masters Edition II"
-	},
-	{
-		"code": "drb",
-		"name": "From the Vault: Dragons"
-	},
-	{
-		"code": "peve",
-		"name": "Eventide Promos"
-	},
-	{
-		"code": "eve",
-		"name": "Eventide"
-	},
-	{
-		"code": "teve",
-		"name": "Eventide Tokens"
-	},
-	{
-		"code": "pshm",
-		"name": "Shadowmoor Promos"
-	},
-	{
-		"code": "shm",
-		"name": "Shadowmoor"
-	},
-	{
-		"code": "tshm",
-		"name": "Shadowmoor Tokens"
-	},
-	{
-		"code": "p15a",
-		"name": "15th Anniversary Cards"
-	},
-	{
-		"code": "pmor",
-		"name": "Morningtide Promos"
-	},
-	{
-		"code": "mor",
-		"name": "Morningtide"
-	},
-	{
-		"code": "tmor",
-		"name": "Morningtide Tokens"
-	},
-	{
-		"code": "pmps08",
-		"name": "Magic Premiere Shop 2008"
-	},
-	{
-		"code": "p08",
-		"name": "Magic Player Rewards 2008"
-	},
-	{
-		"code": "g08",
-		"name": "Judge Gift Cards 2008"
-	},
-	{
-		"code": "f08",
-		"name": "Friday Night Magic 2008"
-	},
-	{
-		"code": "tdd1",
-		"name": "Duel Decks: Elves vs. Goblins Tokens"
-	},
-	{
-		"code": "dd1",
-		"name": "Duel Decks: Elves vs. Goblins"
-	},
-	{
-		"code": "plrw",
-		"name": "Lorwyn Promos"
-	},
-	{
-		"code": "tlrw",
-		"name": "Lorwyn Tokens"
-	},
-	{
-		"code": "lrw",
-		"name": "Lorwyn"
-	},
-	{
-		"code": "me1",
-		"name": "Masters Edition"
-	},
-	{
-		"code": "10e",
-		"name": "Tenth Edition"
-	},
-	{
-		"code": "p10e",
-		"name": "Tenth Edition Promos"
-	},
-	{
-		"code": "t10e",
-		"name": "Tenth Edition Tokens"
-	},
-	{
-		"code": "pfut",
-		"name": "Future Sight Promos"
-	},
-	{
-		"code": "fut",
-		"name": "Future Sight"
-	},
-	{
-		"code": "pgpx",
-		"name": "Grand Prix Promos"
-	},
-	{
-		"code": "ppro",
-		"name": "Pro Tour Promos"
-	},
-	{
-		"code": "pplc",
-		"name": "Planar Chaos Promos"
-	},
-	{
-		"code": "plc",
-		"name": "Planar Chaos"
-	},
-	{
-		"code": "g07",
-		"name": "Judge Gift Cards 2007"
-	},
-	{
-		"code": "pmps07",
-		"name": "Magic Premiere Shop 2007"
-	},
-	{
-		"code": "f07",
-		"name": "Friday Night Magic 2007"
-	},
-	{
-		"code": "p07",
-		"name": "Magic Player Rewards 2007"
-	},
-	{
-		"code": "hho",
-		"name": "Happy Holidays"
-	},
-	{
-		"code": "ptsp",
-		"name": "Time Spiral Promos"
-	},
-	{
-		"code": "tsb",
-		"name": "Time Spiral Timeshifted"
-	},
-	{
-		"code": "tsp",
-		"name": "Time Spiral"
-	},
-	{
-		"code": "pcsp",
-		"name": "Coldsnap Promos"
-	},
-	{
-		"code": "cst",
-		"name": "Coldsnap Theme Decks"
-	},
-	{
-		"code": "csp",
-		"name": "Coldsnap"
-	},
-	{
-		"code": "pdis",
-		"name": "Dissension Promos"
-	},
-	{
-		"code": "dis",
-		"name": "Dissension"
-	},
-	{
-		"code": "pcmp",
-		"name": "Champs and States"
-	},
-	{
-		"code": "pgpt",
-		"name": "Guildpact Promos"
-	},
-	{
-		"code": "gpt",
-		"name": "Guildpact"
-	},
-	{
-		"code": "pmps06",
-		"name": "Magic Premiere Shop 2006"
-	},
-	{
-		"code": "pal06",
-		"name": "Arena League 2006"
-	},
-	{
-		"code": "pjas",
-		"name": "Junior APAC Series"
-	},
-	{
-		"code": "dci",
-		"name": "DCI Promos"
-	},
-	{
-		"code": "f06",
-		"name": "Friday Night Magic 2006"
-	},
-	{
-		"code": "phuk",
-		"name": "Hachette UK"
-	},
-	{
-		"code": "p06",
-		"name": "Magic Player Rewards 2006"
-	},
-	{
-		"code": "g06",
-		"name": "Judge Gift Cards 2006"
-	},
-	{
-		"code": "p2hg",
-		"name": "Two-Headed Giant Tournament"
-	},
-	{
-		"code": "pmps",
-		"name": "Magic Premiere Shop 2005"
-	},
-	{
-		"code": "prav",
-		"name": "Ravnica: City of Guilds Promos"
-	},
-	{
-		"code": "rav",
-		"name": "Ravnica: City of Guilds"
-	},
-	{
-		"code": "psal",
-		"name": "Salvat 2005"
-	},
-	{
-		"code": "p9ed",
-		"name": "Ninth Edition Promos"
-	},
-	{
-		"code": "9ed",
-		"name": "Ninth Edition"
-	},
-	{
-		"code": "psok",
-		"name": "Saviors of Kamigawa Promos"
-	},
-	{
-		"code": "sok",
-		"name": "Saviors of Kamigawa"
-	},
-	{
-		"code": "pbok",
-		"name": "Betrayers of Kamigawa Promos"
-	},
-	{
-		"code": "bok",
-		"name": "Betrayers of Kamigawa"
-	},
-	{
-		"code": "pal05",
-		"name": "Arena League 2005"
-	},
-	{
-		"code": "pjse",
-		"name": "Junior Series Europe"
-	},
-	{
-		"code": "f05",
-		"name": "Friday Night Magic 2005"
-	},
-	{
-		"code": "g05",
-		"name": "Judge Gift Cards 2005"
-	},
-	{
-		"code": "p05",
-		"name": "Magic Player Rewards 2005"
-	},
-	{
-		"code": "punh",
-		"name": "Unhinged Promos"
-	},
-	{
-		"code": "unh",
-		"name": "Unhinged"
-	},
-	{
-		"code": "pchk",
-		"name": "Champions of Kamigawa Promos"
-	},
-	{
-		"code": "chk",
-		"name": "Champions of Kamigawa"
-	},
-	{
-		"code": "wc04",
-		"name": "World Championship Decks 2004"
-	},
-	{
-		"code": "pmrd",
-		"name": "Mirrodin Promos"
-	},
-	{
-		"code": "p5dn",
-		"name": "Fifth Dawn Promos"
-	},
-	{
-		"code": "5dn",
-		"name": "Fifth Dawn"
-	},
-	{
-		"code": "pdst",
-		"name": "Darksteel Promos"
-	},
-	{
-		"code": "dst",
-		"name": "Darksteel"
-	},
-	{
-		"code": "pal04",
-		"name": "Arena League 2004"
-	},
-	{
-		"code": "g04",
-		"name": "Judge Gift Cards 2004"
-	},
-	{
-		"code": "p04",
-		"name": "Magic Player Rewards 2004"
-	},
-	{
-		"code": "f04",
-		"name": "Friday Night Magic 2004"
-	},
-	{
-		"code": "mrd",
-		"name": "Mirrodin"
-	},
-	{
-		"code": "wc03",
-		"name": "World Championship Decks 2003"
-	},
-	{
-		"code": "p8ed",
-		"name": "Eighth Edition Promos"
-	},
-	{
-		"code": "8ed",
-		"name": "Eighth Edition"
-	},
-	{
-		"code": "pscg",
-		"name": "Scourge Promos"
-	},
-	{
-		"code": "scg",
-		"name": "Scourge"
-	},
-	{
-		"code": "plgn",
-		"name": "Legions Promos"
-	},
-	{
-		"code": "lgn",
-		"name": "Legions"
-	},
-	{
-		"code": "pmoa",
-		"name": "Magic Online Avatars"
-	},
-	{
-		"code": "pjjt",
-		"name": "Japan Junior Tournament"
-	},
-	{
-		"code": "pal03",
-		"name": "Arena League 2003"
-	},
-	{
-		"code": "f03",
-		"name": "Friday Night Magic 2003"
-	},
-	{
-		"code": "p03",
-		"name": "Magic Player Rewards 2003"
-	},
-	{
-		"code": "g03",
-		"name": "Judge Gift Cards 2003"
-	},
-	{
-		"code": "ovnt",
-		"name": "Vintage Championship"
-	},
-	{
-		"code": "ons",
-		"name": "Onslaught"
-	},
-	{
-		"code": "pons",
-		"name": "Onslaught Promos"
-	},
-	{
-		"code": "wc02",
-		"name": "World Championship Decks 2002"
-	},
-	{
-		"code": "jp1",
-		"name": "Hobby Japan Promos"
-	},
-	{
-		"code": "prm",
-		"name": "Magic Online Promos"
-	},
-	{
-		"code": "pjud",
-		"name": "Judgment Promos"
-	},
-	{
-		"code": "jud",
-		"name": "Judgment"
-	},
-	{
-		"code": "ptor",
-		"name": "Torment Promos"
-	},
-	{
-		"code": "tor",
-		"name": "Torment"
-	},
-	{
-		"code": "pal02",
-		"name": "Arena League 2002"
-	},
-	{
-		"code": "g02",
-		"name": "Judge Gift Cards 2002"
-	},
-	{
-		"code": "f02",
-		"name": "Friday Night Magic 2002"
-	},
-	{
-		"code": "pr2",
-		"name": "Magic Player Rewards 2002"
-	},
-	{
-		"code": "dkm",
-		"name": "Deckmasters"
-	},
-	{
-		"code": "pody",
-		"name": "Odyssey Promos"
-	},
-	{
-		"code": "ody",
-		"name": "Odyssey"
-	},
-	{
-		"code": "wc01",
-		"name": "World Championship Decks 2001"
-	},
-	{
-		"code": "psdg",
-		"name": "Sega Dreamcast Cards"
-	},
-	{
-		"code": "papc",
-		"name": "Apocalypse Promos"
-	},
-	{
-		"code": "apc",
-		"name": "Apocalypse"
-	},
-	{
-		"code": "7ed",
-		"name": "Seventh Edition"
-	},
-	{
-		"code": "ppls",
-		"name": "Planeshift Promos"
-	},
-	{
-		"code": "pls",
-		"name": "Planeshift"
-	},
-	{
-		"code": "pal01",
-		"name": "Arena League 2001"
-	},
-	{
-		"code": "g01",
-		"name": "Judge Gift Cards 2001"
-	},
-	{
-		"code": "f01",
-		"name": "Friday Night Magic 2001"
-	},
-	{
-		"code": "mpr",
-		"name": "Magic Player Rewards 2001"
-	},
-	{
-		"code": "pinv",
-		"name": "Invasion Promos"
-	},
-	{
-		"code": "inv",
-		"name": "Invasion"
-	},
-	{
-		"code": "btd",
-		"name": "Beatdown Box Set"
-	},
-	{
-		"code": "wc00",
-		"name": "World Championship Decks 2000"
-	},
-	{
-		"code": "ppcy",
-		"name": "Prophecy Promos"
-	},
-	{
-		"code": "pcy",
-		"name": "Prophecy"
-	},
-	{
-		"code": "s00",
-		"name": "Starter 2000"
-	},
-	{
-		"code": "pnem",
-		"name": "Nemesis Promos"
-	},
-	{
-		"code": "nem",
-		"name": "Nemesis"
-	},
-	{
-		"code": "pelp",
-		"name": "European Land Program"
-	},
-	{
-		"code": "pal00",
-		"name": "Arena League 2000"
-	},
-	{
-		"code": "fnm",
-		"name": "Friday Night Magic 2000"
-	},
-	{
-		"code": "g00",
-		"name": "Judge Gift Cards 2000"
-	},
-	{
-		"code": "psus",
-		"name": "Junior Super Series"
-	},
-	{
-		"code": "brb",
-		"name": "Battle Royale Box Set"
-	},
-	{
-		"code": "pmmq",
-		"name": "Mercadian Masques Promos"
-	},
-	{
-		"code": "mmq",
-		"name": "Mercadian Masques"
-	},
-	{
-		"code": "pwos",
-		"name": "Wizards of the Coast Online Store"
-	},
-	{
-		"code": "pwor",
-		"name": "World Championship Promos"
-	},
-	{
-		"code": "wc99",
-		"name": "World Championship Decks 1999"
-	},
-	{
-		"code": "pgru",
-		"name": "Guru"
-	},
-	{
-		"code": "s99",
-		"name": "Starter 1999"
-	},
-	{
-		"code": "puds",
-		"name": "Urza's Destiny Promos"
-	},
-	{
-		"code": "uds",
-		"name": "Urza's Destiny"
-	},
-	{
-		"code": "pptk",
-		"name": "Portal: Three Kingdoms Promos"
-	},
-	{
-		"code": "ptk",
-		"name": "Portal Three Kingdoms"
-	},
-	{
-		"code": "6ed",
-		"name": "Classic Sixth Edition"
-	},
-	{
-		"code": "pulg",
-		"name": "Urza's Legacy Promos"
-	},
-	{
-		"code": "ulg",
-		"name": "Urza's Legacy"
-	},
-	{
-		"code": "pal99",
-		"name": "Arena League 1999"
-	},
-	{
-		"code": "g99",
-		"name": "Judge Gift Cards 1999"
-	},
-	{
-		"code": "ath",
-		"name": "Anthologies"
-	},
-	{
-		"code": "pusg",
-		"name": "Urza's Saga Promos"
-	},
-	{
-		"code": "usg",
-		"name": "Urza's Saga"
-	},
-	{
-		"code": "palp",
-		"name": "Asia Pacific Land Program"
-	},
-	{
-		"code": "wc98",
-		"name": "World Championship Decks 1998"
-	},
-	{
-		"code": "tugl",
-		"name": "Unglued Tokens"
-	},
-	{
-		"code": "ugl",
-		"name": "Unglued"
-	},
-	{
-		"code": "p02",
-		"name": "Portal Second Age"
-	},
-	{
-		"code": "pexo",
-		"name": "Exodus Promos"
-	},
-	{
-		"code": "exo",
-		"name": "Exodus"
-	},
-	{
-		"code": "psth",
-		"name": "Stronghold Promos"
-	},
-	{
-		"code": "sth",
-		"name": "Stronghold"
-	},
-	{
-		"code": "jgp",
-		"name": "Judge Gift Cards 1998"
-	},
-	{
-		"code": "ptmp",
-		"name": "Tempest Promos"
-	},
-	{
-		"code": "tmp",
-		"name": "Tempest"
-	},
-	{
-		"code": "wc97",
-		"name": "World Championship Decks 1997"
-	},
-	{
-		"code": "wth",
-		"name": "Weatherlight"
-	},
-	{
-		"code": "olep",
-		"name": "Oversized League Prizes"
-	},
-	{
-		"code": "por",
-		"name": "Portal"
-	},
-	{
-		"code": "pvan",
-		"name": "Vanguard Series"
-	},
-	{
-		"code": "pmic",
-		"name": "MicroProse Promos"
-	},
-	{
-		"code": "past",
-		"name": "Astral Cards"
-	},
-	{
-		"code": "5ed",
-		"name": "Fifth Edition"
-	},
-	{
-		"code": "vis",
-		"name": "Visions"
-	},
-	{
-		"code": "itp",
-		"name": "Introductory Two-Player Set"
-	},
-	{
-		"code": "mgb",
-		"name": "Multiverse Gift Box"
-	},
-	{
-		"code": "mir",
-		"name": "Mirage"
-	},
-	{
-		"code": "pred",
-		"name": "Redemption Program"
-	},
-	{
-		"code": "pcel",
-		"name": "Celebration Cards"
-	},
-	{
-		"code": "parl",
-		"name": "Arena League 1996"
-	},
-	{
-		"code": "plgm",
-		"name": "DCI Legend Membership"
-	},
-	{
-		"code": "rqs",
-		"name": "Rivals Quick Start Set"
-	},
-	{
-		"code": "all",
-		"name": "Alliances"
-	},
-	{
-		"code": "ptc",
-		"name": "Pro Tour Collector Set"
-	},
-	{
-		"code": "o90p",
-		"name": "Oversized 90's Promos"
-	},
-	{
-		"code": "hml",
-		"name": "Homelands"
-	},
-	{
-		"code": "rin",
-		"name": "Rinascimento"
-	},
-	{
-		"code": "ren",
-		"name": "Renaissance"
-	},
-	{
-		"code": "bchr",
-		"name": "Chronicles Foreign Black Border"
-	},
-	{
-		"code": "chr",
-		"name": "Chronicles"
-	},
-	{
-		"code": "ice",
-		"name": "Ice Age"
-	},
-	{
-		"code": "4bb",
-		"name": "Fourth Edition Foreign Black Border"
-	},
-	{
-		"code": "4ed",
-		"name": "Fourth Edition"
-	},
-	{
-		"code": "pmei",
-		"name": "Media and Collaboration Promos"
-	},
-	{
-		"code": "fem",
-		"name": "Fallen Empires"
-	},
-	{
-		"code": "phpr",
-		"name": "HarperPrism Book Promos"
-	},
-	{
-		"code": "drk",
-		"name": "The Dark"
-	},
-	{
-		"code": "pdrc",
-		"name": "Dragon Con"
-	},
-	{
-		"code": "sum",
-		"name": "Summer Magic / Edgar"
-	},
-	{
-		"code": "leg",
-		"name": "Legends"
-	},
-	{
-		"code": "3ed",
-		"name": "Revised Edition"
-	},
-	{
-		"code": "fbb",
-		"name": "Foreign Black Border"
-	},
-	{
-		"code": "atq",
-		"name": "Antiquities"
-	},
-	{
-		"code": "arn",
-		"name": "Arabian Nights"
-	},
-	{
-		"code": "cei",
-		"name": "Intl. Collectors' Edition"
-	},
-	{
-		"code": "ced",
-		"name": "Collectors' Edition"
-	},
-	{
-		"code": "2ed",
-		"name": "Unlimited Edition"
-	},
-	{
-		"code": "leb",
-		"name": "Limited Edition Beta"
-	},
-	{
-		"code": "lea",
-		"name": "Limited Edition Alpha"
-	}
+  {
+    "code": "tla",
+    "name": "Avatar: The Last Airbender"
+  },
+  {
+    "code": "tspm",
+    "name": "Marvel's Spider-Man Tokens"
+  },
+  {
+    "code": "mar",
+    "name": "Marvel Universe"
+  },
+  {
+    "code": "spm",
+    "name": "Marvel's Spider-Man"
+  },
+  {
+    "code": "spe",
+    "name": "Marvel's Spider-Man Eternal"
+  },
+  {
+    "code": "eoe",
+    "name": "Edge of Eternities"
+  },
+  {
+    "code": "eos",
+    "name": "Edge of Eternities: Stellar Sights"
+  },
+  {
+    "code": "eoc",
+    "name": "Edge of Eternities Commander"
+  },
+  {
+    "code": "tfin",
+    "name": "Final Fantasy Tokens"
+  },
+  {
+    "code": "rfin",
+    "name": "Final Fantasy Regional Promos"
+  },
+  {
+    "code": "tfic",
+    "name": "Final Fantasy Commander Tokens"
+  },
+  {
+    "code": "pfin",
+    "name": "Final Fantasy Promos"
+  },
+  {
+    "code": "afin",
+    "name": "Final Fantasy Art Series"
+  },
+  {
+    "code": "fca",
+    "name": "Final Fantasy: Through the Ages"
+  },
+  {
+    "code": "fic",
+    "name": "Final Fantasy Commander"
+  },
+  {
+    "code": "fin",
+    "name": "Final Fantasy"
+  },
+  {
+    "code": "pss5",
+    "name": "FIN Standard Showdown"
+  },
+  {
+    "code": "pa1",
+    "name": "Pioneer Anthology 1"
+  },
+  {
+    "code": "ytdm",
+    "name": "Alchemy: Tarkir"
+  },
+  {
+    "code": "atdm",
+    "name": "Tarkir: Dragonstorm Art Series"
+  },
+  {
+    "code": "ptdm",
+    "name": "Tarkir: Dragonstorm Promos"
+  },
+  {
+    "code": "ttdm",
+    "name": "Tarkir: Dragonstorm Tokens"
+  },
+  {
+    "code": "ttdc",
+    "name": "Tarkir: Dragonstorm Commander Tokens"
+  },
+  {
+    "code": "tdc",
+    "name": "Tarkir: Dragonstorm Commander"
+  },
+  {
+    "code": "tdm",
+    "name": "Tarkir: Dragonstorm"
+  },
+  {
+    "code": "plg25",
+    "name": "Love Your LGS 2025"
+  },
+  {
+    "code": "ydft",
+    "name": "Alchemy: Aetherdrift"
+  },
+  {
+    "code": "pssc",
+    "name": "Secret Lair Showcase Planes"
+  },
+  {
+    "code": "adft",
+    "name": "Aetherdrift Art Series"
+  },
+  {
+    "code": "pdft",
+    "name": "Aetherdrift Promos"
+  },
+  {
+    "code": "dft",
+    "name": "Aetherdrift"
+  },
+  {
+    "code": "drc",
+    "name": "Aetherdrift Commander"
+  },
+  {
+    "code": "tdft",
+    "name": "Aetherdrift Tokens"
+  },
+  {
+    "code": "pl25",
+    "name": "Year of the Snake 2025"
+  },
+  {
+    "code": "tdrc",
+    "name": "Aetherdrift Commander Tokens"
+  },
+  {
+    "code": "pjsc",
+    "name": "Japan Standard Cup"
+  },
+  {
+    "code": "pf25",
+    "name": "MagicFest 2025"
+  },
+  {
+    "code": "ainr",
+    "name": "Innistrad Remastered Art Series"
+  },
+  {
+    "code": "tinr",
+    "name": "Innistrad Remastered Tokens"
+  },
+  {
+    "code": "inr",
+    "name": "Innistrad Remastered"
+  },
+  {
+    "code": "pspl",
+    "name": "Spotlight Series"
+  },
+  {
+    "code": "pw25",
+    "name": "Wizards Play Network 2025"
+  },
+  {
+    "code": "pio",
+    "name": "Pioneer Masters"
+  },
+  {
+    "code": "afdn",
+    "name": "Foundations Art Series"
+  },
+  {
+    "code": "pfdn",
+    "name": "Foundations Promos"
+  },
+  {
+    "code": "fj25",
+    "name": "Foundations Jumpstart Front Cards"
+  },
+  {
+    "code": "fdn",
+    "name": "Foundations"
+  },
+  {
+    "code": "j25",
+    "name": "Foundations Jumpstart"
+  },
+  {
+    "code": "fdc",
+    "name": "Foundations Commander"
+  },
+  {
+    "code": "ffdn",
+    "name": "Foundations Front Cards"
+  },
+  {
+    "code": "tfdn",
+    "name": "Foundations Tokens"
+  },
+  {
+    "code": "pltc",
+    "name": "Tales of Middle-earth Deluxe Commander Kit"
+  },
+  {
+    "code": "ydsk",
+    "name": "Alchemy: Duskmourn"
+  },
+  {
+    "code": "tdsc",
+    "name": "Duskmourn Commander Tokens"
+  },
+  {
+    "code": "adsk",
+    "name": "Duskmourn: House of Horror Art Series"
+  },
+  {
+    "code": "dsk",
+    "name": "Duskmourn: House of Horror"
+  },
+  {
+    "code": "dsc",
+    "name": "Duskmourn: House of Horror Commander"
+  },
+  {
+    "code": "pdsk",
+    "name": "Duskmourn: House of Horror Promos"
+  },
+  {
+    "code": "tdsk",
+    "name": "Duskmourn: House of Horror Tokens"
+  },
+  {
+    "code": "yblb",
+    "name": "Alchemy: Bloomburrow"
+  },
+  {
+    "code": "plg24",
+    "name": "Love Your LGS 2024"
+  },
+  {
+    "code": "tblc",
+    "name": "Bloomburrow Commander Tokens"
+  },
+  {
+    "code": "pblb",
+    "name": "Bloomburrow Promos"
+  },
+  {
+    "code": "ablb",
+    "name": "Bloomburrow Art Series"
+  },
+  {
+    "code": "tblb",
+    "name": "Bloomburrow Tokens"
+  },
+  {
+    "code": "pcbb",
+    "name": "Cowboy Bebop"
+  },
+  {
+    "code": "blc",
+    "name": "Bloomburrow Commander"
+  },
+  {
+    "code": "blb",
+    "name": "Bloomburrow"
+  },
+  {
+    "code": "mb2",
+    "name": "Mystery Booster 2"
+  },
+  {
+    "code": "macr",
+    "name": "Assassin's Creed Minigames"
+  },
+  {
+    "code": "acr",
+    "name": "Assassin's Creed"
+  },
+  {
+    "code": "aacr",
+    "name": "Assassin's Creed Art Series"
+  },
+  {
+    "code": "tacr",
+    "name": "Assassin's Creed Tokens"
+  },
+  {
+    "code": "smh3",
+    "name": "Modern Horizons 3 Substitute Cards"
+  },
+  {
+    "code": "pmh3",
+    "name": "Modern Horizons 3 Promos"
+  },
+  {
+    "code": "mh3",
+    "name": "Modern Horizons 3"
+  },
+  {
+    "code": "tmh3",
+    "name": "Modern Horizons 3 Tokens"
+  },
+  {
+    "code": "tm3c",
+    "name": "Modern Horizons 3 Commander Tokens"
+  },
+  {
+    "code": "amh3",
+    "name": "Modern Horizons 3 Art Series"
+  },
+  {
+    "code": "m3c",
+    "name": "Modern Horizons 3 Commander"
+  },
+  {
+    "code": "h2r",
+    "name": "Modern Horizons 2 Timeshifts"
+  },
+  {
+    "code": "yotj",
+    "name": "Alchemy: Outlaws of Thunder Junction"
+  },
+  {
+    "code": "potj",
+    "name": "Outlaws of Thunder Junction Promos"
+  },
+  {
+    "code": "totj",
+    "name": "Outlaws of Thunder Junction Tokens"
+  },
+  {
+    "code": "aotj",
+    "name": "Outlaws of Thunder Junction Art Series"
+  },
+  {
+    "code": "otc",
+    "name": "Outlaws of Thunder Junction Commander"
+  },
+  {
+    "code": "otj",
+    "name": "Outlaws of Thunder Junction"
+  },
+  {
+    "code": "totp",
+    "name": "Breaking News Tokens"
+  },
+  {
+    "code": "otp",
+    "name": "Breaking News"
+  },
+  {
+    "code": "tbig",
+    "name": "The Big Score Tokens"
+  },
+  {
+    "code": "big",
+    "name": "The Big Score"
+  },
+  {
+    "code": "totc",
+    "name": "Outlaws of Thunder Junction Commander Tokens"
+  },
+  {
+    "code": "tpip",
+    "name": "Fallout Tokens"
+  },
+  {
+    "code": "pip",
+    "name": "Fallout"
+  },
+  {
+    "code": "ymkm",
+    "name": "Alchemy: Murders at Karlov Manor "
+  },
+  {
+    "code": "clu",
+    "name": "Ravnica: Clue Edition"
+  },
+  {
+    "code": "fclu",
+    "name": "Ravnica: Clue Edition Front Cards"
+  },
+  {
+    "code": "pss4",
+    "name": "MKM Standard Showdown"
+  },
+  {
+    "code": "tmkc",
+    "name": "Murders at Karlov Manor Commander Tokens"
+  },
+  {
+    "code": "tmkm",
+    "name": "Murders at Karlov Manor Tokens"
+  },
+  {
+    "code": "pmkm",
+    "name": "Murders at Karlov Manor Promos"
+  },
+  {
+    "code": "amkm",
+    "name": "Murders at Karlov Manor Art Series"
+  },
+  {
+    "code": "wmkm",
+    "name": "MKM Japanese Promo Tokens"
+  },
+  {
+    "code": "mkm",
+    "name": "Murders at Karlov Manor"
+  },
+  {
+    "code": "mkc",
+    "name": "Murders at Karlov Manor Commander"
+  },
+  {
+    "code": "pl24",
+    "name": "Year of the Dragon 2024"
+  },
+  {
+    "code": "trvr",
+    "name": "Ravnica Remastered Tokens"
+  },
+  {
+    "code": "rvr",
+    "name": "Ravnica Remastered"
+  },
+  {
+    "code": "pf24",
+    "name": "MagicFest 2024"
+  },
+  {
+    "code": "pw24",
+    "name": "Wizards Play Network 2024"
+  },
+  {
+    "code": "ylci",
+    "name": "Alchemy: Ixalan"
+  },
+  {
+    "code": "plci",
+    "name": "The Lost Caverns of Ixalan Promos"
+  },
+  {
+    "code": "alci",
+    "name": "The Lost Caverns of Ixalan Art Series"
+  },
+  {
+    "code": "spg",
+    "name": "Special Guests"
+  },
+  {
+    "code": "tlcc",
+    "name": "The Lost Caverns of Ixalan Commander Tokens"
+  },
+  {
+    "code": "lcc",
+    "name": "The Lost Caverns of Ixalan Commander"
+  },
+  {
+    "code": "pmat",
+    "name": "March of the Machine: The Aftermath Promos"
+  },
+  {
+    "code": "rex",
+    "name": "Jurassic World Collection"
+  },
+  {
+    "code": "slci",
+    "name": "The Lost Caverns of Ixalan Substitute Cards"
+  },
+  {
+    "code": "trex",
+    "name": "Jurassic World Collection Tokens"
+  },
+  {
+    "code": "tlci",
+    "name": "The Lost Caverns of Ixalan Tokens"
+  },
+  {
+    "code": "lci",
+    "name": "The Lost Caverns of Ixalan"
+  },
+  {
+    "code": "altc",
+    "name": "Tales of Middle-earth Scene Box"
+  },
+  {
+    "code": "twho",
+    "name": "Doctor Who Tokens"
+  },
+  {
+    "code": "who",
+    "name": "Doctor Who"
+  },
+  {
+    "code": "ywoe",
+    "name": "Alchemy: Wilds of Eldraine"
+  },
+  {
+    "code": "pwoe",
+    "name": "Wilds of Eldraine Promos"
+  },
+  {
+    "code": "twoc",
+    "name": "Wilds of Eldraine Commander Tokens"
+  },
+  {
+    "code": "woc",
+    "name": "Wilds of Eldraine Commander"
+  },
+  {
+    "code": "awoe",
+    "name": "Wilds of Eldraine Art Series"
+  },
+  {
+    "code": "wot",
+    "name": "Wilds of Eldraine: Enchanting Tales"
+  },
+  {
+    "code": "wwoe",
+    "name": "WOE Japanese Promo Tokens"
+  },
+  {
+    "code": "twoe",
+    "name": "Wilds of Eldraine Tokens"
+  },
+  {
+    "code": "ptsr",
+    "name": "Time Spiral Remastered Promos"
+  },
+  {
+    "code": "woe",
+    "name": "Wilds of Eldraine"
+  },
+  {
+    "code": "pmda",
+    "name": "Magic × Duel Masters Promos"
+  },
+  {
+    "code": "p30t",
+    "name": "30th Anniversary Celebration Tokyo"
+  },
+  {
+    "code": "tcmm",
+    "name": "Commander Masters Tokens"
+  },
+  {
+    "code": "acmm",
+    "name": "Commander Masters Art Series"
+  },
+  {
+    "code": "cmm",
+    "name": "Commander Masters"
+  },
+  {
+    "code": "ph22",
+    "name": "2022 Heroes of the Realm"
+  },
+  {
+    "code": "ha7",
+    "name": "Historic Anthology 7"
+  },
+  {
+    "code": "ea3",
+    "name": "Explorer Anthology 3"
+  },
+  {
+    "code": "pf23",
+    "name": "MagicFest 2023"
+  },
+  {
+    "code": "pltr",
+    "name": "Tales of Middle-earth Promos"
+  },
+  {
+    "code": "ltc",
+    "name": "Tales of Middle-earth Commander"
+  },
+  {
+    "code": "tltr",
+    "name": "Tales of Middle-earth Tokens"
+  },
+  {
+    "code": "ltr",
+    "name": "The Lord of the Rings: Tales of Middle-earth"
+  },
+  {
+    "code": "tltc",
+    "name": "Tales of Middle-earth Commander Tokens"
+  },
+  {
+    "code": "altr",
+    "name": "Tales of Middle-earth Art Series"
+  },
+  {
+    "code": "fltr",
+    "name": "Tales of Middle-earth Front Cards"
+  },
+  {
+    "code": "mat",
+    "name": "March of the Machine: The Aftermath"
+  },
+  {
+    "code": "fmom",
+    "name": "March of the Machine Jumpstart Front Cards"
+  },
+  {
+    "code": "tmoc",
+    "name": "March of the Machine Commander Tokens"
+  },
+  {
+    "code": "mom",
+    "name": "March of the Machine"
+  },
+  {
+    "code": "smom",
+    "name": "March of the Machine Substitute Cards"
+  },
+  {
+    "code": "wmom",
+    "name": "MOM Japanese Promo Tokens"
+  },
+  {
+    "code": "mul",
+    "name": "Multiverse Legends"
+  },
+  {
+    "code": "amom",
+    "name": "March of the Machine Art Series"
+  },
+  {
+    "code": "tmom",
+    "name": "March of the Machine Tokens"
+  },
+  {
+    "code": "pmom",
+    "name": "March of the Machine Promos"
+  },
+  {
+    "code": "tmul",
+    "name": "Multiverse Legends Tokens"
+  },
+  {
+    "code": "moc",
+    "name": "March of the Machine Commander"
+  },
+  {
+    "code": "sis",
+    "name": "Shadows of the Past"
+  },
+  {
+    "code": "sir",
+    "name": "Shadows over Innistrad Remastered"
+  },
+  {
+    "code": "yone",
+    "name": "Alchemy: Phyrexia"
+  },
+  {
+    "code": "slp",
+    "name": "Secret Lair Showdown"
+  },
+  {
+    "code": "unk",
+    "name": "Unknown Event"
+  },
+  {
+    "code": "pl23",
+    "name": "Year of the Rabbit 2023"
+  },
+  {
+    "code": "pone",
+    "name": "Phyrexia: All Will Be One Promos"
+  },
+  {
+    "code": "tonc",
+    "name": "Phyrexia: All Will Be One Commander Tokens"
+  },
+  {
+    "code": "tone",
+    "name": "Phyrexia: All Will Be One Tokens"
+  },
+  {
+    "code": "onc",
+    "name": "Phyrexia: All Will Be One Commander"
+  },
+  {
+    "code": "fone",
+    "name": "Phyrexia: All Will Be One Jumpstart Front Cards"
+  },
+  {
+    "code": "aone",
+    "name": "Phyrexia: All Will Be One Art Series"
+  },
+  {
+    "code": "one",
+    "name": "Phyrexia: All Will Be One"
+  },
+  {
+    "code": "mone",
+    "name": "Phyrexia: All Will Be One Minigames"
+  },
+  {
+    "code": "wone",
+    "name": "ONE Japanese Promo Tokens"
+  },
+  {
+    "code": "dmr",
+    "name": "Dominaria Remastered"
+  },
+  {
+    "code": "tdmr",
+    "name": "Dominaria Remastered Tokens"
+  },
+  {
+    "code": "pr23",
+    "name": "Regional Championship Qualifiers 2023"
+  },
+  {
+    "code": "pw23",
+    "name": "Wizards Play Network 2023"
+  },
+  {
+    "code": "p23",
+    "name": "Judge Gift Cards 2023"
+  },
+  {
+    "code": "ybro",
+    "name": "Alchemy: The Brothers' War"
+  },
+  {
+    "code": "ea2",
+    "name": "Explorer Anthology 2"
+  },
+  {
+    "code": "tscd",
+    "name": "Starter Commander Deck Tokens"
+  },
+  {
+    "code": "scd",
+    "name": "Starter Commander Decks"
+  },
+  {
+    "code": "fj22",
+    "name": "Jumpstart 2022 Front Cards"
+  },
+  {
+    "code": "j22",
+    "name": "Jumpstart 2022"
+  },
+  {
+    "code": "30a",
+    "name": "30th Anniversary Edition"
+  },
+  {
+    "code": "t30a",
+    "name": "30th Anniversary Tokens"
+  },
+  {
+    "code": "pewk",
+    "name": "Eternal Weekend"
+  },
+  {
+    "code": "brc",
+    "name": "The Brothers' War Commander"
+  },
+  {
+    "code": "brr",
+    "name": "The Brothers' War Retro Artifacts"
+  },
+  {
+    "code": "pbro",
+    "name": "The Brothers' War Promos"
+  },
+  {
+    "code": "tbot",
+    "name": "Transformers Tokens"
+  },
+  {
+    "code": "bot",
+    "name": "Transformers"
+  },
+  {
+    "code": "ptbro",
+    "name": "The Brothers' War Southeast Asia Tokens"
+  },
+  {
+    "code": "fbro",
+    "name": "The Brothers' War Jumpstart Front Cards"
+  },
+  {
+    "code": "abro",
+    "name": "The Brothers' War Art Series"
+  },
+  {
+    "code": "bro",
+    "name": "The Brothers' War"
+  },
+  {
+    "code": "tbro",
+    "name": "The Brothers' War Tokens"
+  },
+  {
+    "code": "tbrc",
+    "name": "The Brothers' War Commander Tokens"
+  },
+  {
+    "code": "sbro",
+    "name": "The Brothers' War Substitute Cards"
+  },
+  {
+    "code": "mbro",
+    "name": "The Brothers' War Minigames"
+  },
+  {
+    "code": "slc",
+    "name": "Secret Lair 30th Anniversary Countdown Kit"
+  },
+  {
+    "code": "tgn3",
+    "name": "Game Night: Free-for-All Tokens"
+  },
+  {
+    "code": "gn3",
+    "name": "Game Night: Free-for-All"
+  },
+  {
+    "code": "ulst",
+    "name": "The List (Unfinity Foil Edition)"
+  },
+  {
+    "code": "tunf",
+    "name": "Unfinity Tokens"
+  },
+  {
+    "code": "sunf",
+    "name": "Unfinity Sticker Sheets"
+  },
+  {
+    "code": "unf",
+    "name": "Unfinity"
+  },
+  {
+    "code": "40k",
+    "name": "Warhammer 40,000 Commander"
+  },
+  {
+    "code": "t40k",
+    "name": "Warhammer 40,000 Tokens"
+  },
+  {
+    "code": "ydmu",
+    "name": "Alchemy: Dominaria"
+  },
+  {
+    "code": "prcq",
+    "name": "Regional Championship Qualifiers 2022"
+  },
+  {
+    "code": "p30h",
+    "name": "30th Anniversary History Promos"
+  },
+  {
+    "code": "pdmu",
+    "name": "Dominaria United Promos"
+  },
+  {
+    "code": "ptdmu",
+    "name": "Dominaria United Southeast Asia Tokens"
+  },
+  {
+    "code": "admu",
+    "name": "Dominaria United Art Series"
+  },
+  {
+    "code": "tdmu",
+    "name": "Dominaria United Tokens"
+  },
+  {
+    "code": "dmc",
+    "name": "Dominaria United Commander"
+  },
+  {
+    "code": "wdmu",
+    "name": "DMU Japanese Promo Tokens"
+  },
+  {
+    "code": "tdmc",
+    "name": "Dominaria United Commander Tokens"
+  },
+  {
+    "code": "mdmu",
+    "name": "Dominaria United Minigames"
+  },
+  {
+    "code": "dmu",
+    "name": "Dominaria United"
+  },
+  {
+    "code": "fdmu",
+    "name": "Dominaria United Jumpstart Front Cards"
+  },
+  {
+    "code": "p30a",
+    "name": "30th Anniversary Play Promos"
+  },
+  {
+    "code": "p30m",
+    "name": "30th Anniversary Misc Promos"
+  },
+  {
+    "code": "ph21",
+    "name": "2021 Heroes of the Realm"
+  },
+  {
+    "code": "psvc",
+    "name": "Summer Vacation Promos 2022"
+  },
+  {
+    "code": "ea1",
+    "name": "Explorer Anthology 1"
+  },
+  {
+    "code": "ha6",
+    "name": "Historic Anthology 6"
+  },
+  {
+    "code": "sch",
+    "name": "Store Championships"
+  },
+  {
+    "code": "t2x2",
+    "name": "Double Masters 2022 Tokens"
+  },
+  {
+    "code": "2x2",
+    "name": "Double Masters 2022"
+  },
+  {
+    "code": "hbg",
+    "name": "Alchemy Horizons: Baldur's Gate"
+  },
+  {
+    "code": "plg22",
+    "name": "Love Your LGS 2022"
+  },
+  {
+    "code": "pclb",
+    "name": "Battle for Baldur's Gate Promos"
+  },
+  {
+    "code": "mclb",
+    "name": "Commander Legends: Battle for Baldur's Gate Minigames"
+  },
+  {
+    "code": "tclb",
+    "name": "Battle for Baldur's Gate Tokens"
+  },
+  {
+    "code": "clb",
+    "name": "Commander Legends: Battle for Baldur's Gate"
+  },
+  {
+    "code": "aclb",
+    "name": "Battle for Baldur's Gate Art Series"
+  },
+  {
+    "code": "ysnc",
+    "name": "Alchemy: New Capenna"
+  },
+  {
+    "code": "ptsnc",
+    "name": "Streets of New Capenna Southeast Asia Tokens"
+  },
+  {
+    "code": "pncc",
+    "name": "New Capenna Commander Promos"
+  },
+  {
+    "code": "tsnc",
+    "name": "Streets of New Capenna Tokens"
+  },
+  {
+    "code": "snc",
+    "name": "Streets of New Capenna"
+  },
+  {
+    "code": "tncc",
+    "name": "New Capenna Commander Tokens"
+  },
+  {
+    "code": "ncc",
+    "name": "New Capenna Commander"
+  },
+  {
+    "code": "psnc",
+    "name": "Streets of New Capenna Promos"
+  },
+  {
+    "code": "msnc",
+    "name": "Streets of New Capenna Minigames"
+  },
+  {
+    "code": "asnc",
+    "name": "New Capenna Art Series"
+  },
+  {
+    "code": "gdy",
+    "name": "Game Day Promos"
+  },
+  {
+    "code": "q07",
+    "name": "Challenger Decks 2022"
+  },
+  {
+    "code": "yneo",
+    "name": "Alchemy: Kamigawa"
+  },
+  {
+    "code": "pw22",
+    "name": "Wizards Play Network 2022"
+  },
+  {
+    "code": "slx",
+    "name": "Universes Within"
+  },
+  {
+    "code": "pl22",
+    "name": "Year of the Tiger 2022"
+  },
+  {
+    "code": "pneo",
+    "name": "Kamigawa: Neon Dynasty Promos"
+  },
+  {
+    "code": "mneo",
+    "name": "Kamigawa: Neon Dynasty Minigames"
+  },
+  {
+    "code": "sneo",
+    "name": "Kamigawa: Neon Dynasty Substitute Cards"
+  },
+  {
+    "code": "tnec",
+    "name": "Neon Dynasty Commander Tokens"
+  },
+  {
+    "code": "neo",
+    "name": "Kamigawa: Neon Dynasty"
+  },
+  {
+    "code": "tneo",
+    "name": "Kamigawa: Neon Dynasty Tokens"
+  },
+  {
+    "code": "nec",
+    "name": "Neon Dynasty Commander"
+  },
+  {
+    "code": "aneo",
+    "name": "Neon Dynasty Art Series"
+  },
+  {
+    "code": "cc2",
+    "name": "Commander Collection: Black"
+  },
+  {
+    "code": "dbl",
+    "name": "Innistrad: Double Feature"
+  },
+  {
+    "code": "p22",
+    "name": "Judge Gift Cards 2022"
+  },
+  {
+    "code": "ymid",
+    "name": "Alchemy: Innistrad"
+  },
+  {
+    "code": "pvow",
+    "name": "Innistrad: Crimson Vow Promos"
+  },
+  {
+    "code": "tvow",
+    "name": "Innistrad: Crimson Vow Tokens"
+  },
+  {
+    "code": "ovoc",
+    "name": "Crimson Vow Commander Display Commanders"
+  },
+  {
+    "code": "tvoc",
+    "name": "Crimson Vow Commander Tokens"
+  },
+  {
+    "code": "mvow",
+    "name": "Innistrad: Crimson Vow Minigames"
+  },
+  {
+    "code": "svow",
+    "name": "Innistrad: Crimson Vow Substitute Cards"
+  },
+  {
+    "code": "voc",
+    "name": "Crimson Vow Commander"
+  },
+  {
+    "code": "avow",
+    "name": "Crimson Vow Art Series"
+  },
+  {
+    "code": "vow",
+    "name": "Innistrad: Crimson Vow"
+  },
+  {
+    "code": "q06",
+    "name": "Pioneer Challenger Decks 2021"
+  },
+  {
+    "code": "smid",
+    "name": "Innistrad: Midnight Hunt Substitute Cards"
+  },
+  {
+    "code": "omic",
+    "name": "Midnight Hunt Commander Display Commanders"
+  },
+  {
+    "code": "tmic",
+    "name": "Midnight Hunt Commander Tokens"
+  },
+  {
+    "code": "mic",
+    "name": "Midnight Hunt Commander"
+  },
+  {
+    "code": "pmid",
+    "name": "Innistrad: Midnight Hunt Promos"
+  },
+  {
+    "code": "tmid",
+    "name": "Innistrad: Midnight Hunt Tokens"
+  },
+  {
+    "code": "amid",
+    "name": "Midnight Hunt Art Series"
+  },
+  {
+    "code": "mmid",
+    "name": "Innistrad: Midnight Hunt Minigames"
+  },
+  {
+    "code": "mid",
+    "name": "Innistrad: Midnight Hunt"
+  },
+  {
+    "code": "j21",
+    "name": "Jumpstart: Historic Horizons"
+  },
+  {
+    "code": "cmb2",
+    "name": "Mystery Booster Playtest Cards 2021"
+  },
+  {
+    "code": "ph20",
+    "name": "2020 Heroes of the Realm"
+  },
+  {
+    "code": "pafr",
+    "name": "Adventures in the Forgotten Realms Promos"
+  },
+  {
+    "code": "oafc",
+    "name": "Forgotten Realms Commander Display Commanders"
+  },
+  {
+    "code": "afc",
+    "name": "Forgotten Realms Commander"
+  },
+  {
+    "code": "aafr",
+    "name": "Adventures in the Forgotten Realms Art Series"
+  },
+  {
+    "code": "tafr",
+    "name": "Adventures in the Forgotten Realms Tokens"
+  },
+  {
+    "code": "tafc",
+    "name": "Forgotten Realms Commander Tokens"
+  },
+  {
+    "code": "mafr",
+    "name": "Adventures in the Forgotten Realms Minigames"
+  },
+  {
+    "code": "afr",
+    "name": "Adventures in the Forgotten Realms"
+  },
+  {
+    "code": "plg21",
+    "name": "Love Your LGS 2021"
+  },
+  {
+    "code": "mmh2",
+    "name": "Modern Horizons 2 Minigames"
+  },
+  {
+    "code": "amh2",
+    "name": "Modern Horizons 2 Art Series"
+  },
+  {
+    "code": "pmh2",
+    "name": "Modern Horizons 2 Promos"
+  },
+  {
+    "code": "tmh2",
+    "name": "Modern Horizons 2 Tokens"
+  },
+  {
+    "code": "h1r",
+    "name": "Modern Horizons 1 Timeshifts"
+  },
+  {
+    "code": "mh2",
+    "name": "Modern Horizons 2"
+  },
+  {
+    "code": "pw21",
+    "name": "Wizards Play Network 2021"
+  },
+  {
+    "code": "ha5",
+    "name": "Historic Anthology 5"
+  },
+  {
+    "code": "pstx",
+    "name": "Strixhaven: School of Mages Promos"
+  },
+  {
+    "code": "tc21",
+    "name": "Commander 2021 Tokens"
+  },
+  {
+    "code": "tstx",
+    "name": "Strixhaven: School of Mages Tokens"
+  },
+  {
+    "code": "sstx",
+    "name": "Strixhaven: School of Mages Substitute Cards"
+  },
+  {
+    "code": "mstx",
+    "name": "Strixhaven: School of Mages Minigames"
+  },
+  {
+    "code": "c21",
+    "name": "Commander 2021"
+  },
+  {
+    "code": "sta",
+    "name": "Strixhaven Mystical Archive"
+  },
+  {
+    "code": "stx",
+    "name": "Strixhaven: School of Mages"
+  },
+  {
+    "code": "astx",
+    "name": "Strixhaven Art Series"
+  },
+  {
+    "code": "oc21",
+    "name": "Commander 2021 Display Commanders"
+  },
+  {
+    "code": "ttsr",
+    "name": "Time Spiral Remastered Tokens"
+  },
+  {
+    "code": "tsr",
+    "name": "Time Spiral Remastered"
+  },
+  {
+    "code": "ha4",
+    "name": "Historic Anthology 4"
+  },
+  {
+    "code": "pkhm",
+    "name": "Kaldheim Promos"
+  },
+  {
+    "code": "mkhm",
+    "name": "Kaldheim Minigames"
+  },
+  {
+    "code": "skhm",
+    "name": "Kaldheim Substitute Cards"
+  },
+  {
+    "code": "tkhm",
+    "name": "Kaldheim Tokens"
+  },
+  {
+    "code": "akhm",
+    "name": "Kaldheim Art Series"
+  },
+  {
+    "code": "khm",
+    "name": "Kaldheim"
+  },
+  {
+    "code": "khc",
+    "name": "Kaldheim Commander"
+  },
+  {
+    "code": "tkhc",
+    "name": "Kaldheim Commander Tokens"
+  },
+  {
+    "code": "pl21",
+    "name": "Year of the Ox 2021"
+  },
+  {
+    "code": "pj21",
+    "name": "Judge Gift Cards 2021"
+  },
+  {
+    "code": "cc1",
+    "name": "Commander Collection: Green"
+  },
+  {
+    "code": "pcmr",
+    "name": "Commander Legends Promos"
+  },
+  {
+    "code": "cmr",
+    "name": "Commander Legends"
+  },
+  {
+    "code": "tcmr",
+    "name": "Commander Legends Tokens"
+  },
+  {
+    "code": "klr",
+    "name": "Kaladesh Remastered"
+  },
+  {
+    "code": "plst",
+    "name": "The List"
+  },
+  {
+    "code": "pznr",
+    "name": "Zendikar Rising Promos"
+  },
+  {
+    "code": "tznc",
+    "name": "Zendikar Rising Commander Tokens"
+  },
+  {
+    "code": "zne",
+    "name": "Zendikar Rising Expeditions"
+  },
+  {
+    "code": "sznr",
+    "name": "Zendikar Rising Substitute Cards"
+  },
+  {
+    "code": "znc",
+    "name": "Zendikar Rising Commander"
+  },
+  {
+    "code": "tznr",
+    "name": "Zendikar Rising Tokens"
+  },
+  {
+    "code": "znr",
+    "name": "Zendikar Rising"
+  },
+  {
+    "code": "mznr",
+    "name": "Zendikar Rising Minigames"
+  },
+  {
+    "code": "aznr",
+    "name": "Zendikar Rising Art Series"
+  },
+  {
+    "code": "anb",
+    "name": "Arena Beginner Set"
+  },
+  {
+    "code": "akr",
+    "name": "Amonkhet Remastered"
+  },
+  {
+    "code": "2xm",
+    "name": "Double Masters"
+  },
+  {
+    "code": "t2xm",
+    "name": "Double Masters Tokens"
+  },
+  {
+    "code": "ph19",
+    "name": "2019 Heroes of the Realm"
+  },
+  {
+    "code": "ajmp",
+    "name": "Jumpstart Arena Exclusives"
+  },
+  {
+    "code": "jmp",
+    "name": "Jumpstart"
+  },
+  {
+    "code": "pm21",
+    "name": "Core Set 2021 Promos"
+  },
+  {
+    "code": "tm21",
+    "name": "Core Set 2021 Tokens"
+  },
+  {
+    "code": "m21",
+    "name": "Core Set 2021"
+  },
+  {
+    "code": "ss3",
+    "name": "Signature Spellbook: Chandra"
+  },
+  {
+    "code": "fjmp",
+    "name": "Jumpstart Front Cards"
+  },
+  {
+    "code": "slu",
+    "name": "Secret Lair: Ultimate Edition"
+  },
+  {
+    "code": "ha3",
+    "name": "Historic Anthology 3"
+  },
+  {
+    "code": "plg20",
+    "name": "Love Your LGS 2020"
+  },
+  {
+    "code": "piko",
+    "name": "Ikoria: Lair of Behemoths Promos"
+  },
+  {
+    "code": "tiko",
+    "name": "Ikoria: Lair of Behemoths Tokens"
+  },
+  {
+    "code": "iko",
+    "name": "Ikoria: Lair of Behemoths"
+  },
+  {
+    "code": "oc20",
+    "name": "Commander 2020 Oversized"
+  },
+  {
+    "code": "tc20",
+    "name": "Commander 2020 Tokens"
+  },
+  {
+    "code": "c20",
+    "name": "Commander 2020"
+  },
+  {
+    "code": "ha2",
+    "name": "Historic Anthology 2"
+  },
+  {
+    "code": "tund",
+    "name": "Unsanctioned Tokens"
+  },
+  {
+    "code": "und",
+    "name": "Unsanctioned"
+  },
+  {
+    "code": "pthb",
+    "name": "Theros Beyond Death Promos"
+  },
+  {
+    "code": "tthb",
+    "name": "Theros Beyond Death Tokens"
+  },
+  {
+    "code": "thb",
+    "name": "Theros Beyond Death"
+  },
+  {
+    "code": "pf20",
+    "name": "MagicFest 2020"
+  },
+  {
+    "code": "j20",
+    "name": "Judge Gift Cards 2020"
+  },
+  {
+    "code": "sld",
+    "name": "Secret Lair Drop"
+  },
+  {
+    "code": "ha1",
+    "name": "Historic Anthology 1"
+  },
+  {
+    "code": "tgn2",
+    "name": "Game Night 2019 Tokens"
+  },
+  {
+    "code": "gn2",
+    "name": "Game Night 2019"
+  },
+  {
+    "code": "cmb1",
+    "name": "Mystery Booster Playtest Cards 2019"
+  },
+  {
+    "code": "ptg",
+    "name": "Ponies: The Galloping"
+  },
+  {
+    "code": "peld",
+    "name": "Throne of Eldraine Promos"
+  },
+  {
+    "code": "teld",
+    "name": "Throne of Eldraine Tokens"
+  },
+  {
+    "code": "eld",
+    "name": "Throne of Eldraine"
+  },
+  {
+    "code": "pwcs",
+    "name": "Planeswalker Championship Promos"
+  },
+  {
+    "code": "oc19",
+    "name": "Commander 2019 Oversized"
+  },
+  {
+    "code": "c19",
+    "name": "Commander 2019"
+  },
+  {
+    "code": "tc19",
+    "name": "Commander 2019 Tokens"
+  },
+  {
+    "code": "ph18",
+    "name": "2018 Heroes of the Realm"
+  },
+  {
+    "code": "ps19",
+    "name": "San Diego Comic-Con 2019"
+  },
+  {
+    "code": "pm20",
+    "name": "Core Set 2020 Promos"
+  },
+  {
+    "code": "tm20",
+    "name": "Core Set 2020 Tokens"
+  },
+  {
+    "code": "ppp1",
+    "name": "M20 Promo Packs"
+  },
+  {
+    "code": "m20",
+    "name": "Core Set 2020"
+  },
+  {
+    "code": "ss2",
+    "name": "Signature Spellbook: Gideon"
+  },
+  {
+    "code": "pmh1",
+    "name": "Modern Horizons Promos"
+  },
+  {
+    "code": "mh1",
+    "name": "Modern Horizons"
+  },
+  {
+    "code": "amh1",
+    "name": "Modern Horizons Art Series"
+  },
+  {
+    "code": "tmh1",
+    "name": "Modern Horizons Tokens"
+  },
+  {
+    "code": "pwar",
+    "name": "War of the Spark Promos"
+  },
+  {
+    "code": "twar",
+    "name": "War of the Spark Tokens"
+  },
+  {
+    "code": "war",
+    "name": "War of the Spark"
+  },
+  {
+    "code": "j19",
+    "name": "Judge Gift Cards 2019"
+  },
+  {
+    "code": "prw2",
+    "name": "RNA Ravnica Weekend"
+  },
+  {
+    "code": "gk2",
+    "name": "RNA Guild Kit"
+  },
+  {
+    "code": "tgk2",
+    "name": "RNA Guild Kit Tokens"
+  },
+  {
+    "code": "prna",
+    "name": "Ravnica Allegiance Promos"
+  },
+  {
+    "code": "rna",
+    "name": "Ravnica Allegiance"
+  },
+  {
+    "code": "trna",
+    "name": "Ravnica Allegiance Tokens"
+  },
+  {
+    "code": "pf19",
+    "name": "MagicFest 2019"
+  },
+  {
+    "code": "opca",
+    "name": "Planechase Anthology Planes"
+  },
+  {
+    "code": "puma",
+    "name": "Ultimate Box Topper"
+  },
+  {
+    "code": "tuma",
+    "name": "Ultimate Masters Tokens"
+  },
+  {
+    "code": "uma",
+    "name": "Ultimate Masters"
+  },
+  {
+    "code": "g18",
+    "name": "M19 Gift Pack"
+  },
+  {
+    "code": "gnt",
+    "name": "Game Night"
+  },
+  {
+    "code": "prwk",
+    "name": "GRN Ravnica Weekend"
+  },
+  {
+    "code": "gk1",
+    "name": "GRN Guild Kit"
+  },
+  {
+    "code": "tgk1",
+    "name": "GRN Guild Kit Tokens"
+  },
+  {
+    "code": "tgrn",
+    "name": "Guilds of Ravnica Tokens"
+  },
+  {
+    "code": "pgrn",
+    "name": "Guilds of Ravnica Promos"
+  },
+  {
+    "code": "grn",
+    "name": "Guilds of Ravnica"
+  },
+  {
+    "code": "tmed",
+    "name": "Mythic Edition Tokens"
+  },
+  {
+    "code": "med",
+    "name": "Mythic Edition"
+  },
+  {
+    "code": "oc18",
+    "name": "Commander 2018 Oversized"
+  },
+  {
+    "code": "c18",
+    "name": "Commander 2018"
+  },
+  {
+    "code": "tc18",
+    "name": "Commander 2018 Tokens"
+  },
+  {
+    "code": "ph17",
+    "name": "2017 Heroes of the Realm"
+  },
+  {
+    "code": "ps18",
+    "name": "San Diego Comic-Con 2018"
+  },
+  {
+    "code": "xana",
+    "name": "Arena New Player Experience Extras"
+  },
+  {
+    "code": "ana",
+    "name": "Arena New Player Experience"
+  },
+  {
+    "code": "pana",
+    "name": "MTG Arena Promos"
+  },
+  {
+    "code": "oana",
+    "name": "Arena New Player Experience Cards"
+  },
+  {
+    "code": "pm19",
+    "name": "Core Set 2019 Promos"
+  },
+  {
+    "code": "pss3",
+    "name": "M19 Standard Showdown"
+  },
+  {
+    "code": "m19",
+    "name": "Core Set 2019"
+  },
+  {
+    "code": "tm19",
+    "name": "Core Set 2019 Tokens"
+  },
+  {
+    "code": "gs1",
+    "name": "Global Series Jiang Yanggu & Mu Yanling"
+  },
+  {
+    "code": "ss1",
+    "name": "Signature Spellbook: Jace"
+  },
+  {
+    "code": "pbbd",
+    "name": "Battlebond Promos"
+  },
+  {
+    "code": "tbbd",
+    "name": "Battlebond Tokens"
+  },
+  {
+    "code": "bbd",
+    "name": "Battlebond"
+  },
+  {
+    "code": "tcm2",
+    "name": "Commander Anthology Volume II Tokens"
+  },
+  {
+    "code": "cm2",
+    "name": "Commander Anthology Volume II"
+  },
+  {
+    "code": "pdom",
+    "name": "Dominaria Promos"
+  },
+  {
+    "code": "tdom",
+    "name": "Dominaria Tokens"
+  },
+  {
+    "code": "dom",
+    "name": "Dominaria"
+  },
+  {
+    "code": "tddu",
+    "name": "Duel Decks: Elves vs. Inventors Tokens"
+  },
+  {
+    "code": "ddu",
+    "name": "Duel Decks: Elves vs. Inventors"
+  },
+  {
+    "code": "a25",
+    "name": "Masters 25"
+  },
+  {
+    "code": "ta25",
+    "name": "Masters 25 Tokens"
+  },
+  {
+    "code": "plny",
+    "name": "Lunar New Year 2018"
+  },
+  {
+    "code": "pnat",
+    "name": "Nationals Promos"
+  },
+  {
+    "code": "prix",
+    "name": "Rivals of Ixalan Promos"
+  },
+  {
+    "code": "trix",
+    "name": "Rivals of Ixalan Tokens"
+  },
+  {
+    "code": "rix",
+    "name": "Rivals of Ixalan"
+  },
+  {
+    "code": "j18",
+    "name": "Judge Gift Cards 2018"
+  },
+  {
+    "code": "f18",
+    "name": "Friday Night Magic 2018"
+  },
+  {
+    "code": "pust",
+    "name": "Unstable Promos"
+  },
+  {
+    "code": "tust",
+    "name": "Unstable Tokens"
+  },
+  {
+    "code": "ust",
+    "name": "Unstable"
+  },
+  {
+    "code": "tima",
+    "name": "Iconic Masters Tokens"
+  },
+  {
+    "code": "pxtc",
+    "name": "XLN Treasure Chest"
+  },
+  {
+    "code": "e02",
+    "name": "Explorers of Ixalan"
+  },
+  {
+    "code": "v17",
+    "name": "From the Vault: Transform"
+  },
+  {
+    "code": "ima",
+    "name": "Iconic Masters"
+  },
+  {
+    "code": "ddt",
+    "name": "Duel Decks: Merfolk vs. Goblins"
+  },
+  {
+    "code": "tddt",
+    "name": "Duel Decks: Merfolk vs. Goblins Tokens"
+  },
+  {
+    "code": "g17",
+    "name": "2017 Gift Pack"
+  },
+  {
+    "code": "pxln",
+    "name": "Ixalan Promos"
+  },
+  {
+    "code": "xln",
+    "name": "Ixalan"
+  },
+  {
+    "code": "txln",
+    "name": "Ixalan Tokens"
+  },
+  {
+    "code": "pss2",
+    "name": "XLN Standard Showdown"
+  },
+  {
+    "code": "h17",
+    "name": "HasCon 2017"
+  },
+  {
+    "code": "phtr",
+    "name": "2016 Heroes of the Realm"
+  },
+  {
+    "code": "te01",
+    "name": "Archenemy: Nicol Bolas Tokens"
+  },
+  {
+    "code": "oc17",
+    "name": "Commander 2017 Oversized"
+  },
+  {
+    "code": "c17",
+    "name": "Commander 2017"
+  },
+  {
+    "code": "tc17",
+    "name": "Commander 2017 Tokens"
+  },
+  {
+    "code": "ps17",
+    "name": "San Diego Comic-Con 2017"
+  },
+  {
+    "code": "phou",
+    "name": "Hour of Devastation Promos"
+  },
+  {
+    "code": "hou",
+    "name": "Hour of Devastation"
+  },
+  {
+    "code": "thou",
+    "name": "Hour of Devastation Tokens"
+  },
+  {
+    "code": "oe01",
+    "name": "Archenemy: Nicol Bolas Schemes"
+  },
+  {
+    "code": "e01",
+    "name": "Archenemy: Nicol Bolas"
+  },
+  {
+    "code": "tcma",
+    "name": "Commander Anthology Tokens"
+  },
+  {
+    "code": "cma",
+    "name": "Commander Anthology"
+  },
+  {
+    "code": "pakh",
+    "name": "Amonkhet Promos"
+  },
+  {
+    "code": "takh",
+    "name": "Amonkhet Tokens"
+  },
+  {
+    "code": "mp2",
+    "name": "Amonkhet Invocations"
+  },
+  {
+    "code": "akh",
+    "name": "Amonkhet"
+  },
+  {
+    "code": "w17",
+    "name": "Welcome Deck 2017"
+  },
+  {
+    "code": "dds",
+    "name": "Duel Decks: Mind vs. Might"
+  },
+  {
+    "code": "tdds",
+    "name": "Duel Decks: Mind vs. Might Tokens"
+  },
+  {
+    "code": "mm3",
+    "name": "Modern Masters 2017"
+  },
+  {
+    "code": "tmm3",
+    "name": "Modern Masters 2017 Tokens"
+  },
+  {
+    "code": "paer",
+    "name": "Aether Revolt Promos"
+  },
+  {
+    "code": "taer",
+    "name": "Aether Revolt Tokens"
+  },
+  {
+    "code": "aer",
+    "name": "Aether Revolt"
+  },
+  {
+    "code": "l17",
+    "name": "League Tokens 2017"
+  },
+  {
+    "code": "j17",
+    "name": "Judge Gift Cards 2017"
+  },
+  {
+    "code": "f17",
+    "name": "Friday Night Magic 2017"
+  },
+  {
+    "code": "pca",
+    "name": "Planechase Anthology"
+  },
+  {
+    "code": "tpca",
+    "name": "Planechase Anthology Tokens"
+  },
+  {
+    "code": "pz2",
+    "name": "Treasure Chest"
+  },
+  {
+    "code": "oc16",
+    "name": "Commander 2016 Oversized"
+  },
+  {
+    "code": "tc16",
+    "name": "Commander 2016 Tokens"
+  },
+  {
+    "code": "c16",
+    "name": "Commander 2016"
+  },
+  {
+    "code": "ps16",
+    "name": "San Diego Comic-Con 2016"
+  },
+  {
+    "code": "pkld",
+    "name": "Kaladesh Promos"
+  },
+  {
+    "code": "kld",
+    "name": "Kaladesh"
+  },
+  {
+    "code": "tkld",
+    "name": "Kaladesh Tokens"
+  },
+  {
+    "code": "mps",
+    "name": "Kaladesh Inventions"
+  },
+  {
+    "code": "ddr",
+    "name": "Duel Decks: Nissa vs. Ob Nixilis"
+  },
+  {
+    "code": "cn2",
+    "name": "Conspiracy: Take the Crown"
+  },
+  {
+    "code": "tcn2",
+    "name": "Conspiracy: Take the Crown Tokens"
+  },
+  {
+    "code": "v16",
+    "name": "From the Vault: Lore"
+  },
+  {
+    "code": "pemn",
+    "name": "Eldritch Moon Promos"
+  },
+  {
+    "code": "temn",
+    "name": "Eldritch Moon Tokens"
+  },
+  {
+    "code": "emn",
+    "name": "Eldritch Moon"
+  },
+  {
+    "code": "tema",
+    "name": "Eternal Masters Tokens"
+  },
+  {
+    "code": "ema",
+    "name": "Eternal Masters"
+  },
+  {
+    "code": "psoi",
+    "name": "Shadows over Innistrad Promos"
+  },
+  {
+    "code": "tsoi",
+    "name": "Shadows over Innistrad Tokens"
+  },
+  {
+    "code": "soi",
+    "name": "Shadows over Innistrad"
+  },
+  {
+    "code": "w16",
+    "name": "Welcome Deck 2016"
+  },
+  {
+    "code": "ddq",
+    "name": "Duel Decks: Blessed vs. Cursed"
+  },
+  {
+    "code": "ogw",
+    "name": "Oath of the Gatewatch"
+  },
+  {
+    "code": "togw",
+    "name": "Oath of the Gatewatch Tokens"
+  },
+  {
+    "code": "pogw",
+    "name": "Oath of the Gatewatch Promos"
+  },
+  {
+    "code": "l16",
+    "name": "League Tokens 2016"
+  },
+  {
+    "code": "j16",
+    "name": "Judge Gift Cards 2016"
+  },
+  {
+    "code": "f16",
+    "name": "Friday Night Magic 2016"
+  },
+  {
+    "code": "pz1",
+    "name": "Legendary Cube Prize Pack"
+  },
+  {
+    "code": "tc15",
+    "name": "Commander 2015 Tokens"
+  },
+  {
+    "code": "oc15",
+    "name": "Commander 2015 Oversized"
+  },
+  {
+    "code": "c15",
+    "name": "Commander 2015"
+  },
+  {
+    "code": "pbfz",
+    "name": "Battle for Zendikar Promos"
+  },
+  {
+    "code": "tbfz",
+    "name": "Battle for Zendikar Tokens"
+  },
+  {
+    "code": "pss1",
+    "name": "BFZ Standard Series"
+  },
+  {
+    "code": "exp",
+    "name": "Zendikar Expeditions"
+  },
+  {
+    "code": "bfz",
+    "name": "Battle for Zendikar"
+  },
+  {
+    "code": "ddp",
+    "name": "Duel Decks: Zendikar vs. Eldrazi"
+  },
+  {
+    "code": "v15",
+    "name": "From the Vault: Angels"
+  },
+  {
+    "code": "cp3",
+    "name": "Magic Origins Clash Pack"
+  },
+  {
+    "code": "pori",
+    "name": "Magic Origins Promos"
+  },
+  {
+    "code": "tori",
+    "name": "Magic Origins Tokens"
+  },
+  {
+    "code": "ori",
+    "name": "Magic Origins"
+  },
+  {
+    "code": "ps15",
+    "name": "San Diego Comic-Con 2015"
+  },
+  {
+    "code": "tmm2",
+    "name": "Modern Masters 2015 Tokens"
+  },
+  {
+    "code": "mm2",
+    "name": "Modern Masters 2015"
+  },
+  {
+    "code": "tpr",
+    "name": "Tempest Remastered"
+  },
+  {
+    "code": "ptkdf",
+    "name": "Tarkir Dragonfury"
+  },
+  {
+    "code": "pdtk",
+    "name": "Dragons of Tarkir Promos"
+  },
+  {
+    "code": "dtk",
+    "name": "Dragons of Tarkir"
+  },
+  {
+    "code": "tdtk",
+    "name": "Dragons of Tarkir Tokens"
+  },
+  {
+    "code": "ddo",
+    "name": "Duel Decks: Elspeth vs. Kiora"
+  },
+  {
+    "code": "pfrf",
+    "name": "Fate Reforged Promos"
+  },
+  {
+    "code": "cp2",
+    "name": "Fate Reforged Clash Pack"
+  },
+  {
+    "code": "frf",
+    "name": "Fate Reforged"
+  },
+  {
+    "code": "tfrf",
+    "name": "Fate Reforged Tokens"
+  },
+  {
+    "code": "ugin",
+    "name": "Ugin's Fate"
+  },
+  {
+    "code": "l15",
+    "name": "League Tokens 2015"
+  },
+  {
+    "code": "j15",
+    "name": "Judge Gift Cards 2015"
+  },
+  {
+    "code": "f15",
+    "name": "Friday Night Magic 2015"
+  },
+  {
+    "code": "tjvc",
+    "name": "Duel Decks Anthology: Jace vs. Chandra Tokens"
+  },
+  {
+    "code": "tdvd",
+    "name": "Duel Decks Anthology: Divine vs. Demonic Tokens"
+  },
+  {
+    "code": "tgvl",
+    "name": "Duel Decks Anthology: Garruk vs. Liliana Tokens"
+  },
+  {
+    "code": "tevg",
+    "name": "Duel Decks Anthology: Elves vs. Goblins Tokens"
+  },
+  {
+    "code": "jvc",
+    "name": "Duel Decks Anthology: Jace vs. Chandra"
+  },
+  {
+    "code": "dvd",
+    "name": "Duel Decks Anthology: Divine vs. Demonic"
+  },
+  {
+    "code": "gvl",
+    "name": "Duel Decks Anthology: Garruk vs. Liliana"
+  },
+  {
+    "code": "evg",
+    "name": "Duel Decks Anthology: Elves vs. Goblins"
+  },
+  {
+    "code": "oc14",
+    "name": "Commander 2014 Oversized"
+  },
+  {
+    "code": "tc14",
+    "name": "Commander 2014 Tokens"
+  },
+  {
+    "code": "c14",
+    "name": "Commander 2014"
+  },
+  {
+    "code": "pktk",
+    "name": "Khans of Tarkir Promos"
+  },
+  {
+    "code": "tktk",
+    "name": "Khans of Tarkir Tokens"
+  },
+  {
+    "code": "ktk",
+    "name": "Khans of Tarkir"
+  },
+  {
+    "code": "ddn",
+    "name": "Duel Decks: Speed vs. Cunning"
+  },
+  {
+    "code": "v14",
+    "name": "From the Vault: Annihilation"
+  },
+  {
+    "code": "cp1",
+    "name": "Magic 2015 Clash Pack"
+  },
+  {
+    "code": "tm15",
+    "name": "Magic 2015 Tokens"
+  },
+  {
+    "code": "m15",
+    "name": "Magic 2015"
+  },
+  {
+    "code": "pm15",
+    "name": "Magic 2015 Promos"
+  },
+  {
+    "code": "ppc1",
+    "name": "M15 Prerelease Challenge"
+  },
+  {
+    "code": "pdp15",
+    "name": "Duels of the Planeswalkers 2015 Promos"
+  },
+  {
+    "code": "ps14",
+    "name": "San Diego Comic-Con 2014"
+  },
+  {
+    "code": "vma",
+    "name": "Vintage Masters"
+  },
+  {
+    "code": "pcns",
+    "name": "Conspiracy Promos"
+  },
+  {
+    "code": "cns",
+    "name": "Conspiracy"
+  },
+  {
+    "code": "tcns",
+    "name": "Conspiracy Tokens"
+  },
+  {
+    "code": "md1",
+    "name": "Modern Event Deck 2014"
+  },
+  {
+    "code": "tmd1",
+    "name": "Modern Event Deck 2014 Tokens"
+  },
+  {
+    "code": "tdag",
+    "name": "Defeat a God"
+  },
+  {
+    "code": "tjou",
+    "name": "Journey into Nyx Tokens"
+  },
+  {
+    "code": "thp3",
+    "name": "Journey into Nyx Hero's Path"
+  },
+  {
+    "code": "jou",
+    "name": "Journey into Nyx"
+  },
+  {
+    "code": "pjou",
+    "name": "Journey into Nyx Promos"
+  },
+  {
+    "code": "ddm",
+    "name": "Duel Decks: Jace vs. Vraska"
+  },
+  {
+    "code": "tddm",
+    "name": "Duel Decks: Jace vs. Vraska Tokens"
+  },
+  {
+    "code": "tbth",
+    "name": "Battle the Horde"
+  },
+  {
+    "code": "thp2",
+    "name": "Born of the Gods Hero's Path"
+  },
+  {
+    "code": "tbng",
+    "name": "Born of the Gods Tokens"
+  },
+  {
+    "code": "bng",
+    "name": "Born of the Gods"
+  },
+  {
+    "code": "pbng",
+    "name": "Born of the Gods Promos"
+  },
+  {
+    "code": "l14",
+    "name": "League Tokens 2014"
+  },
+  {
+    "code": "j14",
+    "name": "Judge Gift Cards 2014"
+  },
+  {
+    "code": "f14",
+    "name": "Friday Night Magic 2014"
+  },
+  {
+    "code": "oc13",
+    "name": "Commander 2013 Oversized"
+  },
+  {
+    "code": "c13",
+    "name": "Commander 2013"
+  },
+  {
+    "code": "tfth",
+    "name": "Face the Hydra"
+  },
+  {
+    "code": "tths",
+    "name": "Theros Tokens"
+  },
+  {
+    "code": "thp1",
+    "name": "Theros Hero's Path"
+  },
+  {
+    "code": "ths",
+    "name": "Theros"
+  },
+  {
+    "code": "pths",
+    "name": "Theros Promos"
+  },
+  {
+    "code": "ddl",
+    "name": "Duel Decks: Heroes vs. Monsters"
+  },
+  {
+    "code": "tddl",
+    "name": "Duel Decks: Heroes vs. Monsters Tokens"
+  },
+  {
+    "code": "v13",
+    "name": "From the Vault: Twenty"
+  },
+  {
+    "code": "tm14",
+    "name": "Magic 2014 Tokens"
+  },
+  {
+    "code": "m14",
+    "name": "Magic 2014"
+  },
+  {
+    "code": "pm14",
+    "name": "Magic 2014 Promos"
+  },
+  {
+    "code": "psdc",
+    "name": "San Diego Comic-Con 2013"
+  },
+  {
+    "code": "mma",
+    "name": "Modern Masters"
+  },
+  {
+    "code": "tmma",
+    "name": "Modern Masters Tokens"
+  },
+  {
+    "code": "dgm",
+    "name": "Dragon's Maze"
+  },
+  {
+    "code": "tdgm",
+    "name": "Dragon's Maze Tokens"
+  },
+  {
+    "code": "pdgm",
+    "name": "Dragon's Maze Promos"
+  },
+  {
+    "code": "wmc",
+    "name": "World Magic Cup Qualifiers"
+  },
+  {
+    "code": "tddk",
+    "name": "Duel Decks: Sorin vs. Tibalt Tokens"
+  },
+  {
+    "code": "ddk",
+    "name": "Duel Decks: Sorin vs. Tibalt"
+  },
+  {
+    "code": "gtc",
+    "name": "Gatecrash"
+  },
+  {
+    "code": "tgtc",
+    "name": "Gatecrash Tokens"
+  },
+  {
+    "code": "pgtc",
+    "name": "Gatecrash Promos"
+  },
+  {
+    "code": "pdp14",
+    "name": "Duels of the Planeswalkers 2014 Promos"
+  },
+  {
+    "code": "l13",
+    "name": "League Tokens 2013"
+  },
+  {
+    "code": "j13",
+    "name": "Judge Gift Cards 2013"
+  },
+  {
+    "code": "f13",
+    "name": "Friday Night Magic 2013"
+  },
+  {
+    "code": "ocm1",
+    "name": "Commander's Arsenal Oversized"
+  },
+  {
+    "code": "cm1",
+    "name": "Commander's Arsenal"
+  },
+  {
+    "code": "rtr",
+    "name": "Return to Ravnica"
+  },
+  {
+    "code": "prtr",
+    "name": "Return to Ravnica Promos"
+  },
+  {
+    "code": "trtr",
+    "name": "Return to Ravnica Tokens"
+  },
+  {
+    "code": "tddj",
+    "name": "Duel Decks: Izzet vs. Golgari Tokens"
+  },
+  {
+    "code": "ddj",
+    "name": "Duel Decks: Izzet vs. Golgari"
+  },
+  {
+    "code": "v12",
+    "name": "From the Vault: Realms"
+  },
+  {
+    "code": "m13",
+    "name": "Magic 2013"
+  },
+  {
+    "code": "tm13",
+    "name": "Magic 2013 Tokens"
+  },
+  {
+    "code": "pm13",
+    "name": "Magic 2013 Promos"
+  },
+  {
+    "code": "opc2",
+    "name": "Planechase 2012 Planes"
+  },
+  {
+    "code": "pc2",
+    "name": "Planechase 2012"
+  },
+  {
+    "code": "tavr",
+    "name": "Avacyn Restored Tokens"
+  },
+  {
+    "code": "avr",
+    "name": "Avacyn Restored"
+  },
+  {
+    "code": "phel",
+    "name": "Open the Helvault"
+  },
+  {
+    "code": "pavr",
+    "name": "Avacyn Restored Promos"
+  },
+  {
+    "code": "tddi",
+    "name": "Duel Decks: Venser vs. Koth Tokens"
+  },
+  {
+    "code": "ddi",
+    "name": "Duel Decks: Venser vs. Koth"
+  },
+  {
+    "code": "tdka",
+    "name": "Dark Ascension Tokens"
+  },
+  {
+    "code": "dka",
+    "name": "Dark Ascension"
+  },
+  {
+    "code": "pdka",
+    "name": "Dark Ascension Promos"
+  },
+  {
+    "code": "pw12",
+    "name": "Wizards Play Network 2012"
+  },
+  {
+    "code": "pdp13",
+    "name": "Duels of the Planeswalkers 2013 Promos"
+  },
+  {
+    "code": "pidw",
+    "name": "IDW Comics Inserts"
+  },
+  {
+    "code": "l12",
+    "name": "League Tokens 2012"
+  },
+  {
+    "code": "j12",
+    "name": "Judge Gift Cards 2012"
+  },
+  {
+    "code": "f12",
+    "name": "Friday Night Magic 2012"
+  },
+  {
+    "code": "pd3",
+    "name": "Premium Deck Series: Graveborn"
+  },
+  {
+    "code": "tisd",
+    "name": "Innistrad Tokens"
+  },
+  {
+    "code": "isd",
+    "name": "Innistrad"
+  },
+  {
+    "code": "pisd",
+    "name": "Innistrad Promos"
+  },
+  {
+    "code": "ddh",
+    "name": "Duel Decks: Ajani vs. Nicol Bolas"
+  },
+  {
+    "code": "tddh",
+    "name": "Duel Decks: Ajani vs. Nicol Bolas Tokens"
+  },
+  {
+    "code": "v11",
+    "name": "From the Vault: Legends"
+  },
+  {
+    "code": "m12",
+    "name": "Magic 2012"
+  },
+  {
+    "code": "tm12",
+    "name": "Magic 2012 Tokens"
+  },
+  {
+    "code": "pm12",
+    "name": "Magic 2012 Promos"
+  },
+  {
+    "code": "ocmd",
+    "name": "Commander 2011 Oversized"
+  },
+  {
+    "code": "cmd",
+    "name": "Commander 2011"
+  },
+  {
+    "code": "pcmd",
+    "name": "Commander 2011 Launch Party"
+  },
+  {
+    "code": "td2",
+    "name": "Duel Decks: Mirrodin Pure vs. New Phyrexia"
+  },
+  {
+    "code": "nph",
+    "name": "New Phyrexia"
+  },
+  {
+    "code": "tnph",
+    "name": "New Phyrexia Tokens"
+  },
+  {
+    "code": "pnph",
+    "name": "New Phyrexia Promos"
+  },
+  {
+    "code": "ddg",
+    "name": "Duel Decks: Knights vs. Dragons"
+  },
+  {
+    "code": "tddg",
+    "name": "Duel Decks: Knights vs. Dragons Tokens"
+  },
+  {
+    "code": "tmbs",
+    "name": "Mirrodin Besieged Tokens"
+  },
+  {
+    "code": "mbs",
+    "name": "Mirrodin Besieged"
+  },
+  {
+    "code": "pmbs",
+    "name": "Mirrodin Besieged Promos"
+  },
+  {
+    "code": "me4",
+    "name": "Masters Edition IV"
+  },
+  {
+    "code": "pmps11",
+    "name": "Magic Premiere Shop 2011"
+  },
+  {
+    "code": "pw11",
+    "name": "Wizards Play Network 2011"
+  },
+  {
+    "code": "pdp12",
+    "name": "Duels of the Planeswalkers 2012 Promos"
+  },
+  {
+    "code": "g11",
+    "name": "Judge Gift Cards 2011"
+  },
+  {
+    "code": "olgc",
+    "name": "Legacy Championship"
+  },
+  {
+    "code": "f11",
+    "name": "Friday Night Magic 2011"
+  },
+  {
+    "code": "p11",
+    "name": "Magic Player Rewards 2011"
+  },
+  {
+    "code": "ps11",
+    "name": "Salvat 2011"
+  },
+  {
+    "code": "pd2",
+    "name": "Premium Deck Series: Fire and Lightning"
+  },
+  {
+    "code": "td0",
+    "name": "Magic Online Theme Decks"
+  },
+  {
+    "code": "som",
+    "name": "Scars of Mirrodin"
+  },
+  {
+    "code": "tsom",
+    "name": "Scars of Mirrodin Tokens"
+  },
+  {
+    "code": "psom",
+    "name": "Scars of Mirrodin Promos"
+  },
+  {
+    "code": "ddf",
+    "name": "Duel Decks: Elspeth vs. Tezzeret"
+  },
+  {
+    "code": "tddf",
+    "name": "Duel Decks: Elspeth vs. Tezzeret Tokens"
+  },
+  {
+    "code": "v10",
+    "name": "From the Vault: Relics"
+  },
+  {
+    "code": "m11",
+    "name": "Magic 2011"
+  },
+  {
+    "code": "tm11",
+    "name": "Magic 2011 Tokens"
+  },
+  {
+    "code": "pm11",
+    "name": "Magic 2011 Promos"
+  },
+  {
+    "code": "oarc",
+    "name": "Archenemy Schemes"
+  },
+  {
+    "code": "arc",
+    "name": "Archenemy"
+  },
+  {
+    "code": "dpa",
+    "name": "Duels of the Planeswalkers"
+  },
+  {
+    "code": "proe",
+    "name": "Rise of the Eldrazi Promos"
+  },
+  {
+    "code": "roe",
+    "name": "Rise of the Eldrazi"
+  },
+  {
+    "code": "troe",
+    "name": "Rise of the Eldrazi Tokens"
+  },
+  {
+    "code": "dde",
+    "name": "Duel Decks: Phyrexia vs. the Coalition"
+  },
+  {
+    "code": "tdde",
+    "name": "Duel Decks: Phyrexia vs. the Coalition Tokens"
+  },
+  {
+    "code": "pwwk",
+    "name": "Worldwake Promos"
+  },
+  {
+    "code": "wwk",
+    "name": "Worldwake"
+  },
+  {
+    "code": "twwk",
+    "name": "Worldwake Tokens"
+  },
+  {
+    "code": "pdp10",
+    "name": "Duels of the Planeswalkers 2010 Promos"
+  },
+  {
+    "code": "pmps10",
+    "name": "Magic Premiere Shop 2010"
+  },
+  {
+    "code": "f10",
+    "name": "Friday Night Magic 2010"
+  },
+  {
+    "code": "g10",
+    "name": "Judge Gift Cards 2010"
+  },
+  {
+    "code": "p10",
+    "name": "Magic Player Rewards 2010"
+  },
+  {
+    "code": "h09",
+    "name": "Premium Deck Series: Slivers"
+  },
+  {
+    "code": "tddd",
+    "name": "Duel Decks: Garruk vs. Liliana Tokens"
+  },
+  {
+    "code": "ddd",
+    "name": "Duel Decks: Garruk vs. Liliana"
+  },
+  {
+    "code": "pzen",
+    "name": "Zendikar Promos"
+  },
+  {
+    "code": "tzen",
+    "name": "Zendikar Tokens"
+  },
+  {
+    "code": "zen",
+    "name": "Zendikar"
+  },
+  {
+    "code": "me3",
+    "name": "Masters Edition III"
+  },
+  {
+    "code": "ohop",
+    "name": "Planechase Planes"
+  },
+  {
+    "code": "hop",
+    "name": "Planechase"
+  },
+  {
+    "code": "phop",
+    "name": "Planechase Promos"
+  },
+  {
+    "code": "v09",
+    "name": "From the Vault: Exiled"
+  },
+  {
+    "code": "tm10",
+    "name": "Magic 2010 Tokens"
+  },
+  {
+    "code": "m10",
+    "name": "Magic 2010"
+  },
+  {
+    "code": "pm10",
+    "name": "Magic 2010 Promos"
+  },
+  {
+    "code": "parb",
+    "name": "Alara Reborn Promos"
+  },
+  {
+    "code": "tarb",
+    "name": "Alara Reborn Tokens"
+  },
+  {
+    "code": "arb",
+    "name": "Alara Reborn"
+  },
+  {
+    "code": "tddc",
+    "name": "Duel Decks: Divine vs. Demonic Tokens"
+  },
+  {
+    "code": "ddc",
+    "name": "Duel Decks: Divine vs. Demonic"
+  },
+  {
+    "code": "purl",
+    "name": "URL/Convention Promos"
+  },
+  {
+    "code": "pcon",
+    "name": "Conflux Promos"
+  },
+  {
+    "code": "con",
+    "name": "Conflux"
+  },
+  {
+    "code": "tcon",
+    "name": "Conflux Tokens"
+  },
+  {
+    "code": "pdtp",
+    "name": "Duels of the Planeswalkers 2009 Promos"
+  },
+  {
+    "code": "pmps09",
+    "name": "Magic Premiere Shop 2009"
+  },
+  {
+    "code": "g09",
+    "name": "Judge Gift Cards 2009"
+  },
+  {
+    "code": "p09",
+    "name": "Magic Player Rewards 2009"
+  },
+  {
+    "code": "f09",
+    "name": "Friday Night Magic 2009"
+  },
+  {
+    "code": "tdd2",
+    "name": "Duel Decks: Jace vs. Chandra Tokens"
+  },
+  {
+    "code": "dd2",
+    "name": "Duel Decks: Jace vs. Chandra"
+  },
+  {
+    "code": "pala",
+    "name": "Shards of Alara Promos"
+  },
+  {
+    "code": "tala",
+    "name": "Shards of Alara Tokens"
+  },
+  {
+    "code": "ala",
+    "name": "Shards of Alara"
+  },
+  {
+    "code": "me2",
+    "name": "Masters Edition II"
+  },
+  {
+    "code": "drb",
+    "name": "From the Vault: Dragons"
+  },
+  {
+    "code": "peve",
+    "name": "Eventide Promos"
+  },
+  {
+    "code": "teve",
+    "name": "Eventide Tokens"
+  },
+  {
+    "code": "eve",
+    "name": "Eventide"
+  },
+  {
+    "code": "pshm",
+    "name": "Shadowmoor Promos"
+  },
+  {
+    "code": "shm",
+    "name": "Shadowmoor"
+  },
+  {
+    "code": "tshm",
+    "name": "Shadowmoor Tokens"
+  },
+  {
+    "code": "p15a",
+    "name": "15th Anniversary Cards"
+  },
+  {
+    "code": "pmor",
+    "name": "Morningtide Promos"
+  },
+  {
+    "code": "mor",
+    "name": "Morningtide"
+  },
+  {
+    "code": "tmor",
+    "name": "Morningtide Tokens"
+  },
+  {
+    "code": "pmps08",
+    "name": "Magic Premiere Shop 2008"
+  },
+  {
+    "code": "g08",
+    "name": "Judge Gift Cards 2008"
+  },
+  {
+    "code": "p08",
+    "name": "Magic Player Rewards 2008"
+  },
+  {
+    "code": "f08",
+    "name": "Friday Night Magic 2008"
+  },
+  {
+    "code": "dd1",
+    "name": "Duel Decks: Elves vs. Goblins"
+  },
+  {
+    "code": "tdd1",
+    "name": "Duel Decks: Elves vs. Goblins Tokens"
+  },
+  {
+    "code": "plrw",
+    "name": "Lorwyn Promos"
+  },
+  {
+    "code": "tlrw",
+    "name": "Lorwyn Tokens"
+  },
+  {
+    "code": "lrw",
+    "name": "Lorwyn"
+  },
+  {
+    "code": "me1",
+    "name": "Masters Edition"
+  },
+  {
+    "code": "10e",
+    "name": "Tenth Edition"
+  },
+  {
+    "code": "p10e",
+    "name": "Tenth Edition Promos"
+  },
+  {
+    "code": "t10e",
+    "name": "Tenth Edition Tokens"
+  },
+  {
+    "code": "pfut",
+    "name": "Future Sight Promos"
+  },
+  {
+    "code": "fut",
+    "name": "Future Sight"
+  },
+  {
+    "code": "pgpx",
+    "name": "Grand Prix Promos"
+  },
+  {
+    "code": "ppro",
+    "name": "Pro Tour Promos"
+  },
+  {
+    "code": "pplc",
+    "name": "Planar Chaos Promos"
+  },
+  {
+    "code": "plc",
+    "name": "Planar Chaos"
+  },
+  {
+    "code": "pmps07",
+    "name": "Magic Premiere Shop 2007"
+  },
+  {
+    "code": "p07",
+    "name": "Magic Player Rewards 2007"
+  },
+  {
+    "code": "g07",
+    "name": "Judge Gift Cards 2007"
+  },
+  {
+    "code": "f07",
+    "name": "Friday Night Magic 2007"
+  },
+  {
+    "code": "hho",
+    "name": "Happy Holidays"
+  },
+  {
+    "code": "ptsp",
+    "name": "Time Spiral Promos"
+  },
+  {
+    "code": "tsp",
+    "name": "Time Spiral"
+  },
+  {
+    "code": "tsb",
+    "name": "Time Spiral Timeshifted"
+  },
+  {
+    "code": "pcsp",
+    "name": "Coldsnap Promos"
+  },
+  {
+    "code": "csp",
+    "name": "Coldsnap"
+  },
+  {
+    "code": "cst",
+    "name": "Coldsnap Theme Decks"
+  },
+  {
+    "code": "pdis",
+    "name": "Dissension Promos"
+  },
+  {
+    "code": "dis",
+    "name": "Dissension"
+  },
+  {
+    "code": "pcmp",
+    "name": "Champs and States"
+  },
+  {
+    "code": "pgpt",
+    "name": "Guildpact Promos"
+  },
+  {
+    "code": "gpt",
+    "name": "Guildpact"
+  },
+  {
+    "code": "pmps06",
+    "name": "Magic Premiere Shop 2006"
+  },
+  {
+    "code": "pal06",
+    "name": "Arena League 2006"
+  },
+  {
+    "code": "pjas",
+    "name": "Junior APAC Series"
+  },
+  {
+    "code": "dci",
+    "name": "DCI Promos"
+  },
+  {
+    "code": "f06",
+    "name": "Friday Night Magic 2006"
+  },
+  {
+    "code": "p06",
+    "name": "Magic Player Rewards 2006"
+  },
+  {
+    "code": "phuk",
+    "name": "Hachette UK"
+  },
+  {
+    "code": "g06",
+    "name": "Judge Gift Cards 2006"
+  },
+  {
+    "code": "p2hg",
+    "name": "Two-Headed Giant Tournament"
+  },
+  {
+    "code": "pmps",
+    "name": "Magic Premiere Shop 2005"
+  },
+  {
+    "code": "prav",
+    "name": "Ravnica: City of Guilds Promos"
+  },
+  {
+    "code": "rav",
+    "name": "Ravnica: City of Guilds"
+  },
+  {
+    "code": "psal",
+    "name": "Salvat 2005"
+  },
+  {
+    "code": "p9ed",
+    "name": "Ninth Edition Promos"
+  },
+  {
+    "code": "9ed",
+    "name": "Ninth Edition"
+  },
+  {
+    "code": "psok",
+    "name": "Saviors of Kamigawa Promos"
+  },
+  {
+    "code": "sok",
+    "name": "Saviors of Kamigawa"
+  },
+  {
+    "code": "pbok",
+    "name": "Betrayers of Kamigawa Promos"
+  },
+  {
+    "code": "bok",
+    "name": "Betrayers of Kamigawa"
+  },
+  {
+    "code": "pal05",
+    "name": "Arena League 2005"
+  },
+  {
+    "code": "pjse",
+    "name": "Junior Series Europe"
+  },
+  {
+    "code": "p05",
+    "name": "Magic Player Rewards 2005"
+  },
+  {
+    "code": "g05",
+    "name": "Judge Gift Cards 2005"
+  },
+  {
+    "code": "f05",
+    "name": "Friday Night Magic 2005"
+  },
+  {
+    "code": "punh",
+    "name": "Unhinged Promos"
+  },
+  {
+    "code": "unh",
+    "name": "Unhinged"
+  },
+  {
+    "code": "pchk",
+    "name": "Champions of Kamigawa Promos"
+  },
+  {
+    "code": "chk",
+    "name": "Champions of Kamigawa"
+  },
+  {
+    "code": "wc04",
+    "name": "World Championship Decks 2004"
+  },
+  {
+    "code": "p5dn",
+    "name": "Fifth Dawn Promos"
+  },
+  {
+    "code": "pmrd",
+    "name": "Mirrodin Promos"
+  },
+  {
+    "code": "5dn",
+    "name": "Fifth Dawn"
+  },
+  {
+    "code": "pdst",
+    "name": "Darksteel Promos"
+  },
+  {
+    "code": "dst",
+    "name": "Darksteel"
+  },
+  {
+    "code": "pal04",
+    "name": "Arena League 2004"
+  },
+  {
+    "code": "f04",
+    "name": "Friday Night Magic 2004"
+  },
+  {
+    "code": "g04",
+    "name": "Judge Gift Cards 2004"
+  },
+  {
+    "code": "p04",
+    "name": "Magic Player Rewards 2004"
+  },
+  {
+    "code": "mrd",
+    "name": "Mirrodin"
+  },
+  {
+    "code": "wc03",
+    "name": "World Championship Decks 2003"
+  },
+  {
+    "code": "p8ed",
+    "name": "Eighth Edition Promos"
+  },
+  {
+    "code": "8ed",
+    "name": "Eighth Edition"
+  },
+  {
+    "code": "pscg",
+    "name": "Scourge Promos"
+  },
+  {
+    "code": "scg",
+    "name": "Scourge"
+  },
+  {
+    "code": "plgn",
+    "name": "Legions Promos"
+  },
+  {
+    "code": "lgn",
+    "name": "Legions"
+  },
+  {
+    "code": "pmoa",
+    "name": "Magic Online Avatars"
+  },
+  {
+    "code": "pjjt",
+    "name": "Japan Junior Tournament"
+  },
+  {
+    "code": "pal03",
+    "name": "Arena League 2003"
+  },
+  {
+    "code": "p03",
+    "name": "Magic Player Rewards 2003"
+  },
+  {
+    "code": "f03",
+    "name": "Friday Night Magic 2003"
+  },
+  {
+    "code": "ovnt",
+    "name": "Vintage Championship"
+  },
+  {
+    "code": "g03",
+    "name": "Judge Gift Cards 2003"
+  },
+  {
+    "code": "ons",
+    "name": "Onslaught"
+  },
+  {
+    "code": "pons",
+    "name": "Onslaught Promos"
+  },
+  {
+    "code": "wc02",
+    "name": "World Championship Decks 2002"
+  },
+  {
+    "code": "jp1",
+    "name": "Hobby Japan Promos"
+  },
+  {
+    "code": "prm",
+    "name": "Magic Online Promos"
+  },
+  {
+    "code": "pjud",
+    "name": "Judgment Promos"
+  },
+  {
+    "code": "jud",
+    "name": "Judgment"
+  },
+  {
+    "code": "ptor",
+    "name": "Torment Promos"
+  },
+  {
+    "code": "tor",
+    "name": "Torment"
+  },
+  {
+    "code": "pal02",
+    "name": "Arena League 2002"
+  },
+  {
+    "code": "g02",
+    "name": "Judge Gift Cards 2002"
+  },
+  {
+    "code": "f02",
+    "name": "Friday Night Magic 2002"
+  },
+  {
+    "code": "pr2",
+    "name": "Magic Player Rewards 2002"
+  },
+  {
+    "code": "dkm",
+    "name": "Deckmasters"
+  },
+  {
+    "code": "pody",
+    "name": "Odyssey Promos"
+  },
+  {
+    "code": "ody",
+    "name": "Odyssey"
+  },
+  {
+    "code": "wc01",
+    "name": "World Championship Decks 2001"
+  },
+  {
+    "code": "psdg",
+    "name": "Sega Dreamcast Cards"
+  },
+  {
+    "code": "papc",
+    "name": "Apocalypse Promos"
+  },
+  {
+    "code": "apc",
+    "name": "Apocalypse"
+  },
+  {
+    "code": "7ed",
+    "name": "Seventh Edition"
+  },
+  {
+    "code": "ppls",
+    "name": "Planeshift Promos"
+  },
+  {
+    "code": "pls",
+    "name": "Planeshift"
+  },
+  {
+    "code": "pal01",
+    "name": "Arena League 2001"
+  },
+  {
+    "code": "g01",
+    "name": "Judge Gift Cards 2001"
+  },
+  {
+    "code": "mpr",
+    "name": "Magic Player Rewards 2001"
+  },
+  {
+    "code": "f01",
+    "name": "Friday Night Magic 2001"
+  },
+  {
+    "code": "pinv",
+    "name": "Invasion Promos"
+  },
+  {
+    "code": "inv",
+    "name": "Invasion"
+  },
+  {
+    "code": "btd",
+    "name": "Beatdown Box Set"
+  },
+  {
+    "code": "wc00",
+    "name": "World Championship Decks 2000"
+  },
+  {
+    "code": "ppcy",
+    "name": "Prophecy Promos"
+  },
+  {
+    "code": "pcy",
+    "name": "Prophecy"
+  },
+  {
+    "code": "s00",
+    "name": "Starter 2000"
+  },
+  {
+    "code": "pnem",
+    "name": "Nemesis Promos"
+  },
+  {
+    "code": "nem",
+    "name": "Nemesis"
+  },
+  {
+    "code": "pelp",
+    "name": "European Land Program"
+  },
+  {
+    "code": "pal00",
+    "name": "Arena League 2000"
+  },
+  {
+    "code": "fnm",
+    "name": "Friday Night Magic 2000"
+  },
+  {
+    "code": "g00",
+    "name": "Judge Gift Cards 2000"
+  },
+  {
+    "code": "psus",
+    "name": "Junior Super Series"
+  },
+  {
+    "code": "brb",
+    "name": "Battle Royale Box Set"
+  },
+  {
+    "code": "pmmq",
+    "name": "Mercadian Masques Promos"
+  },
+  {
+    "code": "mmq",
+    "name": "Mercadian Masques"
+  },
+  {
+    "code": "pwos",
+    "name": "Wizards of the Coast Online Store"
+  },
+  {
+    "code": "wc99",
+    "name": "World Championship Decks 1999"
+  },
+  {
+    "code": "pwor",
+    "name": "World Championship Promos"
+  },
+  {
+    "code": "pgru",
+    "name": "Guru"
+  },
+  {
+    "code": "s99",
+    "name": "Starter 1999"
+  },
+  {
+    "code": "puds",
+    "name": "Urza's Destiny Promos"
+  },
+  {
+    "code": "uds",
+    "name": "Urza's Destiny"
+  },
+  {
+    "code": "pptk",
+    "name": "Portal: Three Kingdoms Promos"
+  },
+  {
+    "code": "ptk",
+    "name": "Portal Three Kingdoms"
+  },
+  {
+    "code": "6ed",
+    "name": "Classic Sixth Edition"
+  },
+  {
+    "code": "pulg",
+    "name": "Urza's Legacy Promos"
+  },
+  {
+    "code": "ulg",
+    "name": "Urza's Legacy"
+  },
+  {
+    "code": "pal99",
+    "name": "Arena League 1999"
+  },
+  {
+    "code": "g99",
+    "name": "Judge Gift Cards 1999"
+  },
+  {
+    "code": "ath",
+    "name": "Anthologies"
+  },
+  {
+    "code": "pusg",
+    "name": "Urza's Saga Promos"
+  },
+  {
+    "code": "usg",
+    "name": "Urza's Saga"
+  },
+  {
+    "code": "palp",
+    "name": "Asia Pacific Land Program"
+  },
+  {
+    "code": "wc98",
+    "name": "World Championship Decks 1998"
+  },
+  {
+    "code": "tugl",
+    "name": "Unglued Tokens"
+  },
+  {
+    "code": "ugl",
+    "name": "Unglued"
+  },
+  {
+    "code": "p02",
+    "name": "Portal Second Age"
+  },
+  {
+    "code": "pexo",
+    "name": "Exodus Promos"
+  },
+  {
+    "code": "exo",
+    "name": "Exodus"
+  },
+  {
+    "code": "psth",
+    "name": "Stronghold Promos"
+  },
+  {
+    "code": "sth",
+    "name": "Stronghold"
+  },
+  {
+    "code": "jgp",
+    "name": "Judge Gift Cards 1998"
+  },
+  {
+    "code": "ptmp",
+    "name": "Tempest Promos"
+  },
+  {
+    "code": "tmp",
+    "name": "Tempest"
+  },
+  {
+    "code": "wc97",
+    "name": "World Championship Decks 1997"
+  },
+  {
+    "code": "wth",
+    "name": "Weatherlight"
+  },
+  {
+    "code": "olep",
+    "name": "Oversized League Prizes"
+  },
+  {
+    "code": "pvan",
+    "name": "Vanguard Series"
+  },
+  {
+    "code": "por",
+    "name": "Portal"
+  },
+  {
+    "code": "pmic",
+    "name": "MicroProse Promos"
+  },
+  {
+    "code": "past",
+    "name": "Astral Cards"
+  },
+  {
+    "code": "5ed",
+    "name": "Fifth Edition"
+  },
+  {
+    "code": "vis",
+    "name": "Visions"
+  },
+  {
+    "code": "itp",
+    "name": "Introductory Two-Player Set"
+  },
+  {
+    "code": "mgb",
+    "name": "Multiverse Gift Box"
+  },
+  {
+    "code": "mir",
+    "name": "Mirage"
+  },
+  {
+    "code": "pred",
+    "name": "Redemption Program"
+  },
+  {
+    "code": "pcel",
+    "name": "Celebration Cards"
+  },
+  {
+    "code": "parl",
+    "name": "Arena League 1996"
+  },
+  {
+    "code": "rqs",
+    "name": "Rivals Quick Start Set"
+  },
+  {
+    "code": "plgm",
+    "name": "DCI Legend Membership"
+  },
+  {
+    "code": "all",
+    "name": "Alliances"
+  },
+  {
+    "code": "ptc",
+    "name": "Pro Tour Collector Set"
+  },
+  {
+    "code": "o90p",
+    "name": "Oversized 90's Promos"
+  },
+  {
+    "code": "hml",
+    "name": "Homelands"
+  },
+  {
+    "code": "ren",
+    "name": "Renaissance"
+  },
+  {
+    "code": "rin",
+    "name": "Rinascimento"
+  },
+  {
+    "code": "bchr",
+    "name": "Chronicles Foreign Black Border"
+  },
+  {
+    "code": "chr",
+    "name": "Chronicles"
+  },
+  {
+    "code": "ice",
+    "name": "Ice Age"
+  },
+  {
+    "code": "4bb",
+    "name": "Fourth Edition Foreign Black Border"
+  },
+  {
+    "code": "4ed",
+    "name": "Fourth Edition"
+  },
+  {
+    "code": "pmei",
+    "name": "Media and Collaboration Promos"
+  },
+  {
+    "code": "fem",
+    "name": "Fallen Empires"
+  },
+  {
+    "code": "phpr",
+    "name": "HarperPrism Book Promos"
+  },
+  {
+    "code": "drk",
+    "name": "The Dark"
+  },
+  {
+    "code": "pdrc",
+    "name": "Dragon Con"
+  },
+  {
+    "code": "sum",
+    "name": "Summer Magic / Edgar"
+  },
+  {
+    "code": "leg",
+    "name": "Legends"
+  },
+  {
+    "code": "fbb",
+    "name": "Foreign Black Border"
+  },
+  {
+    "code": "3ed",
+    "name": "Revised Edition"
+  },
+  {
+    "code": "atq",
+    "name": "Antiquities"
+  },
+  {
+    "code": "arn",
+    "name": "Arabian Nights"
+  },
+  {
+    "code": "cei",
+    "name": "Intl. Collectors' Edition"
+  },
+  {
+    "code": "ced",
+    "name": "Collectors' Edition"
+  },
+  {
+    "code": "2ed",
+    "name": "Unlimited Edition"
+  },
+  {
+    "code": "leb",
+    "name": "Limited Edition Beta"
+  },
+  {
+    "code": "lea",
+    "name": "Limited Edition Alpha"
+  }
 ]
