@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Outer triangle - light blue -->
+  <path d="M16 4 L28 26 L4 26 Z" 
+        fill="#87CEEB"/>
+  
+  <!-- Second triangle - rotated 5 degrees -->
+  <path d="M16 6 L25 24 L7 24 Z" 
+        fill="#ADD8E6" 
+        transform="rotate(5 16 16)"/>
+  
+  <!-- Third triangle - rotated 10 degrees -->
+  <path d="M16 8 L23 22 L9 22 Z" 
+        fill="#B0E0E6" 
+        transform="rotate(10 16 16)"/>
+  
+  <!-- Fourth triangle - rotated 15 degrees -->
+  <path d="M16 10 L21 20 L11 20 Z" 
+        fill="#E0F6FF" 
+        transform="rotate(15 16 16)"/>
+  
+  <!-- Inner triangle - rotated 20 degrees -->
+  <path d="M16 12 L19 18 L13 18 Z" 
+        fill="#F0F8FF" 
+        transform="rotate(20 16 16)"/>
+</svg>
