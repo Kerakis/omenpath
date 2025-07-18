@@ -78,12 +78,18 @@ export async function parseCSVContent(
 	let result: Papa.ParseResult<Record<string, string>>;
 
 	try {
-		// Use PapaParse to properly parse the CSV
-		result = Papa.parse(processedContent, {
+		// Use PapaParse to properly parse the CSV with error tolerance
+		result = Papa.parse<Record<string, string>>(processedContent, {
 			header: true,
 			skipEmptyLines: true,
 			delimiter: format.delimiter || ',',
-			transformHeader: (header: string) => header.trim()
+			transformHeader: (header: string) => header.trim(),
+			// Add tolerance for malformed CSV files
+			escapeChar: '"',
+			quoteChar: '"',
+			// Enable error recovery for malformed quotes
+			fastMode: false, // Disable fast mode for better error handling
+			dynamicTyping: false // Keep all values as strings for safety
 		});
 	} catch (error) {
 		throw new Error(
@@ -96,9 +102,14 @@ export async function parseCSVContent(
 		console.warn('CSV parsing errors:', result.errors);
 
 		// Check for critical errors that should stop processing
+		// Be more tolerant of quote errors - only stop for truly critical issues
 		const criticalErrors = result.errors.filter(
 			(error) =>
-				error.type === 'Delimiter' || error.type === 'Quotes' || error.code === 'MissingQuotes'
+				error.type === 'Delimiter' ||
+				(error.type === 'Quotes' && error.code === 'MissingQuotes') ||
+				// Only treat quote errors as critical if they affect too many rows
+				(error.type === 'Quotes' &&
+					result.errors.filter((e) => e.type === 'Quotes').length > result.data.length * 0.1)
 		);
 
 		if (criticalErrors.length > 0) {
@@ -109,10 +120,17 @@ export async function parseCSVContent(
 			throw new Error(`CSV parsing failed:\n${errorMessages.join('\n')}`);
 		}
 
-		// For non-critical errors, log them but continue processing
+		// For non-critical errors (including most quote issues), log them but continue processing
 		const warningErrors = result.errors.filter((error) => !criticalErrors.includes(error));
 		if (warningErrors.length > 0) {
 			console.warn('Non-critical CSV parsing warnings:', warningErrors);
+			// Group quote errors to provide a cleaner warning message
+			const quoteErrors = warningErrors.filter((e) => e.type === 'Quotes');
+			if (quoteErrors.length > 0) {
+				console.warn(
+					`Found ${quoteErrors.length} quote formatting issues that were automatically handled.`
+				);
+			}
 		}
 	}
 

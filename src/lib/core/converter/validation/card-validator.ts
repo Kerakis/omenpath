@@ -82,13 +82,22 @@ export function validateScryfallMatch(
 	}
 
 	// Validate collector number match (if provided in original)
-	if (
-		originalCard.collectorNumber &&
-		originalCard.collectorNumber !== scryfallCard.collector_number
-	) {
-		errors.push(
-			`Collector number mismatch: expected "${originalCard.collectorNumber}", got "${scryfallCard.collector_number}"`
-		);
+	if (originalCard.collectorNumber && scryfallCard.collector_number) {
+		// Normalize collector numbers for comparison
+		// MTGO format uses "number/total" but we only care about the number part
+		let normalizedOriginal = originalCard.collectorNumber;
+		if (normalizedOriginal.includes('/')) {
+			const parts = normalizedOriginal.split('/');
+			normalizedOriginal = parts[0].trim();
+		}
+
+		const normalizedScryfall = scryfallCard.collector_number;
+
+		if (normalizedOriginal && normalizedOriginal !== normalizedScryfall) {
+			errors.push(
+				`Collector number mismatch: expected "${normalizedOriginal}", got "${normalizedScryfall}"`
+			);
+		}
 	}
 
 	// Validate foil/finish availability (if specified in original)

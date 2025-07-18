@@ -19,7 +19,18 @@ export const mtgo: CsvFormat = {
 	transformations: {
 		foil: (value: string) =>
 			value.toLowerCase() === 'yes' || value.toLowerCase() === 'true' ? 'foil' : '',
-		count: (value: string) => value || '1'
+		count: (value: string) => value || '1',
+		collectorNumber: (value: string) => {
+			// MTGO format includes collector numbers as "number/total" (e.g., "1/205")
+			// Extract just the number part for compatibility with Scryfall
+			if (value && value.includes('/')) {
+				const parts = value.split('/');
+				const numberPart = parts[0].trim();
+				// Handle cases where the number part might be empty (e.g., "/1158")
+				return numberPart || '';
+			}
+			return value || '';
+		}
 	}
 };
 

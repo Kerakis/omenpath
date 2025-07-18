@@ -340,7 +340,15 @@
 				<div class="ml-3">
 					<h3 class="text-lg font-medium text-orange-800 dark:text-orange-200">Preview Error</h3>
 					<div class="mt-2 text-sm text-orange-700 dark:text-orange-300">
-						<p>{previewError}</p>
+						{#if previewError.includes('\n')}
+							<!-- Multi-line error message -->
+							{#each previewError.split('\n') as errorLine}
+								<p>{errorLine}</p>
+							{/each}
+						{:else}
+							<!-- Single line error message -->
+							<p>{previewError}</p>
+						{/if}
 						{#if previewError.includes('Unable to auto-detect')}
 							<p class="mt-2 font-medium">
 								Try selecting a specific format from the dropdown below, or check if your CSV file
