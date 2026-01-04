@@ -198,6 +198,11 @@
 		isParsing = false; // Reset parsing state when file changes
 		parsingProgress = 0; // Reset parsing progress when file changes
 
+		// Auto-select MTGO format for .dek files
+		if (selectedFile && selectedFile.name.endsWith('.dek')) {
+			selectedFormat = 'mtgo';
+		}
+
 		// Check API health when a file is first selected
 		if (file) {
 			try {

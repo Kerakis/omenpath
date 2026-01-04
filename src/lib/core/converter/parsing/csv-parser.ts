@@ -5,6 +5,7 @@ import { parseArchidektTags } from '../validation/card-validator.js';
 import { parseHelvaultExtras } from '../../formats/helvault.js';
 import { parseEtchedFoil } from '../../../utils/format-helpers.js';
 import { isLanguageRecognized } from '../validation/language-validator.js';
+import { parseDekContent, isDekFormat } from './dek-parser.js';
 import Papa from 'papaparse';
 
 /**
@@ -27,9 +28,24 @@ function preprocessCSVContent(csvContent: string): string {
 }
 
 /**
- * Detects the CSV format from content by parsing headers.
+ * Detects the format from content (CSV or DEK).
  */
 export function detectFormatFromContent(csvContent: string): FormatDetectionResult | null {
+	// First check if it's a DEK file (MTGO XML format)
+	if (isDekFormat(csvContent)) {
+		return {
+			format: {
+				name: 'MTGO',
+				id: 'mtgo',
+				description: 'Magic: The Gathering Online collection export (DEK format)',
+				hasHeaders: false
+			},
+			confidence: 1.0,
+			matchingHeaders: []
+		};
+	}
+
+	// Otherwise, treat as CSV
 	// Preprocess content to handle separator lines like "sep=,"
 	const processedContent = preprocessCSVContent(csvContent);
 
@@ -53,13 +69,20 @@ export function detectFormatFromContent(csvContent: string): FormatDetectionResu
 }
 
 /**
- * Parses CSV content into ParsedCard array using the specified format.
+ * Parses CSV or DEK content into ParsedCard array using the specified format.
+ * Automatically detects .dek (XML) format and routes to appropriate parser.
  */
 export async function parseCSVContent(
 	csvContent: string,
 	formatId: string,
 	progressCallback?: ProgressCallback
 ): Promise<ParsedCard[]> {
+	// Check if this is a DEK file (MTGO XML format)
+	if (isDekFormat(csvContent)) {
+		// For .dek files, automatically use MTGO format
+		return parseDekContent(csvContent, progressCallback);
+	}
+
 	if (progressCallback) progressCallback(10);
 
 	// Preprocess content to handle separator lines like "sep=,"

@@ -5,7 +5,6 @@ Omenpath is a web application that converts Magic: The Gathering collection CSV 
 ## Features
 
 - **Universal CSV Support**: Supports CSV files from 15+ popular MTG collection apps including:
-
   - Archidekt
   - CardCastle (Full & Simple formats)
   - Cardsphere
@@ -92,13 +91,15 @@ npm run preview
 
 ### Step 1: Upload Files
 
-- Drag and drop CSV files or click to browse
+- Drag and drop CSV or DEK files or click to browse
 - Multiple files are supported
-- Only CSV files are accepted
+- CSV files from most MTG collection apps are supported
+- DEK files from MTGO are automatically recognized
 
 ### Step 2: Select Format (Optional)
 
 - Use "Auto-detect" for most files (recommended)
+- DEK files automatically select MTGO format
 - Manually select format if auto-detection fails
 - Preview shows detected format
 

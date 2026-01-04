@@ -23,7 +23,11 @@
 		isDragOver = false;
 
 		const files = Array.from(event.dataTransfer?.files || []).filter(
-			(file) => file.type === 'text/csv' || file.name.endsWith('.csv')
+			(file) =>
+				file.type === 'text/csv' ||
+				file.name.endsWith('.csv') ||
+				file.type === 'text/xml' ||
+				file.name.endsWith('.dek')
 		);
 
 		if (files.length > 0) {
@@ -49,7 +53,7 @@
 	<input
 		bind:this={fileInput}
 		type="file"
-		accept=".csv"
+		accept=".csv,.dek"
 		onchange={handleFileSelect}
 		class="hidden"
 	/>
@@ -86,10 +90,10 @@
 			</svg>
 			<div>
 				<p class="text-lg font-medium text-gray-700 dark:text-gray-200">
-					Drop a CSV file here or click to browse
+					Drop a CSV or DEK file here or click to browse
 				</p>
 				<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-					Upload one CSV file from your MTG collection app
+					Upload one CSV file from your MTG collection app or DEK file from MTGO
 				</p>
 			</div>
 			<p class="text-xs text-gray-400 dark:text-gray-500">
