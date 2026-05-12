@@ -20,10 +20,17 @@
 		"@eslint/compat": "^2.0.2",
 		"@eslint/js": "^10.0.1",
 		"@playwright/test": "^1.49.1",
+<<<<<<< dependabot/npm_and_yarn/sveltejs/kit-2.57.1
+		"@sveltejs/adapter-static": "^3.0.8",
+		"@sveltejs/kit": "^2.57.1",
+		"@sveltejs/vite-plugin-svelte": "^5.0.0",
+		"@tailwindcss/vite": "^4.1.10",
+=======
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.57.1",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"@tailwindcss/vite": "^4.2.1",
+>>>>>>> main
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/svelte": "^5.2.4",
 		"@types/papaparse": "^5.3.16",
