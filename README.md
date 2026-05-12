@@ -23,7 +23,7 @@ Omenpath is a web application that converts Magic: The Gathering collection CSV 
 - **Auto-Detection**: Automatically detects CSV format based on column headers
 - **Preview Mode**: Preview parsed data before conversion to catch issues early
 - **Batch Processing**: Handle multiple files at once
-- **Rate Limiting**: Respects Scryfall API rate limits (10 requests/second)
+- **Rate Limiting**: Respects Scryfall API rate limits (2 requests/second for card lookups)
 - **Dual Output**: Generate both CSV and TXT formats for different Moxfield import needs
 - **Error Handling**: Comprehensive error reporting and recovery
 

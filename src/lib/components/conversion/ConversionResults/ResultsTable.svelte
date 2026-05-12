@@ -8,6 +8,7 @@
 		getConfidenceStats
 	} from '../../../utils/conversion/stats-calculator.js';
 	import { regenerateMoxfieldRow } from '../../../core/converter/result-formatter.js';
+	import { SvelteSet } from 'svelte/reactivity';
 
 	interface Props {
 		result: ConversionResultFile;
@@ -36,7 +37,7 @@
 
 	// Get all unique column names from the dynamically generated moxfieldRow data
 	const allColumns = $derived.by(() => {
-		const columnSet = new Set<string>();
+		const columnSet = new SvelteSet<string>();
 		resultsWithDynamicRows.forEach((card) => {
 			Object.keys(card.dynamicMoxfieldRow).forEach((key) => columnSet.add(key));
 		});
