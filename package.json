@@ -27,8 +27,13 @@
 		"@playwright/test": "^1.49.1",
 <<<<<<< dependabot/npm_and_yarn/sveltejs/kit-2.57.1
 		"@sveltejs/adapter-static": "^3.0.8",
+<<<<<<< dependabot/npm_and_yarn/sveltejs/vite-plugin-svelte-7.0.0
+		"@sveltejs/kit": "^2.16.0",
+		"@sveltejs/vite-plugin-svelte": "^7.0.0",
+=======
 		"@sveltejs/kit": "^2.57.1",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
+>>>>>>> main
 		"@tailwindcss/vite": "^4.1.10",
 =======
 		"@sveltejs/adapter-static": "^3.0.10",
