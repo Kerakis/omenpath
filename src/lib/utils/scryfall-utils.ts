@@ -9,6 +9,7 @@ import {
 	getAllSetCodes as fuseGetAllSetCodes,
 	getSetNameByCode as fuseGetSetNameByCode
 } from './fuse-search.js';
+import { fetchWithRetry } from '../core/converter/api/scryfall-api.js';
 
 // Re-export Fuse.js functions with original names for backward compatibility
 export const findSetCodeByName = fuseSearch;
@@ -19,9 +20,10 @@ export const getSetNameByCode = fuseGetSetNameByCode;
 // Check if Scryfall API is available
 export async function checkScryfallApiHealth(): Promise<{ available: boolean; error?: string }> {
 	try {
-		const response = await fetch('https://api.scryfall.com/sets/lea', {
+		const response = await fetchWithRetry('https://api.scryfall.com/sets/lea', {
 			headers: {
-				'User-Agent': 'OmenPath/1.0'
+				'User-Agent': 'Omenpath/1.0',
+				Accept: 'application/json'
 			}
 		});
 
@@ -72,11 +74,11 @@ export async function searchScryfallCards(
 		const encodedQuery = encodeURIComponent(finalQuery);
 		const url = `https://api.scryfall.com/cards/search?q=${encodedQuery}&order=released&unique=prints`;
 
-		const response = await fetch(url, {
+		const response = await fetchWithRetry(url, {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
-				'User-Agent': 'OmenPath/1.0'
+				'User-Agent': 'Omenpath/1.0'
 			}
 		});
 
