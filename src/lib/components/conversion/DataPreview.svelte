@@ -8,12 +8,12 @@
 	}
 	let { cards, onProceed, onCancel, showActionButtons = true }: Props = $props();
 	let showAdditionalColumns = $state(false);
-	const totalEntries = cards.length;
-	const totalCards = cards.reduce((sum, card) => sum + (card.count || 1), 0);
-	const cardsWithSpecificIds = cards.filter(
-		(card) => card.scryfallId || card.multiverseId || card.mtgoId
-	).length;
-	const cardsWithOtherMethods = totalEntries - cardsWithSpecificIds;
+	const totalEntries = $derived(cards.length);
+	const totalCards = $derived(cards.reduce((sum, card) => sum + (card.count || 1), 0));
+	const cardsWithSpecificIds = $derived(
+		cards.filter((card) => card.scryfallId || card.multiverseId || card.mtgoId).length
+	);
+	const cardsWithOtherMethods = $derived(totalEntries - cardsWithSpecificIds);
 
 	// Helper function for proper pluralization
 	function pluralize(count: number, singular: string, plural?: string): string {

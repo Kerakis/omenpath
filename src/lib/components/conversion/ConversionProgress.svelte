@@ -46,8 +46,9 @@
 			class="rounded-md border border-yellow-200 bg-yellow-50 p-3 dark:border-yellow-700 dark:bg-yellow-900/20"
 		>
 			<p class="text-sm text-yellow-800 dark:text-yellow-300">
-				<strong>Please be patient:</strong> We respect Scryfall's rate limits (10 requests/second) to
-				ensure reliable service for everyone. Large collections may take several minutes to process.
+				<strong>Please be patient:</strong> We respect Scryfall's rate limits (2 requests/second for card
+				lookups) to ensure reliable service for everyone. Large collections may take several minutes to
+				process.
 			</p>
 		</div>
 	</div>
