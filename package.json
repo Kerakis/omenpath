@@ -17,30 +17,13 @@
 		"test:e2e": "playwright test"
 	},
 	"devDependencies": {
-<<<<<<< dependabot/npm_and_yarn/eslint/compat-2.0.5
 		"@eslint/compat": "^2.0.5",
-		"@eslint/js": "^9.18.0",
-=======
-		"@eslint/compat": "^2.0.2",
 		"@eslint/js": "^10.0.1",
->>>>>>> main
 		"@playwright/test": "^1.49.1",
-<<<<<<< dependabot/npm_and_yarn/sveltejs/kit-2.57.1
-		"@sveltejs/adapter-static": "^3.0.8",
-<<<<<<< dependabot/npm_and_yarn/sveltejs/vite-plugin-svelte-7.0.0
-		"@sveltejs/kit": "^2.16.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
-=======
 		"@sveltejs/kit": "^2.57.1",
-		"@sveltejs/vite-plugin-svelte": "^5.0.0",
->>>>>>> main
-		"@tailwindcss/vite": "^4.1.10",
-=======
 		"@sveltejs/adapter-static": "^3.0.10",
-		"@sveltejs/kit": "^2.57.1",
-		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"@tailwindcss/vite": "^4.2.1",
->>>>>>> main
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/svelte": "^5.2.4",
 		"@types/papaparse": "^5.3.16",
