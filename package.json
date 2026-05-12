@@ -17,8 +17,13 @@
 		"test:e2e": "playwright test"
 	},
 	"devDependencies": {
+<<<<<<< dependabot/npm_and_yarn/eslint/compat-2.0.5
+		"@eslint/compat": "^2.0.5",
+		"@eslint/js": "^9.18.0",
+=======
 		"@eslint/compat": "^2.0.2",
 		"@eslint/js": "^10.0.1",
+>>>>>>> main
 		"@playwright/test": "^1.49.1",
 <<<<<<< dependabot/npm_and_yarn/sveltejs/kit-2.57.1
 		"@sveltejs/adapter-static": "^3.0.8",
