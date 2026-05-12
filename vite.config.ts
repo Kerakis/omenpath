@@ -3,13 +3,17 @@ import tailwindcss from '@tailwindcss/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const plugins: any[] = [tailwindcss(), sveltekit()];
+
 export default defineConfig({
-	plugins: [tailwindcss(), sveltekit()],
+	plugins,
 	test: {
 		projects: [
 			{
 				extends: './vite.config.ts',
-				plugins: [svelteTesting()],
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				plugins: [svelteTesting()] as any[],
 				test: {
 					name: 'client',
 					environment: 'jsdom',

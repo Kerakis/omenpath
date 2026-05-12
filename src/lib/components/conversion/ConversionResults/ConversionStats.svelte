@@ -69,8 +69,7 @@
 				</svg>
 				<div class="text-sm">
 					<p class="font-semibold text-orange-800 dark:text-orange-300">
-						⚠️ {pluralize(confidenceStats.uncertain, 'card')} need review (Medium + Low confidence +
-						Errors)
+						⚠️ {pluralize(confidenceStats.uncertain, 'card')} need review (Medium + Low confidence + Errors)
 					</p>
 					<p class="mt-1 text-orange-700 dark:text-orange-400">
 						These cards were identified using less precise methods, have conversion errors, or

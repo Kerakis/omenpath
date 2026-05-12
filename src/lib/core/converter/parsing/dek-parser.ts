@@ -145,7 +145,8 @@ export async function parseDekContent(
 		return cards;
 	} catch (error) {
 		throw new Error(
-			`Failed to parse .dek file: ${error instanceof Error ? error.message : String(error)}`
+			`Failed to parse .dek file: ${error instanceof Error ? error.message : String(error)}`,
+			{ cause: error }
 		);
 	}
 }
