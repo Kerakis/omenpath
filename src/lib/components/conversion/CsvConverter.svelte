@@ -284,7 +284,7 @@
 			class="card-hover mb-6 rounded-lg border border-red-200 bg-red-50 p-6 shadow-lg dark:border-red-800 dark:bg-red-900/20"
 		>
 			<div class="flex items-start">
-				<div class="flex-shrink-0">
+				<div class="shrink-0">
 					<svg
 						class="h-6 w-6 text-red-600 dark:text-red-400"
 						fill="none"
@@ -327,7 +327,7 @@
 			class="card-hover mb-6 rounded-lg border border-orange-200 bg-orange-50 p-6 shadow-lg dark:border-orange-800 dark:bg-orange-900/20"
 		>
 			<div class="flex items-start">
-				<div class="flex-shrink-0">
+				<div class="shrink-0">
 					<svg
 						class="h-6 w-6 text-orange-600 dark:text-orange-400"
 						fill="none"
@@ -347,7 +347,7 @@
 					<div class="mt-2 text-sm text-orange-700 dark:text-orange-300">
 						{#if previewError.includes('\n')}
 							<!-- Multi-line error message -->
-							{#each previewError.split('\n') as errorLine}
+							{#each previewError.split('\n') as errorLine, i (i)}
 								<p>{errorLine}</p>
 							{/each}
 						{:else}
@@ -379,7 +379,7 @@
 			{#if selectedFormat === 'auto' && detectedFormat}
 				<div class="mt-3 rounded-md bg-blue-50 p-3 dark:bg-blue-900/20">
 					<div class="flex">
-						<div class="flex-shrink-0">
+						<div class="shrink-0">
 							<svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
 								<path
 									fill-rule="evenodd"
@@ -417,7 +417,7 @@
 			class="card-hover mb-6 rounded-lg bg-blue-50 p-6 shadow-lg transition-all duration-200 dark:bg-blue-900/20"
 		>
 			<div class="flex items-center">
-				<div class="flex-shrink-0">
+				<div class="shrink-0">
 					<svg
 						class="h-6 w-6 animate-spin text-blue-600 dark:text-blue-400"
 						fill="none"
@@ -432,7 +432,7 @@
 						></path>
 					</svg>
 				</div>
-				<div class="ml-3 flex-grow">
+				<div class="ml-3 grow">
 					<h3 class="text-lg font-medium text-blue-800 dark:text-blue-200">Parsing CSV File...</h3>
 					<p class="mt-1 text-sm text-blue-600 dark:text-blue-300">
 						Reading and validating {file?.name || 'your file'}. This may take a moment for large

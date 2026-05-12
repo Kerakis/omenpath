@@ -38,7 +38,8 @@ export function detectFormatFromContent(csvContent: string): FormatDetectionResu
 				name: 'MTGO',
 				id: 'mtgo',
 				description: 'Magic: The Gathering Online collection export (DEK format)',
-				hasHeaders: false
+				hasHeaders: false,
+				columnMappings: {}
 			},
 			confidence: 1.0,
 			matchingHeaders: []
@@ -116,7 +117,8 @@ export async function parseCSVContent(
 		});
 	} catch (error) {
 		throw new Error(
-			`Failed to parse CSV file: ${error instanceof Error ? error.message : String(error)}`
+			`Failed to parse CSV file: ${error instanceof Error ? error.message : String(error)}`,
+			{ cause: error }
 		);
 	}
 

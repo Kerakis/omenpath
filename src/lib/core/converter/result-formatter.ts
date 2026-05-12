@@ -139,7 +139,7 @@ export function createSuccessfulResult(
 ): ConversionResult {
 	// Start with the initial confidence (from parsing/validation phase)
 	let confidence = card.initialConfidence || 'low';
-	let identificationMethod: ConversionResult['identificationMethod'] = 'name_only';
+	let identificationMethod: ConversionResult['identificationMethod'];
 
 	// Determine identification method based on what was actually used
 	if (card.foundViaNameCollectorSearch) {
